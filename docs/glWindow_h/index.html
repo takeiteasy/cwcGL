@@ -260,29 +260,8 @@ function disclosure_triangle(elt) {
 <td id="bodyContents" valign="top">
 <a name="top"></a>
 <h1><a name="glWidow">glWidow</a></h1>
-<div class="spec_sheet_info_box"><table cellspacing="0" class="specbox">
-<tr>
-<td scope="row"><b>Includes:</b></td>
-<td><div style="margin-bottom:1px"><div class="content_text">
-<!-- a logicalPath="//apple_ref/doc/header/windef.h" machineGenerated="true" -->&lt;windef.h&gt;<!-- /a --><br>
-<!-- a logicalPath="//apple_ref/doc/header/stdbool.h" machineGenerated="true" -->&lt;stdbool.h&gt;<!-- /a --><br>
-<!-- a logicalPath="//apple_ref/doc/header/stdio.h" machineGenerated="true" -->&lt;stdio.h&gt;<!-- /a --><br>
-<!-- a logicalPath="//apple_ref/doc/header/stdarg.h" machineGenerated="true" -->&lt;stdarg.h&gt;<!-- /a --><br>
-<!-- a logicalPath="//apple_ref/doc/header/stdlib.h" machineGenerated="true" -->&lt;stdlib.h&gt;<!-- /a --><br>
-<!-- a logicalPath="//apple_ref/doc/header/stdarg.h" machineGenerated="true" -->&lt;stdarg.h&gt;<!-- /a --><br>
-<!-- a logicalPath="//apple_ref/doc/header/string.h" machineGenerated="true" -->&lt;string.h&gt;<!-- /a --><br>
-<!-- a logicalPath="//apple_ref/doc/header/math.h" machineGenerated="true" -->&lt;math.h&gt;<!-- /a --><br>
-<!-- a logicalPath="//apple_ref/doc/header/setjmp.h" machineGenerated="true" -->&lt;setjmp.h&gt;<!-- /a --><br>
-<!-- a logicalPath="//apple_ref/doc/header/errno.h" machineGenerated="true" -->&lt;errno.h&gt;<!-- /a --><br>
-<!-- a logicalPath="//apple_ref/doc/header/gl3.h" machineGenerated="true" -->&lt;OpenGL/gl3.h&gt;<!-- /a --><br>
-<!-- a logicalPath="//apple_ref/doc/header/gl.h" machineGenerated="true" -->&lt;GL/gl.h&gt;<!-- /a --><br>
-<!-- a logicalPath="//apple_ref/doc/header/gl.h" machineGenerated="true" -->&lt;GL/gl.h&gt;<!-- /a --><br>
-<!-- a logicalPath="//apple_ref/doc/header/glx.h" machineGenerated="true" -->&lt;GL/glx.h&gt;<!-- /a -->
-</div></div></td>
-</tr>
-</table></div>
 <h2>Introduction</h2>
-<!-- begin discussion --><!-- headerDoc=discussion;uid=//apple_ref/doc/header/glWindow.h;name=start --><p>Yet another cross-platform multi-window OpenGL context</p>
+<!-- begin discussion --><!-- headerDoc=discussion;uid=//apple_ref/doc/header/glWindow.h;name=start --><p>Yet another cross-platform OpenGL context</p>
 <!-- headerDoc=discussion;uid=//apple_ref/doc/header/glWindow.h;name=end --><!-- end discussion -->
 <hr class="afterClassOrHeaderInfo">
 <br><a name="HeaderDoc_functions"></a>
@@ -296,9 +275,6 @@ function disclosure_triangle(elt) {
 </p></dd>
 <dt><tt><a href="index.html#//apple_ref/c/func/glEnableCursor" target="_top">glEnableCursor</a></tt></dt>
 <dd><p>Undo glDisableCursor
-</p></dd>
-<dt><tt><a href="index.html#//apple_ref/c/func/glErrorCheck" target="_top">glErrorCheck</a></tt></dt>
-<dd><p>Check if OpenGL experienced any errors
 </p></dd>
 <dt><tt><a href="index.html#//apple_ref/c/func/glFlushWindow" target="_top">glFlushWindow</a></tt></dt>
 <dd><p>Render OpenGL to window
@@ -338,9 +314,6 @@ function disclosure_triangle(elt) {
 </p></dd>
 <dt><tt><a href="index.html#//apple_ref/c/func/glWindowCallbacks" target="_top">glWindowCallbacks</a></tt></dt>
 <dd><p>Assign window event callbacks
-</p></dd>
-<dt><tt><a href="index.html#//apple_ref/c/func/glWindowErrorCallback" target="_top">glWindowErrorCallback</a></tt></dt>
-<dd><p>Assign a callback to handle errors
 </p></dd>
 <dt><tt><a href="index.html#//apple_ref/c/func/glWindowPoll" target="_top">glWindowPoll</a></tt></dt>
 <dd><p>Poll a window for events
@@ -422,33 +395,6 @@ function disclosure_triangle(elt) {
     <span class="param">void</span>);  <!-- headerDoc=declaration;uid=//apple_ref/c/func/glEnableCursor;name=end --></pre>
 </div>
 <hr class="betweenAPIEntries">
-<!-- headerDoc=func;  uid=//apple_ref/c/func/glErrorCheck;   name=glErrorCheck -->
-<a name="//apple_ref/c/func/glErrorCheck"></a>
-<h3><a name="glErrorCheck">glErrorCheck</a></h3>
-<hr class="afterName">
-<p><!-- headerDoc=abstract;uid=//apple_ref/c/func/glErrorCheck;name=start --><!-- begin abstract --></p>
-<p>Check if OpenGL experienced any errors
-<!-- end abstract --><!-- headerDoc=abstract;uid=//apple_ref/c/func/glErrorCheck;name=end --></p>
-<div class="declaration_indent">
-<pre><!-- headerDoc=declaration;uid=//apple_ref/c/func/glErrorCheck;name=start --><!-- a logicalPath="//apple_ref/c/cl/EXPORT //apple_ref/c/tdef/EXPORT //apple_ref/c/tag/EXPORT //apple_ref/c/struct/EXPORT //apple_ref/c/intf/EXPORT //apple_ref/doc/anysymbol/EXPORT" machineGenerated="true" --><span class="type">EXPORT</span><!-- /a --> <!-- a logicalPath="//apple_ref/c/cl/void //apple_ref/c/tdef/void //apple_ref/c/tag/void //apple_ref/c/struct/void //apple_ref/c/intf/void //apple_ref/doc/anysymbol/void" machineGenerated="true" --><span class="type">void</span><!-- /a --> <a machinegenerated="true" href="index.html#//apple_ref/c/func/glErrorCheck" logicalPath="//apple_ref/c/instm/glErrorCheck //apple_ref/c/clm/glErrorCheck //apple_ref/c/intfcm/glErrorCheck //apple_ref/c/intfm/glErrorCheck //apple_ref/c/func/glErrorCheck" target="_top"><span class="function">glErrorCheck</span></a>(
-    <span class="keyword">const</span> <!-- a logicalPath="//apple_ref/c/cl/char //apple_ref/c/tdef/char //apple_ref/c/tag/char //apple_ref/c/struct/char //apple_ref/c/intf/char //apple_ref/doc/anysymbol/char" machineGenerated="true" --><span class="type">char</span><!-- /a --> <span class="type">*</span><span class="param">state</span>);  <!-- headerDoc=declaration;uid=//apple_ref/c/func/glErrorCheck;name=end --></pre>
-</div>
-<h5 class="tight"><font face="Lucida Grande,Helvetica,Arial">Parameters</font></h5>
-<div class="param_indent">
-<dl>
-<dt>
-<!-- headerDoc=functionparam;  uid=//apple_ref/doc/functionparam/glErrorCheck/state;   name=state -->
-<a name="//apple_ref/doc/functionparam/glErrorCheck/state"></a>
-<code>state</code>
-</dt>
-<dd><p>Custom user message</p></dd>
-</dl>
-</div>
-<h5 class="tight"><font face="Lucida Grande,Helvetica,Arial">Discussion</font></h5>
-<!-- begin discussion --><!-- headerDoc=discussion;uid=//apple_ref/c/func/glErrorCheck;name=start --><p>If an error occured, this will attempt to call callback assigned to glWindowErrorCallback
-<!-- headerDoc=discussion;uid=//apple_ref/c/func/glErrorCheck;name=end --><!-- end discussion -->
-</p>
-<hr class="betweenAPIEntries">
 <!-- headerDoc=func;  uid=//apple_ref/c/func/glFlushWindow;   name=glFlushWindow -->
 <a name="//apple_ref/c/func/glFlushWindow"></a>
 <h3><a name="glFlushWindow">glFlushWindow</a></h3>
@@ -498,12 +444,12 @@ function disclosure_triangle(elt) {
 <p>Check if a window is still open
 <!-- end abstract --><!-- headerDoc=abstract;uid=//apple_ref/c/func/glIsWindowOpen;name=end --></p>
 <div class="declaration_indent">
-<pre><!-- headerDoc=declaration;uid=//apple_ref/c/func/glIsWindowOpen;name=start --><!-- a logicalPath="//apple_ref/c/cl/EXPORT //apple_ref/c/tdef/EXPORT //apple_ref/c/tag/EXPORT //apple_ref/c/struct/EXPORT //apple_ref/c/intf/EXPORT //apple_ref/doc/anysymbol/EXPORT" machineGenerated="true" --><span class="type">EXPORT</span><!-- /a --> <!-- a logicalPath="//apple_ref/c/cl/bool //apple_ref/c/tdef/bool //apple_ref/c/tag/bool //apple_ref/c/struct/bool //apple_ref/c/intf/bool //apple_ref/doc/anysymbol/bool" machineGenerated="true" --><span class="type">bool</span><!-- /a --> <a machinegenerated="true" href="index.html#//apple_ref/c/func/glIsWindowOpen" logicalPath="//apple_ref/c/instm/glIsWindowOpen //apple_ref/c/clm/glIsWindowOpen //apple_ref/c/intfcm/glIsWindowOpen //apple_ref/c/intfm/glIsWindowOpen //apple_ref/c/func/glIsWindowOpen" target="_top"><span class="function">glIsWindowOpen</span></a>(
+<pre><!-- headerDoc=declaration;uid=//apple_ref/c/func/glIsWindowOpen;name=start --><!-- a logicalPath="//apple_ref/c/cl/EXPORT //apple_ref/c/tdef/EXPORT //apple_ref/c/tag/EXPORT //apple_ref/c/struct/EXPORT //apple_ref/c/intf/EXPORT //apple_ref/doc/anysymbol/EXPORT" machineGenerated="true" --><span class="type">EXPORT</span><!-- /a --> <!-- a logicalPath="//apple_ref/c/cl/int //apple_ref/c/tdef/int //apple_ref/c/tag/int //apple_ref/c/struct/int //apple_ref/c/intf/int //apple_ref/doc/anysymbol/int" machineGenerated="true" --><span class="type">int</span><!-- /a --> <a machinegenerated="true" href="index.html#//apple_ref/c/func/glIsWindowOpen" logicalPath="//apple_ref/c/instm/glIsWindowOpen //apple_ref/c/clm/glIsWindowOpen //apple_ref/c/intfcm/glIsWindowOpen //apple_ref/c/intfm/glIsWindowOpen //apple_ref/c/func/glIsWindowOpen" target="_top"><span class="function">glIsWindowOpen</span></a>(
     <span class="param">void</span>);  <!-- headerDoc=declaration;uid=//apple_ref/c/func/glIsWindowOpen;name=end --></pre>
 </div>
 <h5 class="tight"><font face="Lucida Grande,Helvetica,Arial">Return Value</font></h5>
 <p><!-- begin return value --></p>
-<p>True if window is still open
+<p>Returns 1 if window is still open, 0 is closed
 
 <!-- end return value --></p>
 <hr class="betweenAPIEntries">
@@ -568,7 +514,7 @@ function disclosure_triangle(elt) {
 <p>Change the cursor for a window from a glImage
 <!-- end abstract --><!-- headerDoc=abstract;uid=//apple_ref/c/func/glSetCustomCursor;name=end --></p>
 <div class="declaration_indent">
-<pre><!-- headerDoc=declaration;uid=//apple_ref/c/func/glSetCustomCursor;name=start --><!-- a logicalPath="//apple_ref/c/cl/EXPORT //apple_ref/c/tdef/EXPORT //apple_ref/c/tag/EXPORT //apple_ref/c/struct/EXPORT //apple_ref/c/intf/EXPORT //apple_ref/doc/anysymbol/EXPORT" machineGenerated="true" --><span class="type">EXPORT</span><!-- /a --> <!-- a logicalPath="//apple_ref/c/cl/bool //apple_ref/c/tdef/bool //apple_ref/c/tag/bool //apple_ref/c/struct/bool //apple_ref/c/intf/bool //apple_ref/doc/anysymbol/bool" machineGenerated="true" --><span class="type">bool</span><!-- /a --> <a machinegenerated="true" href="index.html#//apple_ref/c/func/glSetCustomCursor" logicalPath="//apple_ref/c/instm/glSetCustomCursor //apple_ref/c/clm/glSetCustomCursor //apple_ref/c/intfcm/glSetCustomCursor //apple_ref/c/intfm/glSetCustomCursor //apple_ref/c/func/glSetCustomCursor" target="_top"><span class="function">glSetCustomCursor</span></a>(
+<pre><!-- headerDoc=declaration;uid=//apple_ref/c/func/glSetCustomCursor;name=start --><!-- a logicalPath="//apple_ref/c/cl/EXPORT //apple_ref/c/tdef/EXPORT //apple_ref/c/tag/EXPORT //apple_ref/c/struct/EXPORT //apple_ref/c/intf/EXPORT //apple_ref/doc/anysymbol/EXPORT" machineGenerated="true" --><span class="type">EXPORT</span><!-- /a --> <!-- a logicalPath="//apple_ref/c/cl/int //apple_ref/c/tdef/int //apple_ref/c/tag/int //apple_ref/c/struct/int //apple_ref/c/intf/int //apple_ref/doc/anysymbol/int" machineGenerated="true" --><span class="type">int</span><!-- /a --> <a machinegenerated="true" href="index.html#//apple_ref/c/func/glSetCustomCursor" logicalPath="//apple_ref/c/instm/glSetCustomCursor //apple_ref/c/clm/glSetCustomCursor //apple_ref/c/intfcm/glSetCustomCursor //apple_ref/c/intfm/glSetCustomCursor //apple_ref/c/func/glSetCustomCursor" target="_top"><span class="function">glSetCustomCursor</span></a>(
     <span class="keyword">unsigned</span> <!-- a logicalPath="//apple_ref/c/cl/char //apple_ref/c/tdef/char //apple_ref/c/tag/char //apple_ref/c/struct/char //apple_ref/c/intf/char //apple_ref/doc/anysymbol/char" machineGenerated="true" --><span class="type">char</span><!-- /a --> <span class="type">*</span><span class="param">data</span>,
     <!-- a logicalPath="//apple_ref/c/cl/int //apple_ref/c/tdef/int //apple_ref/c/tag/int //apple_ref/c/struct/int //apple_ref/c/intf/int //apple_ref/doc/anysymbol/int" machineGenerated="true" --><span class="type">int</span><!-- /a --> <span class="param">w</span>,
     <!-- a logicalPath="//apple_ref/c/cl/int //apple_ref/c/tdef/int //apple_ref/c/tag/int //apple_ref/c/struct/int //apple_ref/c/intf/int //apple_ref/doc/anysymbol/int" machineGenerated="true" --><span class="type">int</span><!-- /a --> <span class="param">h</span>);  <!-- headerDoc=declaration;uid=//apple_ref/c/func/glSetCustomCursor;name=end --></pre>
@@ -598,7 +544,7 @@ function disclosure_triangle(elt) {
 </div>
 <h5 class="tight"><font face="Lucida Grande,Helvetica,Arial">Return Value</font></h5>
 <p><!-- begin return value --></p>
-<p>True if no errors
+<p>Returns 1 on success, 0 on failure
 
 <!-- end return value --></p>
 <hr class="betweenAPIEntries">
@@ -610,7 +556,7 @@ function disclosure_triangle(elt) {
 <p>Set window icon from glImage
 <!-- end abstract --><!-- headerDoc=abstract;uid=//apple_ref/c/func/glSetWindowIcon;name=end --></p>
 <div class="declaration_indent">
-<pre><!-- headerDoc=declaration;uid=//apple_ref/c/func/glSetWindowIcon;name=start --><!-- a logicalPath="//apple_ref/c/cl/EXPORT //apple_ref/c/tdef/EXPORT //apple_ref/c/tag/EXPORT //apple_ref/c/struct/EXPORT //apple_ref/c/intf/EXPORT //apple_ref/doc/anysymbol/EXPORT" machineGenerated="true" --><span class="type">EXPORT</span><!-- /a --> <!-- a logicalPath="//apple_ref/c/cl/bool //apple_ref/c/tdef/bool //apple_ref/c/tag/bool //apple_ref/c/struct/bool //apple_ref/c/intf/bool //apple_ref/doc/anysymbol/bool" machineGenerated="true" --><span class="type">bool</span><!-- /a --> <a machinegenerated="true" href="index.html#//apple_ref/c/func/glSetWindowIcon" logicalPath="//apple_ref/c/instm/glSetWindowIcon //apple_ref/c/clm/glSetWindowIcon //apple_ref/c/intfcm/glSetWindowIcon //apple_ref/c/intfm/glSetWindowIcon //apple_ref/c/func/glSetWindowIcon" target="_top"><span class="function">glSetWindowIcon</span></a>(
+<pre><!-- headerDoc=declaration;uid=//apple_ref/c/func/glSetWindowIcon;name=start --><!-- a logicalPath="//apple_ref/c/cl/EXPORT //apple_ref/c/tdef/EXPORT //apple_ref/c/tag/EXPORT //apple_ref/c/struct/EXPORT //apple_ref/c/intf/EXPORT //apple_ref/doc/anysymbol/EXPORT" machineGenerated="true" --><span class="type">EXPORT</span><!-- /a --> <!-- a logicalPath="//apple_ref/c/cl/int //apple_ref/c/tdef/int //apple_ref/c/tag/int //apple_ref/c/struct/int //apple_ref/c/intf/int //apple_ref/doc/anysymbol/int" machineGenerated="true" --><span class="type">int</span><!-- /a --> <a machinegenerated="true" href="index.html#//apple_ref/c/func/glSetWindowIcon" logicalPath="//apple_ref/c/instm/glSetWindowIcon //apple_ref/c/clm/glSetWindowIcon //apple_ref/c/intfcm/glSetWindowIcon //apple_ref/c/intfm/glSetWindowIcon //apple_ref/c/func/glSetWindowIcon" target="_top"><span class="function">glSetWindowIcon</span></a>(
     <span class="keyword">unsigned</span> <!-- a logicalPath="//apple_ref/c/cl/char //apple_ref/c/tdef/char //apple_ref/c/tag/char //apple_ref/c/struct/char //apple_ref/c/intf/char //apple_ref/doc/anysymbol/char" machineGenerated="true" --><span class="type">char</span><!-- /a --> <span class="type">*</span><span class="param">data</span>,
     <!-- a logicalPath="//apple_ref/c/cl/int //apple_ref/c/tdef/int //apple_ref/c/tag/int //apple_ref/c/struct/int //apple_ref/c/intf/int //apple_ref/doc/anysymbol/int" machineGenerated="true" --><span class="type">int</span><!-- /a --> <span class="param">w</span>,
     <!-- a logicalPath="//apple_ref/c/cl/int //apple_ref/c/tdef/int //apple_ref/c/tag/int //apple_ref/c/struct/int //apple_ref/c/intf/int //apple_ref/doc/anysymbol/int" machineGenerated="true" --><span class="type">int</span><!-- /a --> <span class="param">h</span>);  <!-- headerDoc=declaration;uid=//apple_ref/c/func/glSetWindowIcon;name=end --></pre>
@@ -640,7 +586,7 @@ function disclosure_triangle(elt) {
 </div>
 <h5 class="tight"><font face="Lucida Grande,Helvetica,Arial">Return Value</font></h5>
 <p><!-- begin return value --></p>
-<p>True if no errors
+<p>Returns 1 on success, 0 on failure
 
 <!-- end return value --></p>
 <hr class="betweenAPIEntries">
@@ -717,7 +663,7 @@ function disclosure_triangle(elt) {
 <p>Create a new OpenGL window
 <!-- end abstract --><!-- headerDoc=abstract;uid=//apple_ref/c/func/glWindow;name=end --></p>
 <div class="declaration_indent">
-<pre><!-- headerDoc=declaration;uid=//apple_ref/c/func/glWindow;name=start --><!-- a logicalPath="//apple_ref/c/cl/EXPORT //apple_ref/c/tdef/EXPORT //apple_ref/c/tag/EXPORT //apple_ref/c/struct/EXPORT //apple_ref/c/intf/EXPORT //apple_ref/doc/anysymbol/EXPORT" machineGenerated="true" --><span class="type">EXPORT</span><!-- /a --> <!-- a logicalPath="//apple_ref/c/cl/bool //apple_ref/c/tdef/bool //apple_ref/c/tag/bool //apple_ref/c/struct/bool //apple_ref/c/intf/bool //apple_ref/doc/anysymbol/bool" machineGenerated="true" --><span class="type">bool</span><!-- /a --> <a machinegenerated="true" href="index.html#//apple_ref/c/func/glWindow" logicalPath="//apple_ref/c/instm/glWindow //apple_ref/c/clm/glWindow //apple_ref/c/intfcm/glWindow //apple_ref/c/intfm/glWindow //apple_ref/c/func/glWindow" target="_top"><span class="function">glWindow</span></a>(
+<pre><!-- headerDoc=declaration;uid=//apple_ref/c/func/glWindow;name=start --><!-- a logicalPath="//apple_ref/c/cl/EXPORT //apple_ref/c/tdef/EXPORT //apple_ref/c/tag/EXPORT //apple_ref/c/struct/EXPORT //apple_ref/c/intf/EXPORT //apple_ref/doc/anysymbol/EXPORT" machineGenerated="true" --><span class="type">EXPORT</span><!-- /a --> <!-- a logicalPath="//apple_ref/c/cl/int //apple_ref/c/tdef/int //apple_ref/c/tag/int //apple_ref/c/struct/int //apple_ref/c/intf/int //apple_ref/doc/anysymbol/int" machineGenerated="true" --><span class="type">int</span><!-- /a --> <a machinegenerated="true" href="index.html#//apple_ref/c/func/glWindow" logicalPath="//apple_ref/c/instm/glWindow //apple_ref/c/clm/glWindow //apple_ref/c/intfcm/glWindow //apple_ref/c/intfm/glWindow //apple_ref/c/func/glWindow" target="_top"><span class="function">glWindow</span></a>(
     <span class="keyword">unsigned</span> <!-- a logicalPath="//apple_ref/c/cl/int //apple_ref/c/tdef/int //apple_ref/c/tag/int //apple_ref/c/struct/int //apple_ref/c/intf/int //apple_ref/doc/anysymbol/int" machineGenerated="true" --><span class="type">int</span><!-- /a --> <span class="param">w</span>,
     <span class="keyword">unsigned</span> <!-- a logicalPath="//apple_ref/c/cl/int //apple_ref/c/tdef/int //apple_ref/c/tag/int //apple_ref/c/struct/int //apple_ref/c/intf/int //apple_ref/doc/anysymbol/int" machineGenerated="true" --><span class="type">int</span><!-- /a --> <span class="param">h</span>,
     <span class="keyword">const</span> <!-- a logicalPath="//apple_ref/c/cl/char //apple_ref/c/tdef/char //apple_ref/c/tag/char //apple_ref/c/struct/char //apple_ref/c/intf/char //apple_ref/doc/anysymbol/char" machineGenerated="true" --><span class="type">char</span><!-- /a --> <span class="type">*</span><span class="param">title</span>,
@@ -754,7 +700,7 @@ function disclosure_triangle(elt) {
 </div>
 <h5 class="tight"><font face="Lucida Grande,Helvetica,Arial">Return Value</font></h5>
 <p><!-- begin return value --></p>
-<p>Returns true if window creation successful
+<p>Returns 1 if window creation successful, 0 for failure
 
 <!-- end return value --></p>
 <hr class="betweenAPIEntries">
@@ -827,29 +773,6 @@ function disclosure_triangle(elt) {
 <!-- headerDoc=discussion;uid=//apple_ref/c/func/glWindowCallbacks;name=end --><!-- end discussion -->
 </p>
 <hr class="betweenAPIEntries">
-<!-- headerDoc=func;  uid=//apple_ref/c/func/glWindowErrorCallback;   name=glWindowErrorCallback -->
-<a name="//apple_ref/c/func/glWindowErrorCallback"></a>
-<h3><a name="glWindowErrorCallback">glWindowErrorCallback</a></h3>
-<hr class="afterName">
-<p><!-- headerDoc=abstract;uid=//apple_ref/c/func/glWindowErrorCallback;name=start --><!-- begin abstract --></p>
-<p>Assign a callback to handle errors
-<!-- end abstract --><!-- headerDoc=abstract;uid=//apple_ref/c/func/glWindowErrorCallback;name=end --></p>
-<div class="declaration_indent">
-<pre><!-- headerDoc=declaration;uid=//apple_ref/c/func/glWindowErrorCallback;name=start --><!-- a logicalPath="//apple_ref/c/cl/EXPORT //apple_ref/c/tdef/EXPORT //apple_ref/c/tag/EXPORT //apple_ref/c/struct/EXPORT //apple_ref/c/intf/EXPORT //apple_ref/doc/anysymbol/EXPORT" machineGenerated="true" --><span class="type">EXPORT</span><!-- /a --> <!-- a logicalPath="//apple_ref/c/cl/void //apple_ref/c/tdef/void //apple_ref/c/tag/void //apple_ref/c/struct/void //apple_ref/c/intf/void //apple_ref/doc/anysymbol/void" machineGenerated="true" --><span class="type">void</span><!-- /a --> <a machinegenerated="true" href="index.html#//apple_ref/c/func/glWindowErrorCallback" logicalPath="//apple_ref/c/instm/glWindowErrorCallback //apple_ref/c/clm/glWindowErrorCallback //apple_ref/c/intfcm/glWindowErrorCallback //apple_ref/c/intfm/glWindowErrorCallback //apple_ref/c/func/glWindowErrorCallback" target="_top"><span class="function">glWindowErrorCallback</span></a>(
-    <a machinegenerated="true" href="index.html#//apple_ref/c/tdef/glErrorCallback" logicalPath="//apple_ref/c/cl/glErrorCallback //apple_ref/c/tdef/glErrorCallback" target="_top"><span class="type">glErrorCallback</span></a> <span class="param">cb</span>);  <!-- headerDoc=declaration;uid=//apple_ref/c/func/glWindowErrorCallback;name=end --></pre>
-</div>
-<h5 class="tight"><font face="Lucida Grande,Helvetica,Arial">Parameters</font></h5>
-<div class="param_indent">
-<dl>
-<dt>
-<!-- headerDoc=functionparam;  uid=//apple_ref/doc/functionparam/glWindowErrorCallback/cb;   name=cb -->
-<a name="//apple_ref/doc/functionparam/glWindowErrorCallback/cb"></a>
-<code>cb</code>
-</dt>
-<dd><p>Callback to handle errors</p></dd>
-</dl>
-</div>
-<hr class="betweenAPIEntries">
 <!-- headerDoc=func;  uid=//apple_ref/c/func/glWindowPoll;   name=glWindowPoll -->
 <a name="//apple_ref/c/func/glWindowPoll"></a>
 <h3><a name="glWindowPoll">glWindowPoll</a></h3>
@@ -858,12 +781,12 @@ function disclosure_triangle(elt) {
 <p>Poll a window for events
 <!-- end abstract --><!-- headerDoc=abstract;uid=//apple_ref/c/func/glWindowPoll;name=end --></p>
 <div class="declaration_indent">
-<pre><!-- headerDoc=declaration;uid=//apple_ref/c/func/glWindowPoll;name=start --><!-- a logicalPath="//apple_ref/c/cl/EXPORT //apple_ref/c/tdef/EXPORT //apple_ref/c/tag/EXPORT //apple_ref/c/struct/EXPORT //apple_ref/c/intf/EXPORT //apple_ref/doc/anysymbol/EXPORT" machineGenerated="true" --><span class="type">EXPORT</span><!-- /a --> <!-- a logicalPath="//apple_ref/c/cl/bool //apple_ref/c/tdef/bool //apple_ref/c/tag/bool //apple_ref/c/struct/bool //apple_ref/c/intf/bool //apple_ref/doc/anysymbol/bool" machineGenerated="true" --><span class="type">bool</span><!-- /a --> <a machinegenerated="true" href="index.html#//apple_ref/c/func/glWindowPoll" logicalPath="//apple_ref/c/instm/glWindowPoll //apple_ref/c/clm/glWindowPoll //apple_ref/c/intfcm/glWindowPoll //apple_ref/c/intfm/glWindowPoll //apple_ref/c/func/glWindowPoll" target="_top"><span class="function">glWindowPoll</span></a>(
+<pre><!-- headerDoc=declaration;uid=//apple_ref/c/func/glWindowPoll;name=start --><!-- a logicalPath="//apple_ref/c/cl/EXPORT //apple_ref/c/tdef/EXPORT //apple_ref/c/tag/EXPORT //apple_ref/c/struct/EXPORT //apple_ref/c/intf/EXPORT //apple_ref/doc/anysymbol/EXPORT" machineGenerated="true" --><span class="type">EXPORT</span><!-- /a --> <!-- a logicalPath="//apple_ref/c/cl/int //apple_ref/c/tdef/int //apple_ref/c/tag/int //apple_ref/c/struct/int //apple_ref/c/intf/int //apple_ref/doc/anysymbol/int" machineGenerated="true" --><span class="type">int</span><!-- /a --> <a machinegenerated="true" href="index.html#//apple_ref/c/func/glWindowPoll" logicalPath="//apple_ref/c/instm/glWindowPoll //apple_ref/c/clm/glWindowPoll //apple_ref/c/intfcm/glWindowPoll //apple_ref/c/intfm/glWindowPoll //apple_ref/c/func/glWindowPoll" target="_top"><span class="function">glWindowPoll</span></a>(
     <span class="param">void</span>);  <!-- headerDoc=declaration;uid=//apple_ref/c/func/glWindowPoll;name=end --></pre>
 </div>
 <h5 class="tight"><font face="Lucida Grande,Helvetica,Arial">Return Value</font></h5>
 <p><!-- begin return value --></p>
-<p>Returns true if window is still open
+<p>Returns 1 if window is still open, 0 if closed
 
 <!-- end return value --></p>
 <hr class="betweenAPIEntries">
@@ -1051,9 +974,6 @@ function disclosure_triangle(elt) {
 <dt><tt><a href="index.html#//apple_ref/c/tdef/GLcursor" target="_top">GLcursor</a></tt></dt>
 <dd><p>System cursors
 </p></dd>
-<dt><tt><a href="index.html#//apple_ref/c/tdef/glErrorCallback" target="_top">glErrorCallback</a></tt></dt>
-<dd><p>Error callback type
-</p></dd>
 <dt><tt><a href="index.html#//apple_ref/c/tdef/GLflags" target="_top">GLflags</a></tt></dt>
 <dd><p>Window config flags
 </p></dd>
@@ -1119,21 +1039,6 @@ function disclosure_triangle(elt) {
 <dt><a name="//apple_ref/c/econst/HandCursor"><code>HandCursor</code></a></dt>
 <dd><p>Hand cursor</p></dd>
 </dl>
-</div>
-<hr class="betweenAPIEntries">
-<!-- headerDoc=tdef;  uid=//apple_ref/c/tdef/glErrorCallback;   name=glErrorCallback -->
-<a name="//apple_ref/c/tdef/glErrorCallback"></a>
-<h3><a name="glErrorCallback">glErrorCallback</a></h3>
-<hr class="afterName">
-<p><!-- headerDoc=abstract;uid=//apple_ref/c/tdef/glErrorCallback;name=start --><!-- begin abstract --></p>
-<p>Error callback type
-<!-- end abstract --><!-- headerDoc=abstract;uid=//apple_ref/c/tdef/glErrorCallback;name=end --></p>
-<div class="declaration_indent">
-<pre><!-- headerDoc=declaration;uid=//apple_ref/c/tdef/glErrorCallback;name=start --><span class="keyword">typedef</span> <!-- a logicalPath="//apple_ref/c/cl/void //apple_ref/c/tdef/void //apple_ref/c/tag/void //apple_ref/c/struct/void //apple_ref/c/intf/void //apple_ref/doc/anysymbol/void" machineGenerated="true" --><span class="type">void</span><!-- /a -->( <span class="type">*</span><a machinegenerated="true" href="index.html#//apple_ref/c/tdef/glErrorCallback" logicalPath="//apple_ref/c/instm/glErrorCallback //apple_ref/c/clm/glErrorCallback //apple_ref/c/intfcm/glErrorCallback //apple_ref/c/intfm/glErrorCallback //apple_ref/c/func/glErrorCallback //apple_ref/c/ftmplt/glErrorCallback //apple_ref/c/defn/glErrorCallback //apple_ref/c/macro/glErrorCallback //apple_ref/doc/anysymbol/glErrorCallback" target="_top"><span class="function">glErrorCallback</span></a>)(
-    <span class="keyword">const</span> <!-- a logicalPath="//apple_ref/c/cl/char //apple_ref/c/tdef/char //apple_ref/c/tag/char //apple_ref/c/struct/char //apple_ref/c/intf/char //apple_ref/doc/anysymbol/char" machineGenerated="true" --><span class="type">char</span><!-- /a --> <span class="type">*</span>,
-    <span class="keyword">const</span> <!-- a logicalPath="//apple_ref/c/cl/char //apple_ref/c/tdef/char //apple_ref/c/tag/char //apple_ref/c/struct/char //apple_ref/c/intf/char //apple_ref/doc/anysymbol/char" machineGenerated="true" --><span class="type">char</span><!-- /a --> <span class="type">*</span>,
-    <span class="keyword">const</span> <!-- a logicalPath="//apple_ref/c/cl/char //apple_ref/c/tdef/char //apple_ref/c/tag/char //apple_ref/c/struct/char //apple_ref/c/intf/char //apple_ref/doc/anysymbol/char" machineGenerated="true" --><span class="type">char</span><!-- /a --> <span class="type">*</span>,
-    <span class="param">int</span>);  <!-- headerDoc=declaration;uid=//apple_ref/c/tdef/glErrorCallback;name=end --></pre>
 </div>
 <hr class="betweenAPIEntries">
 <!-- headerDoc=tdef;  uid=//apple_ref/c/tdef/GLflags;   name=GLflags -->

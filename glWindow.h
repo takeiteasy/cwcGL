@@ -26,7 +26,7 @@ extern "C" {
 #endif
 
 /*!
- * @header glWidow Yet another cross-platform multi-window OpenGL context
+ * @header glWidow Yet another cross-platform OpenGL context
  * @copyright George Watson
  */
 
@@ -41,41 +41,6 @@ extern "C" {
 #define GL_WIN_LINUX
 #else
 #error Sorry, unsupported operating system!
-#endif
-
-#if defined(_MSC_VER) && _MSC_VER < 1800
-#include <windef.h>
-#define bool BOOL
-#define true 1
-#define false 0
-#else
-#if defined(__STDC__) && __STDC_VERSION__ < 199901L
-typedef enum bool { false = 0, true = !false } bool;
-#else
-#include <stdbool.h>
-#endif
-#endif
-#include <stdio.h>
-#include <stdarg.h>
-#include <stdlib.h>
-#include <stdarg.h>
-#include <string.h>
-#define _USE_MATH_DEFINES
-#include <math.h>
-#include <setjmp.h>
-#include <errno.h>
-
-#if defined(GL_WIN_MAC)
-#if !defined(GL_SILENCE_DEPRECATION)
-#define GL_SILENCE_DEPRECATION
-#endif
-#include <OpenGL/gl3.h>
-#elif defined(GL_WIN_WINDOWS)
-#include <GL/gl.h>
-#else
-#define GL_GLEXT_PROTOTYPES
-#include <GL/gl.h>
-#include <GL/glx.h>
 #endif
 
 #if defined(GL_WIN_WINDOWS)
@@ -136,12 +101,12 @@ typedef enum {
 } GLmod;
 
 #define GL_WIN_CALLBACKS                             \
-    X(Keyboard,     (void*, GLkey, GLmod, bool))     \
-    X(MouseButton,  (void*, int, GLmod, bool))       \
+    X(Keyboard,     (void*, GLkey, GLmod, int))      \
+    X(MouseButton,  (void*, int, GLmod, int))        \
     X(MouseMove,    (void*, int, int, float, float)) \
     X(MouseScroll,  (void*, float, float, GLmod))    \
     X(Resized,      (void*, int, int))               \
-    X(Focus,        (void*, bool))                   \
+    X(Focus,        (void*, int))                    \
     X(Closed,       (void*))
 
 /*!
@@ -151,15 +116,15 @@ typedef enum {
  * @param h Window height
  * @param title Window title
  * @param flags Window flags
- * @return Returns true if window creation successful
+ * @return Returns 1 if window creation successful, 0 for failure
  */
-EXPORT bool glWindow(unsigned int w, unsigned int h, const char *title, GLflags flags);
+EXPORT int glWindow(unsigned int w, unsigned int h, const char *title, GLflags flags);
 /*!
  * @function glWindowPoll
  * @abstract Poll a window for events
- * @return Returns true if window is still open
+ * @return Returns 1 if window is still open, 0 if closed
  */
-EXPORT bool glWindowPoll(void);
+EXPORT int glWindowPoll(void);
 /*!
  * @function glFlushWindow
  * @abstract Render OpenGL to window
@@ -208,27 +173,9 @@ EXPORT void glWindowUserdata(void *userdata);
 /*!
  * @function glIsWindowOpen
  * @abstract Check if a window is still open
- * @return True if window is still open
+ * @return Returns 1 if window is still open, 0 is closed
  */
-EXPORT bool glIsWindowOpen(void);
-/*!
- * @typedef glErrorCallback
- * @abstract Error callback type
- */
-typedef void(*glErrorCallback)(const char*, const char*, const char*, int);
-/*!
- * @function glWindowErrorCallback
- * @abstract Assign a callback to handle errors
- * @param cb Callback to handle errors
- */
-EXPORT void glWindowErrorCallback(glErrorCallback cb);
-/*!
- * @function glErrorCheck
- * @abstract Check if OpenGL experienced any errors
- * @param state Custom user message
- * @discussion If an error occured, this will attempt to call callback assigned to glWindowErrorCallback
- */
-EXPORT void glErrorCheck(const char* state);
+EXPORT int glIsWindowOpen(void);
 
 /*!
  * @enum GLcursor
@@ -267,9 +214,9 @@ typedef enum {
  * @param data Image data
  * @param w Image width
  * @param h Image height
- * @return True if no errors
+ * @return Returns 1 on success, 0 on failure
  */
-EXPORT bool glSetWindowIcon(unsigned char *data, int w, int h);
+EXPORT int glSetWindowIcon(unsigned char *data, int w, int h);
 /*!
  * @function glSetCursor
  * @abstract Change the cursor for a window
@@ -282,9 +229,9 @@ EXPORT void glSetCursor(GLcursor cursor);
  * @param data Image data
  * @param w Image width
  * @param h Image height
- * @return True if no errors
+ * @return Returns 1 on success, 0 on failure
  */
-EXPORT bool glSetCustomCursor(unsigned char *data, int w, int h);
+EXPORT int glSetCustomCursor(unsigned char *data, int w, int h);
 /*!
  * @function glHideCursor
  * @abstract Hide the cursor when window is active

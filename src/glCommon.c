@@ -21,12 +21,12 @@
 
 #include "glWindow.h"
 
-struct {
+static struct {
 #define X(NAME, ARGS) void(*NAME##Callback)ARGS;
     GL_WIN_CALLBACKS
 #undef X
-    bool running;
-    void *userdata, *native;
+    int running;
+    void *userdata;
 } GLwindow = {0};
 
 #define glCallCallback(CB, ...)  \
@@ -56,32 +56,6 @@ void glWindowUserdata(void *userdata) {
     GLwindow.userdata = userdata;
 }
 
-bool glIsWindowOpen(void) {
+int glIsWindowOpen(void) {
     return GLwindow.running;
-}
-
-static glErrorCallback errorCallback = NULL;
-void glWindowErrorCallback(void(*cb)(const char*, const char*, const char*, int)) {
-    errorCallback = cb;
-}
-
-#define PANIC(...) ThrowWindowError(__FILE__, __FUNCTION__, __LINE__, __VA_ARGS__)
-static void ThrowWindowError(const char *file, const char *func, int line, const char *msg, ...) {
-    va_list args;
-    va_start(args, msg);
-    static char error[1024];
-    vsprintf((char *)error, msg, args);
-    va_end(args);
-
-#if defined(DEBUG)
-    fprintf(stderr, "ERROR: at %s in %s() at %d -- %s\n", file, func, line, error);
-#endif
-    if (errorCallback)
-        errorCallback((const char *)error, __FILE__, __FUNCTION__, __LINE__);
-}
-
-void glErrorCheck(const char* state) {
-    GLenum err = glGetError();
-    if (err != GL_NO_ERROR)
-        PANIC("got GL error %x when doing %s\n", err, state);
 }
