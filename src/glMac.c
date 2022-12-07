@@ -732,7 +732,7 @@ static uint32_t ConvertMacMod(NSUInteger modifierFlags) {
     return mods;
 }
 
-int glWindowPoll(void) {
+int glPollWindow(void) {
     if (!GLwindow.running)
         return 0;
     

@@ -120,11 +120,11 @@ typedef enum {
  */
 EXPORT int glWindow(unsigned int w, unsigned int h, const char *title, GLflags flags);
 /*!
- * @function glWindowPoll
+ * @function glPollWindow
  * @abstract Poll a window for events
  * @return Returns 1 if window is still open, 0 if closed
  */
-EXPORT int glWindowPoll(void);
+EXPORT int glPollWindow(void);
 /*!
  * @function glFlushWindow
  * @abstract Render OpenGL to window

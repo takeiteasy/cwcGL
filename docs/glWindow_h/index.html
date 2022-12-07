@@ -288,6 +288,9 @@ function disclosure_triangle(elt) {
 <dt><tt><a href="index.html#//apple_ref/c/func/glIsWindowOpen" target="_top">glIsWindowOpen</a></tt></dt>
 <dd><p>Check if a window is still open
 </p></dd>
+<dt><tt><a href="index.html#//apple_ref/c/func/glPollWindow" target="_top">glPollWindow</a></tt></dt>
+<dd><p>Poll a window for events
+</p></dd>
 <dt><tt><a href="index.html#//apple_ref/c/func/glSetCursor" target="_top">glSetCursor</a></tt></dt>
 <dd><p>Change the cursor for a window
 </p></dd>
@@ -314,9 +317,6 @@ function disclosure_triangle(elt) {
 </p></dd>
 <dt><tt><a href="index.html#//apple_ref/c/func/glWindowCallbacks" target="_top">glWindowCallbacks</a></tt></dt>
 <dd><p>Assign window event callbacks
-</p></dd>
-<dt><tt><a href="index.html#//apple_ref/c/func/glWindowPoll" target="_top">glWindowPoll</a></tt></dt>
-<dd><p>Poll a window for events
 </p></dd>
 <dt><tt><a href="index.html#//apple_ref/c/func/glWindowPosition" target="_top">glWindowPosition</a></tt></dt>
 <dd><p>Get the window's current position
@@ -450,6 +450,23 @@ function disclosure_triangle(elt) {
 <h5 class="tight"><font face="Lucida Grande,Helvetica,Arial">Return Value</font></h5>
 <p><!-- begin return value --></p>
 <p>Returns 1 if window is still open, 0 is closed
+
+<!-- end return value --></p>
+<hr class="betweenAPIEntries">
+<!-- headerDoc=func;  uid=//apple_ref/c/func/glPollWindow;   name=glPollWindow -->
+<a name="//apple_ref/c/func/glPollWindow"></a>
+<h3><a name="glPollWindow">glPollWindow</a></h3>
+<hr class="afterName">
+<p><!-- headerDoc=abstract;uid=//apple_ref/c/func/glPollWindow;name=start --><!-- begin abstract --></p>
+<p>Poll a window for events
+<!-- end abstract --><!-- headerDoc=abstract;uid=//apple_ref/c/func/glPollWindow;name=end --></p>
+<div class="declaration_indent">
+<pre><!-- headerDoc=declaration;uid=//apple_ref/c/func/glPollWindow;name=start --><!-- a logicalPath="//apple_ref/c/cl/EXPORT //apple_ref/c/tdef/EXPORT //apple_ref/c/tag/EXPORT //apple_ref/c/struct/EXPORT //apple_ref/c/intf/EXPORT //apple_ref/doc/anysymbol/EXPORT" machineGenerated="true" --><span class="type">EXPORT</span><!-- /a --> <!-- a logicalPath="//apple_ref/c/cl/int //apple_ref/c/tdef/int //apple_ref/c/tag/int //apple_ref/c/struct/int //apple_ref/c/intf/int //apple_ref/doc/anysymbol/int" machineGenerated="true" --><span class="type">int</span><!-- /a --> <a machinegenerated="true" href="index.html#//apple_ref/c/func/glPollWindow" logicalPath="//apple_ref/c/instm/glPollWindow //apple_ref/c/clm/glPollWindow //apple_ref/c/intfcm/glPollWindow //apple_ref/c/intfm/glPollWindow //apple_ref/c/func/glPollWindow" target="_top"><span class="function">glPollWindow</span></a>(
+    <span class="param">void</span>);  <!-- headerDoc=declaration;uid=//apple_ref/c/func/glPollWindow;name=end --></pre>
+</div>
+<h5 class="tight"><font face="Lucida Grande,Helvetica,Arial">Return Value</font></h5>
+<p><!-- begin return value --></p>
+<p>Returns 1 if window is still open, 0 if closed
 
 <!-- end return value --></p>
 <hr class="betweenAPIEntries">
@@ -772,23 +789,6 @@ function disclosure_triangle(elt) {
 <!-- begin discussion --><!-- headerDoc=discussion;uid=//apple_ref/c/func/glWindowCallbacks;name=start --><p>All callbacks are optional, pass NULL to skip callback. These can also be set individually, e.g. glWindowKeyboardCallback(cb)
 <!-- headerDoc=discussion;uid=//apple_ref/c/func/glWindowCallbacks;name=end --><!-- end discussion -->
 </p>
-<hr class="betweenAPIEntries">
-<!-- headerDoc=func;  uid=//apple_ref/c/func/glWindowPoll;   name=glWindowPoll -->
-<a name="//apple_ref/c/func/glWindowPoll"></a>
-<h3><a name="glWindowPoll">glWindowPoll</a></h3>
-<hr class="afterName">
-<p><!-- headerDoc=abstract;uid=//apple_ref/c/func/glWindowPoll;name=start --><!-- begin abstract --></p>
-<p>Poll a window for events
-<!-- end abstract --><!-- headerDoc=abstract;uid=//apple_ref/c/func/glWindowPoll;name=end --></p>
-<div class="declaration_indent">
-<pre><!-- headerDoc=declaration;uid=//apple_ref/c/func/glWindowPoll;name=start --><!-- a logicalPath="//apple_ref/c/cl/EXPORT //apple_ref/c/tdef/EXPORT //apple_ref/c/tag/EXPORT //apple_ref/c/struct/EXPORT //apple_ref/c/intf/EXPORT //apple_ref/doc/anysymbol/EXPORT" machineGenerated="true" --><span class="type">EXPORT</span><!-- /a --> <!-- a logicalPath="//apple_ref/c/cl/int //apple_ref/c/tdef/int //apple_ref/c/tag/int //apple_ref/c/struct/int //apple_ref/c/intf/int //apple_ref/doc/anysymbol/int" machineGenerated="true" --><span class="type">int</span><!-- /a --> <a machinegenerated="true" href="index.html#//apple_ref/c/func/glWindowPoll" logicalPath="//apple_ref/c/instm/glWindowPoll //apple_ref/c/clm/glWindowPoll //apple_ref/c/intfcm/glWindowPoll //apple_ref/c/intfm/glWindowPoll //apple_ref/c/func/glWindowPoll" target="_top"><span class="function">glWindowPoll</span></a>(
-    <span class="param">void</span>);  <!-- headerDoc=declaration;uid=//apple_ref/c/func/glWindowPoll;name=end --></pre>
-</div>
-<h5 class="tight"><font face="Lucida Grande,Helvetica,Arial">Return Value</font></h5>
-<p><!-- begin return value --></p>
-<p>Returns 1 if window is still open, 0 if closed
-
-<!-- end return value --></p>
 <hr class="betweenAPIEntries">
 <!-- headerDoc=func;  uid=//apple_ref/c/func/glWindowPosition;   name=glWindowPosition -->
 <a name="//apple_ref/c/func/glWindowPosition"></a>
