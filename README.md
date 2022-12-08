@@ -25,7 +25,7 @@ int main(int argc, const char *argv[]) {
 
 - [X] ~~Mac context~~
 - [X] ~~Documentation~~
-- [ ] Windows context
+- [ ] Windows context (WIP)
 - [ ] Linux context (X11)
 - [ ] WebGL (Emscripten) context
 

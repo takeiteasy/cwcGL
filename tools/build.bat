@@ -1,0 +1,1 @@
+cl tools/test.c src/glWindows.c /I.\ /I.\src /link /SUBSYSTEM:CONSOLE /out:.\test.exe
