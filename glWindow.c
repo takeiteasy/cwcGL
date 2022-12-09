@@ -39,7 +39,6 @@ static struct {
     if (GLwindow.CB##Callback)   \
         GLwindow.CB##Callback(GLwindow.userdata, __VA_ARGS__)
 
-
 #define X(NAME, ARGS) \
     void(*NAME##Callback)ARGS,
 void glWindowCallbacks(GL_WIN_CALLBACKS void* userdata) {
@@ -1234,15 +1233,11 @@ int glWindow(unsigned int w, unsigned int h, const char *title, GLflags flags) {
     if (!wglMakeCurrent(GLnative.hdc, GLnative.glContext))
         return 0;
 
-#if !defined(GL_LEGACY) && 0
-    if (!(wglChoosePixelFormat = (PFNWGLCHOOSEPIXELFORMATARBPROC)wglGetProcAddress("wglChoosePixelFormatARB"))) {
-        printf("TEST1");
+#if !defined(GL_LEGACY)
+    if (!(wglChoosePixelFormat = (PFNWGLCHOOSEPIXELFORMATARBPROC)wglGetProcAddress("wglChoosePixelFormatARB")))
         return 0;
-    }
-    if (!(wglCreateContextAttribs = (PFNWGLCREATECONTEXTATTRIBSARBPROC)wglGetProcAddress("wglCreateContextAttribsARB"))) {
-        printf("TEST2");
+    if (!(wglCreateContextAttribs = (PFNWGLCREATECONTEXTATTRIBSARBPROC)wglGetProcAddress("wglCreateContextAttribsARB")))
         return 0;
-    }
 
     int wglAttrib[] = {
         WGL_DRAW_TO_WINDOW_ARB, 1,

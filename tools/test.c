@@ -139,6 +139,37 @@ static void* LoadGLProc(const char *namez) {
     return result;
 }
 
+#include <stdio.h>
+#include <stdlib.h>
+
+static void KeyboardCallback(void *userdata, GLkey key, GLmod modifier, int isDown) {
+    printf("KEYBOARD: %d is %s\n", (int)key, isDown ? "down" : "up");
+}
+
+static void MouseButtonCallback(void *userdata, int button, GLmod modifier, int isDown) {
+    printf("MOUSE BUTTON: %d is %s\n", button, isDown ? "down" : "up");
+}
+
+static void MouseMoveCallback(void *userdata, int x, int y, float dx, float dy) {
+    printf("MOUSE MOVED: %dx%d by %fx%f\n", x, y, dx, dy);
+}
+
+static void MouseScrollCallback(void *userdata, float dx, float dy, GLmod modifier) {
+    printf("MOUSE SCROLL: %fx%f", dx, dy);
+}
+
+static void ResizedCallback(void *userdata, int w, int h) {
+    printf("WINDOW RESIZED: %dx%d\n", w, h);
+}
+
+static void FocusCallback(void *userdata, int isFocused) {
+    printf("WINDOW %s\n", isFocused ? "FOCUSED" : "BLURRED");
+}
+
+static void ClosedCallback(void *userdata) {
+    printf("WINDOW CLOSED!");
+}
+
 #define X(T, N)                       \
     if (!(__##N = (T)LoadGLProc(#N))) \
         failures++;
@@ -159,6 +190,10 @@ int main(int argc, const char *argv[]) {
         return 1;
     if (!glWindow(640, 480, "glWindow", glResizable))
         return 1;
+#define X(NAME, _) NAME##Callback,
+    glWindowCallbacks(GL_WIN_CALLBACKS NULL);
+#undef X
+    
     while (glPollWindow()) {
         glClearColor(1.f, 0.f, 0.f, 1.f);
         glClear(GL_COLOR_BUFFER_BIT);

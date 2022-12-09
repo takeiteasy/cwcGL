@@ -33,7 +33,6 @@ static struct {
     if (GLwindow.CB##Callback)   \
         GLwindow.CB##Callback(GLwindow.userdata, __VA_ARGS__)
 
-
 #define X(NAME, ARGS) \
     void(*NAME##Callback)ARGS,
 void glWindowCallbacks(GL_WIN_CALLBACKS void* userdata) {
