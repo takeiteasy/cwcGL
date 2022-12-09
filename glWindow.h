@@ -87,8 +87,8 @@ typedef enum {
  * @constant KEY_MOD_CONTROL Control key modifier
  * @constant KEY_MOD_ALT Alt key modifier
  * @constant KEY_MOD_SUPER Windows/Super key modifier
- * @constant KEY_MOD_CAPS Caps lock key modifier
- * @constant KEY_MOD_LOCK Num lock key modifier
+ * @constant KEY_MOD_CAPS_LOCK Caps lock key modifier
+ * @constant KEY_MOD_NUM_LOCK Num lock key modifier
  * @discussion Multiple modifiers will be shifted together so check with & operator
  */
 typedef enum {
