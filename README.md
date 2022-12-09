@@ -5,10 +5,27 @@ Cross-platform OpenGL context with a incredibly simple API. **WIP** -- See [TODO
 ```c
 #include "glWindow.h"
 
+static void KeyboardCallback(void *userdata, GLkey key, GLmod modifier, int isDown);
+static void MouseButtonCallback(void *userdata, int button, GLmod modifier, int isDown);
+static void MouseMoveCallback(void *userdata, int x, int y, float dx, float dy);
+static void MouseScrollCallback(void *userdata, float dx, float dy, GLmod modifier);
+static void ResizedCallback(void *userdata, int w, int h);
+static void FocusCallback(void *userdata, int isFocused);
+static void ClosedCallback(void *userdata);
+
 int main(int argc, const char *argv[]) {
     // Create a resizable 640x480
     if (!glWindow(640, 480, "glWindow", glResizable))
         return EXIT_FAILURE;
+    // Assign window event callbacks
+    glWindowCallbacks(KeyboardCallback,
+                      MouseButtonCallback,
+                      MouseMoveCallback,
+                      MouseScrollCallback,
+                      ResizedCallback,
+                      FocusCallback,
+                      ClosedCallback,
+                      NULL); // Last value is userdata that will be passed to callbacks
     // Poll events until window is closed
     while (glWindowPoll()) {
         // ...
