@@ -728,7 +728,7 @@ static uint32_t ConvertMacMod(NSUInteger modifierFlags) {
     if (modifierFlags & NSEventModifierFlagCommand)
         mods |= KEY_MOD_SUPER;
     if (modifierFlags & NSEventModifierFlagCapsLock)
-        mods |= KEY_MOD_CAPS;
+        mods |= KEY_MOD_CAPS_LOCK;
     return mods;
 }
 

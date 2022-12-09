@@ -141,33 +141,60 @@ static void* LoadGLProc(const char *namez) {
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+
+static const char* ModifierString(GLmod modifier) {
+    static char ret[512];
+    ret[0] = '\0';
+    char *or = "";
+    
+#define MODS     \
+    X(SHIFT)     \
+    X(CONTROL)   \
+    X(ALT)       \
+    X(SUPER)     \
+    X(CAPS_LOCK) \
+    X(NUM_LOCK)
+#define X(N) \
+    if (modifier & KEY_MOD_##N) { \
+        strcat(ret, or); \
+        strcat(ret, #N); \
+        or = "|"; \
+    }
+    MODS
+#undef X
+    return ret;
+}
 
 static void KeyboardCallback(void *userdata, GLkey key, GLmod modifier, int isDown) {
-    printf("KEYBOARD: %d is %s\n", (int)key, isDown ? "down" : "up");
+    const char *modidierString = ModifierString(modifier);
+    printf("KEYBOARD: Key %d is %s, modifier: %s\n", (int)key, isDown ? "down" : "up", strlen(modidierString) ? modidierString : "None");
 }
 
 static void MouseButtonCallback(void *userdata, int button, GLmod modifier, int isDown) {
-    printf("MOUSE BUTTON: %d is %s\n", button, isDown ? "down" : "up");
+    const char *modidierString = ModifierString(modifier);
+    printf("MOUSE BUTTON: Button %d is %s, modifier: %s\n", button, isDown ? "down" : "up", strlen(modidierString) ? modidierString : "None");
 }
 
 static void MouseMoveCallback(void *userdata, int x, int y, float dx, float dy) {
-    printf("MOUSE MOVED: %dx%d by %fx%f\n", x, y, dx, dy);
+    printf("MOUSE MOVED: Mouse position is %dx%d, moved by %fx%f\n", x, y, dx, dy);
 }
 
 static void MouseScrollCallback(void *userdata, float dx, float dy, GLmod modifier) {
-    printf("MOUSE SCROLL: %fx%f", dx, dy);
+    const char *modidierString = ModifierString(modifier);
+    printf("MOUSE SCROLL: Scroll delta: %fx%f, modifier: %s\n", dx, dy, strlen(modidierString) ? modidierString : "None");
 }
 
 static void ResizedCallback(void *userdata, int w, int h) {
-    printf("WINDOW RESIZED: %dx%d\n", w, h);
+    printf("WINDOW RESIZED: Window size is %dx%d\n", w, h);
 }
 
 static void FocusCallback(void *userdata, int isFocused) {
-    printf("WINDOW %s\n", isFocused ? "FOCUSED" : "BLURRED");
+    printf("WINDOW FOCUS: Window is %s\n", isFocused ? "focused" : "blurred");
 }
 
 static void ClosedCallback(void *userdata) {
-    printf("WINDOW CLOSED!");
+    printf("WINDOW CLOSED! Goodbye...\n");
 }
 
 #define X(T, N)                       \

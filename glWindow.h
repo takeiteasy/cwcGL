@@ -92,12 +92,12 @@ typedef enum {
  * @discussion Multiple modifiers will be shifted together so check with & operator
  */
 typedef enum {
-    KEY_MOD_SHIFT   = 1 << 0,
-    KEY_MOD_CONTROL = 1 << 1,
-    KEY_MOD_ALT     = 1 << 2,
-    KEY_MOD_SUPER   = 1 << 3,
-    KEY_MOD_CAPS    = 1 << 4,
-    KEY_MOD_LOCK    = 1 << 5
+    KEY_MOD_SHIFT     = 1 << 0,
+    KEY_MOD_CONTROL   = 1 << 1,
+    KEY_MOD_ALT       = 1 << 2,
+    KEY_MOD_SUPER     = 1 << 3,
+    KEY_MOD_CAPS_LOCK = 1 << 4,
+    KEY_MOD_NUM_LOCK  = 1 << 5
 } GLmod;
 
 #define GL_WIN_CALLBACKS                             \
