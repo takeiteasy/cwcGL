@@ -1,8 +1,15 @@
 #include "glWindow.h"
+#include <stdio.h>  // printf
+#include <string.h> // strcat
 
-#if !defined(NULL)
-#define NULL ((void*)0)
+#if defined(GL_WIN_WINDOWS) && !defined(_CRT_SECURE_NO_WARNINGS)
+#define _CRT_SECURE_NO_WARNINGS
 #endif
+
+#if defined(GL_WIN_MAC) && !defined(GL_SILENCE_DEPRECATION)
+#define GL_SILENCE_DEPRECATION
+#endif
+
 #ifndef APIENTRY
 #define APIENTRY
 #endif
@@ -22,13 +29,13 @@ typedef void (APIENTRYP PFNGLCLEARPROC)(GLbitfield mask);
 typedef void (APIENTRYP PFNGLCLEARCOLORPROC)(GLfloat red, GLfloat green, GLfloat blue, GLfloat alpha);
 #define glClearColor __glClearColor
 
-#define GL_FUNCTIONS \
+#define GL_FUNCTIONS           \
     X(PFNGLCLEARPROC, glClear) \
     X(PFNGLCLEARCOLORPROC, glClearColor)
 #define X(T, N) extern T __##N;
 GL_FUNCTIONS
 #undef X
-#define X(T, N) T __##N = (T)((void *)0);
+#define X(T, N) T __##N = (T)((void*)0);
 GL_FUNCTIONS
 #undef X
 
@@ -139,10 +146,6 @@ static void* LoadGLProc(const char *namez) {
     return result;
 }
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
 static const char* ModifierString(GLmod modifier) {
     static char ret[512];
     ret[0] = '\0';
@@ -155,11 +158,11 @@ static const char* ModifierString(GLmod modifier) {
     X(SUPER)     \
     X(CAPS_LOCK) \
     X(NUM_LOCK)
-#define X(N) \
+#define X(N)                      \
     if (modifier & KEY_MOD_##N) { \
-        strcat(ret, or); \
-        strcat(ret, #N); \
-        or = "|"; \
+        strcat(ret, or);          \
+        strcat(ret, #N);          \
+        or = ", ";                \
     }
     MODS
 #undef X

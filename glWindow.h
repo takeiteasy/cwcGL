@@ -132,7 +132,7 @@ EXPORT int glPollWindow(void);
 EXPORT void glFlushWindow(void);
 /*!
  * @function glWindowQuit
- * @abstract Close all windows + free all resources
+ * @abstract Close window + free all resources
  */
 EXPORT void glWindowQuit(void);
 /*!
