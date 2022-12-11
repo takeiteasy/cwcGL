@@ -146,6 +146,21 @@ static void* LoadGLProc(const char *namez) {
     return result;
 }
 
+#define X(T, N)                       \
+    if (!(__##N = (T)LoadGLProc(#N))) \
+        failures++;
+static int failures = 0;
+static int InitOpenGL(void) {
+    int result = 0;
+    if (LoadGLLibrary()) {
+        GL_FUNCTIONS
+        result = failures == 0;
+        CloseGLLibrary();
+    }
+    return result;
+}
+#undef X
+
 static const char* ModifierString(GLmod modifier) {
     static char ret[512];
     ret[0] = '\0';
@@ -199,21 +214,6 @@ static void FocusCallback(void *userdata, int isFocused) {
 static void ClosedCallback(void *userdata) {
     printf("WINDOW CLOSED! Goodbye...\n");
 }
-
-#define X(T, N)                       \
-    if (!(__##N = (T)LoadGLProc(#N))) \
-        failures++;
-static int failures = 0;
-static int InitOpenGL(void) {
-    int result = 0;
-    if (LoadGLLibrary()) {
-        GL_FUNCTIONS
-        result = failures == 0;
-        CloseGLLibrary();
-    }
-    return result;
-}
-#undef X
 
 int main(int argc, const char *argv[]) {
     if (!InitOpenGL())

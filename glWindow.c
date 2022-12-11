@@ -1046,6 +1046,7 @@ void glSetWindowTitle(const char *title) {
 #define GL_VERSION_MINOR 0
 #endif
 #endif
+#endif
 
 #define WGL_DRAW_TO_WINDOW_ARB 0x2001
 #define WGL_SUPPORT_OPENGL_ARB 0x2010
@@ -1068,6 +1069,7 @@ PFNWGLCREATECONTEXTATTRIBSARBPROC wglCreateContextAttribs;
 #pragma comment(lib, "user32")
 #pragma comment(lib, "gdi32")
 #pragma comment(lib, "opengl32")
+#pragma comment(lib, "ntdll")
 
 #if !defined(_DLL)
 #include <shellapi.h>
@@ -1110,6 +1112,8 @@ static struct {
     int tmeRefresh;
     int width, height;
     int cursorLastX, cursorLastY;
+    int mouseInWindow, cursorHidden;
+    long windowFlags;
     LARGE_INTEGER timestamp;
 } GLnative = {0};
 
@@ -1324,20 +1328,20 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
         case WM_XBUTTONDOWN:
         case WM_XBUTTONDBLCLK: {
             int button = 0;
-            bool action = false;
+            int action = 0;
             switch (message) {
                 case WM_LBUTTONDOWN:
-                    action = true;
+                    action = 1;
                 case WM_LBUTTONUP:
                     button = 1;
                     break;
                 case WM_RBUTTONDOWN:
-                    action = true;
+                    action = 1;
                 case WM_RBUTTONUP:
                     button = 2;
                     break;
                 case WM_MBUTTONDOWN:
-                    action = true;
+                    action = 1;
                 case WM_MBUTTONUP:
                     button = 3;
                     break;
@@ -1371,16 +1375,23 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
             break;
         }
         case WM_MOUSEHOVER:
-            GLnative.tmeRefresh = true;
+            if (!GLnative.mouseInWindow) {
+                if (GLnative.cursorHidden)
+                    ShowCursor(0);
+            }
+            GLnative.mouseInWindow = 1;
+            GLnative.tmeRefresh = 1;
             break;
         case WM_MOUSELEAVE:
-            GLnative.tmeRefresh = false;
+            if (GLnative.cursorHidden)
+                ShowCursor(1);
+            GLnative.tmeRefresh = 0;
             break;
         case WM_SETFOCUS:
-            glCallCallback(Focus, true);
+            glCallCallback(Focus, 1);
             break;
         case WM_KILLFOCUS:
-            glCallCallback(Focus, false);
+            glCallCallback(Focus, 0);
             break;
         default:
             goto DEFAULT_PROC;
@@ -1396,12 +1407,12 @@ int glWindow(unsigned int w, unsigned int h, const char *title, GLflags flags) {
         return 0;
 
     RECT rect = {0};
-    long windowFlags = WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX | WS_MAXIMIZEBOX;
+    GLnative.windowFlags = WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX | WS_MAXIMIZEBOX;
     if (flags & glFullscreen) {
         flags = glFullscreen;
         rect.right = GetSystemMetrics(SM_CXSCREEN);
         rect.bottom = GetSystemMetrics(SM_CYSCREEN);
-        windowFlags = WS_POPUP & ~(WS_CAPTION | WS_THICKFRAME | WS_MINIMIZE | WS_MAXIMIZE | WS_SYSMENU);
+        GLnative.windowFlags = WS_POPUP & ~(WS_CAPTION | WS_THICKFRAME | WS_MINIMIZE | WS_MAXIMIZE | WS_SYSMENU);
 
         DEVMODE settings = {0};
         EnumDisplaySettings(0, 0, &settings);
@@ -1415,18 +1426,18 @@ int glWindow(unsigned int w, unsigned int h, const char *title, GLflags flags) {
     }
 
     if (flags & glBorderless)
-        windowFlags = WS_POPUP;
+        GLnative.windowFlags = WS_POPUP;
     if (flags & glResizable)
-        windowFlags |= WS_MAXIMIZEBOX | WS_SIZEBOX;
+        GLnative.windowFlags |= WS_MAXIMIZEBOX | WS_SIZEBOX;
     if (flags & glFullscreenDesktop) {
-        windowFlags = WS_OVERLAPPEDWINDOW;
+        GLnative.windowFlags = WS_OVERLAPPEDWINDOW;
 
         int width = GetSystemMetrics(SM_CXFULLSCREEN);
         int height = GetSystemMetrics(SM_CYFULLSCREEN);
 
         rect.right = width;
         rect.bottom = height;
-        AdjustWindowRect(&rect, windowFlags, 0);
+        AdjustWindowRect(&rect, GLnative.windowFlags, 0);
         if (rect.left < 0) {
             width += rect.left * 2;
             rect.right += rect.left;
@@ -1441,7 +1452,7 @@ int glWindow(unsigned int w, unsigned int h, const char *title, GLflags flags) {
         rect.right = w;
         rect.bottom = h;
 
-        AdjustWindowRect(&rect, windowFlags, 0);
+        AdjustWindowRect(&rect, GLnative.windowFlags, 0);
 
         rect.right -= rect.left;
         rect.bottom -= rect.top;
@@ -1460,7 +1471,7 @@ int glWindow(unsigned int w, unsigned int h, const char *title, GLflags flags) {
 
     GLnative.width = rect.right;
     GLnative.height = rect.bottom;
-    if (!(GLnative.hwnd = CreateWindowEx(0, title, title, windowFlags, rect.left, rect.top, rect.right, rect.bottom, 0, 0, 0, 0)))
+    if (!(GLnative.hwnd = CreateWindowEx(0, title, title, GLnative.windowFlags, rect.left, rect.top, rect.right, rect.bottom, 0, 0, 0, 0)))
         return 0;
     if (!(GLnative.hdc = GetDC(GLnative.hwnd)))
         return 0;
@@ -1583,11 +1594,15 @@ int glSetCustomCursor(unsigned char *data, int w, int h) {
 }
 
 void glHideCursor(void) {
-
+    GLnative.cursorHidden = 1;
+    if (GLnative.mouseInWindow)
+        ShowCursor(0);
 }
 
 void glShowCursor(void) {
-
+    GLnative.cursorHidden = 0;
+    if (GLnative.mouseInWindow)
+        ShowCursor(1);
 }
 
 void glDisableCursor(void) {
@@ -1599,35 +1614,104 @@ void glEnableCursor(void) {
 }
 
 void glCursorPosition(int *x, int *y) {
-
+    POINT position;
+    if (GetCursorPos(&position)) {
+        ScreenToClient(GLnative.hwnd, &position);
+        if (x)
+            *x = position.x;
+        if (y)
+            *y = position.y;
+    }
 }
 
 void glSetCursorPosition(int x, int y) {
+    POINT position = { x, y };
+    GLnative.cursorLastX = x;
+    GLnative.cursorLastY = y;
 
+    ClientToScreen(GLnative.hwnd, &position);
+    SetCursorPos(position.x, position.y);
 }
 
 void glWindowPosition(int *x, int *y) {
+    POINT position = { 0, 0 };
+    ClientToScreen(GLnative.hwnd, &position);
+    if (x)
+        *x = position.x;
+    if (y)
+        *y = position.y;
+}
 
+
+// https://github.com/glfw/glfw/blob/master/src/win32_init.c#L591
+static BOOL IsWindows10BuildOrGreaterWin32(WORD build) {
+    OSVERSIONINFOEXW osvi = { sizeof(osvi), 10, 0, build };
+    DWORD mask = VER_MAJORVERSION | VER_MINORVERSION | VER_BUILDNUMBER;
+    ULONGLONG cond = VerSetConditionMask(0, VER_MAJORVERSION, VER_GREATER_EQUAL);
+    cond = VerSetConditionMask(cond, VER_MINORVERSION, VER_GREATER_EQUAL);
+    cond = VerSetConditionMask(cond, VER_BUILDNUMBER, VER_GREATER_EQUAL);
+    // HACK: Use RtlVerifyVersionInfo instead of VerifyVersionInfoW as the
+    //       latter lies unless the user knew to embed a non-default manifest
+    //       announcing support for Windows 10 via supportedOS GUID
+    return RtlVerifyVersionInfo(&osvi, mask, cond) == 0;
 }
 
 void glSetWindowPosition(int x, int y) {
+    RECT rect = { x, y, x, y };
 
+    if (IsWindows10BuildOrGreaterWin32(14393))
+        AdjustWindowRectExForDpi(&rect, GLnative.windowFlags, FALSE, GLnative.windowFlags, GetDpiForWindow(GLnative.hwnd));
+    else
+        AdjustWindowRectEx(&rect, GLnative.windowFlags, FALSE, GLnative.windowFlags);
+
+    SetWindowPos(GLnative.hwnd, NULL, rect.left, rect.top, 0, 0, SWP_NOACTIVATE | SWP_NOZORDER | SWP_NOSIZE);
 }
 
 void glWindowSize(int *w, int *h) {
-
+    RECT rect;
+    GetClientRect(GLnative.hwnd, &rect);
+    if (w)
+        *w = rect.right;
+    if (h)
+        *h = rect.bottom;
 }
 
 void glWindowSetSize(int w, int h) {
+    RECT rect = { 0, 0, w, h };
 
+    if (IsWindows10BuildOrGreaterWin32(14393))
+        AdjustWindowRectExForDpi(&rect, GLnative.windowFlags, FALSE, GLnative.windowFlags, GetDpiForWindow(GLnative.hwnd));
+    else
+        AdjustWindowRectEx(&rect, GLnative.windowFlags, FALSE, GLnative.windowFlags);
+
+    SetWindowPos(GLnative.hwnd, HWND_TOP, 0, 0, rect.right - rect.left, rect.bottom - rect.top, SWP_NOACTIVATE | SWP_NOOWNERZORDER | SWP_NOMOVE | SWP_NOZORDER);
 }
 
 void glWindowScreenSize(int *w, int *h) {
+    if (w)
+        *w = GetSystemMetrics(SM_CXSCREEN);
+    if (h)
+        *h = GetSystemMetrics(SM_CYSCREEN);
+}
 
+static WCHAR* CreateWideString(const char *str) {
+    int length = MultiByteToWideChar(CP_UTF8, 0, str, -1, NULL, 0);
+    if (!length)
+        return NULL;
+    WCHAR *result = calloc(length, sizeof(WCHAR));
+    if (!MultiByteToWideChar(CP_UTF8, 0, str, -1, result, length)) {
+        free(result);
+        return NULL;
+    }
+    return result;
 }
 
 void glSetWindowTitle(const char *title) {
-
+    WCHAR *wTitle = CreateWideString(title);
+    if (wTitle) {
+        SetWindowTextW(GLnative.hwnd, wTitle);
+        free(wTitle);
+    }
 }
 #elif defined(GL_WIN_LINUX)
 #error Linux is not yet implemented!
