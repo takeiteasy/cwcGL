@@ -242,12 +242,8 @@ extern id NSDeviceRGBColorSpace;
 #define ObjC_Release(CLASS) ObjC(void)(CLASS, sel(release))
 
 static struct {
-    id window, glContext, cursor;
+    id window, glContext;
     int cursorInWindow;
-    int customCursor;
-    int hideCursor;
-    int disableCursor;
-    mach_timebase_info_data_t info;
 } GLnative = {0};
 
 static NSUInteger applicationShouldTerminate(id self, SEL _sel, id sender) {
@@ -262,21 +258,6 @@ static void windowWillClose(id self, SEL _sel, id notification) {
     GLwindow.running = 0;
 }
 
-static void windowDidBecomeKey(id self, SEL _sel, id notification) {
-    glCallCallback(Focus, 1);
-    if (GLnative.disableCursor) {
-        NSRect frame = ObjC_Struct(NSRect)(GLnative.window, sel(frame));
-        CGWarpMouseCursorPosition(CGPointMake(frame.origin.x + frame.size.width / 2.f, frame.origin.y + frame.size.height / 2.f));
-        CGAssociateMouseAndMouseCursorPosition(NO);
-    }
-}
-
-static void windowDidResignKey(id self, SEL _sel, id notification) {
-    glCallCallback(Focus, 0);
-    if (GLnative.disableCursor)
-        CGAssociateMouseAndMouseCursorPosition(YES);
-}
-
 static void windowDidResize(id self, SEL _sel, id notification) {
     CGRect frame = ObjC(CGRect)(ObjC(id)(GLnative.window, sel(contentView)), sel(frame));
     glCallCallback(Resized, frame.size.width, frame.size.height);
@@ -284,22 +265,11 @@ static void windowDidResize(id self, SEL _sel, id notification) {
 
 static void mouseEntered(id self, SEL _sel, id event) {
     GLnative.cursorInWindow = YES;
-    if (GLnative.hideCursor)
-        ObjC(void)(class(NSCursor), sel(hide));
 }
 
 static void mouseExited(id self, SEL _sel, id event) {
     GLnative.cursorInWindow = NO;
     ObjC(void)(class(NSCursor), sel(unhide));
-}
-
-static void mouseMoved(id self, SEL _sel, id event) {
-    if (GLnative.cursor && GLnative.cursorInWindow) {
-        if (GLnative.hideCursor)
-            ObjC(void)(class(NSCursor), sel(hide));
-        else
-            ObjC(void)(GLnative.cursor, sel(set));
-    }
 }
 
 static id CreateNSString(const char *str) {
@@ -392,18 +362,12 @@ int glWindow(unsigned int w, unsigned int h, const char *title, GLflags flags) {
         ObjC_AddProtocol(WindowDelegate, NSWindowDelegate);
         ObjC_AddIVar(WindowDelegate, glWindow, sizeof(void*), "ˆv");
         ObjC_AddMethod(WindowDelegate, windowWillClose:, windowWillClose, "v@:@");
-        ObjC_AddMethod(WindowDelegate, windowDidBecomeKey:, windowDidBecomeKey, "v@:@");
-        ObjC_AddMethod(WindowDelegate, windowDidResignKey:, windowDidResignKey, "v@:@");
         ObjC_AddMethod(WindowDelegate, windowDidResize:, windowDidResize, "v@:@");
         ObjC_AddMethod(WindowDelegate, mouseEntered:, mouseEntered, "v@:@");
         ObjC_AddMethod(WindowDelegate, mouseExited:, mouseExited, "v@:@");
-        ObjC_AddMethod(WindowDelegate, mouseMoved:, mouseMoved, "v@:@");
         id windowDelegate = ObjC(id)(ObjC(id)((id)WindowDelegate, sel(alloc)), sel(init));
         ObjC_Autorelease(windowDelegate);
         ObjC(void, id)(GLnative.window, sel(setDelegate:), windowDelegate);
-
-        GLnative.cursor = ObjC(id)(class(NSCursor), sel(arrowCursor));
-        GLnative.customCursor = NO;
 
         id contentView = ObjC(id)(GLnative.window, sel(contentView));
         int trackingFlags = NSTrackingMouseEnteredAndExited | NSTrackingActiveInKeyWindow | NSTrackingInVisibleRect;
@@ -432,7 +396,6 @@ int glWindow(unsigned int w, unsigned int h, const char *title, GLflags flags) {
         ObjC(void, BOOL)(NSApp, sel(activateIgnoringOtherApps:), YES);
     });
 
-    mach_timebase_info(&GLnative.info);
     GLwindow.running = 1;
     return 1;
 }
@@ -834,196 +797,13 @@ void glFlushWindow(void) {
 void glWindowQuit(void) {
     if (!GLwindow.running)
         return;
-    if (GLnative.customCursor && GLnative.cursor)
-        ObjC_Release(GLnative.cursor);
-    if (GLnative.hideCursor)
-        ObjC(void)(class(NSCursor), sel(unhide));
-    if (GLnative.disableCursor)
-        CGAssociateMouseAndMouseCursorPosition(YES);
     ObjC(void)(GLnative.window, sel(close));
     ObjC_Release(GLnative.glContext);
     ObjC_Release(GLnative.window);
 }
 
-double glGetTime(void) {
-    return (mach_absolute_time() * GLnative.info.numer) / (GLnative.info.denom  * 1000000000.0);
-}
-
-static id CreateNSImage(unsigned char *data, int w, int h) {
-    id nsi = ObjC(id, NSSize)(ObjC_Alloc(NSImage), sel(initWithSize:), CGSizeMake(w, h));
-    if (!nsi)
-        return nil;
-    ObjC_Autorelease(nsi);
-
-    id nsbir = ObjC(id, unsigned char*, NSInteger, NSInteger, NSInteger, NSInteger, BOOL, BOOL, NSColorSpaceName, NSInteger, NSInteger, NSInteger)(ObjC_Alloc(NSBitmapImageRep), sel(initWithBitmapDataPlanes:pixelsWide:pixelsHigh:bitsPerSample:samplesPerPixel:hasAlpha:isPlanar:colorSpaceName:bitmapFormat:bytesPerRow:bitsPerPixel:), nil, w, h, 8, 4, YES, NO, NSDeviceRGBColorSpace, NSBitmapFormatAlphaNonpremultiplied, 0, 0);
-    if (!nsbir)
-        return nil;
-    ObjC_Autorelease(nsbir);
-
-    unsigned char* bitmapData = ObjC(unsigned char*)(nsbir, sel(bitmapData));
-    memcpy(bitmapData, data, w * h * sizeof(unsigned char) * 4);
-    ObjC(void, id)(nsi, sel(addRepresentation:), nsbir);
-    return nsi;
-}
-
-int glSetWindowIcon(unsigned char *data, int w, int h) {
-    id icon = !data || !w || !h ? ObjC(id, id)(class(NSImage), sel(imageNamed:), CreateNSString("NSApplicationIcon")) : CreateNSImage(data, w, h);
-    if (!icon)
-        return 0;
-    ObjC(void, id)(NSApp, sel(setApplicationIconImage:), icon);
-    return 1;
-}
-
-static id ConvertMacCursor(GLcursor cursor) {
-    SEL cursorSel = 0;
-    switch (cursor) {
-        default:
-        case ArrowCursor:
-        case WaitCursor:
-        case WaitArrowCursor:
-            cursorSel = sel(arrowCursor);
-            break;
-        case IBeamCursor:
-            cursorSel = sel(IBeamCursor);
-            break;
-        case CrosshairCursor:
-            cursorSel = sel(crosshairCursor);
-            break;
-        case NWSECursor:
-        case NESWCursor:
-            cursorSel = sel(closedHandCursor);
-            break;
-        case WECursor:
-            cursorSel = sel(resizeLeftRightCursor);
-            break;
-        case NSCursor:
-            cursorSel = sel(resizeUpDownCursor);
-            break;
-        case MoveCursor:
-            cursorSel = sel(closedHandCursor);
-            break;
-        case StopCursor:
-            cursorSel = sel(operationNotAllowedCursor);
-            break;
-        case HandCursor:
-            cursorSel = sel(pointingHandCursor);
-            break;
-    }
-    return cursorSel == 0 ? nil : ObjC(id)(class(NSCursor), cursorSel);
-}
-
-void glSetCursor(GLcursor cursor) {
-    id cursorImg = ConvertMacCursor(cursor);
-    if (!cursorImg)
-        cursorImg = ObjC(id)(class(NSCursor), sel(arrowCursor));
-
-    if (GLnative.customCursor && GLnative.cursor)
-        ObjC_Release(GLnative.cursor);
-    GLnative.customCursor = NO;
-    GLnative.cursor = cursorImg;
-    ObjC(void)(GLnative.cursor, sel(retain));
-}
-
-int glSetCustomCursor(unsigned char *data, int w, int h) {
-    if (GLnative.customCursor && GLnative.cursor)
-        ObjC_Release(GLnative.cursor);
-
-    int result = 1;
-    id icon = nil;
-    if (!data || !w || !h)
-        goto BAIL;
-    else
-        if (!(icon = CreateNSImage(data, w, h)))
-            goto BAIL;
-
-    ObjC(void)(icon, sel(retain));
-    goto SUCCESS;
-
-BAIL:
-    icon = ObjC(id)(class(NSCursor), sel(arrowCursor));
-    result = 0;
-SUCCESS:
-    GLnative.cursor = icon;
-    GLnative.customCursor = result;
-    return result;
-}
-
-void glHideCursor(void) {
-    GLnative.hideCursor = YES;
-    if (GLnative.cursorInWindow)
-        ObjC(void)(class(NSCursor), sel(hide));
-}
-
-void glShowCursor(void) {
-    GLnative.hideCursor = NO;
-    if (GLnative.cursorInWindow)
-        ObjC(void)(class(NSCursor), sel(unhide));
-}
-
-void glDisableCursor(void) {
-    GLnative.disableCursor = YES;
-
-    NSRect frame = ObjC_Struct(NSRect)(GLnative.window, sel(frame));
-    CGWarpMouseCursorPosition(CGPointMake(frame.origin.x + frame.size.width / 2.f, frame.origin.y + frame.size.height / 2.f));
-    CGAssociateMouseAndMouseCursorPosition(NO);
-}
-
-void glEnableCursor(void) {
-    GLnative.disableCursor = NO;
-    CGAssociateMouseAndMouseCursorPosition(YES);
-}
-
-void glCursorPosition(int *x, int *y) {
-    NSPoint p = ObjC(NSPoint)(class(NSEvent), sel(mouseLocation));
-    if (x)
-        *x = p.x;
-    if (y) {
-        NSRect frame = ObjC_Struct(NSRect)(ObjC(id)(GLnative.window, sel(screen)), sel(frame));
-        *y = frame.size.height - p.y;
-    }
-}
-
-void glSetCursorPosition(int x, int y) {
-    CGWarpMouseCursorPosition(CGPointMake((float)x, (float)y));
-}
-
-void glWindowPosition(int *x, int *y) {
-    NSRect frame = ObjC_Struct(NSRect)(GLnative.window, sel(frame));
-    if (x)
-        *x = frame.origin.x;
-    if (y)
-        *y = frame.origin.y;
-}
-
-void glSetWindowPosition(int x, int y) {
-    ObjC(void, NSPoint)(GLnative.window, sel(setFrameOrigin:), CGPointMake((float)x, (float)y));
-}
-
-void glWindowSize(int *w, int *h) {
-    NSRect frame = ObjC_Struct(NSRect)(GLnative.window, sel(frame));
-    if (w)
-        *w = frame.size.width;
-    if (h)
-        *h = frame.size.height;
-}
-
-void glWindowSetSize(int w, int h) {
-    int x = 0, y = 0;
-    glWindowPosition(&x, &h);
-    ObjC(void, NSRect, BOOL, BOOL)(GLnative.window, sel(setFrame:display:animate:), CGRectMake((float)x, (float)y, (float)w, (float)h), YES, YES);
-
-}
-
-void glWindowScreenSize(int *w, int *h) {
-    NSRect frame = ObjC_Struct(NSRect)(ObjC(id)(GLnative.window, sel(screen)), sel(frame));
-    if (w)
-        *w = frame.size.width;
-    if (h)
-        *h = frame.size.height;
-}
-
-void glSetWindowTitle(const char *title) {
-    ObjC(void, id)(GLnative.window, sel(setTitle:), CreateNSString(title));
+void* glWindowNative(void) {
+    return (void*)GLnative.window;
 }
 #elif defined(GL_WIN_WINDOWS)
 #define NOMINMAX
@@ -1112,9 +892,8 @@ static struct {
     int tmeRefresh;
     int width, height;
     int cursorLastX, cursorLastY;
-    int mouseInWindow, cursorHidden;
+    int mouseInWindow;
     long windowFlags;
-    LARGE_INTEGER timestamp;
 } GLnative = {0};
 
 static int WindowsModState(void) {
@@ -1375,16 +1154,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
             break;
         }
         case WM_MOUSEHOVER:
-            if (!GLnative.mouseInWindow) {
-                if (GLnative.cursorHidden)
-                    ShowCursor(0);
-            }
             GLnative.mouseInWindow = 1;
             GLnative.tmeRefresh = 1;
             break;
         case WM_MOUSELEAVE:
-            if (GLnative.cursorHidden)
-                ShowCursor(1);
             GLnative.tmeRefresh = 0;
             break;
         case WM_SETFOCUS:
@@ -1572,149 +1345,48 @@ void glWindowQuit(void) {
     DestroyWindow(GLnative.hwnd);
 }
 
-double glGetTime(void) {
-    LARGE_INTEGER cnt, freq;
-    QueryPerformanceCounter(&cnt);
-    QueryPerformanceFrequency(&freq);
-    ULONGLONG diff = cnt.QuadPart - GLnative.timestamp.QuadPart;
-    GLnative.timestamp = cnt;
-    return (double)(diff / (double)freq.QuadPart);
-}
-
-int glSetWindowIcon(unsigned char *data, int w, int h) {
-    return 0;
-}
-
-void glSetCursor(GLcursor cursor) {
-
-}
-
-int glSetCustomCursor(unsigned char *data, int w, int h) {
-    return 0;
-}
-
-void glHideCursor(void) {
-    GLnative.cursorHidden = 1;
-    if (GLnative.mouseInWindow)
-        ShowCursor(0);
-}
-
-void glShowCursor(void) {
-    GLnative.cursorHidden = 0;
-    if (GLnative.mouseInWindow)
-        ShowCursor(1);
-}
-
-void glDisableCursor(void) {
-
-}
-
-void glEnableCursor(void) {
-
-}
-
-void glCursorPosition(int *x, int *y) {
-    POINT position;
-    if (GetCursorPos(&position)) {
-        ScreenToClient(GLnative.hwnd, &position);
-        if (x)
-            *x = position.x;
-        if (y)
-            *y = position.y;
-    }
-}
-
-void glSetCursorPosition(int x, int y) {
-    POINT position = { x, y };
-    GLnative.cursorLastX = x;
-    GLnative.cursorLastY = y;
-
-    ClientToScreen(GLnative.hwnd, &position);
-    SetCursorPos(position.x, position.y);
-}
-
-void glWindowPosition(int *x, int *y) {
-    POINT position = { 0, 0 };
-    ClientToScreen(GLnative.hwnd, &position);
-    if (x)
-        *x = position.x;
-    if (y)
-        *y = position.y;
-}
-
-
-// https://github.com/glfw/glfw/blob/master/src/win32_init.c#L591
-static BOOL IsWindows10BuildOrGreaterWin32(WORD build) {
-    OSVERSIONINFOEXW osvi = { sizeof(osvi), 10, 0, build };
-    DWORD mask = VER_MAJORVERSION | VER_MINORVERSION | VER_BUILDNUMBER;
-    ULONGLONG cond = VerSetConditionMask(0, VER_MAJORVERSION, VER_GREATER_EQUAL);
-    cond = VerSetConditionMask(cond, VER_MINORVERSION, VER_GREATER_EQUAL);
-    cond = VerSetConditionMask(cond, VER_BUILDNUMBER, VER_GREATER_EQUAL);
-    // HACK: Use RtlVerifyVersionInfo instead of VerifyVersionInfoW as the
-    //       latter lies unless the user knew to embed a non-default manifest
-    //       announcing support for Windows 10 via supportedOS GUID
-    return RtlVerifyVersionInfo(&osvi, mask, cond) == 0;
-}
-
-void glSetWindowPosition(int x, int y) {
-    RECT rect = { x, y, x, y };
-
-    if (IsWindows10BuildOrGreaterWin32(14393))
-        AdjustWindowRectExForDpi(&rect, GLnative.windowFlags, FALSE, GLnative.windowFlags, GetDpiForWindow(GLnative.hwnd));
-    else
-        AdjustWindowRectEx(&rect, GLnative.windowFlags, FALSE, GLnative.windowFlags);
-
-    SetWindowPos(GLnative.hwnd, NULL, rect.left, rect.top, 0, 0, SWP_NOACTIVATE | SWP_NOZORDER | SWP_NOSIZE);
-}
-
-void glWindowSize(int *w, int *h) {
-    RECT rect;
-    GetClientRect(GLnative.hwnd, &rect);
-    if (w)
-        *w = rect.right;
-    if (h)
-        *h = rect.bottom;
-}
-
-void glWindowSetSize(int w, int h) {
-    RECT rect = { 0, 0, w, h };
-
-    if (IsWindows10BuildOrGreaterWin32(14393))
-        AdjustWindowRectExForDpi(&rect, GLnative.windowFlags, FALSE, GLnative.windowFlags, GetDpiForWindow(GLnative.hwnd));
-    else
-        AdjustWindowRectEx(&rect, GLnative.windowFlags, FALSE, GLnative.windowFlags);
-
-    SetWindowPos(GLnative.hwnd, HWND_TOP, 0, 0, rect.right - rect.left, rect.bottom - rect.top, SWP_NOACTIVATE | SWP_NOOWNERZORDER | SWP_NOMOVE | SWP_NOZORDER);
-}
-
-void glWindowScreenSize(int *w, int *h) {
-    if (w)
-        *w = GetSystemMetrics(SM_CXSCREEN);
-    if (h)
-        *h = GetSystemMetrics(SM_CYSCREEN);
-}
-
-static WCHAR* CreateWideString(const char *str) {
-    int length = MultiByteToWideChar(CP_UTF8, 0, str, -1, NULL, 0);
-    if (!length)
-        return NULL;
-    WCHAR *result = calloc(length, sizeof(WCHAR));
-    if (!MultiByteToWideChar(CP_UTF8, 0, str, -1, result, length)) {
-        free(result);
-        return NULL;
-    }
-    return result;
-}
-
-void glSetWindowTitle(const char *title) {
-    WCHAR *wTitle = CreateWideString(title);
-    if (wTitle) {
-        SetWindowTextW(GLnative.hwnd, wTitle);
-        free(wTitle);
-    }
+void* glWindowNative(void) {
+    return (void*)GLnative.hwnd;
 }
 #elif defined(GL_WIN_LINUX)
-#error Linux is not yet implemented!
+
+static struct {
+    Display *display;
+    Window root, window;
+    int screen;
+    Atom delete;
+    GC gc;
+    int cursorLastX, cursorLastY;
+} GLnative = {0};
+
+int glWindow(unsigned int w, unsigned int h, const char *title, GLflags flags) {
+    if (GLwindow.running)
+        return 0;
+
+    GLwindow.running = 1;
+    return 1;
+}
+
+int glPollWindow(void) {
+    if (!GLwindow.running)
+        return 0;
+
+    return GLwindow.running;
+}
+
+void glFlushWindow(void) {
+    if (!GLwindow.running)
+        return;
+}
+
+void glWindowQuit(void) {
+    if (!GLwindow.running)
+        return;
+}
+
+void* glWindowNative(void) {
+    return (void*)GLnative.window;
+}
 #else
 #error This operating system is unsupported by pp! Sorry!
 #endif
