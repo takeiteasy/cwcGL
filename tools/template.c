@@ -37,5 +37,5 @@
 #elif defined(GL_WIN_LINUX)
 {{src/glLinux.c}}
 #else
-#error This operating system is unsupported by pp! Sorry!
+#error This operating system is unsupported by glWindow! Sorry!
 #endif

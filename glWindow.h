@@ -43,6 +43,24 @@ extern "C" {
 #error Sorry, unsupported operating system!
 #endif
 
+#if !defined(GL_LEGACY)
+#define DEFAULT_GL_VERSION_MAJOR 3
+#define DEFAULT_GL_VERSION_MINOR 2
+#if !defined(GL_VERSION_MAJOR) && !defined(GL_VERSION_MINOR)
+#define GL_VERSION_MAJOR DEFAULT_GL_VERSION_MAJOR
+#define GL_VERSION_MINOR DEFAULT_GL_VERSION_MINOR
+#endif
+#if defined(GL_VERSION_MAJOR)
+#if !defined(GL_VERSION_MINOR)
+#if GL_VERSION_MAJOR == DEFAULT_GL_VERSION_MAJOR
+#define GL_VERSION_MINOR DEFAULT_GL_VERSION_MINOR
+#else
+#define GL_VERSION_MINOR 0
+#endif
+#endif
+#endif
+#endif
+
 #if defined(GL_WIN_WINDOWS)
 #define EXPORT __declspec(dllexport)
 #else

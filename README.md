@@ -1,6 +1,6 @@
 # glWindow
 
-Cross-platform OpenGL context with a incredibly simple API. **WIP** -- See [TODO](https://github.com/takeiteasy/glWindow#todo) section for progress, or [here](https://takeiteasy.github.io/glWindow/) for online documentation.
+Tiny cross-platform OpenGL context with a incredibly simple API. **WIP** -- See [TODO](https://github.com/takeiteasy/glWindow#todo) section for progress, or [here](https://takeiteasy.github.io/glWindow/) for online documentation.
 
 ```c
 #include "glWindow.h"
@@ -44,7 +44,7 @@ int main(int argc, const char *argv[]) {
 - [X] ~~Mac context~~
 - [X] ~~Documentation~~
 - [X] ~~Windows context~~
-- [X] Linux context (X11) (WIP)
+- [X] Linux context (X11) (Untested)
 - [ ] WebGL (Emscripten) context
 
 ## License

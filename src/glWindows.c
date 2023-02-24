@@ -28,20 +28,6 @@
 #undef wherever_you_are
 
 #if !defined(GL_LEGACY)
-#if !defined(GL_VERSION_MAJOR) && !defined(GL_VERSION_MINOR)
-#define GL_VERSION_MAJOR 3
-#define GL_VERSION_MINOR 2
-#endif
-#if defined(GL_VERSION_MAJOR)
-#if !defined(GL_VERSION_MINOR)
-#if GL_VERSION_MAJOR == 3
-#define GL_VERSION_MINOR 2
-#else
-#define GL_VERSION_MINOR 0
-#endif
-#endif
-#endif
-
 #define WGL_DRAW_TO_WINDOW_ARB 0x2001
 #define WGL_SUPPORT_OPENGL_ARB 0x2010
 #define WGL_DOUBLE_BUFFER_ARB 0x2011
