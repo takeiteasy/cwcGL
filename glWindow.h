@@ -135,12 +135,6 @@ EXPORT void glFlushWindow(void);
  * @abstract Close window + free all resources
  */
 EXPORT void glWindowQuit(void);
-/*!
- * @function glGetTime
- * @abstract High resolution timer
- * @return Current elapsed CPU time
- */
-EXPORT double glGetTime(void);
 
 #define X(NAME, ARGS) \
     void(*NAME##Callback)ARGS,
@@ -176,137 +170,12 @@ EXPORT void glWindowUserdata(void *userdata);
  * @return Returns 1 if window is still open, 0 is closed
  */
 EXPORT int glIsWindowOpen(void);
-
 /*!
- * @enum GLcursor
- * @abstract System cursors
- * @constant ArrowCursor Default arrow cursor
- * @constant IBeamCursor I-Beam Cursor
- * @constant WaitCursor Wait cursor
- * @constant CrosshairCursor Crosshair
- * @constant WaitArrowCursor Waiting arrow cursor
- * @constant NWSECursor North-West, South-East cursor
- * @constant NESWCursor North-East, South-West cursor
- * @constant WECursor West-East cursor
- * @constant NSCursor North-South cursor
- * @constant MoveCursor All-direction cursor
- * @constant StopCursor Stop-symbol cursor
- * @constant HandCursor Hand cursor
+ * @function glWindowNative
+ * @abstract Retrieve the native window handle
+ * @return Returns pointer to native window handle
  */
-typedef enum {
-    ArrowCursor = 0,   // Arrow
-    IBeamCursor,       // I-beam
-    WaitCursor,        // Wait
-    CrosshairCursor,   // Crosshair
-    WaitArrowCursor,   // Small wait cursor (or Wait if not available)
-    NWSECursor,        // Double arrow pointing northwest and southeast
-    NESWCursor,        // Double arrow pointing northeast and southwest
-    WECursor,          // Double arrow pointing west and east
-    NSCursor,          // Double arrow pointing north and south
-    MoveCursor,        // Four pointed arrow pointing north, south, east, and west
-    StopCursor,        // Slashed circle or crossbones
-    HandCursor         // Hand
-} GLcursor;
-
-/*!
- * @function glSetWindowIcon
- * @abstract Set window icon from glImage
- * @param data Image data
- * @param w Image width
- * @param h Image height
- * @return Returns 1 on success, 0 on failure
- */
-EXPORT int glSetWindowIcon(unsigned char *data, int w, int h);
-/*!
- * @function glSetCursor
- * @abstract Change the cursor for a window
- * @param cursor System cursor
- */
-EXPORT void glSetCursor(GLcursor cursor);
-/*!
- * @function glSetCustomCursor
- * @abstract Change the cursor for a window from a glImage
- * @param data Image data
- * @param w Image width
- * @param h Image height
- * @return Returns 1 on success, 0 on failure
- */
-EXPORT int glSetCustomCursor(unsigned char *data, int w, int h);
-/*!
- * @function glHideCursor
- * @abstract Hide the cursor when window is active
- */
-EXPORT void glHideCursor(void);
-/*!
- * @function glShowCursor
- * @abstract Show the cursor when window is active
- */
-EXPORT void glShowCursor(void);
-/*!
- * @function glDisableCursor
- * @abstract When window is active, cursor won't move
- */
-EXPORT void glDisableCursor(void);
-/*!
- * @function glEnableCursor
- * @abstract Undo glDisableCursor
- */
-EXPORT void glEnableCursor(void);
-/*!
- * @function glCursorPosition
- * @abstract Get the position of the cursor
- * @param x Returns the cursor's X position
- * @param y Returns the cursor's Y position
- */
-EXPORT void glCursorPosition(int *x, int *y);
-/*!
- * @function glSetCursorPosition
- * @abstract Set the cursor position
- * @param x Cursor's new X position
- * @param y Cursor's new Y position
- */
-EXPORT void glSetCursorPosition(int x, int y);
-/*!
- * @function glWindowPosition
- * @abstract Get the window's current position
- * @param x Returns the windows's X position
- * @param y Returns the windows's Y position
- */
-EXPORT void glWindowPosition(int *x, int *y);
-/*!
- * @function glSetWindowPosition
- * @abstract Set a windows position
- * @param x Window's new X position
- * @param y Window's new Y position
- */
-EXPORT void glSetWindowPosition(int x, int y);
-/*!
- * @function glWindowSize
- * @abstract Get a windows size
- * @param w Returns the window's width
- * @param h Returns the window's height
- */
-EXPORT void glWindowSize(int *w, int *h);
-/*!
- * @function glWindowSetSize
- * @abstract Set a windows size
- * @param w Window's new width
- * @param h Window's new height
- */
-EXPORT void glWindowSetSize(int w, int h);
-/*!
- * @function glWindowScreenSize
- * @abstract Get the screen size of a windows current screen
- * @param w Returns current screen's width
- * @param h Returns current screen's height
- */
-EXPORT void glWindowScreenSize(int *w, int *h);
-/*!
- * @function glSetWindowTitle
- * @abstract Set a window's title
- * @param title Window's new title
- */
-EXPORT void glSetWindowTitle(const char *title);
+EXPORT void* glWindowNative(void);
 
 #if defined(__cplusplus)
 }

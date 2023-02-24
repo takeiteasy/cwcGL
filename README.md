@@ -43,8 +43,8 @@ int main(int argc, const char *argv[]) {
 
 - [X] ~~Mac context~~
 - [X] ~~Documentation~~
-- [ ] Windows context (WIP)
-- [ ] Linux context (X11)
+- [X] ~~Windows context~~
+- [X] Linux context (X11) (WIP)
 - [ ] WebGL (Emscripten) context
 
 ## License

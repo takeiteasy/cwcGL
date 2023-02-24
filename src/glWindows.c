@@ -106,9 +106,8 @@ static struct {
     int tmeRefresh;
     int width, height;
     int cursorLastX, cursorLastY;
-    int mouseInWindow, cursorHidden;
+    int mouseInWindow;
     long windowFlags;
-    LARGE_INTEGER timestamp;
 } GLnative = {0};
 
 static int WindowsModState(void) {
@@ -369,16 +368,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
             break;
         }
         case WM_MOUSEHOVER:
-            if (!GLnative.mouseInWindow) {
-                if (GLnative.cursorHidden)
-                    ShowCursor(0);
-            }
             GLnative.mouseInWindow = 1;
             GLnative.tmeRefresh = 1;
             break;
         case WM_MOUSELEAVE:
-            if (GLnative.cursorHidden)
-                ShowCursor(1);
             GLnative.tmeRefresh = 0;
             break;
         case WM_SETFOCUS:
@@ -566,144 +559,6 @@ void glWindowQuit(void) {
     DestroyWindow(GLnative.hwnd);
 }
 
-double glGetTime(void) {
-    LARGE_INTEGER cnt, freq;
-    QueryPerformanceCounter(&cnt);
-    QueryPerformanceFrequency(&freq);
-    ULONGLONG diff = cnt.QuadPart - GLnative.timestamp.QuadPart;
-    GLnative.timestamp = cnt;
-    return (double)(diff / (double)freq.QuadPart);
-}
-
-int glSetWindowIcon(unsigned char *data, int w, int h) {
-    return 0;
-}
-
-void glSetCursor(GLcursor cursor) {
-    
-}
-
-int glSetCustomCursor(unsigned char *data, int w, int h) {
-    return 0;
-}
-
-void glHideCursor(void) {
-    GLnative.cursorHidden = 1;
-    if (GLnative.mouseInWindow)
-        ShowCursor(0);
-}
-
-void glShowCursor(void) {
-    GLnative.cursorHidden = 0;
-    if (GLnative.mouseInWindow)
-        ShowCursor(1);
-}
-
-void glDisableCursor(void) {
-    
-}
-
-void glEnableCursor(void) {
-    
-}
-
-void glCursorPosition(int *x, int *y) {
-    POINT position;
-    if (GetCursorPos(&position)) {
-        ScreenToClient(GLnative.hwnd, &position);
-        if (x)
-            *x = position.x;
-        if (y)
-            *y = position.y;
-    }
-}
-
-void glSetCursorPosition(int x, int y) {
-    POINT position = { x, y };
-    GLnative.cursorLastX = x;
-    GLnative.cursorLastY = y;
-    
-    ClientToScreen(GLnative.hwnd, &position);
-    SetCursorPos(position.x, position.y);
-}
-
-void glWindowPosition(int *x, int *y) {
-    POINT position = { 0, 0 };
-    ClientToScreen(GLnative.hwnd, &position);
-    if (x)
-        *x = position.x;
-    if (y)
-        *y = position.y;
-}
-
-
-// https://github.com/glfw/glfw/blob/master/src/win32_init.c#L591
-static BOOL IsWindows10BuildOrGreaterWin32(WORD build) {
-    OSVERSIONINFOEXW osvi = { sizeof(osvi), 10, 0, build };
-    DWORD mask = VER_MAJORVERSION | VER_MINORVERSION | VER_BUILDNUMBER;
-    ULONGLONG cond = VerSetConditionMask(0, VER_MAJORVERSION, VER_GREATER_EQUAL);
-    cond = VerSetConditionMask(cond, VER_MINORVERSION, VER_GREATER_EQUAL);
-    cond = VerSetConditionMask(cond, VER_BUILDNUMBER, VER_GREATER_EQUAL);
-    // HACK: Use RtlVerifyVersionInfo instead of VerifyVersionInfoW as the
-    //       latter lies unless the user knew to embed a non-default manifest
-    //       announcing support for Windows 10 via supportedOS GUID
-    return RtlVerifyVersionInfo(&osvi, mask, cond) == 0;
-}
-
-void glSetWindowPosition(int x, int y) {
-    RECT rect = { x, y, x, y };
-    
-    if (IsWindows10BuildOrGreaterWin32(14393))
-        AdjustWindowRectExForDpi(&rect, GLnative.windowFlags, FALSE, GLnative.windowFlags, GetDpiForWindow(GLnative.hwnd));
-    else
-        AdjustWindowRectEx(&rect, GLnative.windowFlags, FALSE, GLnative.windowFlags);
-    
-    SetWindowPos(GLnative.hwnd, NULL, rect.left, rect.top, 0, 0, SWP_NOACTIVATE | SWP_NOZORDER | SWP_NOSIZE);
-}
-
-void glWindowSize(int *w, int *h) {
-    RECT rect;
-    GetClientRect(GLnative.hwnd, &rect);
-    if (w)
-        *w = rect.right;
-    if (h)
-        *h = rect.bottom;
-}
-
-void glWindowSetSize(int w, int h) {
-    RECT rect = { 0, 0, w, h };
-    
-    if (IsWindows10BuildOrGreaterWin32(14393))
-        AdjustWindowRectExForDpi(&rect, GLnative.windowFlags, FALSE, GLnative.windowFlags, GetDpiForWindow(GLnative.hwnd));
-    else
-        AdjustWindowRectEx(&rect, GLnative.windowFlags, FALSE, GLnative.windowFlags);
-    
-    SetWindowPos(GLnative.hwnd, HWND_TOP, 0, 0, rect.right - rect.left, rect.bottom - rect.top, SWP_NOACTIVATE | SWP_NOOWNERZORDER | SWP_NOMOVE | SWP_NOZORDER);
-}
-
-void glWindowScreenSize(int *w, int *h) {
-    if (w)
-        *w = GetSystemMetrics(SM_CXSCREEN);
-    if (h)
-        *h = GetSystemMetrics(SM_CYSCREEN);
-}
-
-static WCHAR* CreateWideString(const char *str) {
-    int length = MultiByteToWideChar(CP_UTF8, 0, str, -1, NULL, 0);
-    if (!length)
-        return NULL;
-    WCHAR *result = calloc(length, sizeof(WCHAR));
-    if (!MultiByteToWideChar(CP_UTF8, 0, str, -1, result, length)) {
-        free(result);
-        return NULL;
-    }
-    return result;
-}
-
-void glSetWindowTitle(const char *title) {
-    WCHAR *wTitle = CreateWideString(title);
-    if (wTitle) {
-        SetWindowTextW(GLnative.hwnd, wTitle);
-        free(wTitle);
-    }
+void* glWindowNative(void) {
+    return (void*)GLnative.hwnd;
 }

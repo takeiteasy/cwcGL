@@ -194,12 +194,8 @@ extern id NSDeviceRGBColorSpace;
 #define ObjC_Release(CLASS) ObjC(void)(CLASS, sel(release))
 
 static struct {
-    id window, glContext, cursor;
+    id window, glContext;
     int cursorInWindow;
-    int customCursor;
-    int hideCursor;
-    int disableCursor;
-    mach_timebase_info_data_t info;
 } GLnative = {0};
 
 static NSUInteger applicationShouldTerminate(id self, SEL _sel, id sender) {
@@ -214,21 +210,6 @@ static void windowWillClose(id self, SEL _sel, id notification) {
     GLwindow.running = 0;
 }
 
-static void windowDidBecomeKey(id self, SEL _sel, id notification) {
-    glCallCallback(Focus, 1);
-    if (GLnative.disableCursor) {
-        NSRect frame = ObjC_Struct(NSRect)(GLnative.window, sel(frame));
-        CGWarpMouseCursorPosition(CGPointMake(frame.origin.x + frame.size.width / 2.f, frame.origin.y + frame.size.height / 2.f));
-        CGAssociateMouseAndMouseCursorPosition(NO);
-    }
-}
-
-static void windowDidResignKey(id self, SEL _sel, id notification) {
-    glCallCallback(Focus, 0);
-    if (GLnative.disableCursor)
-        CGAssociateMouseAndMouseCursorPosition(YES);
-}
-
 static void windowDidResize(id self, SEL _sel, id notification) {
     CGRect frame = ObjC(CGRect)(ObjC(id)(GLnative.window, sel(contentView)), sel(frame));
     glCallCallback(Resized, frame.size.width, frame.size.height);
@@ -236,22 +217,11 @@ static void windowDidResize(id self, SEL _sel, id notification) {
 
 static void mouseEntered(id self, SEL _sel, id event) {
     GLnative.cursorInWindow = YES;
-    if (GLnative.hideCursor)
-        ObjC(void)(class(NSCursor), sel(hide));
 }
 
 static void mouseExited(id self, SEL _sel, id event) {
     GLnative.cursorInWindow = NO;
     ObjC(void)(class(NSCursor), sel(unhide));
-}
-
-static void mouseMoved(id self, SEL _sel, id event) {
-    if (GLnative.cursor && GLnative.cursorInWindow) {
-        if (GLnative.hideCursor)
-            ObjC(void)(class(NSCursor), sel(hide));
-        else
-            ObjC(void)(GLnative.cursor, sel(set));
-    }
 }
 
 static id CreateNSString(const char *str) {
@@ -344,18 +314,12 @@ int glWindow(unsigned int w, unsigned int h, const char *title, GLflags flags) {
         ObjC_AddProtocol(WindowDelegate, NSWindowDelegate);
         ObjC_AddIVar(WindowDelegate, glWindow, sizeof(void*), "ˆv");
         ObjC_AddMethod(WindowDelegate, windowWillClose:, windowWillClose, "v@:@");
-        ObjC_AddMethod(WindowDelegate, windowDidBecomeKey:, windowDidBecomeKey, "v@:@");
-        ObjC_AddMethod(WindowDelegate, windowDidResignKey:, windowDidResignKey, "v@:@");
         ObjC_AddMethod(WindowDelegate, windowDidResize:, windowDidResize, "v@:@");
         ObjC_AddMethod(WindowDelegate, mouseEntered:, mouseEntered, "v@:@");
         ObjC_AddMethod(WindowDelegate, mouseExited:, mouseExited, "v@:@");
-        ObjC_AddMethod(WindowDelegate, mouseMoved:, mouseMoved, "v@:@");
         id windowDelegate = ObjC(id)(ObjC(id)((id)WindowDelegate, sel(alloc)), sel(init));
         ObjC_Autorelease(windowDelegate);
         ObjC(void, id)(GLnative.window, sel(setDelegate:), windowDelegate);
-        
-        GLnative.cursor = ObjC(id)(class(NSCursor), sel(arrowCursor));
-        GLnative.customCursor = NO;
         
         id contentView = ObjC(id)(GLnative.window, sel(contentView));
         int trackingFlags = NSTrackingMouseEnteredAndExited | NSTrackingActiveInKeyWindow | NSTrackingInVisibleRect;
@@ -384,7 +348,6 @@ int glWindow(unsigned int w, unsigned int h, const char *title, GLflags flags) {
         ObjC(void, BOOL)(NSApp, sel(activateIgnoringOtherApps:), YES);
     });
     
-    mach_timebase_info(&GLnative.info);
     GLwindow.running = 1;
     return 1;
 }
@@ -786,194 +749,11 @@ void glFlushWindow(void) {
 void glWindowQuit(void) {
     if (!GLwindow.running)
         return;
-    if (GLnative.customCursor && GLnative.cursor)
-        ObjC_Release(GLnative.cursor);
-    if (GLnative.hideCursor)
-        ObjC(void)(class(NSCursor), sel(unhide));
-    if (GLnative.disableCursor)
-        CGAssociateMouseAndMouseCursorPosition(YES);
     ObjC(void)(GLnative.window, sel(close));
     ObjC_Release(GLnative.glContext);
     ObjC_Release(GLnative.window);
 }
 
-double glGetTime(void) {
-    return (mach_absolute_time() * GLnative.info.numer) / (GLnative.info.denom  * 1000000000.0);
-}
-
-static id CreateNSImage(unsigned char *data, int w, int h) {
-    id nsi = ObjC(id, NSSize)(ObjC_Alloc(NSImage), sel(initWithSize:), CGSizeMake(w, h));
-    if (!nsi)
-        return nil;
-    ObjC_Autorelease(nsi);
-    
-    id nsbir = ObjC(id, unsigned char*, NSInteger, NSInteger, NSInteger, NSInteger, BOOL, BOOL, NSColorSpaceName, NSInteger, NSInteger, NSInteger)(ObjC_Alloc(NSBitmapImageRep), sel(initWithBitmapDataPlanes:pixelsWide:pixelsHigh:bitsPerSample:samplesPerPixel:hasAlpha:isPlanar:colorSpaceName:bitmapFormat:bytesPerRow:bitsPerPixel:), nil, w, h, 8, 4, YES, NO, NSDeviceRGBColorSpace, NSBitmapFormatAlphaNonpremultiplied, 0, 0);
-    if (!nsbir)
-        return nil;
-    ObjC_Autorelease(nsbir);
-    
-    unsigned char* bitmapData = ObjC(unsigned char*)(nsbir, sel(bitmapData));
-    memcpy(bitmapData, data, w * h * sizeof(unsigned char) * 4);
-    ObjC(void, id)(nsi, sel(addRepresentation:), nsbir);
-    return nsi;
-}
-
-int glSetWindowIcon(unsigned char *data, int w, int h) {
-    id icon = !data || !w || !h ? ObjC(id, id)(class(NSImage), sel(imageNamed:), CreateNSString("NSApplicationIcon")) : CreateNSImage(data, w, h);
-    if (!icon)
-        return 0;
-    ObjC(void, id)(NSApp, sel(setApplicationIconImage:), icon);
-    return 1;
-}
-
-static id ConvertMacCursor(GLcursor cursor) {
-    SEL cursorSel = 0;
-    switch (cursor) {
-        default:
-        case ArrowCursor:
-        case WaitCursor:
-        case WaitArrowCursor:
-            cursorSel = sel(arrowCursor);
-            break;
-        case IBeamCursor:
-            cursorSel = sel(IBeamCursor);
-            break;
-        case CrosshairCursor:
-            cursorSel = sel(crosshairCursor);
-            break;
-        case NWSECursor:
-        case NESWCursor:
-            cursorSel = sel(closedHandCursor);
-            break;
-        case WECursor:
-            cursorSel = sel(resizeLeftRightCursor);
-            break;
-        case NSCursor:
-            cursorSel = sel(resizeUpDownCursor);
-            break;
-        case MoveCursor:
-            cursorSel = sel(closedHandCursor);
-            break;
-        case StopCursor:
-            cursorSel = sel(operationNotAllowedCursor);
-            break;
-        case HandCursor:
-            cursorSel = sel(pointingHandCursor);
-            break;
-    }
-    return cursorSel == 0 ? nil : ObjC(id)(class(NSCursor), cursorSel);
-}
-
-void glSetCursor(GLcursor cursor) {
-    id cursorImg = ConvertMacCursor(cursor);
-    if (!cursorImg)
-        cursorImg = ObjC(id)(class(NSCursor), sel(arrowCursor));
-    
-    if (GLnative.customCursor && GLnative.cursor)
-        ObjC_Release(GLnative.cursor);
-    GLnative.customCursor = NO;
-    GLnative.cursor = cursorImg;
-    ObjC(void)(GLnative.cursor, sel(retain));
-}
-
-int glSetCustomCursor(unsigned char *data, int w, int h) {
-    if (GLnative.customCursor && GLnative.cursor)
-        ObjC_Release(GLnative.cursor);
-    
-    int result = 1;
-    id icon = nil;
-    if (!data || !w || !h)
-        goto BAIL;
-    else
-        if (!(icon = CreateNSImage(data, w, h)))
-            goto BAIL;
-    
-    ObjC(void)(icon, sel(retain));
-    goto SUCCESS;
-    
-BAIL:
-    icon = ObjC(id)(class(NSCursor), sel(arrowCursor));
-    result = 0;
-SUCCESS:
-    GLnative.cursor = icon;
-    GLnative.customCursor = result;
-    return result;
-}
-
-void glHideCursor(void) {
-    GLnative.hideCursor = YES;
-    if (GLnative.cursorInWindow)
-        ObjC(void)(class(NSCursor), sel(hide));
-}
-
-void glShowCursor(void) {
-    GLnative.hideCursor = NO;
-    if (GLnative.cursorInWindow)
-        ObjC(void)(class(NSCursor), sel(unhide));
-}
-
-void glDisableCursor(void) {
-    GLnative.disableCursor = YES;
-    
-    NSRect frame = ObjC_Struct(NSRect)(GLnative.window, sel(frame));
-    CGWarpMouseCursorPosition(CGPointMake(frame.origin.x + frame.size.width / 2.f, frame.origin.y + frame.size.height / 2.f));
-    CGAssociateMouseAndMouseCursorPosition(NO);
-}
-
-void glEnableCursor(void) {
-    GLnative.disableCursor = NO;
-    CGAssociateMouseAndMouseCursorPosition(YES);
-}
-
-void glCursorPosition(int *x, int *y) {
-    NSPoint p = ObjC(NSPoint)(class(NSEvent), sel(mouseLocation));
-    if (x)
-        *x = p.x;
-    if (y) {
-        NSRect frame = ObjC_Struct(NSRect)(ObjC(id)(GLnative.window, sel(screen)), sel(frame));
-        *y = frame.size.height - p.y;
-    }
-}
-
-void glSetCursorPosition(int x, int y) {
-    CGWarpMouseCursorPosition(CGPointMake((float)x, (float)y));
-}
-
-void glWindowPosition(int *x, int *y) {
-    NSRect frame = ObjC_Struct(NSRect)(GLnative.window, sel(frame));
-    if (x)
-        *x = frame.origin.x;
-    if (y)
-        *y = frame.origin.y;
-}
-
-void glSetWindowPosition(int x, int y) {
-    ObjC(void, NSPoint)(GLnative.window, sel(setFrameOrigin:), CGPointMake((float)x, (float)y));
-}
-
-void glWindowSize(int *w, int *h) {
-    NSRect frame = ObjC_Struct(NSRect)(GLnative.window, sel(frame));
-    if (w)
-        *w = frame.size.width;
-    if (h)
-        *h = frame.size.height;
-}
-
-void glWindowSetSize(int w, int h) {
-    int x = 0, y = 0;
-    glWindowPosition(&x, &h);
-    ObjC(void, NSRect, BOOL, BOOL)(GLnative.window, sel(setFrame:display:animate:), CGRectMake((float)x, (float)y, (float)w, (float)h), YES, YES);
-    
-}
-
-void glWindowScreenSize(int *w, int *h) {
-    NSRect frame = ObjC_Struct(NSRect)(ObjC(id)(GLnative.window, sel(screen)), sel(frame));
-    if (w)
-        *w = frame.size.width;
-    if (h)
-        *h = frame.size.height;
-}
-
-void glSetWindowTitle(const char *title) {
-    ObjC(void, id)(GLnative.window, sel(setTitle:), CreateNSString(title));
+void* glWindowNative(void) {
+    return (void*)GLnative.window;
 }
