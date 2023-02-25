@@ -31,18 +31,27 @@ extern "C" {
  */
 
 #if defined(__EMSCRIPTEN__) || defined(EMSCRIPTEN)
-#define GL_WIN_EMSCRIPTEN
+#define GLW_EMSCRIPTEN
+#include <emscripten.h>
 #endif
+
 #if defined(macintosh) || defined(Macintosh) || (defined(__APPLE__) && defined(__MACH__))
-#define GL_WIN_MAC
+#define GLW_MAC
 #elif defined(_WIN32) || defined(_WIN64) || defined(__WIN32__) || defined(__WINDOWS__)
-#define GL_WIN_WINDOWS
+#define GLW_WINDOWS
 #elif defined(__gnu_linux__) || defined(__linux__) || defined(__unix__)
-#define GL_WIN_LINUX
+#define GLW_LINUX
 #else
 #error Sorry, unsupported operating system!
 #endif
 
+#if defined(GLW_EMSCRIPTEN)
+#if defined(GL_LEGACY)
+#define GL_VERSION_MAJOR 1
+#else
+#define GL_VERSION_MAJOR 2
+#endif
+#else
 #if !defined(GL_LEGACY)
 #define DEFAULT_GL_VERSION_MAJOR 3
 #define DEFAULT_GL_VERSION_MINOR 2
@@ -60,9 +69,12 @@ extern "C" {
 #endif
 #endif
 #endif
+#endif
 
-#if defined(GL_WIN_WINDOWS)
+#if defined(GLW_WINDOWS)
 #define EXPORT __declspec(dllexport)
+#elif defined(GLW_EMSCRIPTEN)
+#define EXPORT EMSCRIPTEN_KEEPALIVE
 #else
 #define EXPORT
 #endif
@@ -118,7 +130,7 @@ typedef enum {
     KEY_MOD_NUM_LOCK  = 1 << 5
 } GLmod;
 
-#define GL_WIN_CALLBACKS                             \
+#define GLW_CALLBACKS                             \
     X(Keyboard,     (void*, GLkey, GLmod, int))      \
     X(MouseButton,  (void*, int, GLmod, int))        \
     X(MouseMove,    (void*, int, int, float, float)) \
@@ -169,11 +181,11 @@ EXPORT void glWindowQuit(void);
  * @param userdata Userdata stored by pp, passed to callback functions
  * @discussion All callbacks are optional, pass NULL to skip callback. These can also be set individually, e.g. glWindowKeyboardCallback(cb)
  */
-EXPORT void glWindowCallbacks(GL_WIN_CALLBACKS void *userdata);
+EXPORT void glWindowCallbacks(GLW_CALLBACKS void *userdata);
 #undef X
 #define X(NAME, ARGS) \
     EXPORT void glWindow##NAME##Callback(void(*NAME##Callback)ARGS);
-GL_WIN_CALLBACKS
+GLW_CALLBACKS
 #undef X
 
 /*!

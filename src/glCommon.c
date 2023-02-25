@@ -23,7 +23,7 @@
 
 static struct {
 #define X(NAME, ARGS) void(*NAME##Callback)ARGS;
-    GL_WIN_CALLBACKS
+    GLW_CALLBACKS
 #undef X
     int running;
     void *userdata;
@@ -35,11 +35,11 @@ static struct {
 
 #define X(NAME, ARGS) \
     void(*NAME##Callback)ARGS,
-void glWindowCallbacks(GL_WIN_CALLBACKS void* userdata) {
+void glWindowCallbacks(GLW_CALLBACKS void* userdata) {
 #undef X
 #define X(NAME, ARGS) \
     GLwindow.NAME##Callback = NAME##Callback;
-    GL_WIN_CALLBACKS
+    GLW_CALLBACKS
 #undef X
     GLwindow.userdata = userdata;
 }
@@ -48,7 +48,7 @@ void glWindowCallbacks(GL_WIN_CALLBACKS void* userdata) {
     void glWindow##NAME##Callback(void(*NAME##Callback)ARGS) { \
         GLwindow.NAME##Callback = NAME##Callback;              \
     }
-GL_WIN_CALLBACKS
+GLW_CALLBACKS
 #undef X
 
 void glWindowUserdata(void *userdata) {

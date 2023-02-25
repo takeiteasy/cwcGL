@@ -45,7 +45,7 @@ int main(int argc, const char *argv[]) {
 - [X] ~~Documentation~~
 - [X] ~~Windows context~~
 - [X] Linux context (X11) (Untested)
-- [ ] WebGL (Emscripten) context
+- [X] ~~WebGL (Emscripten) context~~
 
 ## License
 ```

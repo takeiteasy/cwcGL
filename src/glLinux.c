@@ -32,6 +32,7 @@ static struct {
     Window root, window;
     GLXContext glc;
     int screen;
+    int width, height;
     Atom delete;
     GC gc;
     int cursorLastX, cursorLastY;
@@ -140,8 +141,8 @@ int glWindow(unsigned int w, unsigned int h, const char *title, GLflags flags) {
     swa.backing_store = NotUseful;
     if (!(GLnative.window = XCreateWindow(GLnative.display, GLnative.root, x, y, w, h, 0, GLnative.depth, InputOutput, visual, CWBackPixel | CWBorderPixel | CWBackingStore, &swa)))
         return 0;
-    GLwindow.width = w;
-    GLwindow.height = h;
+    GLnative.width = w;
+    GLnative.height = h;
     
     GLnative.delete = XInternAtom(GLnative.display, "WM_DELETE_WINDOW", False);
     XSetWMProtocols(GLnative.display, GLnative.window, &GLnative.delete, 1);
@@ -398,6 +399,7 @@ static int ConvertX11ModEx(int key, int state, int is_pressed) {
 int glPollWindow(void) {
     if (!GLwindow.running)
         return 0;
+    
     XEvent e;
     while (GLwindow.running && XPending(GLnative.display)) {
         XNextEvent(GLnative.display, &e);
@@ -446,11 +448,11 @@ int glPollWindow(void) {
             case ConfigureNotify: {
                 int w = e.xconfigure.width;
                 int h = e.xconfigure.height;
-                if (GLwindow.width == w && GLwindow.height == h)
+                if (GLnative.width == w && GLnative.height == h)
                     break;
                 glCallCallback(Resized, w, h);
-                GLwindow.width = w;
-                GLwindow.height = h;
+                GLnative.width = w;
+                GLnative.height = h;
                 XClearWindow(GLnative.display, GLnative.window);
                 break;
             }

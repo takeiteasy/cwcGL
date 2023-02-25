@@ -2,11 +2,40 @@
 #include <stdio.h>  // printf
 #include <string.h> // strcat
 
-#if defined(GL_WIN_WINDOWS) && !defined(_CRT_SECURE_NO_WARNINGS)
+#if defined(GLW_EMSCRIPTEN)
+#include <GLES2/gl2platform.h>
+
+#ifndef GL_APIENTRYP
+#define GL_APIENTRYP GL_APIENTRY*
+#endif
+
+#ifndef GL_GLES_PROTOTYPES
+#define GL_GLES_PROTOTYPES 1
+#endif
+
+#ifndef GL_ES_VERSION_2_0
+#define GL_ES_VERSION_2_0 1
+#include <KHR/khrplatform.h>
+
+typedef khronos_float_t GLfloat;
+typedef unsigned int GLbitfield;
+#define GL_COLOR_BUFFER_BIT               0x00004000
+
+#if GL_GLES_PROTOTYPES
+GL_APICALL void GL_APIENTRY glClear (GLbitfield mask);
+GL_APICALL void GL_APIENTRY glClearColor (GLfloat red, GLfloat green, GLfloat blue, GLfloat alpha);
+#endif
+#endif /* GL_ES_VERSION_2_0 */
+
+static int InitOpenGL(void) {
+    return 1;
+}
+#else
+#if defined(GLW_WINDOWS) && !defined(_CRT_SECURE_NO_WARNINGS)
 #define _CRT_SECURE_NO_WARNINGS
 #endif
 
-#if defined(GL_WIN_MAC) && !defined(GL_SILENCE_DEPRECATION)
+#if defined(GLW_MAC) && !defined(GL_SILENCE_DEPRECATION)
 #define GL_SILENCE_DEPRECATION
 #endif
 
@@ -39,7 +68,7 @@ GL_FUNCTIONS
 GL_FUNCTIONS
 #undef X
 
-#if defined(_WIN32) || defined(__CYGWIN__)
+#if defined(GLW_WINDOWS) || defined(__CYGWIN__)
 #ifndef _WINDOWS_
 #undef APIENTRY
 #endif
@@ -85,14 +114,14 @@ static void CloseGLLibrary(void) {
 }
 #else
 #include <dlfcn.h>
-#if !defined(__APPLE__) && !defined(__HAIKU__)
+#if !defined(GLW_MAC) && !defined(__HAIKU__)
 typedef void* (APIENTRYP PFNGLXGETPROCADDRESSPROC_PRIVATE)(const char*);
 static PFNGLXGETPROCADDRESSPROC_PRIVATE glLoaderGetProcAddressPtr;
 #endif
 static void* libGL = NULL;
 
 static int LoadGLLibrary(void) {
-#ifdef __APPLE__
+#if defined(GLW_MAC)
     static const char *NAMES[] = {
         "../Frameworks/OpenGL.framework/OpenGL",
         "/Library/Frameworks/OpenGL.framework/OpenGL",
@@ -106,7 +135,7 @@ static int LoadGLLibrary(void) {
     unsigned int index = 0;
     for (index = 0; index < (sizeof(NAMES) / sizeof(NAMES[0])); index++) {
         if ((libGL = dlopen(NAMES[index], RTLD_NOW | RTLD_GLOBAL))) {
-#if defined(__APPLE__) || defined(__HAIKU__)
+#if defined(GLW_MAC) || defined(__HAIKU__)
             return 1;
 #else
             glLoaderGetProcAddressPtr = (PFNGLXGETPROCADDRESSPROC_PRIVATE)dlsym(libGL,
@@ -131,12 +160,12 @@ static void* LoadGLProc(const char *namez) {
     if (libGL == NULL)
         return NULL;
 
-#if !defined(__APPLE__) && !defined(__HAIKU__)
+#if !defined(GLW_MAC) && !defined(__HAIKU__)
     if (glLoaderGetProcAddressPtr)
         result = glLoaderGetProcAddressPtr(namez);
 #endif
     if (!result) {
-#if defined(_WIN32) || defined(__CYGWIN__)
+#if defined(GLW_WINDOWS) || defined(__CYGWIN__)
         result = (void*)GetProcAddress((HMODULE)libGL, namez);
 #else
         result = dlsym(libGL, namez);
@@ -160,6 +189,7 @@ static int InitOpenGL(void) {
     return result;
 }
 #undef X
+#endif
 
 static const char* ModifierString(GLmod modifier) {
     static char ret[512];
@@ -215,20 +245,30 @@ static void ClosedCallback(void *userdata) {
     printf("WINDOW CLOSED! Goodbye...\n");
 }
 
+static void loop(void) {
+    glClearColor(1.f, 0.f, 0.f, 1.f);
+    glClear(GL_COLOR_BUFFER_BIT);
+    glFlushWindow();
+}
+
 int main(int argc, const char *argv[]) {
+#if !defined(GLW_EMSCRIPTEN)
     if (!InitOpenGL())
         return 1;
+#endif
+    
     if (!glWindow(640, 480, "glWindow", glResizable))
         return 1;
 #define X(NAME, _) NAME##Callback,
-    glWindowCallbacks(GL_WIN_CALLBACKS NULL);
+    glWindowCallbacks(GLW_CALLBACKS NULL);
 #undef X
     
-    while (glPollWindow()) {
-        glClearColor(1.f, 0.f, 0.f, 1.f);
-        glClear(GL_COLOR_BUFFER_BIT);
-        glFlushWindow();
-    }
+#if defined(GLW_EMSCRIPTEN)
+    emscripten_set_main_loop(loop, 0, 1);
+#else
+    while (glPollWindow())
+        loop();
+#endif
     glWindowQuit();
     return 0;
 }

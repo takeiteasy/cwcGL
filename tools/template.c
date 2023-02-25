@@ -28,13 +28,13 @@
 #include "glWindow.h"
 {{src/glCommon.c}}
 
-#if defined(GL_WIN_EMSCRIPTEN)
+#if defined(GLW_EMSCRIPTEN)
 {{src/glEmscripten.c}}
-#elif defined(GL_WIN_MAC)
+#elif defined(GLW_MAC)
 {{src/glMac.c}}
-#elif defined(GL_WIN_WINDOWS)
+#elif defined(GLW_WINDOWS)
 {{src/glWindows.c}}
-#elif defined(GL_WIN_LINUX)
+#elif defined(GLW_LINUX)
 {{src/glLinux.c}}
 #else
 #error This operating system is unsupported by glWindow! Sorry!
