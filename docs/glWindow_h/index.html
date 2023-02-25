@@ -260,6 +260,14 @@ function disclosure_triangle(elt) {
 <td id="bodyContents" valign="top">
 <a name="top"></a>
 <h1><a name="glWidow">glWidow</a></h1>
+<div class="spec_sheet_info_box"><table cellspacing="0" class="specbox">
+<tr>
+<td scope="row"><b>Includes:</b></td>
+<td><div style="margin-bottom:1px"><div class="content_text">
+<!-- a logicalPath="//apple_ref/doc/header/emscripten.h" machineGenerated="true" -->&lt;emscripten.h&gt;<!-- /a -->
+</div></div></td>
+</tr>
+</table></div>
 <h2>Introduction</h2>
 <!-- begin discussion --><!-- headerDoc=discussion;uid=//apple_ref/doc/header/glWindow.h;name=start --><p>Yet another cross-platform OpenGL context</p>
 <!-- headerDoc=discussion;uid=//apple_ref/doc/header/glWindow.h;name=end --><!-- end discussion -->
@@ -267,23 +275,8 @@ function disclosure_triangle(elt) {
 <br><a name="HeaderDoc_functions"></a>
 <h2 class="h2tight">Functions</h2>
 <dl>
-<dt><tt><a href="index.html#//apple_ref/c/func/glCursorPosition" target="_top">glCursorPosition</a></tt></dt>
-<dd><p>Get the position of the cursor
-</p></dd>
-<dt><tt><a href="index.html#//apple_ref/c/func/glDisableCursor" target="_top">glDisableCursor</a></tt></dt>
-<dd><p>When window is active, cursor won't move
-</p></dd>
-<dt><tt><a href="index.html#//apple_ref/c/func/glEnableCursor" target="_top">glEnableCursor</a></tt></dt>
-<dd><p>Undo glDisableCursor
-</p></dd>
 <dt><tt><a href="index.html#//apple_ref/c/func/glFlushWindow" target="_top">glFlushWindow</a></tt></dt>
 <dd><p>Render OpenGL to window
-</p></dd>
-<dt><tt><a href="index.html#//apple_ref/c/func/glGetTime" target="_top">glGetTime</a></tt></dt>
-<dd><p>High resolution timer
-</p></dd>
-<dt><tt><a href="index.html#//apple_ref/c/func/glHideCursor" target="_top">glHideCursor</a></tt></dt>
-<dd><p>Hide the cursor when window is active
 </p></dd>
 <dt><tt><a href="index.html#//apple_ref/c/func/glIsWindowOpen" target="_top">glIsWindowOpen</a></tt></dt>
 <dd><p>Check if a window is still open
@@ -291,47 +284,17 @@ function disclosure_triangle(elt) {
 <dt><tt><a href="index.html#//apple_ref/c/func/glPollWindow" target="_top">glPollWindow</a></tt></dt>
 <dd><p>Poll a window for events
 </p></dd>
-<dt><tt><a href="index.html#//apple_ref/c/func/glSetCursor" target="_top">glSetCursor</a></tt></dt>
-<dd><p>Change the cursor for a window
-</p></dd>
-<dt><tt><a href="index.html#//apple_ref/c/func/glSetCursorPosition" target="_top">glSetCursorPosition</a></tt></dt>
-<dd><p>Set the cursor position
-</p></dd>
-<dt><tt><a href="index.html#//apple_ref/c/func/glSetCustomCursor" target="_top">glSetCustomCursor</a></tt></dt>
-<dd><p>Change the cursor for a window from a glImage
-</p></dd>
-<dt><tt><a href="index.html#//apple_ref/c/func/glSetWindowIcon" target="_top">glSetWindowIcon</a></tt></dt>
-<dd><p>Set window icon from glImage
-</p></dd>
-<dt><tt><a href="index.html#//apple_ref/c/func/glSetWindowPosition" target="_top">glSetWindowPosition</a></tt></dt>
-<dd><p>Set a windows position
-</p></dd>
-<dt><tt><a href="index.html#//apple_ref/c/func/glSetWindowTitle" target="_top">glSetWindowTitle</a></tt></dt>
-<dd><p>Set a window's title
-</p></dd>
-<dt><tt><a href="index.html#//apple_ref/c/func/glShowCursor" target="_top">glShowCursor</a></tt></dt>
-<dd><p>Show the cursor when window is active
-</p></dd>
 <dt><tt><a href="index.html#//apple_ref/c/func/glWindow" target="_top">glWindow</a></tt></dt>
 <dd><p>Create a new OpenGL window
 </p></dd>
 <dt><tt><a href="index.html#//apple_ref/c/func/glWindowCallbacks" target="_top">glWindowCallbacks</a></tt></dt>
 <dd><p>Assign window event callbacks
 </p></dd>
-<dt><tt><a href="index.html#//apple_ref/c/func/glWindowPosition" target="_top">glWindowPosition</a></tt></dt>
-<dd><p>Get the window's current position
+<dt><tt><a href="index.html#//apple_ref/c/func/glWindowNative" target="_top">glWindowNative</a></tt></dt>
+<dd><p>Retrieve the native window handle
 </p></dd>
 <dt><tt><a href="index.html#//apple_ref/c/func/glWindowQuit" target="_top">glWindowQuit</a></tt></dt>
 <dd><p>Close window + free all resources
-</p></dd>
-<dt><tt><a href="index.html#//apple_ref/c/func/glWindowScreenSize" target="_top">glWindowScreenSize</a></tt></dt>
-<dd><p>Get the screen size of a windows current screen
-</p></dd>
-<dt><tt><a href="index.html#//apple_ref/c/func/glWindowSetSize" target="_top">glWindowSetSize</a></tt></dt>
-<dd><p>Set a windows size
-</p></dd>
-<dt><tt><a href="index.html#//apple_ref/c/func/glWindowSize" target="_top">glWindowSize</a></tt></dt>
-<dd><p>Get a windows size
 </p></dd>
 <dt><tt><a href="index.html#//apple_ref/doc/title:func/glWindowUserData" target="_top">glWindowUserData</a></tt></dt>
 <dd><p>Assign userdata to be send to window event callbacks
@@ -340,60 +303,6 @@ function disclosure_triangle(elt) {
 <dd><p>Assign userdata to be send to window event callbacks
 </p></dd>
 </dl>
-<hr class="betweenAPIEntries">
-<!-- headerDoc=func;  uid=//apple_ref/c/func/glCursorPosition;   name=glCursorPosition -->
-<a name="//apple_ref/c/func/glCursorPosition"></a>
-<h3><a name="glCursorPosition">glCursorPosition</a></h3>
-<hr class="afterName">
-<p><!-- headerDoc=abstract;uid=//apple_ref/c/func/glCursorPosition;name=start --><!-- begin abstract --></p>
-<p>Get the position of the cursor
-<!-- end abstract --><!-- headerDoc=abstract;uid=//apple_ref/c/func/glCursorPosition;name=end --></p>
-<div class="declaration_indent">
-<pre><!-- headerDoc=declaration;uid=//apple_ref/c/func/glCursorPosition;name=start --><!-- a logicalPath="//apple_ref/c/cl/EXPORT //apple_ref/c/tdef/EXPORT //apple_ref/c/tag/EXPORT //apple_ref/c/struct/EXPORT //apple_ref/c/intf/EXPORT //apple_ref/doc/anysymbol/EXPORT" machineGenerated="true" --><span class="type">EXPORT</span><!-- /a --> <!-- a logicalPath="//apple_ref/c/cl/void //apple_ref/c/tdef/void //apple_ref/c/tag/void //apple_ref/c/struct/void //apple_ref/c/intf/void //apple_ref/doc/anysymbol/void" machineGenerated="true" --><span class="type">void</span><!-- /a --> <a machinegenerated="true" href="index.html#//apple_ref/c/func/glCursorPosition" logicalPath="//apple_ref/c/instm/glCursorPosition //apple_ref/c/clm/glCursorPosition //apple_ref/c/intfcm/glCursorPosition //apple_ref/c/intfm/glCursorPosition //apple_ref/c/func/glCursorPosition" target="_top"><span class="function">glCursorPosition</span></a>(
-    <!-- a logicalPath="//apple_ref/c/cl/int //apple_ref/c/tdef/int //apple_ref/c/tag/int //apple_ref/c/struct/int //apple_ref/c/intf/int //apple_ref/doc/anysymbol/int" machineGenerated="true" --><span class="type">int</span><!-- /a --> <span class="type">*</span><span class="param">x</span>,
-    <!-- a logicalPath="//apple_ref/c/cl/int //apple_ref/c/tdef/int //apple_ref/c/tag/int //apple_ref/c/struct/int //apple_ref/c/intf/int //apple_ref/doc/anysymbol/int" machineGenerated="true" --><span class="type">int</span><!-- /a --> <span class="type">*</span><span class="param">y</span>);  <!-- headerDoc=declaration;uid=//apple_ref/c/func/glCursorPosition;name=end --></pre>
-</div>
-<h5 class="tight"><font face="Lucida Grande,Helvetica,Arial">Parameters</font></h5>
-<div class="param_indent">
-<dl>
-<dt>
-<!-- headerDoc=functionparam;  uid=//apple_ref/doc/functionparam/glCursorPosition/x;   name=x -->
-<a name="//apple_ref/doc/functionparam/glCursorPosition/x"></a>
-<code>x</code>
-</dt>
-<dd><p>Returns the cursor's X position</p></dd>
-<dt>
-<!-- headerDoc=functionparam;  uid=//apple_ref/doc/functionparam/glCursorPosition/y;   name=y -->
-<a name="//apple_ref/doc/functionparam/glCursorPosition/y"></a>
-<code>y</code>
-</dt>
-<dd><p>Returns the cursor's Y position</p></dd>
-</dl>
-</div>
-<hr class="betweenAPIEntries">
-<!-- headerDoc=func;  uid=//apple_ref/c/func/glDisableCursor;   name=glDisableCursor -->
-<a name="//apple_ref/c/func/glDisableCursor"></a>
-<h3><a name="glDisableCursor">glDisableCursor</a></h3>
-<hr class="afterName">
-<p><!-- headerDoc=abstract;uid=//apple_ref/c/func/glDisableCursor;name=start --><!-- begin abstract --></p>
-<p>When window is active, cursor won't move
-<!-- end abstract --><!-- headerDoc=abstract;uid=//apple_ref/c/func/glDisableCursor;name=end --></p>
-<div class="declaration_indent">
-<pre><!-- headerDoc=declaration;uid=//apple_ref/c/func/glDisableCursor;name=start --><!-- a logicalPath="//apple_ref/c/cl/EXPORT //apple_ref/c/tdef/EXPORT //apple_ref/c/tag/EXPORT //apple_ref/c/struct/EXPORT //apple_ref/c/intf/EXPORT //apple_ref/doc/anysymbol/EXPORT" machineGenerated="true" --><span class="type">EXPORT</span><!-- /a --> <!-- a logicalPath="//apple_ref/c/cl/void //apple_ref/c/tdef/void //apple_ref/c/tag/void //apple_ref/c/struct/void //apple_ref/c/intf/void //apple_ref/doc/anysymbol/void" machineGenerated="true" --><span class="type">void</span><!-- /a --> <a machinegenerated="true" href="index.html#//apple_ref/c/func/glDisableCursor" logicalPath="//apple_ref/c/instm/glDisableCursor //apple_ref/c/clm/glDisableCursor //apple_ref/c/intfcm/glDisableCursor //apple_ref/c/intfm/glDisableCursor //apple_ref/c/func/glDisableCursor" target="_top"><span class="function">glDisableCursor</span></a>(
-    <span class="param">void</span>);  <!-- headerDoc=declaration;uid=//apple_ref/c/func/glDisableCursor;name=end --></pre>
-</div>
-<hr class="betweenAPIEntries">
-<!-- headerDoc=func;  uid=//apple_ref/c/func/glEnableCursor;   name=glEnableCursor -->
-<a name="//apple_ref/c/func/glEnableCursor"></a>
-<h3><a name="glEnableCursor">glEnableCursor</a></h3>
-<hr class="afterName">
-<p><!-- headerDoc=abstract;uid=//apple_ref/c/func/glEnableCursor;name=start --><!-- begin abstract --></p>
-<p>Undo glDisableCursor
-<!-- end abstract --><!-- headerDoc=abstract;uid=//apple_ref/c/func/glEnableCursor;name=end --></p>
-<div class="declaration_indent">
-<pre><!-- headerDoc=declaration;uid=//apple_ref/c/func/glEnableCursor;name=start --><!-- a logicalPath="//apple_ref/c/cl/EXPORT //apple_ref/c/tdef/EXPORT //apple_ref/c/tag/EXPORT //apple_ref/c/struct/EXPORT //apple_ref/c/intf/EXPORT //apple_ref/doc/anysymbol/EXPORT" machineGenerated="true" --><span class="type">EXPORT</span><!-- /a --> <!-- a logicalPath="//apple_ref/c/cl/void //apple_ref/c/tdef/void //apple_ref/c/tag/void //apple_ref/c/struct/void //apple_ref/c/intf/void //apple_ref/doc/anysymbol/void" machineGenerated="true" --><span class="type">void</span><!-- /a --> <a machinegenerated="true" href="index.html#//apple_ref/c/func/glEnableCursor" logicalPath="//apple_ref/c/instm/glEnableCursor //apple_ref/c/clm/glEnableCursor //apple_ref/c/intfcm/glEnableCursor //apple_ref/c/intfm/glEnableCursor //apple_ref/c/func/glEnableCursor" target="_top"><span class="function">glEnableCursor</span></a>(
-    <span class="param">void</span>);  <!-- headerDoc=declaration;uid=//apple_ref/c/func/glEnableCursor;name=end --></pre>
-</div>
 <hr class="betweenAPIEntries">
 <!-- headerDoc=func;  uid=//apple_ref/c/func/glFlushWindow;   name=glFlushWindow -->
 <a name="//apple_ref/c/func/glFlushWindow"></a>
@@ -405,35 +314,6 @@ function disclosure_triangle(elt) {
 <div class="declaration_indent">
 <pre><!-- headerDoc=declaration;uid=//apple_ref/c/func/glFlushWindow;name=start --><!-- a logicalPath="//apple_ref/c/cl/EXPORT //apple_ref/c/tdef/EXPORT //apple_ref/c/tag/EXPORT //apple_ref/c/struct/EXPORT //apple_ref/c/intf/EXPORT //apple_ref/doc/anysymbol/EXPORT" machineGenerated="true" --><span class="type">EXPORT</span><!-- /a --> <!-- a logicalPath="//apple_ref/c/cl/void //apple_ref/c/tdef/void //apple_ref/c/tag/void //apple_ref/c/struct/void //apple_ref/c/intf/void //apple_ref/doc/anysymbol/void" machineGenerated="true" --><span class="type">void</span><!-- /a --> <a machinegenerated="true" href="index.html#//apple_ref/c/func/glFlushWindow" logicalPath="//apple_ref/c/instm/glFlushWindow //apple_ref/c/clm/glFlushWindow //apple_ref/c/intfcm/glFlushWindow //apple_ref/c/intfm/glFlushWindow //apple_ref/c/func/glFlushWindow" target="_top"><span class="function">glFlushWindow</span></a>(
     <span class="param">void</span>);  <!-- headerDoc=declaration;uid=//apple_ref/c/func/glFlushWindow;name=end --></pre>
-</div>
-<hr class="betweenAPIEntries">
-<!-- headerDoc=func;  uid=//apple_ref/c/func/glGetTime;   name=glGetTime -->
-<a name="//apple_ref/c/func/glGetTime"></a>
-<h3><a name="glGetTime">glGetTime</a></h3>
-<hr class="afterName">
-<p><!-- headerDoc=abstract;uid=//apple_ref/c/func/glGetTime;name=start --><!-- begin abstract --></p>
-<p>High resolution timer
-<!-- end abstract --><!-- headerDoc=abstract;uid=//apple_ref/c/func/glGetTime;name=end --></p>
-<div class="declaration_indent">
-<pre><!-- headerDoc=declaration;uid=//apple_ref/c/func/glGetTime;name=start --><!-- a logicalPath="//apple_ref/c/cl/EXPORT //apple_ref/c/tdef/EXPORT //apple_ref/c/tag/EXPORT //apple_ref/c/struct/EXPORT //apple_ref/c/intf/EXPORT //apple_ref/doc/anysymbol/EXPORT" machineGenerated="true" --><span class="type">EXPORT</span><!-- /a --> <!-- a logicalPath="//apple_ref/c/cl/double //apple_ref/c/tdef/double //apple_ref/c/tag/double //apple_ref/c/struct/double //apple_ref/c/intf/double //apple_ref/doc/anysymbol/double" machineGenerated="true" --><span class="type">double</span><!-- /a --> <a machinegenerated="true" href="index.html#//apple_ref/c/func/glGetTime" logicalPath="//apple_ref/c/instm/glGetTime //apple_ref/c/clm/glGetTime //apple_ref/c/intfcm/glGetTime //apple_ref/c/intfm/glGetTime //apple_ref/c/func/glGetTime" target="_top"><span class="function">glGetTime</span></a>(
-    <span class="param">void</span>);  <!-- headerDoc=declaration;uid=//apple_ref/c/func/glGetTime;name=end --></pre>
-</div>
-<h5 class="tight"><font face="Lucida Grande,Helvetica,Arial">Return Value</font></h5>
-<p><!-- begin return value --></p>
-<p>Current elapsed CPU time
-
-<!-- end return value --></p>
-<hr class="betweenAPIEntries">
-<!-- headerDoc=func;  uid=//apple_ref/c/func/glHideCursor;   name=glHideCursor -->
-<a name="//apple_ref/c/func/glHideCursor"></a>
-<h3><a name="glHideCursor">glHideCursor</a></h3>
-<hr class="afterName">
-<p><!-- headerDoc=abstract;uid=//apple_ref/c/func/glHideCursor;name=start --><!-- begin abstract --></p>
-<p>Hide the cursor when window is active
-<!-- end abstract --><!-- headerDoc=abstract;uid=//apple_ref/c/func/glHideCursor;name=end --></p>
-<div class="declaration_indent">
-<pre><!-- headerDoc=declaration;uid=//apple_ref/c/func/glHideCursor;name=start --><!-- a logicalPath="//apple_ref/c/cl/EXPORT //apple_ref/c/tdef/EXPORT //apple_ref/c/tag/EXPORT //apple_ref/c/struct/EXPORT //apple_ref/c/intf/EXPORT //apple_ref/doc/anysymbol/EXPORT" machineGenerated="true" --><span class="type">EXPORT</span><!-- /a --> <!-- a logicalPath="//apple_ref/c/cl/void //apple_ref/c/tdef/void //apple_ref/c/tag/void //apple_ref/c/struct/void //apple_ref/c/intf/void //apple_ref/doc/anysymbol/void" machineGenerated="true" --><span class="type">void</span><!-- /a --> <a machinegenerated="true" href="index.html#//apple_ref/c/func/glHideCursor" logicalPath="//apple_ref/c/instm/glHideCursor //apple_ref/c/clm/glHideCursor //apple_ref/c/intfcm/glHideCursor //apple_ref/c/intfm/glHideCursor //apple_ref/c/func/glHideCursor" target="_top"><span class="function">glHideCursor</span></a>(
-    <span class="param">void</span>);  <!-- headerDoc=declaration;uid=//apple_ref/c/func/glHideCursor;name=end --></pre>
 </div>
 <hr class="betweenAPIEntries">
 <!-- headerDoc=func;  uid=//apple_ref/c/func/glIsWindowOpen;   name=glIsWindowOpen -->
@@ -469,208 +349,6 @@ function disclosure_triangle(elt) {
 <p>Returns 1 if window is still open, 0 if closed
 
 <!-- end return value --></p>
-<hr class="betweenAPIEntries">
-<!-- headerDoc=func;  uid=//apple_ref/c/func/glSetCursor;   name=glSetCursor -->
-<a name="//apple_ref/c/func/glSetCursor"></a>
-<h3><a name="glSetCursor">glSetCursor</a></h3>
-<hr class="afterName">
-<p><!-- headerDoc=abstract;uid=//apple_ref/c/func/glSetCursor;name=start --><!-- begin abstract --></p>
-<p>Change the cursor for a window
-<!-- end abstract --><!-- headerDoc=abstract;uid=//apple_ref/c/func/glSetCursor;name=end --></p>
-<div class="declaration_indent">
-<pre><!-- headerDoc=declaration;uid=//apple_ref/c/func/glSetCursor;name=start --><!-- a logicalPath="//apple_ref/c/cl/EXPORT //apple_ref/c/tdef/EXPORT //apple_ref/c/tag/EXPORT //apple_ref/c/struct/EXPORT //apple_ref/c/intf/EXPORT //apple_ref/doc/anysymbol/EXPORT" machineGenerated="true" --><span class="type">EXPORT</span><!-- /a --> <!-- a logicalPath="//apple_ref/c/cl/void //apple_ref/c/tdef/void //apple_ref/c/tag/void //apple_ref/c/struct/void //apple_ref/c/intf/void //apple_ref/doc/anysymbol/void" machineGenerated="true" --><span class="type">void</span><!-- /a --> <a machinegenerated="true" href="index.html#//apple_ref/c/func/glSetCursor" logicalPath="//apple_ref/c/instm/glSetCursor //apple_ref/c/clm/glSetCursor //apple_ref/c/intfcm/glSetCursor //apple_ref/c/intfm/glSetCursor //apple_ref/c/func/glSetCursor" target="_top"><span class="function">glSetCursor</span></a>(
-    <a machinegenerated="true" href="index.html#//apple_ref/c/tdef/GLcursor" logicalPath="//apple_ref/c/cl/GLcursor //apple_ref/c/tdef/GLcursor" target="_top"><span class="type">GLcursor</span></a> <span class="param">cursor</span>);  <!-- headerDoc=declaration;uid=//apple_ref/c/func/glSetCursor;name=end --></pre>
-</div>
-<h5 class="tight"><font face="Lucida Grande,Helvetica,Arial">Parameters</font></h5>
-<div class="param_indent">
-<dl>
-<dt>
-<!-- headerDoc=functionparam;  uid=//apple_ref/doc/functionparam/glSetCursor/cursor;   name=cursor -->
-<a name="//apple_ref/doc/functionparam/glSetCursor/cursor"></a>
-<code>cursor</code>
-</dt>
-<dd><p>System cursor</p></dd>
-</dl>
-</div>
-<hr class="betweenAPIEntries">
-<!-- headerDoc=func;  uid=//apple_ref/c/func/glSetCursorPosition;   name=glSetCursorPosition -->
-<a name="//apple_ref/c/func/glSetCursorPosition"></a>
-<h3><a name="glSetCursorPosition">glSetCursorPosition</a></h3>
-<hr class="afterName">
-<p><!-- headerDoc=abstract;uid=//apple_ref/c/func/glSetCursorPosition;name=start --><!-- begin abstract --></p>
-<p>Set the cursor position
-<!-- end abstract --><!-- headerDoc=abstract;uid=//apple_ref/c/func/glSetCursorPosition;name=end --></p>
-<div class="declaration_indent">
-<pre><!-- headerDoc=declaration;uid=//apple_ref/c/func/glSetCursorPosition;name=start --><!-- a logicalPath="//apple_ref/c/cl/EXPORT //apple_ref/c/tdef/EXPORT //apple_ref/c/tag/EXPORT //apple_ref/c/struct/EXPORT //apple_ref/c/intf/EXPORT //apple_ref/doc/anysymbol/EXPORT" machineGenerated="true" --><span class="type">EXPORT</span><!-- /a --> <!-- a logicalPath="//apple_ref/c/cl/void //apple_ref/c/tdef/void //apple_ref/c/tag/void //apple_ref/c/struct/void //apple_ref/c/intf/void //apple_ref/doc/anysymbol/void" machineGenerated="true" --><span class="type">void</span><!-- /a --> <a machinegenerated="true" href="index.html#//apple_ref/c/func/glSetCursorPosition" logicalPath="//apple_ref/c/instm/glSetCursorPosition //apple_ref/c/clm/glSetCursorPosition //apple_ref/c/intfcm/glSetCursorPosition //apple_ref/c/intfm/glSetCursorPosition //apple_ref/c/func/glSetCursorPosition" target="_top"><span class="function">glSetCursorPosition</span></a>(
-    <!-- a logicalPath="//apple_ref/c/cl/int //apple_ref/c/tdef/int //apple_ref/c/tag/int //apple_ref/c/struct/int //apple_ref/c/intf/int //apple_ref/doc/anysymbol/int" machineGenerated="true" --><span class="type">int</span><!-- /a --> <span class="param">x</span>,
-    <!-- a logicalPath="//apple_ref/c/cl/int //apple_ref/c/tdef/int //apple_ref/c/tag/int //apple_ref/c/struct/int //apple_ref/c/intf/int //apple_ref/doc/anysymbol/int" machineGenerated="true" --><span class="type">int</span><!-- /a --> <span class="param">y</span>);  <!-- headerDoc=declaration;uid=//apple_ref/c/func/glSetCursorPosition;name=end --></pre>
-</div>
-<h5 class="tight"><font face="Lucida Grande,Helvetica,Arial">Parameters</font></h5>
-<div class="param_indent">
-<dl>
-<dt>
-<!-- headerDoc=functionparam;  uid=//apple_ref/doc/functionparam/glSetCursorPosition/x;   name=x -->
-<a name="//apple_ref/doc/functionparam/glSetCursorPosition/x"></a>
-<code>x</code>
-</dt>
-<dd><p>Cursor's new X position</p></dd>
-<dt>
-<!-- headerDoc=functionparam;  uid=//apple_ref/doc/functionparam/glSetCursorPosition/y;   name=y -->
-<a name="//apple_ref/doc/functionparam/glSetCursorPosition/y"></a>
-<code>y</code>
-</dt>
-<dd><p>Cursor's new Y position</p></dd>
-</dl>
-</div>
-<hr class="betweenAPIEntries">
-<!-- headerDoc=func;  uid=//apple_ref/c/func/glSetCustomCursor;   name=glSetCustomCursor -->
-<a name="//apple_ref/c/func/glSetCustomCursor"></a>
-<h3><a name="glSetCustomCursor">glSetCustomCursor</a></h3>
-<hr class="afterName">
-<p><!-- headerDoc=abstract;uid=//apple_ref/c/func/glSetCustomCursor;name=start --><!-- begin abstract --></p>
-<p>Change the cursor for a window from a glImage
-<!-- end abstract --><!-- headerDoc=abstract;uid=//apple_ref/c/func/glSetCustomCursor;name=end --></p>
-<div class="declaration_indent">
-<pre><!-- headerDoc=declaration;uid=//apple_ref/c/func/glSetCustomCursor;name=start --><!-- a logicalPath="//apple_ref/c/cl/EXPORT //apple_ref/c/tdef/EXPORT //apple_ref/c/tag/EXPORT //apple_ref/c/struct/EXPORT //apple_ref/c/intf/EXPORT //apple_ref/doc/anysymbol/EXPORT" machineGenerated="true" --><span class="type">EXPORT</span><!-- /a --> <!-- a logicalPath="//apple_ref/c/cl/int //apple_ref/c/tdef/int //apple_ref/c/tag/int //apple_ref/c/struct/int //apple_ref/c/intf/int //apple_ref/doc/anysymbol/int" machineGenerated="true" --><span class="type">int</span><!-- /a --> <a machinegenerated="true" href="index.html#//apple_ref/c/func/glSetCustomCursor" logicalPath="//apple_ref/c/instm/glSetCustomCursor //apple_ref/c/clm/glSetCustomCursor //apple_ref/c/intfcm/glSetCustomCursor //apple_ref/c/intfm/glSetCustomCursor //apple_ref/c/func/glSetCustomCursor" target="_top"><span class="function">glSetCustomCursor</span></a>(
-    <span class="keyword">unsigned</span> <!-- a logicalPath="//apple_ref/c/cl/char //apple_ref/c/tdef/char //apple_ref/c/tag/char //apple_ref/c/struct/char //apple_ref/c/intf/char //apple_ref/doc/anysymbol/char" machineGenerated="true" --><span class="type">char</span><!-- /a --> <span class="type">*</span><span class="param">data</span>,
-    <!-- a logicalPath="//apple_ref/c/cl/int //apple_ref/c/tdef/int //apple_ref/c/tag/int //apple_ref/c/struct/int //apple_ref/c/intf/int //apple_ref/doc/anysymbol/int" machineGenerated="true" --><span class="type">int</span><!-- /a --> <span class="param">w</span>,
-    <!-- a logicalPath="//apple_ref/c/cl/int //apple_ref/c/tdef/int //apple_ref/c/tag/int //apple_ref/c/struct/int //apple_ref/c/intf/int //apple_ref/doc/anysymbol/int" machineGenerated="true" --><span class="type">int</span><!-- /a --> <span class="param">h</span>);  <!-- headerDoc=declaration;uid=//apple_ref/c/func/glSetCustomCursor;name=end --></pre>
-</div>
-<h5 class="tight"><font face="Lucida Grande,Helvetica,Arial">Parameters</font></h5>
-<div class="param_indent">
-<dl>
-<dt>
-<!-- headerDoc=functionparam;  uid=//apple_ref/doc/functionparam/glSetCustomCursor/data;   name=data -->
-<a name="//apple_ref/doc/functionparam/glSetCustomCursor/data"></a>
-<code>data</code>
-</dt>
-<dd><p>Image data</p></dd>
-<dt>
-<!-- headerDoc=functionparam;  uid=//apple_ref/doc/functionparam/glSetCustomCursor/w;   name=w -->
-<a name="//apple_ref/doc/functionparam/glSetCustomCursor/w"></a>
-<code>w</code>
-</dt>
-<dd><p>Image width</p></dd>
-<dt>
-<!-- headerDoc=functionparam;  uid=//apple_ref/doc/functionparam/glSetCustomCursor/h;   name=h -->
-<a name="//apple_ref/doc/functionparam/glSetCustomCursor/h"></a>
-<code>h</code>
-</dt>
-<dd><p>Image height</p></dd>
-</dl>
-</div>
-<h5 class="tight"><font face="Lucida Grande,Helvetica,Arial">Return Value</font></h5>
-<p><!-- begin return value --></p>
-<p>Returns 1 on success, 0 on failure
-
-<!-- end return value --></p>
-<hr class="betweenAPIEntries">
-<!-- headerDoc=func;  uid=//apple_ref/c/func/glSetWindowIcon;   name=glSetWindowIcon -->
-<a name="//apple_ref/c/func/glSetWindowIcon"></a>
-<h3><a name="glSetWindowIcon">glSetWindowIcon</a></h3>
-<hr class="afterName">
-<p><!-- headerDoc=abstract;uid=//apple_ref/c/func/glSetWindowIcon;name=start --><!-- begin abstract --></p>
-<p>Set window icon from glImage
-<!-- end abstract --><!-- headerDoc=abstract;uid=//apple_ref/c/func/glSetWindowIcon;name=end --></p>
-<div class="declaration_indent">
-<pre><!-- headerDoc=declaration;uid=//apple_ref/c/func/glSetWindowIcon;name=start --><!-- a logicalPath="//apple_ref/c/cl/EXPORT //apple_ref/c/tdef/EXPORT //apple_ref/c/tag/EXPORT //apple_ref/c/struct/EXPORT //apple_ref/c/intf/EXPORT //apple_ref/doc/anysymbol/EXPORT" machineGenerated="true" --><span class="type">EXPORT</span><!-- /a --> <!-- a logicalPath="//apple_ref/c/cl/int //apple_ref/c/tdef/int //apple_ref/c/tag/int //apple_ref/c/struct/int //apple_ref/c/intf/int //apple_ref/doc/anysymbol/int" machineGenerated="true" --><span class="type">int</span><!-- /a --> <a machinegenerated="true" href="index.html#//apple_ref/c/func/glSetWindowIcon" logicalPath="//apple_ref/c/instm/glSetWindowIcon //apple_ref/c/clm/glSetWindowIcon //apple_ref/c/intfcm/glSetWindowIcon //apple_ref/c/intfm/glSetWindowIcon //apple_ref/c/func/glSetWindowIcon" target="_top"><span class="function">glSetWindowIcon</span></a>(
-    <span class="keyword">unsigned</span> <!-- a logicalPath="//apple_ref/c/cl/char //apple_ref/c/tdef/char //apple_ref/c/tag/char //apple_ref/c/struct/char //apple_ref/c/intf/char //apple_ref/doc/anysymbol/char" machineGenerated="true" --><span class="type">char</span><!-- /a --> <span class="type">*</span><span class="param">data</span>,
-    <!-- a logicalPath="//apple_ref/c/cl/int //apple_ref/c/tdef/int //apple_ref/c/tag/int //apple_ref/c/struct/int //apple_ref/c/intf/int //apple_ref/doc/anysymbol/int" machineGenerated="true" --><span class="type">int</span><!-- /a --> <span class="param">w</span>,
-    <!-- a logicalPath="//apple_ref/c/cl/int //apple_ref/c/tdef/int //apple_ref/c/tag/int //apple_ref/c/struct/int //apple_ref/c/intf/int //apple_ref/doc/anysymbol/int" machineGenerated="true" --><span class="type">int</span><!-- /a --> <span class="param">h</span>);  <!-- headerDoc=declaration;uid=//apple_ref/c/func/glSetWindowIcon;name=end --></pre>
-</div>
-<h5 class="tight"><font face="Lucida Grande,Helvetica,Arial">Parameters</font></h5>
-<div class="param_indent">
-<dl>
-<dt>
-<!-- headerDoc=functionparam;  uid=//apple_ref/doc/functionparam/glSetWindowIcon/data;   name=data -->
-<a name="//apple_ref/doc/functionparam/glSetWindowIcon/data"></a>
-<code>data</code>
-</dt>
-<dd><p>Image data</p></dd>
-<dt>
-<!-- headerDoc=functionparam;  uid=//apple_ref/doc/functionparam/glSetWindowIcon/w;   name=w -->
-<a name="//apple_ref/doc/functionparam/glSetWindowIcon/w"></a>
-<code>w</code>
-</dt>
-<dd><p>Image width</p></dd>
-<dt>
-<!-- headerDoc=functionparam;  uid=//apple_ref/doc/functionparam/glSetWindowIcon/h;   name=h -->
-<a name="//apple_ref/doc/functionparam/glSetWindowIcon/h"></a>
-<code>h</code>
-</dt>
-<dd><p>Image height</p></dd>
-</dl>
-</div>
-<h5 class="tight"><font face="Lucida Grande,Helvetica,Arial">Return Value</font></h5>
-<p><!-- begin return value --></p>
-<p>Returns 1 on success, 0 on failure
-
-<!-- end return value --></p>
-<hr class="betweenAPIEntries">
-<!-- headerDoc=func;  uid=//apple_ref/c/func/glSetWindowPosition;   name=glSetWindowPosition -->
-<a name="//apple_ref/c/func/glSetWindowPosition"></a>
-<h3><a name="glSetWindowPosition">glSetWindowPosition</a></h3>
-<hr class="afterName">
-<p><!-- headerDoc=abstract;uid=//apple_ref/c/func/glSetWindowPosition;name=start --><!-- begin abstract --></p>
-<p>Set a windows position
-<!-- end abstract --><!-- headerDoc=abstract;uid=//apple_ref/c/func/glSetWindowPosition;name=end --></p>
-<div class="declaration_indent">
-<pre><!-- headerDoc=declaration;uid=//apple_ref/c/func/glSetWindowPosition;name=start --><!-- a logicalPath="//apple_ref/c/cl/EXPORT //apple_ref/c/tdef/EXPORT //apple_ref/c/tag/EXPORT //apple_ref/c/struct/EXPORT //apple_ref/c/intf/EXPORT //apple_ref/doc/anysymbol/EXPORT" machineGenerated="true" --><span class="type">EXPORT</span><!-- /a --> <!-- a logicalPath="//apple_ref/c/cl/void //apple_ref/c/tdef/void //apple_ref/c/tag/void //apple_ref/c/struct/void //apple_ref/c/intf/void //apple_ref/doc/anysymbol/void" machineGenerated="true" --><span class="type">void</span><!-- /a --> <a machinegenerated="true" href="index.html#//apple_ref/c/func/glSetWindowPosition" logicalPath="//apple_ref/c/instm/glSetWindowPosition //apple_ref/c/clm/glSetWindowPosition //apple_ref/c/intfcm/glSetWindowPosition //apple_ref/c/intfm/glSetWindowPosition //apple_ref/c/func/glSetWindowPosition" target="_top"><span class="function">glSetWindowPosition</span></a>(
-    <!-- a logicalPath="//apple_ref/c/cl/int //apple_ref/c/tdef/int //apple_ref/c/tag/int //apple_ref/c/struct/int //apple_ref/c/intf/int //apple_ref/doc/anysymbol/int" machineGenerated="true" --><span class="type">int</span><!-- /a --> <span class="param">x</span>,
-    <!-- a logicalPath="//apple_ref/c/cl/int //apple_ref/c/tdef/int //apple_ref/c/tag/int //apple_ref/c/struct/int //apple_ref/c/intf/int //apple_ref/doc/anysymbol/int" machineGenerated="true" --><span class="type">int</span><!-- /a --> <span class="param">y</span>);  <!-- headerDoc=declaration;uid=//apple_ref/c/func/glSetWindowPosition;name=end --></pre>
-</div>
-<h5 class="tight"><font face="Lucida Grande,Helvetica,Arial">Parameters</font></h5>
-<div class="param_indent">
-<dl>
-<dt>
-<!-- headerDoc=functionparam;  uid=//apple_ref/doc/functionparam/glSetWindowPosition/x;   name=x -->
-<a name="//apple_ref/doc/functionparam/glSetWindowPosition/x"></a>
-<code>x</code>
-</dt>
-<dd><p>Window's new X position</p></dd>
-<dt>
-<!-- headerDoc=functionparam;  uid=//apple_ref/doc/functionparam/glSetWindowPosition/y;   name=y -->
-<a name="//apple_ref/doc/functionparam/glSetWindowPosition/y"></a>
-<code>y</code>
-</dt>
-<dd><p>Window's new Y position</p></dd>
-</dl>
-</div>
-<hr class="betweenAPIEntries">
-<!-- headerDoc=func;  uid=//apple_ref/c/func/glSetWindowTitle;   name=glSetWindowTitle -->
-<a name="//apple_ref/c/func/glSetWindowTitle"></a>
-<h3><a name="glSetWindowTitle">glSetWindowTitle</a></h3>
-<hr class="afterName">
-<p><!-- headerDoc=abstract;uid=//apple_ref/c/func/glSetWindowTitle;name=start --><!-- begin abstract --></p>
-<p>Set a window's title
-<!-- end abstract --><!-- headerDoc=abstract;uid=//apple_ref/c/func/glSetWindowTitle;name=end --></p>
-<div class="declaration_indent">
-<pre><!-- headerDoc=declaration;uid=//apple_ref/c/func/glSetWindowTitle;name=start --><!-- a logicalPath="//apple_ref/c/cl/EXPORT //apple_ref/c/tdef/EXPORT //apple_ref/c/tag/EXPORT //apple_ref/c/struct/EXPORT //apple_ref/c/intf/EXPORT //apple_ref/doc/anysymbol/EXPORT" machineGenerated="true" --><span class="type">EXPORT</span><!-- /a --> <!-- a logicalPath="//apple_ref/c/cl/void //apple_ref/c/tdef/void //apple_ref/c/tag/void //apple_ref/c/struct/void //apple_ref/c/intf/void //apple_ref/doc/anysymbol/void" machineGenerated="true" --><span class="type">void</span><!-- /a --> <a machinegenerated="true" href="index.html#//apple_ref/c/func/glSetWindowTitle" logicalPath="//apple_ref/c/instm/glSetWindowTitle //apple_ref/c/clm/glSetWindowTitle //apple_ref/c/intfcm/glSetWindowTitle //apple_ref/c/intfm/glSetWindowTitle //apple_ref/c/func/glSetWindowTitle" target="_top"><span class="function">glSetWindowTitle</span></a>(
-    <span class="keyword">const</span> <!-- a logicalPath="//apple_ref/c/cl/char //apple_ref/c/tdef/char //apple_ref/c/tag/char //apple_ref/c/struct/char //apple_ref/c/intf/char //apple_ref/doc/anysymbol/char" machineGenerated="true" --><span class="type">char</span><!-- /a --> <span class="type">*</span><span class="param">title</span>);  <!-- headerDoc=declaration;uid=//apple_ref/c/func/glSetWindowTitle;name=end --></pre>
-</div>
-<h5 class="tight"><font face="Lucida Grande,Helvetica,Arial">Parameters</font></h5>
-<div class="param_indent">
-<dl>
-<dt>
-<!-- headerDoc=functionparam;  uid=//apple_ref/doc/functionparam/glSetWindowTitle/title;   name=title -->
-<a name="//apple_ref/doc/functionparam/glSetWindowTitle/title"></a>
-<code>title</code>
-</dt>
-<dd><p>Window's new title</p></dd>
-</dl>
-</div>
-<hr class="betweenAPIEntries">
-<!-- headerDoc=func;  uid=//apple_ref/c/func/glShowCursor;   name=glShowCursor -->
-<a name="//apple_ref/c/func/glShowCursor"></a>
-<h3><a name="glShowCursor">glShowCursor</a></h3>
-<hr class="afterName">
-<p><!-- headerDoc=abstract;uid=//apple_ref/c/func/glShowCursor;name=start --><!-- begin abstract --></p>
-<p>Show the cursor when window is active
-<!-- end abstract --><!-- headerDoc=abstract;uid=//apple_ref/c/func/glShowCursor;name=end --></p>
-<div class="declaration_indent">
-<pre><!-- headerDoc=declaration;uid=//apple_ref/c/func/glShowCursor;name=start --><!-- a logicalPath="//apple_ref/c/cl/EXPORT //apple_ref/c/tdef/EXPORT //apple_ref/c/tag/EXPORT //apple_ref/c/struct/EXPORT //apple_ref/c/intf/EXPORT //apple_ref/doc/anysymbol/EXPORT" machineGenerated="true" --><span class="type">EXPORT</span><!-- /a --> <!-- a logicalPath="//apple_ref/c/cl/void //apple_ref/c/tdef/void //apple_ref/c/tag/void //apple_ref/c/struct/void //apple_ref/c/intf/void //apple_ref/doc/anysymbol/void" machineGenerated="true" --><span class="type">void</span><!-- /a --> <a machinegenerated="true" href="index.html#//apple_ref/c/func/glShowCursor" logicalPath="//apple_ref/c/instm/glShowCursor //apple_ref/c/clm/glShowCursor //apple_ref/c/intfcm/glShowCursor //apple_ref/c/intfm/glShowCursor //apple_ref/c/func/glShowCursor" target="_top"><span class="function">glShowCursor</span></a>(
-    <span class="param">void</span>);  <!-- headerDoc=declaration;uid=//apple_ref/c/func/glShowCursor;name=end --></pre>
-</div>
 <hr class="betweenAPIEntries">
 <!-- headerDoc=func;  uid=//apple_ref/c/func/glWindow;   name=glWindow -->
 <a name="//apple_ref/c/func/glWindow"></a>
@@ -730,7 +408,7 @@ function disclosure_triangle(elt) {
 <!-- end abstract --><!-- headerDoc=abstract;uid=//apple_ref/c/func/glWindowCallbacks;name=end --></p>
 <div class="declaration_indent">
 <pre><!-- headerDoc=declaration;uid=//apple_ref/c/func/glWindowCallbacks;name=start --><!-- a logicalPath="//apple_ref/c/cl/EXPORT //apple_ref/c/tdef/EXPORT //apple_ref/c/tag/EXPORT //apple_ref/c/struct/EXPORT //apple_ref/c/intf/EXPORT //apple_ref/doc/anysymbol/EXPORT" machineGenerated="true" --><span class="type">EXPORT</span><!-- /a --> <!-- a logicalPath="//apple_ref/c/cl/void //apple_ref/c/tdef/void //apple_ref/c/tag/void //apple_ref/c/struct/void //apple_ref/c/intf/void //apple_ref/doc/anysymbol/void" machineGenerated="true" --><span class="type">void</span><!-- /a --> <a machinegenerated="true" href="index.html#//apple_ref/c/func/glWindowCallbacks" logicalPath="//apple_ref/c/instm/glWindowCallbacks //apple_ref/c/clm/glWindowCallbacks //apple_ref/c/intfcm/glWindowCallbacks //apple_ref/c/intfm/glWindowCallbacks //apple_ref/c/func/glWindowCallbacks" target="_top"><span class="function">glWindowCallbacks</span></a>(
-    <!-- a logicalPath="//apple_ref/c/cl/GL_WIN_CALLBACKS //apple_ref/c/tdef/GL_WIN_CALLBACKS //apple_ref/c/tag/GL_WIN_CALLBACKS //apple_ref/c/struct/GL_WIN_CALLBACKS //apple_ref/c/intf/GL_WIN_CALLBACKS //apple_ref/doc/anysymbol/GL_WIN_CALLBACKS" machineGenerated="true" --><span class="type">GL_WIN_CALLBACKS</span><!-- /a --> <!-- a logicalPath="//apple_ref/c/cl/void //apple_ref/c/tdef/void //apple_ref/c/tag/void //apple_ref/c/struct/void //apple_ref/c/intf/void //apple_ref/doc/anysymbol/void" machineGenerated="true" --><span class="type">void</span><!-- /a --> <span class="type">*</span><span class="param">userdata</span>);  <!-- headerDoc=declaration;uid=//apple_ref/c/func/glWindowCallbacks;name=end --></pre>
+    <!-- a logicalPath="//apple_ref/c/cl/GLW_CALLBACKS //apple_ref/c/tdef/GLW_CALLBACKS //apple_ref/c/tag/GLW_CALLBACKS //apple_ref/c/struct/GLW_CALLBACKS //apple_ref/c/intf/GLW_CALLBACKS //apple_ref/doc/anysymbol/GLW_CALLBACKS" machineGenerated="true" --><span class="type">GLW_CALLBACKS</span><!-- /a --> <!-- a logicalPath="//apple_ref/c/cl/void //apple_ref/c/tdef/void //apple_ref/c/tag/void //apple_ref/c/struct/void //apple_ref/c/intf/void //apple_ref/doc/anysymbol/void" machineGenerated="true" --><span class="type">void</span><!-- /a --> <span class="type">*</span><span class="param">userdata</span>);  <!-- headerDoc=declaration;uid=//apple_ref/c/func/glWindowCallbacks;name=end --></pre>
 </div>
 <h5 class="tight"><font face="Lucida Grande,Helvetica,Arial">Parameters</font></h5>
 <div class="param_indent">
@@ -790,35 +468,22 @@ function disclosure_triangle(elt) {
 <!-- headerDoc=discussion;uid=//apple_ref/c/func/glWindowCallbacks;name=end --><!-- end discussion -->
 </p>
 <hr class="betweenAPIEntries">
-<!-- headerDoc=func;  uid=//apple_ref/c/func/glWindowPosition;   name=glWindowPosition -->
-<a name="//apple_ref/c/func/glWindowPosition"></a>
-<h3><a name="glWindowPosition">glWindowPosition</a></h3>
+<!-- headerDoc=func;  uid=//apple_ref/c/func/glWindowNative;   name=glWindowNative -->
+<a name="//apple_ref/c/func/glWindowNative"></a>
+<h3><a name="glWindowNative">glWindowNative</a></h3>
 <hr class="afterName">
-<p><!-- headerDoc=abstract;uid=//apple_ref/c/func/glWindowPosition;name=start --><!-- begin abstract --></p>
-<p>Get the window's current position
-<!-- end abstract --><!-- headerDoc=abstract;uid=//apple_ref/c/func/glWindowPosition;name=end --></p>
+<p><!-- headerDoc=abstract;uid=//apple_ref/c/func/glWindowNative;name=start --><!-- begin abstract --></p>
+<p>Retrieve the native window handle
+<!-- end abstract --><!-- headerDoc=abstract;uid=//apple_ref/c/func/glWindowNative;name=end --></p>
 <div class="declaration_indent">
-<pre><!-- headerDoc=declaration;uid=//apple_ref/c/func/glWindowPosition;name=start --><!-- a logicalPath="//apple_ref/c/cl/EXPORT //apple_ref/c/tdef/EXPORT //apple_ref/c/tag/EXPORT //apple_ref/c/struct/EXPORT //apple_ref/c/intf/EXPORT //apple_ref/doc/anysymbol/EXPORT" machineGenerated="true" --><span class="type">EXPORT</span><!-- /a --> <!-- a logicalPath="//apple_ref/c/cl/void //apple_ref/c/tdef/void //apple_ref/c/tag/void //apple_ref/c/struct/void //apple_ref/c/intf/void //apple_ref/doc/anysymbol/void" machineGenerated="true" --><span class="type">void</span><!-- /a --> <a machinegenerated="true" href="index.html#//apple_ref/c/func/glWindowPosition" logicalPath="//apple_ref/c/instm/glWindowPosition //apple_ref/c/clm/glWindowPosition //apple_ref/c/intfcm/glWindowPosition //apple_ref/c/intfm/glWindowPosition //apple_ref/c/func/glWindowPosition" target="_top"><span class="function">glWindowPosition</span></a>(
-    <!-- a logicalPath="//apple_ref/c/cl/int //apple_ref/c/tdef/int //apple_ref/c/tag/int //apple_ref/c/struct/int //apple_ref/c/intf/int //apple_ref/doc/anysymbol/int" machineGenerated="true" --><span class="type">int</span><!-- /a --> <span class="type">*</span><span class="param">x</span>,
-    <!-- a logicalPath="//apple_ref/c/cl/int //apple_ref/c/tdef/int //apple_ref/c/tag/int //apple_ref/c/struct/int //apple_ref/c/intf/int //apple_ref/doc/anysymbol/int" machineGenerated="true" --><span class="type">int</span><!-- /a --> <span class="type">*</span><span class="param">y</span>);  <!-- headerDoc=declaration;uid=//apple_ref/c/func/glWindowPosition;name=end --></pre>
+<pre><!-- headerDoc=declaration;uid=//apple_ref/c/func/glWindowNative;name=start --><!-- a logicalPath="//apple_ref/c/cl/EXPORT //apple_ref/c/tdef/EXPORT //apple_ref/c/tag/EXPORT //apple_ref/c/struct/EXPORT //apple_ref/c/intf/EXPORT //apple_ref/doc/anysymbol/EXPORT" machineGenerated="true" --><span class="type">EXPORT</span><!-- /a --> <!-- a logicalPath="//apple_ref/c/cl/void //apple_ref/c/tdef/void //apple_ref/c/tag/void //apple_ref/c/struct/void //apple_ref/c/intf/void //apple_ref/doc/anysymbol/void" machineGenerated="true" --><span class="type">void</span><!-- /a --><span class="type">*</span> <a machinegenerated="true" href="index.html#//apple_ref/c/func/glWindowNative" logicalPath="//apple_ref/c/instm/glWindowNative //apple_ref/c/clm/glWindowNative //apple_ref/c/intfcm/glWindowNative //apple_ref/c/intfm/glWindowNative //apple_ref/c/func/glWindowNative" target="_top"><span class="function">glWindowNative</span></a>(
+    <span class="param">void</span>);  <!-- headerDoc=declaration;uid=//apple_ref/c/func/glWindowNative;name=end --></pre>
 </div>
-<h5 class="tight"><font face="Lucida Grande,Helvetica,Arial">Parameters</font></h5>
-<div class="param_indent">
-<dl>
-<dt>
-<!-- headerDoc=functionparam;  uid=//apple_ref/doc/functionparam/glWindowPosition/x;   name=x -->
-<a name="//apple_ref/doc/functionparam/glWindowPosition/x"></a>
-<code>x</code>
-</dt>
-<dd><p>Returns the windows's X position</p></dd>
-<dt>
-<!-- headerDoc=functionparam;  uid=//apple_ref/doc/functionparam/glWindowPosition/y;   name=y -->
-<a name="//apple_ref/doc/functionparam/glWindowPosition/y"></a>
-<code>y</code>
-</dt>
-<dd><p>Returns the windows's Y position</p></dd>
-</dl>
-</div>
+<h5 class="tight"><font face="Lucida Grande,Helvetica,Arial">Return Value</font></h5>
+<p><!-- begin return value --></p>
+<p>Returns pointer to native window handle
+
+<!-- end return value --></p>
 <hr class="betweenAPIEntries">
 <!-- headerDoc=func;  uid=//apple_ref/c/func/glWindowQuit;   name=glWindowQuit -->
 <a name="//apple_ref/c/func/glWindowQuit"></a>
@@ -830,96 +495,6 @@ function disclosure_triangle(elt) {
 <div class="declaration_indent">
 <pre><!-- headerDoc=declaration;uid=//apple_ref/c/func/glWindowQuit;name=start --><!-- a logicalPath="//apple_ref/c/cl/EXPORT //apple_ref/c/tdef/EXPORT //apple_ref/c/tag/EXPORT //apple_ref/c/struct/EXPORT //apple_ref/c/intf/EXPORT //apple_ref/doc/anysymbol/EXPORT" machineGenerated="true" --><span class="type">EXPORT</span><!-- /a --> <!-- a logicalPath="//apple_ref/c/cl/void //apple_ref/c/tdef/void //apple_ref/c/tag/void //apple_ref/c/struct/void //apple_ref/c/intf/void //apple_ref/doc/anysymbol/void" machineGenerated="true" --><span class="type">void</span><!-- /a --> <a machinegenerated="true" href="index.html#//apple_ref/c/func/glWindowQuit" logicalPath="//apple_ref/c/instm/glWindowQuit //apple_ref/c/clm/glWindowQuit //apple_ref/c/intfcm/glWindowQuit //apple_ref/c/intfm/glWindowQuit //apple_ref/c/func/glWindowQuit" target="_top"><span class="function">glWindowQuit</span></a>(
     <span class="param">void</span>);  <!-- headerDoc=declaration;uid=//apple_ref/c/func/glWindowQuit;name=end --></pre>
-</div>
-<hr class="betweenAPIEntries">
-<!-- headerDoc=func;  uid=//apple_ref/c/func/glWindowScreenSize;   name=glWindowScreenSize -->
-<a name="//apple_ref/c/func/glWindowScreenSize"></a>
-<h3><a name="glWindowScreenSize">glWindowScreenSize</a></h3>
-<hr class="afterName">
-<p><!-- headerDoc=abstract;uid=//apple_ref/c/func/glWindowScreenSize;name=start --><!-- begin abstract --></p>
-<p>Get the screen size of a windows current screen
-<!-- end abstract --><!-- headerDoc=abstract;uid=//apple_ref/c/func/glWindowScreenSize;name=end --></p>
-<div class="declaration_indent">
-<pre><!-- headerDoc=declaration;uid=//apple_ref/c/func/glWindowScreenSize;name=start --><!-- a logicalPath="//apple_ref/c/cl/EXPORT //apple_ref/c/tdef/EXPORT //apple_ref/c/tag/EXPORT //apple_ref/c/struct/EXPORT //apple_ref/c/intf/EXPORT //apple_ref/doc/anysymbol/EXPORT" machineGenerated="true" --><span class="type">EXPORT</span><!-- /a --> <!-- a logicalPath="//apple_ref/c/cl/void //apple_ref/c/tdef/void //apple_ref/c/tag/void //apple_ref/c/struct/void //apple_ref/c/intf/void //apple_ref/doc/anysymbol/void" machineGenerated="true" --><span class="type">void</span><!-- /a --> <a machinegenerated="true" href="index.html#//apple_ref/c/func/glWindowScreenSize" logicalPath="//apple_ref/c/instm/glWindowScreenSize //apple_ref/c/clm/glWindowScreenSize //apple_ref/c/intfcm/glWindowScreenSize //apple_ref/c/intfm/glWindowScreenSize //apple_ref/c/func/glWindowScreenSize" target="_top"><span class="function">glWindowScreenSize</span></a>(
-    <!-- a logicalPath="//apple_ref/c/cl/int //apple_ref/c/tdef/int //apple_ref/c/tag/int //apple_ref/c/struct/int //apple_ref/c/intf/int //apple_ref/doc/anysymbol/int" machineGenerated="true" --><span class="type">int</span><!-- /a --> <span class="type">*</span><span class="param">w</span>,
-    <!-- a logicalPath="//apple_ref/c/cl/int //apple_ref/c/tdef/int //apple_ref/c/tag/int //apple_ref/c/struct/int //apple_ref/c/intf/int //apple_ref/doc/anysymbol/int" machineGenerated="true" --><span class="type">int</span><!-- /a --> <span class="type">*</span><span class="param">h</span>);  <!-- headerDoc=declaration;uid=//apple_ref/c/func/glWindowScreenSize;name=end --></pre>
-</div>
-<h5 class="tight"><font face="Lucida Grande,Helvetica,Arial">Parameters</font></h5>
-<div class="param_indent">
-<dl>
-<dt>
-<!-- headerDoc=functionparam;  uid=//apple_ref/doc/functionparam/glWindowScreenSize/w;   name=w -->
-<a name="//apple_ref/doc/functionparam/glWindowScreenSize/w"></a>
-<code>w</code>
-</dt>
-<dd><p>Returns current screen's width</p></dd>
-<dt>
-<!-- headerDoc=functionparam;  uid=//apple_ref/doc/functionparam/glWindowScreenSize/h;   name=h -->
-<a name="//apple_ref/doc/functionparam/glWindowScreenSize/h"></a>
-<code>h</code>
-</dt>
-<dd><p>Returns current screen's height</p></dd>
-</dl>
-</div>
-<hr class="betweenAPIEntries">
-<!-- headerDoc=func;  uid=//apple_ref/c/func/glWindowSetSize;   name=glWindowSetSize -->
-<a name="//apple_ref/c/func/glWindowSetSize"></a>
-<h3><a name="glWindowSetSize">glWindowSetSize</a></h3>
-<hr class="afterName">
-<p><!-- headerDoc=abstract;uid=//apple_ref/c/func/glWindowSetSize;name=start --><!-- begin abstract --></p>
-<p>Set a windows size
-<!-- end abstract --><!-- headerDoc=abstract;uid=//apple_ref/c/func/glWindowSetSize;name=end --></p>
-<div class="declaration_indent">
-<pre><!-- headerDoc=declaration;uid=//apple_ref/c/func/glWindowSetSize;name=start --><!-- a logicalPath="//apple_ref/c/cl/EXPORT //apple_ref/c/tdef/EXPORT //apple_ref/c/tag/EXPORT //apple_ref/c/struct/EXPORT //apple_ref/c/intf/EXPORT //apple_ref/doc/anysymbol/EXPORT" machineGenerated="true" --><span class="type">EXPORT</span><!-- /a --> <!-- a logicalPath="//apple_ref/c/cl/void //apple_ref/c/tdef/void //apple_ref/c/tag/void //apple_ref/c/struct/void //apple_ref/c/intf/void //apple_ref/doc/anysymbol/void" machineGenerated="true" --><span class="type">void</span><!-- /a --> <a machinegenerated="true" href="index.html#//apple_ref/c/func/glWindowSetSize" logicalPath="//apple_ref/c/instm/glWindowSetSize //apple_ref/c/clm/glWindowSetSize //apple_ref/c/intfcm/glWindowSetSize //apple_ref/c/intfm/glWindowSetSize //apple_ref/c/func/glWindowSetSize" target="_top"><span class="function">glWindowSetSize</span></a>(
-    <!-- a logicalPath="//apple_ref/c/cl/int //apple_ref/c/tdef/int //apple_ref/c/tag/int //apple_ref/c/struct/int //apple_ref/c/intf/int //apple_ref/doc/anysymbol/int" machineGenerated="true" --><span class="type">int</span><!-- /a --> <span class="param">w</span>,
-    <!-- a logicalPath="//apple_ref/c/cl/int //apple_ref/c/tdef/int //apple_ref/c/tag/int //apple_ref/c/struct/int //apple_ref/c/intf/int //apple_ref/doc/anysymbol/int" machineGenerated="true" --><span class="type">int</span><!-- /a --> <span class="param">h</span>);  <!-- headerDoc=declaration;uid=//apple_ref/c/func/glWindowSetSize;name=end --></pre>
-</div>
-<h5 class="tight"><font face="Lucida Grande,Helvetica,Arial">Parameters</font></h5>
-<div class="param_indent">
-<dl>
-<dt>
-<!-- headerDoc=functionparam;  uid=//apple_ref/doc/functionparam/glWindowSetSize/w;   name=w -->
-<a name="//apple_ref/doc/functionparam/glWindowSetSize/w"></a>
-<code>w</code>
-</dt>
-<dd><p>Window's new width</p></dd>
-<dt>
-<!-- headerDoc=functionparam;  uid=//apple_ref/doc/functionparam/glWindowSetSize/h;   name=h -->
-<a name="//apple_ref/doc/functionparam/glWindowSetSize/h"></a>
-<code>h</code>
-</dt>
-<dd><p>Window's new height</p></dd>
-</dl>
-</div>
-<hr class="betweenAPIEntries">
-<!-- headerDoc=func;  uid=//apple_ref/c/func/glWindowSize;   name=glWindowSize -->
-<a name="//apple_ref/c/func/glWindowSize"></a>
-<h3><a name="glWindowSize">glWindowSize</a></h3>
-<hr class="afterName">
-<p><!-- headerDoc=abstract;uid=//apple_ref/c/func/glWindowSize;name=start --><!-- begin abstract --></p>
-<p>Get a windows size
-<!-- end abstract --><!-- headerDoc=abstract;uid=//apple_ref/c/func/glWindowSize;name=end --></p>
-<div class="declaration_indent">
-<pre><!-- headerDoc=declaration;uid=//apple_ref/c/func/glWindowSize;name=start --><!-- a logicalPath="//apple_ref/c/cl/EXPORT //apple_ref/c/tdef/EXPORT //apple_ref/c/tag/EXPORT //apple_ref/c/struct/EXPORT //apple_ref/c/intf/EXPORT //apple_ref/doc/anysymbol/EXPORT" machineGenerated="true" --><span class="type">EXPORT</span><!-- /a --> <!-- a logicalPath="//apple_ref/c/cl/void //apple_ref/c/tdef/void //apple_ref/c/tag/void //apple_ref/c/struct/void //apple_ref/c/intf/void //apple_ref/doc/anysymbol/void" machineGenerated="true" --><span class="type">void</span><!-- /a --> <a machinegenerated="true" href="index.html#//apple_ref/c/func/glWindowSize" logicalPath="//apple_ref/c/instm/glWindowSize //apple_ref/c/clm/glWindowSize //apple_ref/c/intfcm/glWindowSize //apple_ref/c/intfm/glWindowSize //apple_ref/c/func/glWindowSize" target="_top"><span class="function">glWindowSize</span></a>(
-    <!-- a logicalPath="//apple_ref/c/cl/int //apple_ref/c/tdef/int //apple_ref/c/tag/int //apple_ref/c/struct/int //apple_ref/c/intf/int //apple_ref/doc/anysymbol/int" machineGenerated="true" --><span class="type">int</span><!-- /a --> <span class="type">*</span><span class="param">w</span>,
-    <!-- a logicalPath="//apple_ref/c/cl/int //apple_ref/c/tdef/int //apple_ref/c/tag/int //apple_ref/c/struct/int //apple_ref/c/intf/int //apple_ref/doc/anysymbol/int" machineGenerated="true" --><span class="type">int</span><!-- /a --> <span class="type">*</span><span class="param">h</span>);  <!-- headerDoc=declaration;uid=//apple_ref/c/func/glWindowSize;name=end --></pre>
-</div>
-<h5 class="tight"><font face="Lucida Grande,Helvetica,Arial">Parameters</font></h5>
-<div class="param_indent">
-<dl>
-<dt>
-<!-- headerDoc=functionparam;  uid=//apple_ref/doc/functionparam/glWindowSize/w;   name=w -->
-<a name="//apple_ref/doc/functionparam/glWindowSize/w"></a>
-<code>w</code>
-</dt>
-<dd><p>Returns the window's width</p></dd>
-<dt>
-<!-- headerDoc=functionparam;  uid=//apple_ref/doc/functionparam/glWindowSize/h;   name=h -->
-<a name="//apple_ref/doc/functionparam/glWindowSize/h"></a>
-<code>h</code>
-</dt>
-<dd><p>Returns the window's height</p></dd>
-</dl>
 </div>
 <hr class="betweenAPIEntries">
 <!-- headerDoc=title:func;  uid=//apple_ref/doc/title:func/glWindowUserData;   name=glWindowUserData -->
@@ -971,9 +546,6 @@ function disclosure_triangle(elt) {
 <a name="HeaderDoc_datatypes"></a>
 <h2 class="h2tight">Typedefs</h2>
 <dl>
-<dt><tt><a href="index.html#//apple_ref/c/tdef/GLcursor" target="_top">GLcursor</a></tt></dt>
-<dd><p>System cursors
-</p></dd>
 <dt><tt><a href="index.html#//apple_ref/c/tdef/GLflags" target="_top">GLflags</a></tt></dt>
 <dd><p>Window config flags
 </p></dd>
@@ -987,59 +559,6 @@ function disclosure_triangle(elt) {
 <dd><p>Keyboard modifier type
 </p></dd>
 </dl>
-<hr class="betweenAPIEntries">
-<!-- headerDoc=tdef;  uid=//apple_ref/c/tdef/GLcursor;   name=GLcursor -->
-<a name="//apple_ref/c/tdef/GLcursor"></a>
-<h3><a name="GLcursor">GLcursor</a></h3>
-<hr class="afterName">
-<p><!-- headerDoc=abstract;uid=//apple_ref/c/tdef/GLcursor;name=start --><!-- begin abstract --></p>
-<p>System cursors
-<!-- end abstract --><!-- headerDoc=abstract;uid=//apple_ref/c/tdef/GLcursor;name=end --></p>
-<div class="declaration_indent">
-<pre><!-- headerDoc=declaration;uid=//apple_ref/c/tdef/GLcursor;name=start --><span class="keyword">typedef</span> <span class="keyword">enum</span> { 
-    <a machinegenerated="true" href="index.html#//apple_ref/c/econst/ArrowCursor" logicalPath="//apple_ref/c/econst/ArrowCursor" target="_top"><span class="var">ArrowCursor</span></a> = <span class="number">0</span>, <span class="comment">// Arrow</span> 
-    <a machinegenerated="true" href="index.html#//apple_ref/c/econst/IBeamCursor" logicalPath="//apple_ref/c/econst/IBeamCursor" target="_top"><span class="var">IBeamCursor</span></a>, <span class="comment">// I-beam</span> 
-    <a machinegenerated="true" href="index.html#//apple_ref/c/econst/WaitCursor" logicalPath="//apple_ref/c/econst/WaitCursor" target="_top"><span class="var">WaitCursor</span></a>, <span class="comment">// Wait</span> 
-    <a machinegenerated="true" href="index.html#//apple_ref/c/econst/CrosshairCursor" logicalPath="//apple_ref/c/econst/CrosshairCursor" target="_top"><span class="var">CrosshairCursor</span></a>, <span class="comment">// Crosshair</span> 
-    <a machinegenerated="true" href="index.html#//apple_ref/c/econst/WaitArrowCursor" logicalPath="//apple_ref/c/econst/WaitArrowCursor" target="_top"><span class="var">WaitArrowCursor</span></a>, <span class="comment">// Small wait cursor (or Wait if not available)</span> 
-    <a machinegenerated="true" href="index.html#//apple_ref/c/econst/NWSECursor" logicalPath="//apple_ref/c/econst/NWSECursor" target="_top"><span class="var">NWSECursor</span></a>, <span class="comment">// Double arrow pointing northwest and southeast</span> 
-    <a machinegenerated="true" href="index.html#//apple_ref/c/econst/NESWCursor" logicalPath="//apple_ref/c/econst/NESWCursor" target="_top"><span class="var">NESWCursor</span></a>, <span class="comment">// Double arrow pointing northeast and southwest</span> 
-    <a machinegenerated="true" href="index.html#//apple_ref/c/econst/WECursor" logicalPath="//apple_ref/c/econst/WECursor" target="_top"><span class="var">WECursor</span></a>, <span class="comment">// Double arrow pointing west and east</span> 
-    <a machinegenerated="true" href="index.html#//apple_ref/c/econst/NSCursor" logicalPath="//apple_ref/c/econst/NSCursor" target="_top"><span class="var">NSCursor</span></a>, <span class="comment">// Double arrow pointing north and south</span> 
-    <a machinegenerated="true" href="index.html#//apple_ref/c/econst/MoveCursor" logicalPath="//apple_ref/c/econst/MoveCursor" target="_top"><span class="var">MoveCursor</span></a>, <span class="comment">// Four pointed arrow pointing north, south, east, and west</span> 
-    <a machinegenerated="true" href="index.html#//apple_ref/c/econst/StopCursor" logicalPath="//apple_ref/c/econst/StopCursor" target="_top"><span class="var">StopCursor</span></a>, <span class="comment">// Slashed circle or crossbones</span> 
-    <a machinegenerated="true" href="index.html#//apple_ref/c/econst/HandCursor" logicalPath="//apple_ref/c/econst/HandCursor" target="_top"><span class="var">HandCursor</span></a> <span class="comment">// Hand</span> 
-} <!-- a logicalPath="//apple_ref/c/econst/GLcursor //apple_ref/c/data/GLcursor //apple_ref/c/clconst/GLcursor " machineGenerated="true" --><span class="var">GLcursor</span><!-- /a -->;  <!-- headerDoc=declaration;uid=//apple_ref/c/tdef/GLcursor;name=end --></pre>
-</div>
-<h5 class="tight"><font face="Lucida Grande,Helvetica,Arial">Constants</font></h5>
-<div class="param_indent">
-<dl>
-<dt><a name="//apple_ref/c/econst/ArrowCursor"><code>ArrowCursor</code></a></dt>
-<dd><p>Default arrow cursor</p></dd>
-<dt><a name="//apple_ref/c/econst/IBeamCursor"><code>IBeamCursor</code></a></dt>
-<dd><p>I-Beam Cursor</p></dd>
-<dt><a name="//apple_ref/c/econst/WaitCursor"><code>WaitCursor</code></a></dt>
-<dd><p>Wait cursor</p></dd>
-<dt><a name="//apple_ref/c/econst/CrosshairCursor"><code>CrosshairCursor</code></a></dt>
-<dd><p>Crosshair</p></dd>
-<dt><a name="//apple_ref/c/econst/WaitArrowCursor"><code>WaitArrowCursor</code></a></dt>
-<dd><p>Waiting arrow cursor</p></dd>
-<dt><a name="//apple_ref/c/econst/NWSECursor"><code>NWSECursor</code></a></dt>
-<dd><p>North-West, South-East cursor</p></dd>
-<dt><a name="//apple_ref/c/econst/NESWCursor"><code>NESWCursor</code></a></dt>
-<dd><p>North-East, South-West cursor</p></dd>
-<dt><a name="//apple_ref/c/econst/WECursor"><code>WECursor</code></a></dt>
-<dd><p>West-East cursor</p></dd>
-<dt><a name="//apple_ref/c/econst/NSCursor"><code>NSCursor</code></a></dt>
-<dd><p>North-South cursor</p></dd>
-<dt><a name="//apple_ref/c/econst/MoveCursor"><code>MoveCursor</code></a></dt>
-<dd><p>All-direction cursor</p></dd>
-<dt><a name="//apple_ref/c/econst/StopCursor"><code>StopCursor</code></a></dt>
-<dd><p>Stop-symbol cursor</p></dd>
-<dt><a name="//apple_ref/c/econst/HandCursor"><code>HandCursor</code></a></dt>
-<dd><p>Hand cursor</p></dd>
-</dl>
-</div>
 <hr class="betweenAPIEntries">
 <!-- headerDoc=tdef;  uid=//apple_ref/c/tdef/GLflags;   name=GLflags -->
 <a name="//apple_ref/c/tdef/GLflags"></a>
@@ -1292,7 +811,7 @@ function disclosure_triangle(elt) {
 <div class="hd_copyright_and_timestamp">
 <p class="hd_copyright">&copy; George Watson
  </p>
-<p class="hd_timestamp">Last Updated: Friday, December 09, 2022
+<p class="hd_timestamp">Last Updated: Saturday, February 25, 2023
 </p>
 </div>
 </td>
