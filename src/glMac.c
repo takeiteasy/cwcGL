@@ -51,7 +51,7 @@ typedef CGPoint NSPoint;
 typedef CGSize NSSize;
 typedef CGRect NSRect;
 
-extern id NSApp;
+extern id const NSApp;
 extern id const NSDefaultRunLoopMode;
 
 typedef enum {
@@ -210,6 +210,11 @@ static void windowWillClose(id self, SEL _sel, id notification) {
     GLwindow.running = 0;
 }
 
+static BOOL windowShouldClose(id self, SEL _sel, id sender) {
+    ObjC(void, id)(NSApp, sel(terminate:), nil);
+    return 1;
+}
+
 static void windowDidResize(id self, SEL _sel, id notification) {
     CGRect frame = ObjC(CGRect)(ObjC(id)(GLnative.window, sel(contentView)), sel(frame));
     glCallCallback(Resized, frame.size.width, frame.size.height);
@@ -239,25 +244,20 @@ int glWindow(unsigned int w, unsigned int h, const char *title, GLflags flags) {
         Class AppDelegate = ObjC_Class(AppDelegate, NSObject);
         ObjC_AddMethod(AppDelegate, applicationShouldTerminate, applicationShouldTerminate, NSUIntegerEncoding "@:@:");
         id appDelegate = ObjC(id)(ObjC(id)((id)AppDelegate, sel(alloc)), sel(init));
-        ObjC_Autorelease(AppDelegate);
         
         ObjC(void, id)(NSApp, sel(setDelegate:), appDelegate);
         ObjC(void)(NSApp, sel(finishLaunching));
         
         id menuBar = ObjC_Initalize(NSMenu);
-        ObjC_Autorelease(menuBar);
         id menuItem = ObjC_Initalize(NSMenuItem);
-        ObjC_Autorelease(menuItem);
         ObjC(void, id)(menuBar, sel(addItem:), menuItem);
         ObjC(id, id)(NSApp, sel(setMainMenu:), menuBar);
         id procInfo = ObjC(id)(class(NSProcessInfo), sel(processInfo));
         id appName = ObjC(id)(procInfo, sel(processName));
         
         id appMenu = ObjC(id, id)(ObjC_Alloc(NSMenu), sel(initWithTitle:), appName);
-        ObjC_Autorelease(appMenu);
         id quitTitle = ObjC(id, id)(CreateNSString("Quit "), sel(stringByAppendingString:), appName);
         id quitItem = ObjC(id, id, SEL, id)(ObjC_Alloc(NSMenuItem), sel(initWithTitle:action:keyEquivalent:), quitTitle, sel(terminate:), CreateNSString("q"));
-        ObjC_Autorelease(quitItem);
         
         ObjC(void, id)(appMenu, sel(addItem:), quitItem);
         ObjC(void, id)(menuItem, sel(setSubmenu:), appMenu);
@@ -270,7 +270,7 @@ int glWindow(unsigned int w, unsigned int h, const char *title, GLflags flags) {
         flags |= (flags & glFullscreen ? (glBorderless | glResizable | glFullscreenDesktop) : 0);
         styleMask |= (flags & glResizable ? NSWindowStyleMaskResizable : 0);
         styleMask |= (flags & glBorderless ? NSWindowStyleMaskFullSizeContentView : 0);
-
+        
         if (flags & glFullscreenDesktop) {
             NSRect f = ObjC_Struct(NSRect)(ObjC(id)(class(NSScreen), sel(mainScreen)), sel(frame));
             w = f.size.width;
@@ -311,14 +311,14 @@ int glWindow(unsigned int w, unsigned int h, const char *title, GLflags flags) {
         
         
         Class WindowDelegate = ObjC_Class(WindowDelegate, NSObject);
-        ObjC_AddProtocol(WindowDelegate, NSWindowDelegate);
         ObjC_AddIVar(WindowDelegate, glWindow, sizeof(void*), "ˆv");
+        ObjC_AddMethod(WindowDelegate, windowShouldClose:, windowShouldClose, "c@:@");
         ObjC_AddMethod(WindowDelegate, windowWillClose:, windowWillClose, "v@:@");
         ObjC_AddMethod(WindowDelegate, windowDidResize:, windowDidResize, "v@:@");
         ObjC_AddMethod(WindowDelegate, mouseEntered:, mouseEntered, "v@:@");
         ObjC_AddMethod(WindowDelegate, mouseExited:, mouseExited, "v@:@");
+        ObjC_SubClass(WindowDelegate);
         id windowDelegate = ObjC(id)(ObjC(id)((id)WindowDelegate, sel(alloc)), sel(init));
-        ObjC_Autorelease(windowDelegate);
         ObjC(void, id)(GLnative.window, sel(setDelegate:), windowDelegate);
         
         id contentView = ObjC(id)(GLnative.window, sel(contentView));
@@ -337,7 +337,6 @@ int glWindow(unsigned int w, unsigned int h, const char *title, GLflags flags) {
         };
         
         id pixelFormat = ObjC(id, const uint32_t*)(ObjC_Alloc(NSOpenGLPixelFormat), sel(initWithAttributes:), pixelFormatAttributes);
-        ObjC_Autorelease(pixelFormat);
         
         GLnative.glContext = ObjC(id, id, id)(ObjC_Alloc(NSOpenGLContext), sel(initWithFormat:shareContext:), pixelFormat, nil);
         ObjC(void, id)(GLnative.glContext, sel(setView:), contentView);
@@ -727,14 +726,13 @@ int glPollWindow(void) {
                 case NSEventTypeMouseMoved:
                     if (GLnative.cursorInWindow) {
                         CGPoint locationInWindow = ObjC(CGPoint)(e, sel(locationInWindow));
-                        glCallCallback(MouseMove, (int)locationInWindow.x, (int)(ObjC(CGRect)(ObjC(id)(GLnative.window, sel(contentView)), sel(frame)).size.height - roundf(locationInWindow.y)), ObjC(CGFloat)(e, sel(deltaX)), ObjC(CGFloat)(e, sel(deltaY)));
+                        glCallCallback(MouseMove, (int)locationInWindow.x, (int)(ObjC_Struct(CGRect)(ObjC(id)(GLnative.window, sel(contentView)), sel(frame)).size.height - roundf(locationInWindow.y)), ObjC(CGFloat)(e, sel(deltaX)), ObjC(CGFloat)(e, sel(deltaY)));
                     }
                     break;
                 default:
                     break;
             }
             ObjC(void, id)(NSApp, sel(sendEvent:), e);
-            ObjC(void)(NSApp, sel(updateWindows));
         }
     });
     return GLwindow.running;
