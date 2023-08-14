@@ -40,6 +40,8 @@ extern "C" {
 * @header fungl
 * @copyright George Watson
 */
+
+#define GL_LOAD_VERSION GL_VERSION_3_2
 HEADER
     
 def importHeader(path)
@@ -59,6 +61,7 @@ end
 
 importHeader("src/glLoader.h")
 importHeader("src/glWindow.h")
+importHeader("src/glim.h")
 
 puts <<HEADER
 #ifdef __cplusplus
@@ -113,3 +116,4 @@ end
 
 importSource("src/glLoader.c")
 importSource("src/glWindow.c")
+importSource("src/glim.c")

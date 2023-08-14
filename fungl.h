@@ -36,6 +36,8 @@ extern "C" {
 * @copyright George Watson
 */
 
+#define GL_LOAD_VERSION GL_VERSION_3_2
+
 #define __gl_glcorearb_h_ 1  /* Khronos core */
 #define __gl_glext_h_ 1      /* Khronos compatibility */
 #define __gl_h_ 1            /* Windows/Linux */
@@ -11811,6 +11813,7 @@ EXPORT int glIsWindowOpen(void);
  * @return Returns pointer to native window handle
  */
 EXPORT void* glWindowNative(void);
+
 
 #ifdef __cplusplus
 }

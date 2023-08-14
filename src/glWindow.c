@@ -1,4 +1,4 @@
-/* glWindow.c -- https://github.com/takeiteasy/glWindow
+/* glWindow.c -- https://github.com/takeiteasy/fungl
 
  The MIT License (MIT)
 
@@ -23,7 +23,7 @@
  TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
-#include "fungl.h"
+#include "glWindow.h"
 
 static struct {
 #define X(NAME, ARGS) void(*NAME##Callback)ARGS;
