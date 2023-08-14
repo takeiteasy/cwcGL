@@ -1,4 +1,4 @@
-/* glWindow.h -- https://github.com/takeiteasy/glWindow
+/* glWindow.h -- https://github.com/takeiteasy/fungl
  
  The MIT License (MIT)
  Copyright (c) 2022 George Watson
@@ -21,12 +21,12 @@
 
 #ifndef glWindow_h
 #define glWindow_h
-#if defined(__cplusplus)
+#ifdef __cplusplus
 extern "C" {
 #endif
 
 /*!
- * @header glWidow Yet another cross-platform OpenGL context
+ * @header glWindow
  * @copyright George Watson
  */
 
@@ -207,7 +207,7 @@ EXPORT int glIsWindowOpen(void);
  */
 EXPORT void* glWindowNative(void);
 
-#if defined(__cplusplus)
+#ifdef __cplusplus
 }
 #endif
 #endif // glWindow_h

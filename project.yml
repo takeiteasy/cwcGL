@@ -1,4 +1,4 @@
-name: glWindow
+name: fungl
 
 options:
   bundleIdPrefix: io.github.takeiteasy
@@ -10,17 +10,37 @@ settings:
   GCC_C_LANGUAGE_STANDARD: c11
 
 targets:
-  glWindow:
-    type: application
+  fungl:
+    type: library.dynamic
     platform: macOS
-    info:
-      path: Info.plist
     sources:
-        - path: src
-        - path: glWindow.h
-        - path: tools/test.c
+        - path: tools/
+          type: folder
+        - path: tools/
+          type: folder
+        - path: build/
+          type: folder
+        - path: project.yml
+          type: folder
+        - path: README.md
+          type: folder
+        - path: Makefile
+          type: folder
+        - path: src/
+          type: folder
+        - path: fungl.c
+        - path: fungl.h
     dependencies:
         - sdk: Cocoa.framework
     settings:
         HEADER_SEARCH_PATHS: [$(PROJECT_DIR)/src, $(PROJECT_DIR)/]
         OTHER_CFLAGS: [-DGL_SILENCE_DEPRECATION]
+  test:
+    type: tool
+    platform: macOS
+    sources:
+        - path: tools/test.c
+    dependencies:
+        - target: fungl
+    settings:
+        HEADER_SEARCH_PATHS: [$(PROJECT_DIR)/src]

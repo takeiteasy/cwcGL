@@ -1,9 +1,9 @@
-# glWindow
+# fungl
 
-Tiny cross-platform OpenGL context with a incredibly simple API. **WIP** -- See [TODO](https://github.com/takeiteasy/glWindow#todo) section for progress, or [here](https://takeiteasy.github.io/glWindow/) for online documentation.
+**fungl** ***[ˈfʌŋɡəl]*** is a tiny cross-platform OpenGL context with a incredibly simple API. **WIP** -- See [TODO](https://github.com/takeiteasy/fungl#todo) section for progress, or [here](https://takeiteasy.github.io/fungl/) for online documentation.
 
 ```c
-#include "glWindow.h"
+#include "fungl.h"
 
 void KeyboardCallback(void *userdata, GLkey key, GLmod modifier, int isDown);
 void MouseButtonCallback(void *userdata, int button, GLmod modifier, int isDown);
@@ -38,14 +38,6 @@ int main(int argc, const char *argv[]) {
     return EXIT_SUCCESS;
 }
 ```
-
-## TODO
-
-- [X] ~~Mac context~~
-- [X] ~~Documentation~~
-- [X] ~~Windows context~~
-- [X] Linux context (X11) (Untested)
-- [X] ~~WebGL (Emscripten) context~~
 
 ## License
 ```

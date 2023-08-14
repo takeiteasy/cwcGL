@@ -25,8 +25,8 @@
  TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
-#include "glWindow.h"
-{{src/glCommon.c}}
+#include "fungl.h"
+{{src/glWindow.c}}
 
 #if defined(GLW_EMSCRIPTEN)
 {{src/glEmscripten.c}}
