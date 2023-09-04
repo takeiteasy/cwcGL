@@ -1,4 +1,4 @@
-name: fungl
+name: ezgl
 
 options:
   bundleIdPrefix: io.github.takeiteasy
@@ -10,12 +10,10 @@ settings:
   GCC_C_LANGUAGE_STANDARD: c11
 
 targets:
-  fungl:
+  ezgl:
     type: library.dynamic
     platform: macOS
     sources:
-        - path: tools/
-          type: folder
         - path: tools/
           type: folder
         - path: build/
@@ -27,20 +25,17 @@ targets:
         - path: Makefile
           type: folder
         - path: src/
-          type: folder
-        - path: fungl.c
-        - path: fungl.h
     dependencies:
         - sdk: Cocoa.framework
     settings:
-        HEADER_SEARCH_PATHS: [$(PROJECT_DIR)/src, $(PROJECT_DIR)/]
+        HEADER_SEARCH_PATHS: [$(PROJECT_DIR)/src]
         OTHER_CFLAGS: [-DGL_SILENCE_DEPRECATION]
-  test:
+  ezgl_test:
     type: tool
     platform: macOS
     sources:
         - path: tools/test.c
     dependencies:
-        - target: fungl
+        - target: ezgl
     settings:
         HEADER_SEARCH_PATHS: [$(PROJECT_DIR)/src]
