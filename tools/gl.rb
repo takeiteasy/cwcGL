@@ -1,5 +1,5 @@
 =begin
-gl.rb -- https://github.com/takeiteasy/fungl
+gl.rb -- https://github.com/takeiteasy/cwcGL
 
 The MIT License (MIT)
 

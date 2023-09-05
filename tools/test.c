@@ -19,32 +19,50 @@
  TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
-#define EZGL_VERSION 2010
-#include "ezgl.h"
+#define CWCGL_VERSION 2010
+#include "cwcgl.h"
 
-void display(void) {
-    glClearColor(0, 0, 0, 1);
-    glClear(GL_COLOR_BUFFER_BIT);
-    
-    glBegin(GL_TRIANGLES);
-    glColor3f(1, 0, 0);
-    glVertex2f(-0.8, -0.8);
-    glColor3f(0, 1, 0);
-    glVertex2f(0.8, -0.8);
-    glColor3f(0, 0, 1);
-    glVertex2f(0, 0.9);
-    glEnd();
-    
-    glutSwapBuffers();
+// Window event callbacks, I think the names are self-explanatory
+void onKeyboard(void *userdata, int key, int modifier, int isDown) {
+    printf("Keyboard Event: Key %d is now %s\n", (int)key, isDown ? "down" : "up");
 }
 
-int main(int argc, char *argv[]) {
-    glutInit(&argc, argv);
-    glutInitDisplayMode(GLUT_SINGLE);
-    glutInitWindowSize(500, 500);
-    glutInitWindowPosition(100,100);
-    glutCreateWindow("test");
-    glutDisplayFunc(display);
-    glutMainLoop();
+void onMouseButton(void *userdata, int button, int modifier, int isDown) {
+    printf("Mouse Button Event: Button %d is now %s\n", button, isDown ? "down" : "up");
+}
+
+void onMouseMove(void *userdata, int x, int y, float dx, float dy) {
+    printf("Mouse Move Event: Position (%d, %d) by (%f, %f)\n", x, y, dx, dy);
+}
+
+void onMouseScroll(void *userdata, float dx, float dy, int modifier) {
+    printf("Mouse Scroll Event: Scroll delta (%f, %f)\n", dx, dy);
+}
+
+void onFocus(void *userdata, int isFocused) {
+    printf("Focus Event: Window is now %s\n", isFocused ? "focused" : "unfocused");
+}
+
+void onResized(void *userdata, int w, int h) {
+    printf("Resize Event: Window is now (%d, %d)\n", w, h);
+}
+
+void onClosed(void *userdata) {
+    printf("Close Event: Window is now closing\n");
+}
+
+int main(int argc, const char *argv[]) {
+    if (!glWindow(640, 480, "glWindow", glResizable))
+        return 1;
+    
+#define X(NAME, ARGS) on##NAME,
+    glWindowCallbacks(CWCGL_CALLBACKS NULL);
+#undef X
+
+    while (glWindowPoll()) {
+        glFlushWindow();
+    }
+    
+    glWindowQuit();
     return 0;
 }

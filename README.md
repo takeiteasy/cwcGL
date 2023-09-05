@@ -6,6 +6,43 @@ A cross-platform OpenGL window + context. **WIP**
   <img width="492" height="640" src="https://raw.githubusercontent.com/takeiteasy/cwcGL/master/zap.jpg">
 </p>
 
+```c
+#include "glWindow.h"
+
+void KeyboardCallback(void *userdata, GLkey key, GLmod modifier, int isDown);
+void MouseButtonCallback(void *userdata, int button, GLmod modifier, int isDown);
+void MouseMoveCallback(void *userdata, int x, int y, float dx, float dy);
+void MouseScrollCallback(void *userdata, float dx, float dy, GLmod modifier);
+void ResizedCallback(void *userdata, int w, int h);
+void FocusCallback(void *userdata, int isFocused);
+void ClosedCallback(void *userdata);
+
+int main(int argc, const char *argv[]) {
+    // Create a resizable 640x480 window
+    if (!glWindow(640, 480, "glWindow", glResizable))
+        return EXIT_FAILURE;
+    // Assign window event callbacks
+    glWindowCallbacks(KeyboardCallback,
+                      MouseButtonCallback,
+                      MouseMoveCallback,
+                      MouseScrollCallback,
+                      ResizedCallback,
+                      FocusCallback,
+                      ClosedCallback,
+                      NULL); // Last value is userdata that will 
+                             // be passed to callbacks
+    // Poll events until window is closed
+    while (glWindowPoll()) {
+        // ...
+        // Flush window
+        glFlushWindow();
+    }
+    // Clean up
+    glWindowQuit();
+    return EXIT_SUCCESS;
+}
+```
+
 ## License
 ```
 The MIT License (MIT)

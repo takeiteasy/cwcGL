@@ -275,36 +275,43 @@ static int InitOpenGL(void) {
     X(MenuStatus, (int status, int x, int y))              \
     X(OverlayDisplay, (void))
 
-typedef struct {
-    void *native;
-    int id;
-#define X(NAME, ARGS) void(*NAME##Func)ARGS;
-    CALLBACKS
-#undef X
-} glWindow;
-
-typedef struct glWindowEntry {
-    glWindow window;
-    struct glWindowEntry *next;
-} glWindowBucket;
-
 static struct {
-    glWindowBucket *front, *back;
-    int running, initialized;
-    int x, y, width, height;
-#define X(NAME, ARGS) void(*NAME##Func)ARGS;
-    CALLBACKS
+#define X(NAME, ARGS) void(*NAME##Callback)ARGS;
+    CWCGL_CALLBACKS
 #undef X
-    void(*TimerFunc)(int value);
-} state;
+    int running;
+    void *userdata;
+} GLwindow = {0};
 
-static glWindow *currentWindow = NULL;
-static int windowIDCounter = 0;
+#define glCallCallback(CB, ...)  \
+    if (GLwindow.CB##Callback)   \
+        GLwindow.CB##Callback(GLwindow.userdata, __VA_ARGS__)
 
-void* CreateNativeWindow(int x, int y, int w, int h, const char *title);
-void PollNativeWindow(void *handle);
-void FlushNativeWindow(void *handle);
-void DestroyNativeWindow(void *handle);
+#define X(NAME, ARGS) \
+    void(*NAME##Callback)ARGS,
+void glWindowCallbacks(CWCGL_CALLBACKS void* userdata) {
+#undef X
+#define X(NAME, ARGS) \
+    GLwindow.NAME##Callback = NAME##Callback;
+    CWCGL_CALLBACKS
+#undef X
+    GLwindow.userdata = userdata;
+}
+
+#define X(NAME, ARGS)                                          \
+    void glWindow##NAME##Callback(void(*NAME##Callback)ARGS) { \
+        GLwindow.NAME##Callback = NAME##Callback;              \
+    }
+CWCGL_CALLBACKS
+#undef X
+
+void glWindowUserdata(void *userdata) {
+    GLwindow.userdata = userdata;
+}
+
+int glIsWindowOpen(void) {
+    return GLwindow.running;
+}
 
 #if defined(CWCGL_EMSCRIPTEN)
 #include "backends/cwcgl_emscripten.c"
@@ -315,340 +322,3 @@ void DestroyNativeWindow(void *handle);
 #elif defined(CWCGL_LINUX)
 #include "backends/cwcgl_linux.c"
 #endif
-
-void glutInit(int *argcp, char **argv) {
-    state.initialized = 1;
-    state.running = 0;
-    state.x = -1;
-    state.y = -1;
-    state.width = 640;
-    state.height = 480;
-    state.front = state.back = NULL;
-    InitOpenGL();
-}
-
-void glutInitDisplayMode(unsigned int mode) {
-    
-}
-
-void glutInitWindowPosition(int x, int y) {
-    state.x = x;
-    state.y = y;
-}
-
-void glutInitWindowSize(int width, int height) {
-    state.width = width;
-    state.height = height;
-}
-
-void glutMainLoop(void) {
-    assert(state.front);
-    state.running = 1;
-    
-    while (state.running) {
-#if defined(CWCGL_LINUX)
-        glWindowBucket *bucket = state.front;
-        while (bucket) {
-            PollNativeWindow(bucket->window.native);
-            if (bucket->window.DisplayFunc)
-                bucket->window.DisplayFunc();
-            bucket = bucket->next;
-        }
-#else
-        PollNativeWindow(NULL);
-        glWindowBucket *bucket = state.front;
-        while (bucket) {
-            if (bucket->window.DisplayFunc)
-                bucket->window.DisplayFunc();
-            bucket = bucket->next;
-        }
-#endif
-    }
-}
-
-int glutCreateWindow(char *title) {
-    assert(state.initialized);
-    glWindowBucket *result = malloc(sizeof(glWindowBucket));
-    result->window.id = windowIDCounter++;
-#define X(NAME, ARGS) result->window.NAME##Func = state.NAME##Func;
-    CALLBACKS
-#undef X
-    assert(result->window.native = CreateNativeWindow(state.x, state.y, state.width, state.height, title));
-    
-    if (!state.front)
-        state.front = state.back = result;
-    else {
-        state.back->next = result;
-        state.back = result;
-    }
-    if (!currentWindow)
-        currentWindow = &result->window;
-    return result->window.id;
-}
-
-int glutCreateSubWindow(int win, int x, int y, int width, int height) {
-    return -1;
-}
-
-void glutDestroyWindow(int win) {
-    
-}
-
-void glutPostRedisplay(void) {
-
-}
-
-void glutSwapBuffers(void) {
-
-}
-
-int glutGetWindow(void) {
-    return -1;
-}
-
-void glutSetWindow(int win) {
-
-}
-
-void glutSetWindowTitle(char *title) {
-
-}
-
-void glutSetIconTitle(char *title) {
-
-}
-
-void glutPositionWindow(int x, int y) {
-
-}
-
-void glutReshapeWindow(int width, int height) {
-
-}
-
-void glutPopWindow(void) {
-
-}
-
-void glutPushWindow(void) {
-
-}
-
-void glutIconifyWindow(void) {
-
-}
-
-void glutShowWindow(void) {
-
-}
-
-void glutHideWindow(void) {
-
-}
-
-void glutFullScreen(void) {
-
-}
-
-void glutSetCursor(int cursor) {
-
-}
-
-void glutEstablishOverlay(void) {
-
-}
-
-void glutRemoveOverlay(void) {
-
-}
-
-void glutUseLayer(GLenum layer) {
-
-}
-
-void glutPostOverlayRedisplay(void) {
-
-}
-
-void glutShowOverlay(void) {
-
-}
-
-void glutHideOverlay(void) {
-
-}
-
-int glutCreateMenu(void(*fn)(int)) {
-    return -1;
-}
-
-void glutDestroyMenu(int menu) {
-
-}
-
-int glutGetMenu(void) {
-    return -1;
-}
-
-void glutSetMenu(int menu) {
-
-}
-
-void glutAddMenuEntry(char *label, int value) {
-
-}
-
-void glutAddSubMenu(char *label, int submenu) {
-
-}
-
-void glutChangeToMenuEntry(int item, char *label, int value) {
-
-}
-
-void glutChangeToSubMenu(int item, char *label, int submenu) {
-
-}
-
-void glutRemoveMenuItem(int item) {
-
-}
-
-void glutAttachMenu(int button) {
-
-}
-
-void glutDetachMenu(int button) {
-
-}
-
-#define X(NAME, ARGS) \
-void glut##NAME##Func(void(*callback)ARGS) { \
-    state.NAME##Func = callback; \
-}
-CALLBACKS
-#undef X
-
-void glutTimerFunc(unsigned int millis, void(*fn)(int value), int value) {
-    state.TimerFunc = fn;
-}
-
-void glutSetColor(int cell, GLfloat red, GLfloat green, GLfloat blue) {
-
-}
-
-GLfloat glutGetColor(int cell, int component) {
-    return 0.f;
-}
-
-void glutCopyColormap(int win) {
-
-}
-
-int glutGet(GLenum type) {
-    return -1;
-}
-
-int glutDeviceGet(GLenum type) {
-    return -1;
-}
-
-int glutExtensionSupported(char *name) {
-    return -1;
-}
-
-int glutGetModifiers(void) {
-    return -1;
-}
-
-int glutLayerGet(GLenum type) {
-    return -1;
-}
-
-void glutBitmapCharacter(void *font, int character) {
-
-}
-
-int glutBitmapWidth(void *font, int character) {
-    return -1;
-}
-
-void glutStrokeCharacter(void *font, int character) {
-
-}
-
-int glutStrokeWidth(void *font, int character) {
-    return -1;
-}
-
-void glutWireSphere(GLdouble radius, GLint slices, GLint stacks) {
-
-}
-
-void glutSolidSphere(GLdouble radius, GLint slices, GLint stacks) {
-
-}
-
-void glutWireCone(GLdouble base, GLdouble height, GLint slices, GLint stacks) {
-
-}
-
-void glutSolidCone(GLdouble base, GLdouble height, GLint slices, GLint stacks) {
-
-}
-
-void glutWireCube(GLdouble size) {
-
-}
-
-void glutSolidCube(GLdouble size) {
-
-}
-
-void glutWireTorus(GLdouble innerRadius, GLdouble outerRadius, GLint sides, GLint rings) {
-
-}
-
-void glutSolidTorus(GLdouble innerRadius, GLdouble outerRadius, GLint sides, GLint rings) {
-
-}
-
-void glutWireDodecahedron(void) {
-
-}
-
-void glutSolidDodecahedron(void) {
-
-}
-
-void glutWireTeapot(GLdouble size) {
-
-}
-
-void glutSolidTeapot(GLdouble size) {
-
-}
-
-void glutWireOctahedron(void) {
-
-}
-
-void glutSolidOctahedron(void) {
-
-}
-
-void glutWireTetrahedron(void) {
-
-}
-
-void glutSolidTetrahedron(void) {
-
-}
-
-void glutWireIcosahedron(void) {
-
-}
-
-void glutSolidIcosahedron(void) {
-
-}

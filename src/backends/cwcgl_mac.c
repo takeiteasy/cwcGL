@@ -192,8 +192,162 @@ extern id NSDeviceRGBColorSpace;
 #define ObjC_Initalize(CLASS) ObjC(id)(ObjC_Alloc(CLASS), sel(init))
 #define ObjC_Release(CLASS) ObjC(void)(CLASS, sel(release))
 
+static struct {
+    id window, glContext;
+    int cursorInWindow;
+} GLnative = {0};
+
+static NSUInteger applicationShouldTerminate(id self, SEL _sel, id sender) {
+    glWindowQuit();
+    ObjC(void, id)(NSApp, sel(terminate:), nil);
+    return 0;
+}
+
+static void windowWillClose(id self, SEL _sel, id notification) {
+    if (GLwindow.ClosedCallback)
+        GLwindow.ClosedCallback(GLwindow.userdata);
+    GLwindow.running = 0;
+}
+
+static BOOL windowShouldClose(id self, SEL _sel, id sender) {
+    ObjC(void, id)(NSApp, sel(terminate:), nil);
+    return 1;
+}
+
+static void windowDidResize(id self, SEL _sel, id notification) {
+    CGRect frame = ObjC(CGRect)(ObjC(id)(GLnative.window, sel(contentView)), sel(frame));
+    glCallCallback(Resized, frame.size.width, frame.size.height);
+}
+
+static void mouseEntered(id self, SEL _sel, id event) {
+    GLnative.cursorInWindow = YES;
+}
+
+static void mouseExited(id self, SEL _sel, id event) {
+    GLnative.cursorInWindow = NO;
+    ObjC(void)(class(NSCursor), sel(unhide));
+}
+
 static id CreateNSString(const char *str) {
     return ObjC(id, const char*)(class(NSString), sel(stringWithUTF8String:), str);
+}
+
+int glWindow(unsigned int w, unsigned int h, const char *title, GLflags flags) {
+    if (GLwindow.running)
+        return 0;
+    
+    AutoreleasePool({
+        ObjC(id)(class(NSApplication), sel(sharedApplication));
+        ObjC(void, NSInteger)(NSApp, sel(setActivationPolicy:), NSApplicationActivationPolicyRegular);
+        
+        Class AppDelegate = ObjC_Class(AppDelegate, NSObject);
+        ObjC_AddMethod(AppDelegate, applicationShouldTerminate, applicationShouldTerminate, NSUIntegerEncoding "@:@:");
+        id appDelegate = ObjC(id)(ObjC(id)((id)AppDelegate, sel(alloc)), sel(init));
+        
+        ObjC(void, id)(NSApp, sel(setDelegate:), appDelegate);
+        ObjC(void)(NSApp, sel(finishLaunching));
+        
+        id menuBar = ObjC_Initalize(NSMenu);
+        id menuItem = ObjC_Initalize(NSMenuItem);
+        ObjC(void, id)(menuBar, sel(addItem:), menuItem);
+        ObjC(id, id)(NSApp, sel(setMainMenu:), menuBar);
+        id procInfo = ObjC(id)(class(NSProcessInfo), sel(processInfo));
+        id appName = ObjC(id)(procInfo, sel(processName));
+        
+        id appMenu = ObjC(id, id)(ObjC_Alloc(NSMenu), sel(initWithTitle:), appName);
+        id quitTitle = ObjC(id, id)(CreateNSString("Quit "), sel(stringByAppendingString:), appName);
+        id quitItem = ObjC(id, id, SEL, id)(ObjC_Alloc(NSMenuItem), sel(initWithTitle:action:keyEquivalent:), quitTitle, sel(terminate:), CreateNSString("q"));
+        
+        ObjC(void, id)(appMenu, sel(addItem:), quitItem);
+        ObjC(void, id)(menuItem, sel(setSubmenu:), appMenu);
+        
+        NSWindowStyleMask styleMask = NSWindowStyleMaskTitled | NSWindowStyleMaskClosable | NSWindowStyleMaskMiniaturizable;
+#if MAC_OS_X_VERSION_MAX_ALLOWED < MAC_OS_X_VERSION_10_7
+        if (flags & glFullscreen)
+            flags &= (~glFullscreen | glFullscreenDesktop);
+#endif
+        flags |= (flags & glFullscreen ? (glBorderless | glResizable | glFullscreenDesktop) : 0);
+        styleMask |= (flags & glResizable ? NSWindowStyleMaskResizable : 0);
+        styleMask |= (flags & glBorderless ? NSWindowStyleMaskFullSizeContentView : 0);
+        
+        if (flags & glFullscreenDesktop) {
+            NSRect f = ObjC_Struct(NSRect)(ObjC(id)(class(NSScreen), sel(mainScreen)), sel(frame));
+            w = f.size.width;
+            h = f.size.height;
+            styleMask |= NSWindowStyleMaskFullSizeContentView;
+        }
+        NSRect windowFrame = {{0, 0}, {w, h}};
+        
+        GLnative.window = ObjC(id, NSRect, NSUInteger, NSUInteger, BOOL)(ObjC_Alloc(NSWindow), sel(initWithContentRect:styleMask:backing:defer:), windowFrame, styleMask, NSBackingStoreBuffered, NO);
+        ObjC(void, BOOL)(GLnative.window, sel(setReleasedWhenClosed:), NO);
+        
+        if (flags & glAlwaysOnTop)
+            ObjC(void, NSInteger)(GLnative.window, sel(setLevel:), NSFloatingWindowLevel);
+        
+#if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_7
+        if (flags & glFullscreen) {
+            ObjC(void, NSUInteger)(GLnative.window, sel(setCollectionBehavior:), NSWindowCollectionBehaviorFullScreenPrimary);
+            ObjC(void, SEL, id, BOOL)(GLnative.window, sel(performSelectorOnMainThread:withObject:waitUntilDone:), sel(toggleFullScreen:), GLnative.window, NO);
+        }
+#endif
+        
+        ObjC(void, BOOL)(GLnative.window, sel(setAcceptsMouseMovedEvents:), YES);
+        ObjC(void, BOOL)(GLnative.window, sel(setRestorable:), NO);
+        ObjC(void, BOOL)(GLnative.window, sel(setReleasedWhenClosed:), NO);
+        
+        id windowTitle = nil;
+        if (flags & glBorderless && flags & ~glFullscreen) {
+            windowTitle = ObjC(id)(class(NSString), sel(string));
+            ObjC(void, BOOL)(GLnative.window, sel(setTitlebarAppearsTransparent:), YES);
+            ObjC(void, BOOL)(ObjC(id, NSUInteger)(GLnative.window, sel(standardWindowButton:), NSWindowZoomButton), sel(setHidden:), YES);
+            ObjC(void, BOOL)(ObjC(id, NSUInteger)(GLnative.window, sel(standardWindowButton:), NSWindowCloseButton), sel(setHidden:), YES);
+            ObjC(void, BOOL)(ObjC(id, NSUInteger)(GLnative.window, sel(standardWindowButton:), NSWindowMiniaturizeButton), sel(setHidden:), YES);
+        } else
+            windowTitle = CreateNSString(title);
+        ObjC(void, id)(GLnative.window, sel(setTitle:), windowTitle);
+        ObjC(void)(GLnative.window, sel(center));
+        ObjC(void, id)(GLnative.window, sel(setBackgroundColor:), ObjC(id)(class(NSColor), sel(blackColor)));
+        
+        
+        Class WindowDelegate = ObjC_Class(WindowDelegate, NSObject);
+        ObjC_AddIVar(WindowDelegate, glWindow, sizeof(void*), "ˆv");
+        ObjC_AddMethod(WindowDelegate, windowShouldClose:, windowShouldClose, "c@:@");
+        ObjC_AddMethod(WindowDelegate, windowWillClose:, windowWillClose, "v@:@");
+        ObjC_AddMethod(WindowDelegate, windowDidResize:, windowDidResize, "v@:@");
+        ObjC_AddMethod(WindowDelegate, mouseEntered:, mouseEntered, "v@:@");
+        ObjC_AddMethod(WindowDelegate, mouseExited:, mouseExited, "v@:@");
+        ObjC_SubClass(WindowDelegate);
+        id windowDelegate = ObjC(id)(ObjC(id)((id)WindowDelegate, sel(alloc)), sel(init));
+        ObjC(void, id)(GLnative.window, sel(setDelegate:), windowDelegate);
+        
+        id contentView = ObjC(id)(GLnative.window, sel(contentView));
+        int trackingFlags = NSTrackingMouseEnteredAndExited | NSTrackingActiveInKeyWindow | NSTrackingInVisibleRect;
+        id trackingArea = ObjC(id, NSRect, int, id, id)(ObjC_Alloc(NSTrackingArea), sel(initWithRect:options:owner:userInfo:), windowFrame, trackingFlags, windowDelegate, 0);
+        ObjC(void, id)(contentView, sel(addTrackingArea:), trackingArea);
+        
+        NSOpenGLPixelFormatAttribute pixelFormatAttributes[] = {
+            NSOpenGLPFAOpenGLProfile, NSOpenGLProfileVersion3_2Core,
+            NSOpenGLPFAColorSize, 24,
+            NSOpenGLPFAAlphaSize, 8,
+            NSOpenGLPFADoubleBuffer,
+            NSOpenGLPFAAccelerated,
+            NSOpenGLPFANoRecovery,
+            0
+        };
+        
+        id pixelFormat = ObjC(id, const uint32_t*)(ObjC_Alloc(NSOpenGLPixelFormat), sel(initWithAttributes:), pixelFormatAttributes);
+        
+        GLnative.glContext = ObjC(id, id, id)(ObjC_Alloc(NSOpenGLContext), sel(initWithFormat:shareContext:), pixelFormat, nil);
+        ObjC(void, id)(GLnative.glContext, sel(setView:), contentView);
+        ObjC(void)(GLnative.glContext, sel(makeCurrentContext));
+        
+        ObjC(void, BOOL)(GLnative.window, sel(setAcceptsMouseMovedEvents:), YES);
+        ObjC(void, SEL, id, BOOL)(GLnative.window, sel(performSelectorOnMainThread:withObject:waitUntilDone:), sel(makeKeyAndOrderFront:), nil, YES);
+        ObjC(void, BOOL)(NSApp, sel(activateIgnoringOtherApps:), YES);
+    });
+    
+    GLwindow.running = 1;
+    return 1;
 }
 
 // from Carbon HIToolbox/Events.h
@@ -387,189 +541,216 @@ static uint8_t ConvertMacKey(uint16_t key) {
             return '8';
         case kVK_ANSI_9:
             return '9';
+        case kVK_ANSI_Keypad0:
+            return KEY_PAD0;
+        case kVK_ANSI_Keypad1:
+            return KEY_PAD1;
+        case kVK_ANSI_Keypad2:
+            return KEY_PAD2;
+        case kVK_ANSI_Keypad3:
+            return KEY_PAD3;
+        case kVK_ANSI_Keypad4:
+            return KEY_PAD4;
+        case kVK_ANSI_Keypad5:
+            return KEY_PAD5;
+        case kVK_ANSI_Keypad6:
+            return KEY_PAD6;
+        case kVK_ANSI_Keypad7:
+            return KEY_PAD7;
+        case kVK_ANSI_Keypad8:
+            return KEY_PAD8;
+        case kVK_ANSI_Keypad9:
+            return KEY_PAD9;
+        case kVK_ANSI_KeypadMultiply:
+            return KEY_PADMUL;
+        case kVK_ANSI_KeypadPlus:
+            return KEY_PADADD;
+        case kVK_ANSI_KeypadEnter:
+            return KEY_PADENTER;
+        case kVK_ANSI_KeypadMinus:
+            return KEY_PADSUB;
+        case kVK_ANSI_KeypadDecimal:
+            return KEY_PADDOT;
+        case kVK_ANSI_KeypadDivide:
+            return KEY_PADDIV;
         case kVK_F1:
-            return GLUT_KEY_F1;
+            return KEY_F1;
         case kVK_F2:
-            return GLUT_KEY_F2;
+            return KEY_F2;
         case kVK_F3:
-            return GLUT_KEY_F3;
+            return KEY_F3;
         case kVK_F4:
-            return GLUT_KEY_F4;
+            return KEY_F4;
         case kVK_F5:
-            return GLUT_KEY_F5;
+            return KEY_F5;
         case kVK_F6:
-            return GLUT_KEY_F6;
+            return KEY_F6;
         case kVK_F7:
-            return GLUT_KEY_F7;
+            return KEY_F7;
         case kVK_F8:
-            return GLUT_KEY_F8;
+            return KEY_F8;
         case kVK_F9:
-            return GLUT_KEY_F9;
+            return KEY_F9;
         case kVK_F10:
-            return GLUT_KEY_F10;
+            return KEY_F10;
         case kVK_F11:
-            return GLUT_KEY_F11;
+            return KEY_F11;
         case kVK_F12:
-            return GLUT_KEY_F12;
+            return KEY_F12;
+        case kVK_Shift:
+            return KEY_LSHIFT;
+        case kVK_Control:
+            return KEY_LCONTROL;
+        case kVK_Option:
+            return KEY_LALT;
+        case kVK_CapsLock:
+            return KEY_CAPSLOCK;
+        case kVK_Command:
+            return KEY_LWIN;
+        case kVK_Command - 1:
+            return KEY_RWIN;
+        case kVK_RightShift:
+            return KEY_RSHIFT;
+        case kVK_RightControl:
+            return KEY_RCONTROL;
+        case kVK_RightOption:
+            return KEY_RALT;
+        case kVK_Delete:
+            return KEY_BACKSPACE;
+        case kVK_Tab:
+            return KEY_TAB;
+        case kVK_Return:
+            return KEY_RETURN;
+        case kVK_Escape:
+            return KEY_ESCAPE;
+        case kVK_Space:
+            return KEY_SPACE;
         case kVK_PageUp:
-            return GLUT_KEY_PAGE_UP;
+            return KEY_PAGEUP;
         case kVK_PageDown:
-            return GLUT_KEY_PAGE_DOWN;
+            return KEY_PAGEDN;
         case kVK_End:
-            return GLUT_KEY_END;
+            return KEY_END;
         case kVK_Home:
-            return GLUT_KEY_HOME;
+            return KEY_HOME;
         case kVK_LeftArrow:
-            return GLUT_KEY_LEFT;
+            return KEY_LEFT;
         case kVK_UpArrow:
-            return GLUT_KEY_UP;
+            return KEY_UP;
         case kVK_RightArrow:
-            return GLUT_KEY_RIGHT;
+            return KEY_RIGHT;
         case kVK_DownArrow:
-            return GLUT_KEY_DOWN;
+            return KEY_DOWN;
         case kVK_Help:
-            return GLUT_KEY_INSERT;
+            return KEY_INSERT;
+        case kVK_ForwardDelete:
+            return KEY_DELETE;
+        case kVK_F14:
+            return KEY_SCROLL;
+        case kVK_F15:
+            return KEY_PAUSE;
+        case kVK_ANSI_KeypadClear:
+            return KEY_NUMLOCK;
+        case kVK_ANSI_Semicolon:
+            return KEY_SEMICOLON;
+        case kVK_ANSI_Equal:
+            return KEY_EQUALS;
+        case kVK_ANSI_Comma:
+            return KEY_COMMA;
+        case kVK_ANSI_Minus:
+            return KEY_MINUS;
+        case kVK_ANSI_Slash:
+            return KEY_SLASH;
+        case kVK_ANSI_Backslash:
+            return KEY_BACKSLASH;
+        case kVK_ANSI_Grave:
+            return KEY_BACKTICK;
+        case kVK_ANSI_Quote:
+            return KEY_TICK;
+        case kVK_ANSI_LeftBracket:
+            return KEY_LSQUARE;
+        case kVK_ANSI_RightBracket:
+            return KEY_RSQUARE;
+        case kVK_ANSI_Period:
+            return KEY_DOT;
         default:
             return 0;
     }
 }
 
-typedef struct {
-    id window, context;
-} glMacWindow;
-
-static NSUInteger applicationShouldTerminate(id self, SEL _sel, id sender) {
-    ObjC(void, id)(NSApp, sel(terminate:), nil);
-    return 0;
+static uint32_t ConvertMacMod(NSUInteger modifierFlags) {
+    int mods = 0;
+    if (modifierFlags & NSEventModifierFlagShift)
+        mods |= KEY_MOD_SHIFT;
+    if (modifierFlags & NSEventModifierFlagControl)
+        mods |= KEY_MOD_CONTROL;
+    if (modifierFlags & NSEventModifierFlagOption)
+        mods |= KEY_MOD_ALT;
+    if (modifierFlags & NSEventModifierFlagCommand)
+        mods |= KEY_MOD_SUPER;
+    if (modifierFlags & NSEventModifierFlagCapsLock)
+        mods |= KEY_MOD_CAPS_LOCK;
+    return mods;
 }
 
-static void windowWillClose(id self, SEL _sel, id notification) {
-
-}
-
-static BOOL windowShouldClose(id self, SEL _sel, id sender) {
-    return 1;
-}
-
-static void windowDidResize(id self, SEL _sel, id notification) {
+int glPollWindow(void) {
+    if (!GLwindow.running)
+        return 0;
     
-}
-
-static void mouseEntered(id self, SEL _sel, id event) {
-    
-}
-
-static void mouseExited(id self, SEL _sel, id event) {
-    
-}
-
-void* CreateNativeWindow(int x, int y, int w, int h, const char *title) {
-    glMacWindow *result = malloc(sizeof(glMacWindow));
-    AutoreleasePool({
-        ObjC(id)(class(NSApplication), sel(sharedApplication));
-        ObjC(void, NSInteger)(NSApp, sel(setActivationPolicy:), NSApplicationActivationPolicyRegular);
-        
-        Class AppDelegate = ObjC_Class(AppDelegate, NSObject);
-        ObjC_AddMethod(AppDelegate, applicationShouldTerminate, applicationShouldTerminate, NSUIntegerEncoding "@:@:");
-        id appDelegate = ObjC(id)(ObjC(id)((id)AppDelegate, sel(alloc)), sel(init));
-        
-        ObjC(void, id)(NSApp, sel(setDelegate:), appDelegate);
-        ObjC(void)(NSApp, sel(finishLaunching));
-        
-        id menuBar = ObjC_Initalize(NSMenu);
-        id menuItem = ObjC_Initalize(NSMenuItem);
-        ObjC(void, id)(menuBar, sel(addItem:), menuItem);
-        ObjC(id, id)(NSApp, sel(setMainMenu:), menuBar);
-        id procInfo = ObjC(id)(class(NSProcessInfo), sel(processInfo));
-        id appName = ObjC(id)(procInfo, sel(processName));
-        
-        id appMenu = ObjC(id, id)(ObjC_Alloc(NSMenu), sel(initWithTitle:), appName);
-        id quitTitle = ObjC(id, id)(CreateNSString("Quit "), sel(stringByAppendingString:), appName);
-        id quitItem = ObjC(id, id, SEL, id)(ObjC_Alloc(NSMenuItem), sel(initWithTitle:action:keyEquivalent:), quitTitle, sel(terminate:), CreateNSString("q"));
-        
-        ObjC(void, id)(appMenu, sel(addItem:), quitItem);
-        ObjC(void, id)(menuItem, sel(setSubmenu:), appMenu);
-        
-        NSWindowStyleMask styleMask = NSWindowStyleMaskTitled | NSWindowStyleMaskClosable | NSWindowStyleMaskMiniaturizable;
-        NSRect windowFrame = {{0, 0}, {w, h}};
-        
-        result->window = ObjC(id, NSRect, NSUInteger, NSUInteger, BOOL)(ObjC_Alloc(NSWindow), sel(initWithContentRect:styleMask:backing:defer:), windowFrame, styleMask, NSBackingStoreBuffered, NO);
-        ObjC(void, BOOL)(result->window, sel(setReleasedWhenClosed:), NO);
-        
-        ObjC(void, BOOL)(result->window, sel(setAcceptsMouseMovedEvents:), YES);
-        ObjC(void, BOOL)(result->window, sel(setRestorable:), NO);
-        ObjC(void, BOOL)(result->window, sel(setReleasedWhenClosed:), NO);
-        
-        id windowTitle = CreateNSString(title);
-        ObjC(void, id)(result->window, sel(setTitle:), windowTitle);
-        ObjC(void)(result->window, sel(center));
-        ObjC(void, id)(result->window, sel(setBackgroundColor:), ObjC(id)(class(NSColor), sel(blackColor)));
-        
-        
-        Class WindowDelegate = ObjC_Class(WindowDelegate, NSObject);
-        ObjC_AddIVar(WindowDelegate, glWindow, sizeof(void*), "ˆv");
-        ObjC_AddMethod(WindowDelegate, windowShouldClose:, windowShouldClose, "c@:@");
-        ObjC_AddMethod(WindowDelegate, windowWillClose:, windowWillClose, "v@:@");
-        ObjC_AddMethod(WindowDelegate, windowDidResize:, windowDidResize, "v@:@");
-        ObjC_AddMethod(WindowDelegate, mouseEntered:, mouseEntered, "v@:@");
-        ObjC_AddMethod(WindowDelegate, mouseExited:, mouseExited, "v@:@");
-        ObjC_SubClass(WindowDelegate);
-        id windowDelegate = ObjC(id)(ObjC(id)((id)WindowDelegate, sel(alloc)), sel(init));
-        ObjC(void, id)(result->window, sel(setDelegate:), windowDelegate);
-        
-        id contentView = ObjC(id)(result->window, sel(contentView));
-        int trackingFlags = NSTrackingMouseEnteredAndExited | NSTrackingActiveInKeyWindow | NSTrackingInVisibleRect;
-        id trackingArea = ObjC(id, NSRect, int, id, id)(ObjC_Alloc(NSTrackingArea), sel(initWithRect:options:owner:userInfo:), windowFrame, trackingFlags, windowDelegate, 0);
-        ObjC(void, id)(contentView, sel(addTrackingArea:), trackingArea);
-        
-        NSOpenGLPixelFormatAttribute pixelFormatAttributes[] = {
-            NSOpenGLPFAOpenGLProfile, NSOpenGLProfileVersion3_2Core,
-            NSOpenGLPFAColorSize, 24,
-            NSOpenGLPFAAlphaSize, 8,
-            NSOpenGLPFADoubleBuffer,
-            NSOpenGLPFAAccelerated,
-            NSOpenGLPFANoRecovery,
-            0
-        };
-        
-        id pixelFormat = ObjC(id, const uint32_t*)(ObjC_Alloc(NSOpenGLPixelFormat), sel(initWithAttributes:), pixelFormatAttributes);
-        
-        result->context = ObjC(id, id, id)(ObjC_Alloc(NSOpenGLContext), sel(initWithFormat:shareContext:), pixelFormat, nil);
-        ObjC(void, id)(result->context, sel(setView:), contentView);
-        ObjC(void)(result->context, sel(makeCurrentContext));
-        
-        ObjC(void, BOOL)(result->window, sel(setAcceptsMouseMovedEvents:), YES);
-        ObjC(void, SEL, id, BOOL)(result->window, sel(performSelectorOnMainThread:withObject:waitUntilDone:), sel(makeKeyAndOrderFront:), nil, YES);
-        ObjC(void, BOOL)(NSApp, sel(activateIgnoringOtherApps:), YES);
-    });
-    return (void*)result;
-}
-
-void PollNativeWindow(void *handle) {
     AutoreleasePool({
         id distantPast = ObjC(id)(class(NSDate), sel(distantPast));
         id e = nil;
-        while ((e = ObjC(id, unsigned long long, id, id, BOOL)(NSApp, sel(nextEventMatchingMask:untilDate:inMode:dequeue:), NSUIntegerMax, distantPast, NSDefaultRunLoopMode, YES))) {
+        while (GLwindow.running && (e = ObjC(id, unsigned long long, id, id, BOOL)(NSApp, sel(nextEventMatchingMask:untilDate:inMode:dequeue:), NSUIntegerMax, distantPast, NSDefaultRunLoopMode, YES))) {
             NSUInteger type = ObjC(NSUInteger)(e, sel(type));
             switch (type) {
+                case NSEventTypeLeftMouseDown:
+                case NSEventTypeLeftMouseUp:
+                    glCallCallback(MouseButton, 1, ConvertMacMod(ObjC(NSUInteger)(e, sel(modifierFlags))), type == NSEventTypeLeftMouseDown);
+                    break;
+                case NSEventTypeRightMouseDown:
+                case NSEventTypeRightMouseUp:
+                    glCallCallback(MouseButton, 2, ConvertMacMod(ObjC(NSUInteger)(e, sel(modifierFlags))), type == NSEventTypeRightMouseDown);
+                    break;
+                case NSEventTypeOtherMouseDown:
+                case NSEventTypeOtherMouseUp:
+                    glCallCallback(MouseButton, (int)ObjC(NSUInteger)(e, sel(buttonNumber)), ConvertMacMod(ObjC(NSUInteger)(e, sel(modifierFlags))), type == NSEventTypeOtherMouseDown);
+                    break;
+                case NSEventTypeScrollWheel:
+                    glCallCallback(MouseScroll, ObjC(CGFloat)(e, sel(deltaX)), ObjC(CGFloat)(e, sel(deltaY)), ConvertMacMod(ObjC(NSUInteger)(e, sel(modifierFlags))));
+                    break;
+                case NSEventTypeKeyDown:
+                case NSEventTypeKeyUp:
+                    glCallCallback(Keyboard, ConvertMacKey(ObjC(unsigned short)(e, sel(keyCode))), ConvertMacMod(ObjC(NSUInteger)(e, sel(modifierFlags))), type == NSEventTypeKeyDown);
+                    break;
+                case NSEventTypeMouseMoved:
+                    if (GLnative.cursorInWindow) {
+                        CGPoint locationInWindow = ObjC(CGPoint)(e, sel(locationInWindow));
+                        glCallCallback(MouseMove, (int)locationInWindow.x, (int)(ObjC_Struct(CGRect)(ObjC(id)(GLnative.window, sel(contentView)), sel(frame)).size.height - roundf(locationInWindow.y)), ObjC(CGFloat)(e, sel(deltaX)), ObjC(CGFloat)(e, sel(deltaY)));
+                    }
+                    break;
                 default:
                     break;
             }
             ObjC(void, id)(NSApp, sel(sendEvent:), e);
         }
     });
+    return GLwindow.running;
 }
 
-void FlushNativeWindow(void *handle) {
-    glMacWindow *window = (glMacWindow*)handle;
-    ObjC(void)(window->context, sel(flushBuffer));
+void glFlushWindow(void) {
+    if (!GLwindow.running)
+        return;
+    ObjC(void)(GLnative.glContext, sel(flushBuffer));
 }
 
-void DestroyNativeWindow(void *handle) {
-    // TODO: Remove from stack first
-    glMacWindow *window = (glMacWindow*)handle;
-    ObjC(void)(window->window, sel(close));
-    ObjC_Release(window->context);
-    ObjC_Release(window->window);
-    free(window);
+void glWindowQuit(void) {
+    if (!GLwindow.running)
+        return;
+    ObjC(void)(GLnative.window, sel(close));
+    ObjC_Release(GLnative.glContext);
+    ObjC_Release(GLnative.window);
+}
+
+void* glWindowNative(void) {
+    return (void*)GLnative.window;
 }
