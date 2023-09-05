@@ -1,4 +1,4 @@
-name: ezgl
+name: cwcgl
 
 options:
   bundleIdPrefix: io.github.takeiteasy
@@ -10,7 +10,7 @@ settings:
   GCC_C_LANGUAGE_STANDARD: c11
 
 targets:
-  ezgl:
+  cwcgl:
     type: library.dynamic
     platform: macOS
     sources:
@@ -25,17 +25,21 @@ targets:
         - path: Makefile
           type: folder
         - path: src/
+          excludes:
+            - "backends/"
+        - path: src/backends
+          type: folder
     dependencies:
         - sdk: Cocoa.framework
     settings:
         HEADER_SEARCH_PATHS: [$(PROJECT_DIR)/src]
         OTHER_CFLAGS: [-DGL_SILENCE_DEPRECATION]
-  ezgl_test:
+  cwcgl_test:
     type: tool
     platform: macOS
     sources:
         - path: tools/test.c
     dependencies:
-        - target: ezgl
+        - target: cwcgl
     settings:
         HEADER_SEARCH_PATHS: [$(PROJECT_DIR)/src]

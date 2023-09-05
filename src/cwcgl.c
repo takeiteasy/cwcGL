@@ -1,4 +1,4 @@
-/* ezgl.c -- https://github.com/takeiteasy/ezgl
+/* cwcgl.c -- https://github.com/takeiteasy/cwcGL
  
  The MIT License (MIT)
  Copyright (c) 2022 George Watson
@@ -19,9 +19,9 @@
  TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
-#include "ezgl.h"
+#include "cwcgl.h"
 
-#define X(T, N) T ezgl##N = (T)((void *)0);
+#define X(T, N) T cwcgl##N = (T)((void *)0);
 #if EZGL_VERSION >= GL_VERSION_1_0
 GL_FUNCTIONS_1_0
 #endif
@@ -186,7 +186,7 @@ static void* LoadGLProc(const char *namez) {
 }
 
 #define X(T, N)                       \
-    if (!(ezgl##N = (T)LoadGLProc(#N))) \
+    if (!(cwcgl##N = (T)LoadGLProc(#N))) \
         failures++;
 static int failures = 0;
 static int InitOpenGL(void) {
@@ -252,29 +252,138 @@ static int InitOpenGL(void) {
     return result;
 }
 #undef X
+    
+#define CALLBACKS                                          \
+    X(Display, (void))                                     \
+    X(Reshape, (int width, int height))                    \
+    X(Keyboard, (unsigned char key, int x, int y))         \
+    X(Mouse, (int button, int state, int x, int y))        \
+    X(Motion, (int x, int y))                              \
+    X(PassiveMotion, (int x, int y))                       \
+    X(Entry, (int state))                                  \
+    X(Visibility, (int state))                             \
+    X(Idle, (void))                                        \
+    X(MenuState, (int state))                              \
+    X(Special, (int key, int x, int y))                    \
+    X(SpaceballMotion, (int x, int y, int z))              \
+    X(SpaceballRotate, (int x, int y, int z))              \
+    X(SpaceballButton, (int button, int state))            \
+    X(ButtonBox, (int button, int state))                  \
+    X(Dials, (int dial, int value))                        \
+    X(TabletMotion, (int x, int y))                        \
+    X(TabletButton, (int button, int state, int x, int y)) \
+    X(MenuStatus, (int status, int x, int y))              \
+    X(OverlayDisplay, (void))
+
+typedef struct {
+    void *native;
+    int id;
+#define X(NAME, ARGS) void(*NAME##Func)ARGS;
+    CALLBACKS
+#undef X
+} glWindow;
+
+typedef struct glWindowEntry {
+    glWindow window;
+    struct glWindowEntry *next;
+} glWindowBucket;
+
+static struct {
+    glWindowBucket *front, *back;
+    int running, initialized;
+    int x, y, width, height;
+#define X(NAME, ARGS) void(*NAME##Func)ARGS;
+    CALLBACKS
+#undef X
+    void(*TimerFunc)(int value);
+} state;
+
+static glWindow *currentWindow = NULL;
+static int windowIDCounter = 0;
+
+void* CreateNativeWindow(int x, int y, int w, int h, const char *title);
+void PollNativeWindow(void *handle);
+void FlushNativeWindow(void *handle);
+void DestroyNativeWindow(void *handle);
+
+#if defined(EZGL_EMSCRIPTEN)
+#include "backends/cwcgl_emscripten.c"
+#elif defined(EZGL_MAC)
+#include "backends/cwcgl_mac.c"
+#elif defined(EZGL_WINDOWS)
+#include "backends/cwcgl_windows.c"
+#elif defined(EZGL_LINUX)
+#include "backends/cwcgl_linux.c"
+#endif
 
 void glutInit(int *argcp, char **argv) {
-
+    state.initialized = 1;
+    state.running = 0;
+    state.x = -1;
+    state.y = -1;
+    state.width = 640;
+    state.height = 480;
+    state.front = state.back = NULL;
+    InitOpenGL();
 }
 
 void glutInitDisplayMode(unsigned int mode) {
-
+    
 }
 
 void glutInitWindowPosition(int x, int y) {
-
+    state.x = x;
+    state.y = y;
 }
 
 void glutInitWindowSize(int width, int height) {
-
+    state.width = width;
+    state.height = height;
 }
 
 void glutMainLoop(void) {
-
+    assert(state.front);
+    state.running = 1;
+    
+    while (state.running) {
+#if defined(EZGL_LINUX)
+        glWindowBucket *bucket = state.front;
+        while (bucket) {
+            PollNativeWindow(bucket->window.native);
+            if (bucket->window.DisplayFunc)
+                bucket->window.DisplayFunc();
+            bucket = bucket->next;
+        }
+#else
+        PollNativeWindow(NULL);
+        glWindowBucket *bucket = state.front;
+        while (bucket) {
+            if (bucket->window.DisplayFunc)
+                bucket->window.DisplayFunc();
+            bucket = bucket->next;
+        }
+#endif
+    }
 }
 
 int glutCreateWindow(char *title) {
-    return -1;
+    assert(state.initialized);
+    glWindowBucket *result = malloc(sizeof(glWindowBucket));
+    result->window.id = windowIDCounter++;
+#define X(NAME, ARGS) result->window.NAME##Func = state.NAME##Func;
+    CALLBACKS
+#undef X
+    assert(result->window.native = CreateNativeWindow(state.x, state.y, state.width, state.height, title));
+    
+    if (!state.front)
+        state.front = state.back = result;
+    else {
+        state.back->next = result;
+        state.back = result;
+    }
+    if (!currentWindow)
+        currentWindow = &result->window;
+    return result->window.id;
 }
 
 int glutCreateSubWindow(int win, int x, int y, int width, int height) {
@@ -282,7 +391,7 @@ int glutCreateSubWindow(int win, int x, int y, int width, int height) {
 }
 
 void glutDestroyWindow(int win) {
-
+    
 }
 
 void glutPostRedisplay(void) {
@@ -413,88 +522,15 @@ void glutDetachMenu(int button) {
 
 }
 
-void glutDisplayFunc(void(*fn)(void)) {
-
+#define X(NAME, ARGS) \
+void glut##NAME##Func(void(*callback)ARGS) { \
+    state.NAME##Func = callback; \
 }
-
-void glutReshapeFunc(void(*fn)(int width, int height)) {
-
-}
-
-void glutKeyboardFunc(void(*fn)(unsigned char key, int x, int y)) {
-
-}
-
-void glutMouseFunc(void(*fn)(int button, int state, int x, int y)) {
-
-}
-
-void glutMotionFunc(void(*fn)(int x, int y)) {
-
-}
-
-void glutPassiveMotionFunc(void(*fn)(int x, int y)) {
-
-}
-
-void glutEntryFunc(void(*fn)(int state)) {
-
-}
-
-void glutVisibilityFunc(void(*fn)(int state)) {
-
-}
-
-void glutIdleFunc(void(*fn)(void)) {
-
-}
+CALLBACKS
+#undef X
 
 void glutTimerFunc(unsigned int millis, void(*fn)(int value), int value) {
-
-}
-
-void glutMenuStateFunc(void(*fn)(int state)) {
-
-}
-
-void glutSpecialFunc(void(*fn)(int key, int x, int y)) {
-
-}
-
-void glutSpaceballMotionFunc(void(*fn)(int x, int y, int z)) {
-
-}
-
-void glutSpaceballRotateFunc(void(*fn)(int x, int y, int z)) {
-
-}
-
-void glutSpaceballButtonFunc(void(*fn)(int button, int state)) {
-
-}
-
-void glutButtonBoxFunc(void(*fn)(int button, int state)) {
-
-}
-
-void glutDialsFunc(void(*fn)(int dial, int value)) {
-
-}
-
-void glutTabletMotionFunc(void(*fn)(int x, int y)) {
-
-}
-
-void glutTabletButtonFunc(void(*fn)(int button, int state, int x, int y)) {
-
-}
-
-void glutMenuStatusFunc(void(*fn)(int status, int x, int y)) {
-
-}
-
-void glutOverlayDisplayFunc(void(*fn)(void)) {
-
+    state.TimerFunc = fn;
 }
 
 void glutSetColor(int cell, GLfloat red, GLfloat green, GLfloat blue) {
