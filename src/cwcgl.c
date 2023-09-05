@@ -189,7 +189,7 @@ static void* LoadGLProc(const char *namez) {
     if (!(cwcgl##N = (T)LoadGLProc(#N))) \
         failures++;
 static int failures = 0;
-static int InitOpenGL(void) {
+int InitOpenGL(void) {
     int result = 0;
     if (LoadGLLibrary()) {
 #if CWCGL_VERSION >= GL_VERSION_1_0

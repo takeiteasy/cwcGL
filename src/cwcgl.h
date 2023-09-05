@@ -5673,6 +5673,13 @@ EXPORT int glIsWindowOpen(void);
  */
 EXPORT void* glWindowNative(void);
 
+/*!
+ * @function InitOpenGL
+ * @abstract Load OpenGL functions
+ * @return Returns 0 on success
+ */
+EXPORT int InitOpenGL(void);
+
 #ifdef __cplusplus
 }
 #endif

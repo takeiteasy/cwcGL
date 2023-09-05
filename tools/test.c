@@ -21,6 +21,7 @@
 
 #define CWCGL_VERSION 2010
 #include "cwcgl.h"
+#include <stdio.h>
 
 // Window event callbacks, I think the names are self-explanatory
 void onKeyboard(void *userdata, int key, int modifier, int isDown) {
@@ -54,12 +55,14 @@ void onClosed(void *userdata) {
 int main(int argc, const char *argv[]) {
     if (!glWindow(640, 480, "glWindow", glResizable))
         return 1;
+    if (!InitOpenGL())
+        return 1;
     
 #define X(NAME, ARGS) on##NAME,
     glWindowCallbacks(CWCGL_CALLBACKS NULL);
 #undef X
 
-    while (glWindowPoll()) {
+    while (glPollWindow()) {
         glFlushWindow();
     }
     

@@ -7,12 +7,15 @@ A cross-platform OpenGL window + context. **WIP**
 </p>
 
 ```c
+// Load OpenGL version to 3.2
+#define CWCGL_VERSION 3020
 #include "glWindow.h"
 
-void KeyboardCallback(void *userdata, GLkey key, GLmod modifier, int isDown);
-void MouseButtonCallback(void *userdata, int button, GLmod modifier, int isDown);
+// Window event callbacks
+void KeyboardCallback(void *userdata, int key, int modifier, int isDown);
+void MouseButtonCallback(void *userdata, int button, int modifier, int isDown);
 void MouseMoveCallback(void *userdata, int x, int y, float dx, float dy);
-void MouseScrollCallback(void *userdata, float dx, float dy, GLmod modifier);
+void MouseScrollCallback(void *userdata, float dx, float dy, int modifier);
 void ResizedCallback(void *userdata, int w, int h);
 void FocusCallback(void *userdata, int isFocused);
 void ClosedCallback(void *userdata);
@@ -20,6 +23,9 @@ void ClosedCallback(void *userdata);
 int main(int argc, const char *argv[]) {
     // Create a resizable 640x480 window
     if (!glWindow(640, 480, "glWindow", glResizable))
+        return EXIT_FAILURE;
+    // Initialize OpenGL
+    if (!InitOpenGL())
         return EXIT_FAILURE;
     // Assign window event callbacks
     glWindowCallbacks(KeyboardCallback,
@@ -32,7 +38,7 @@ int main(int argc, const char *argv[]) {
                       NULL); // Last value is userdata that will 
                              // be passed to callbacks
     // Poll events until window is closed
-    while (glWindowPoll()) {
+    while (glPollWindow()) {
         // ...
         // Flush window
         glFlushWindow();
