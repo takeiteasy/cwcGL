@@ -25,18 +25,18 @@
 extern "C" {
 #endif
 
-#if !defined(EZGL_CUSTOM_BACKEND)
+#if !defined(CWCGL_CUSTOM_BACKEND)
 #if defined(__EMSCRIPTEN__) || defined(EMSCRIPTEN)
-#define EZGL_EMSCRIPTEN
+#define CWCGL_EMSCRIPTEN
 #include <emscripten.h>
 #endif
 
 #if defined(macintosh) || defined(Macintosh) || (defined(__APPLE__) && defined(__MACH__))
-#define EZGL_MAC
+#define CWCGL_MAC
 #elif defined(_WIN32) || defined(_WIN64) || defined(__WIN32__) || defined(__WINDOWS__)
-#define EZGL_WINDOWS
+#define CWCGL_WINDOWS
 #elif defined(__gnu_linux__) || defined(__linux__) || defined(__unix__)
-#define EZGL_LINUX
+#define CWCGL_LINUX
 #endif
 #endif
 
@@ -86,8 +86,8 @@ extern "C" {
 #endif
 #endif
 
-#if !defined(EZGL_VERSION)
-#define EZGL_VERSION 1000
+#if !defined(CWCGL_VERSION)
+#define CWCGL_VERSION 1000
 #endif
 #define GL_VERSION_1_0 1000
 #define GL_VERSION_1_1 1010
@@ -416,7 +416,7 @@ typedef enum {
 } khronos_boolean_enum_t;
 /* end of khrplatform.h */
 
-#if EZGL_VERSION >= GL_VERSION_1_0
+#if CWCGL_VERSION >= GL_VERSION_1_0
 typedef unsigned int GLenum;
 typedef khronos_float_t GLfloat;
 typedef int GLint;
@@ -1044,7 +1044,7 @@ typedef void (APIENTRYP PFNGLTRANSLATEFPROC)(GLfloat x, GLfloat y, GLfloat z);
 #define glTranslatef cwcglglTranslatef
 #endif
 
-#if EZGL_VERSION >= GL_VERSION_1_1
+#if CWCGL_VERSION >= GL_VERSION_1_1
 typedef khronos_float_t GLclampf;
 typedef double GLclampd;
 #define GL_DEPTH_BUFFER_BIT 0x00000100
@@ -1637,7 +1637,7 @@ typedef void (APIENTRYP PFNGLPUSHCLIENTATTRIBPROC)(GLbitfield mask);
 #define glPushClientAttrib cwcglglPushClientAttrib
 #endif
 
-#if EZGL_VERSION >= GL_VERSION_1_2
+#if CWCGL_VERSION >= GL_VERSION_1_2
 #define GL_UNSIGNED_BYTE_3_3_2 0x8032
 #define GL_UNSIGNED_SHORT_4_4_4_4 0x8033
 #define GL_UNSIGNED_SHORT_5_5_5_1 0x8034
@@ -1689,7 +1689,7 @@ typedef void (APIENTRYP PFNGLCOPYTEXSUBIMAGE3DPROC)(GLenum target, GLint level, 
 #define glCopyTexSubImage3D cwcglglCopyTexSubImage3D
 #endif
 
-#if EZGL_VERSION >= GL_VERSION_1_3
+#if CWCGL_VERSION >= GL_VERSION_1_3
 #define GL_TEXTURE0 0x84C0
 #define GL_TEXTURE1 0x84C1
 #define GL_TEXTURE2 0x84C2
@@ -1880,7 +1880,7 @@ typedef void (APIENTRYP PFNGLMULTTRANSPOSEMATRIXDPROC)(const GLdouble * m);
 #define glMultTransposeMatrixd cwcglglMultTransposeMatrixd
 #endif
 
-#if EZGL_VERSION >= GL_VERSION_1_4
+#if CWCGL_VERSION >= GL_VERSION_1_4
 #define GL_BLEND_DST_RGB 0x80C8
 #define GL_BLEND_SRC_RGB 0x80C9
 #define GL_BLEND_DST_ALPHA 0x80CA
@@ -2025,7 +2025,7 @@ typedef void (APIENTRYP PFNGLBLENDEQUATIONPROC)(GLenum mode);
 #define glBlendEquation cwcglglBlendEquation
 #endif
 
-#if EZGL_VERSION >= GL_VERSION_1_5
+#if CWCGL_VERSION >= GL_VERSION_1_5
 typedef khronos_ssize_t GLsizeiptr;
 typedef khronos_intptr_t GLintptr;
 #define GL_BUFFER_SIZE 0x8764
@@ -2118,7 +2118,7 @@ typedef void (APIENTRYP PFNGLGETBUFFERPOINTERVPROC)(GLenum target, GLenum pname,
 #define glGetBufferPointerv cwcglglGetBufferPointerv
 #endif
 
-#if EZGL_VERSION >= GL_VERSION_2_0
+#if CWCGL_VERSION >= GL_VERSION_2_0
 typedef char GLchar;
 #define GL_BLEND_EQUATION_RGB 0x8009
 #define GL_VERTEX_ATTRIB_ARRAY_ENABLED 0x8622
@@ -2392,7 +2392,7 @@ typedef void (APIENTRYP PFNGLVERTEXATTRIBPOINTERPROC)(GLuint index, GLint size, 
 #define glVertexAttribPointer cwcglglVertexAttribPointer
 #endif
 
-#if EZGL_VERSION >= GL_VERSION_2_1
+#if CWCGL_VERSION >= GL_VERSION_2_1
 #define GL_PIXEL_PACK_BUFFER 0x88EB
 #define GL_PIXEL_UNPACK_BUFFER 0x88EC
 #define GL_PIXEL_PACK_BUFFER_BINDING 0x88ED
@@ -2430,7 +2430,7 @@ typedef void (APIENTRYP PFNGLUNIFORMMATRIX4X3FVPROC)(GLint location, GLsizei cou
 #define glUniformMatrix4x3fv cwcglglUniformMatrix4x3fv
 #endif
 
-#if EZGL_VERSION >= GL_VERSION_3_0
+#if CWCGL_VERSION >= GL_VERSION_3_0
 #define GL_COMPARE_REF_TO_TEXTURE 0x884E
 #define GL_CLIP_DISTANCE0 0x3000
 #define GL_CLIP_DISTANCE1 0x3001
@@ -2839,7 +2839,7 @@ typedef GLboolean (APIENTRYP PFNGLISVERTEXARRAYPROC)(GLuint array);
 #define glIsVertexArray cwcglglIsVertexArray
 #endif
 
-#if EZGL_VERSION >= GL_VERSION_3_1
+#if CWCGL_VERSION >= GL_VERSION_3_1
 #define GL_SAMPLER_2D_RECT 0x8B63
 #define GL_SAMPLER_2D_RECT_SHADOW 0x8B64
 #define GL_SAMPLER_BUFFER 0x8DC2
@@ -2927,7 +2927,7 @@ typedef void (APIENTRYP PFNGLUNIFORMBLOCKBINDINGPROC)(GLuint program, GLuint uni
 #define glUniformBlockBinding cwcglglUniformBlockBinding
 #endif
 
-#if EZGL_VERSION >= GL_VERSION_3_2
+#if CWCGL_VERSION >= GL_VERSION_3_2
 typedef struct __GLsync *GLsync;
 typedef khronos_uint64_t GLuint64;
 typedef khronos_int64_t GLint64;
@@ -3035,7 +3035,7 @@ typedef void (APIENTRYP PFNGLSAMPLEMASKIPROC)(GLuint maskNumber, GLbitfield mask
 #define glSampleMaski cwcglglSampleMaski
 #endif
 
-#if EZGL_VERSION >= GL_VERSION_3_3
+#if CWCGL_VERSION >= GL_VERSION_3_3
 #define GL_VERTEX_ATTRIB_ARRAY_DIVISOR 0x88FE
 #define GL_SRC1_COLOR 0x88F9
 #define GL_ONE_MINUS_SRC1_COLOR 0x88FA
@@ -3170,7 +3170,7 @@ typedef void (APIENTRYP PFNGLSECONDARYCOLORP3UIVPROC)(GLenum type, const GLuint 
 #define glSecondaryColorP3uiv cwcglglSecondaryColorP3uiv
 #endif
 
-#if EZGL_VERSION >= GL_VERSION_4_0
+#if CWCGL_VERSION >= GL_VERSION_4_0
 #define GL_SAMPLE_SHADING 0x8C36
 #define GL_MIN_SAMPLE_SHADING_VALUE 0x8C37
 #define GL_MIN_PROGRAM_TEXTURE_GATHER_OFFSET 0x8E5E
@@ -3342,7 +3342,7 @@ typedef void (APIENTRYP PFNGLGETQUERYINDEXEDIVPROC)(GLenum target, GLuint index,
 #define glGetQueryIndexediv cwcglglGetQueryIndexediv
 #endif
 
-#if EZGL_VERSION >= GL_VERSION_4_1
+#if CWCGL_VERSION >= GL_VERSION_4_1
 #define GL_FIXED 0x140C
 #define GL_IMPLEMENTATION_COLOR_READ_TYPE 0x8B9A
 #define GL_IMPLEMENTATION_COLOR_READ_FORMAT 0x8B9B
@@ -3556,7 +3556,7 @@ typedef void (APIENTRYP PFNGLGETDOUBLEI_VPROC)(GLenum target, GLuint index, GLdo
 #define glGetDoublei_v cwcglglGetDoublei_v
 #endif
 
-#if EZGL_VERSION >= GL_VERSION_4_2
+#if CWCGL_VERSION >= GL_VERSION_4_2
 #define GL_COPY_READ_BUFFER_BINDING 0x8F36
 #define GL_COPY_WRITE_BUFFER_BINDING 0x8F37
 #define GL_TRANSFORM_FEEDBACK_ACTIVE 0x8E24
@@ -3695,7 +3695,7 @@ typedef void (APIENTRYP PFNGLDRAWTRANSFORMFEEDBACKSTREAMINSTANCEDPROC)(GLenum mo
 #define glDrawTransformFeedbackStreamInstanced cwcglglDrawTransformFeedbackStreamInstanced
 #endif
 
-#if EZGL_VERSION >= GL_VERSION_4_3
+#if CWCGL_VERSION >= GL_VERSION_4_3
 typedef void ( *GLDEBUGPROC)(GLenum source,GLenum type,GLuint id,GLenum severity,GLsizei length,const GLchar *message,const void *userParam);
 #define GL_NUM_SHADING_LANGUAGE_VERSIONS 0x82E9
 #define GL_VERTEX_ATTRIB_ARRAY_LONG 0x874E
@@ -4044,7 +4044,7 @@ typedef void (APIENTRYP PFNGLGETOBJECTPTRLABELPROC)(const void * ptr, GLsizei bu
 #define GL_DISPLAY_LIST 0x82E7
 #endif
 
-#if EZGL_VERSION >= GL_VERSION_4_4
+#if CWCGL_VERSION >= GL_VERSION_4_4
 #define GL_MAX_VERTEX_ATTRIB_STRIDE 0x82E5
 #define GL_PRIMITIVE_RESTART_FOR_PATCHES_SUPPORTED 0x8221
 #define GL_TEXTURE_BUFFER_BINDING 0x8C2A
@@ -4084,7 +4084,7 @@ typedef void (APIENTRYP PFNGLBINDVERTEXBUFFERSPROC)(GLuint first, GLsizei count,
 #define GL_MIRROR_CLAMP_TO_EDGE 0x8743
 #endif
 
-#if EZGL_VERSION >= GL_VERSION_4_5
+#if CWCGL_VERSION >= GL_VERSION_4_5
 #define GL_CONTEXT_LOST 0x0507
 typedef void (APIENTRYP PFNGLCLIPCONTROLPROC)(GLenum origin, GLenum depth);
 #define glClipControl cwcglglClipControl
@@ -5435,58 +5435,58 @@ typedef void (APIENTRYP PFNGLTEXTUREBARRIERPROC)(void);
     X(PFNGLTEXTUREBARRIERPROC, glTextureBarrier) \
 
 #define X(T, N) extern T cwcgl##N;
-#if EZGL_VERSION >= GL_VERSION_1_0
+#if CWCGL_VERSION >= GL_VERSION_1_0
 GL_FUNCTIONS_1_0
 #endif
-#if EZGL_VERSION >= GL_VERSION_1_1
+#if CWCGL_VERSION >= GL_VERSION_1_1
 GL_FUNCTIONS_1_1
 #endif
-#if EZGL_VERSION >= GL_VERSION_1_2
+#if CWCGL_VERSION >= GL_VERSION_1_2
 GL_FUNCTIONS_1_2
 #endif
-#if EZGL_VERSION >= GL_VERSION_1_3
+#if CWCGL_VERSION >= GL_VERSION_1_3
 GL_FUNCTIONS_1_3
 #endif
-#if EZGL_VERSION >= GL_VERSION_1_4
+#if CWCGL_VERSION >= GL_VERSION_1_4
 GL_FUNCTIONS_1_4
 #endif
-#if EZGL_VERSION >= GL_VERSION_1_5
+#if CWCGL_VERSION >= GL_VERSION_1_5
 GL_FUNCTIONS_1_5
 #endif
-#if EZGL_VERSION >= GL_VERSION_2_0
+#if CWCGL_VERSION >= GL_VERSION_2_0
 GL_FUNCTIONS_2_0
 #endif
-#if EZGL_VERSION >= GL_VERSION_2_1
+#if CWCGL_VERSION >= GL_VERSION_2_1
 GL_FUNCTIONS_2_1
 #endif
-#if EZGL_VERSION >= GL_VERSION_3_0
+#if CWCGL_VERSION >= GL_VERSION_3_0
 GL_FUNCTIONS_3_0
 #endif
-#if EZGL_VERSION >= GL_VERSION_3_1
+#if CWCGL_VERSION >= GL_VERSION_3_1
 GL_FUNCTIONS_3_1
 #endif
-#if EZGL_VERSION >= GL_VERSION_3_2
+#if CWCGL_VERSION >= GL_VERSION_3_2
 GL_FUNCTIONS_3_2
 #endif
-#if EZGL_VERSION >= GL_VERSION_3_3
+#if CWCGL_VERSION >= GL_VERSION_3_3
 GL_FUNCTIONS_3_3
 #endif
-#if EZGL_VERSION >= GL_VERSION_4_0
+#if CWCGL_VERSION >= GL_VERSION_4_0
 GL_FUNCTIONS_4_0
 #endif
-#if EZGL_VERSION >= GL_VERSION_4_1
+#if CWCGL_VERSION >= GL_VERSION_4_1
 GL_FUNCTIONS_4_1
 #endif
-#if EZGL_VERSION >= GL_VERSION_4_2
+#if CWCGL_VERSION >= GL_VERSION_4_2
 GL_FUNCTIONS_4_2
 #endif
-#if EZGL_VERSION >= GL_VERSION_4_3
+#if CWCGL_VERSION >= GL_VERSION_4_3
 GL_FUNCTIONS_4_3
 #endif
-#if EZGL_VERSION >= GL_VERSION_4_4
+#if CWCGL_VERSION >= GL_VERSION_4_4
 GL_FUNCTIONS_4_4
 #endif
-#if EZGL_VERSION >= GL_VERSION_4_5
+#if CWCGL_VERSION >= GL_VERSION_4_5
 GL_FUNCTIONS_4_5
 #endif
 #undef X

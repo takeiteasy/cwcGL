@@ -22,63 +22,63 @@
 #include "cwcgl.h"
 
 #define X(T, N) T cwcgl##N = (T)((void *)0);
-#if EZGL_VERSION >= GL_VERSION_1_0
+#if CWCGL_VERSION >= GL_VERSION_1_0
 GL_FUNCTIONS_1_0
 #endif
-#if EZGL_VERSION >= GL_VERSION_1_1
+#if CWCGL_VERSION >= GL_VERSION_1_1
 GL_FUNCTIONS_1_1
 #endif
-#if EZGL_VERSION >= GL_VERSION_1_2
+#if CWCGL_VERSION >= GL_VERSION_1_2
 GL_FUNCTIONS_1_2
 #endif
-#if EZGL_VERSION >= GL_VERSION_1_3
+#if CWCGL_VERSION >= GL_VERSION_1_3
 GL_FUNCTIONS_1_3
 #endif
-#if EZGL_VERSION >= GL_VERSION_1_4
+#if CWCGL_VERSION >= GL_VERSION_1_4
 GL_FUNCTIONS_1_4
 #endif
-#if EZGL_VERSION >= GL_VERSION_1_5
+#if CWCGL_VERSION >= GL_VERSION_1_5
 GL_FUNCTIONS_1_5
 #endif
-#if EZGL_VERSION >= GL_VERSION_2_0
+#if CWCGL_VERSION >= GL_VERSION_2_0
 GL_FUNCTIONS_2_0
 #endif
-#if EZGL_VERSION >= GL_VERSION_2_1
+#if CWCGL_VERSION >= GL_VERSION_2_1
 GL_FUNCTIONS_2_1
 #endif
-#if EZGL_VERSION >= GL_VERSION_3_0
+#if CWCGL_VERSION >= GL_VERSION_3_0
 GL_FUNCTIONS_3_0
 #endif
-#if EZGL_VERSION >= GL_VERSION_3_1
+#if CWCGL_VERSION >= GL_VERSION_3_1
 GL_FUNCTIONS_3_1
 #endif
-#if EZGL_VERSION >= GL_VERSION_3_2
+#if CWCGL_VERSION >= GL_VERSION_3_2
 GL_FUNCTIONS_3_2
 #endif
-#if EZGL_VERSION >= GL_VERSION_3_3
+#if CWCGL_VERSION >= GL_VERSION_3_3
 GL_FUNCTIONS_3_3
 #endif
-#if EZGL_VERSION >= GL_VERSION_4_0
+#if CWCGL_VERSION >= GL_VERSION_4_0
 GL_FUNCTIONS_4_0
 #endif
-#if EZGL_VERSION >= GL_VERSION_4_1
+#if CWCGL_VERSION >= GL_VERSION_4_1
 GL_FUNCTIONS_4_1
 #endif
-#if EZGL_VERSION >= GL_VERSION_4_2
+#if CWCGL_VERSION >= GL_VERSION_4_2
 GL_FUNCTIONS_4_2
 #endif
-#if EZGL_VERSION >= GL_VERSION_4_3
+#if CWCGL_VERSION >= GL_VERSION_4_3
 GL_FUNCTIONS_4_3
 #endif
-#if EZGL_VERSION >= GL_VERSION_4_4
+#if CWCGL_VERSION >= GL_VERSION_4_4
 GL_FUNCTIONS_4_4
 #endif
-#if EZGL_VERSION >= GL_VERSION_4_5
+#if CWCGL_VERSION >= GL_VERSION_4_5
 GL_FUNCTIONS_4_5
 #endif
 #undef X
 
-#if defined(EZGL_WINDOWS) || defined(__CYGWIN__)
+#if defined(CWCGL_WINDOWS) || defined(__CYGWIN__)
 #ifndef _WINDOWS_
 #undef APIENTRY
 #endif
@@ -124,14 +124,14 @@ static void CloseGLLibrary(void) {
 }
 #else
 #include <dlfcn.h>
-#if !defined(EZGL_MAC) && !defined(__HAIKU__)
+#if !defined(CWCGL_MAC) && !defined(__HAIKU__)
 typedef void* (APIENTRYP PFNGLXGETPROCADDRESSPROC_PRIVATE)(const char*);
 static PFNGLXGETPROCADDRESSPROC_PRIVATE glLoaderGetProcAddressPtr;
 #endif
 static void* libGL = NULL;
 
 static int LoadGLLibrary(void) {
-#if defined(EZGL_MAC)
+#if defined(CWCGL_MAC)
     static const char *NAMES[] = {
         "../Frameworks/OpenGL.framework/OpenGL",
         "/Library/Frameworks/OpenGL.framework/OpenGL",
@@ -145,7 +145,7 @@ static int LoadGLLibrary(void) {
     unsigned int index = 0;
     for (index = 0; index < (sizeof(NAMES) / sizeof(NAMES[0])); index++) {
         if ((libGL = dlopen(NAMES[index], RTLD_NOW | RTLD_GLOBAL))) {
-#if defined(EZGL_MAC) || defined(__HAIKU__)
+#if defined(CWCGL_MAC) || defined(__HAIKU__)
             return 1;
 #else
             glLoaderGetProcAddressPtr = (PFNGLXGETPROCADDRESSPROC_PRIVATE)dlsym(libGL,
@@ -170,12 +170,12 @@ static void* LoadGLProc(const char *namez) {
     if (libGL == NULL)
         return NULL;
 
-#if !defined(EZGL_MAC) && !defined(__HAIKU__)
+#if !defined(CWCGL_MAC) && !defined(__HAIKU__)
     if (glLoaderGetProcAddressPtr)
         result = glLoaderGetProcAddressPtr(namez);
 #endif
     if (!result) {
-#if defined(EZGL_WINDOWS) || defined(__CYGWIN__)
+#if defined(CWCGL_WINDOWS) || defined(__CYGWIN__)
         result = (void*)GetProcAddress((HMODULE)libGL, namez);
 #else
         result = dlsym(libGL, namez);
@@ -192,58 +192,58 @@ static int failures = 0;
 static int InitOpenGL(void) {
     int result = 0;
     if (LoadGLLibrary()) {
-#if EZGL_VERSION >= GL_VERSION_1_0
+#if CWCGL_VERSION >= GL_VERSION_1_0
         GL_FUNCTIONS_1_0
 #endif
-#if EZGL_VERSION >= GL_VERSION_1_1
+#if CWCGL_VERSION >= GL_VERSION_1_1
         GL_FUNCTIONS_1_1
 #endif
-#if EZGL_VERSION >= GL_VERSION_1_2
+#if CWCGL_VERSION >= GL_VERSION_1_2
         GL_FUNCTIONS_1_2
 #endif
-#if EZGL_VERSION >= GL_VERSION_1_3
+#if CWCGL_VERSION >= GL_VERSION_1_3
         GL_FUNCTIONS_1_3
 #endif
-#if EZGL_VERSION >= GL_VERSION_1_4
+#if CWCGL_VERSION >= GL_VERSION_1_4
         GL_FUNCTIONS_1_4
 #endif
-#if EZGL_VERSION >= GL_VERSION_1_5
+#if CWCGL_VERSION >= GL_VERSION_1_5
         GL_FUNCTIONS_1_5
 #endif
-#if EZGL_VERSION >= GL_VERSION_2_0
+#if CWCGL_VERSION >= GL_VERSION_2_0
         GL_FUNCTIONS_2_0
 #endif
-#if EZGL_VERSION >= GL_VERSION_2_1
+#if CWCGL_VERSION >= GL_VERSION_2_1
         GL_FUNCTIONS_2_1
 #endif
-#if EZGL_VERSION >= GL_VERSION_3_0
+#if CWCGL_VERSION >= GL_VERSION_3_0
         GL_FUNCTIONS_3_0
 #endif
-#if EZGL_VERSION >= GL_VERSION_3_1
+#if CWCGL_VERSION >= GL_VERSION_3_1
         GL_FUNCTIONS_3_1
 #endif
-#if EZGL_VERSION >= GL_VERSION_3_2
+#if CWCGL_VERSION >= GL_VERSION_3_2
         GL_FUNCTIONS_3_2
 #endif
-#if EZGL_VERSION >= GL_VERSION_3_3
+#if CWCGL_VERSION >= GL_VERSION_3_3
         GL_FUNCTIONS_3_3
 #endif
-#if EZGL_VERSION >= GL_VERSION_4_0
+#if CWCGL_VERSION >= GL_VERSION_4_0
         GL_FUNCTIONS_4_0
 #endif
-#if EZGL_VERSION >= GL_VERSION_4_1
+#if CWCGL_VERSION >= GL_VERSION_4_1
         GL_FUNCTIONS_4_1
 #endif
-#if EZGL_VERSION >= GL_VERSION_4_2
+#if CWCGL_VERSION >= GL_VERSION_4_2
         GL_FUNCTIONS_4_2
 #endif
-#if EZGL_VERSION >= GL_VERSION_4_3
+#if CWCGL_VERSION >= GL_VERSION_4_3
         GL_FUNCTIONS_4_3
 #endif
-#if EZGL_VERSION >= GL_VERSION_4_4
+#if CWCGL_VERSION >= GL_VERSION_4_4
         GL_FUNCTIONS_4_4
 #endif
-#if EZGL_VERSION >= GL_VERSION_4_5
+#if CWCGL_VERSION >= GL_VERSION_4_5
         GL_FUNCTIONS_4_5
 #endif
         result = failures == 0;
@@ -306,13 +306,13 @@ void PollNativeWindow(void *handle);
 void FlushNativeWindow(void *handle);
 void DestroyNativeWindow(void *handle);
 
-#if defined(EZGL_EMSCRIPTEN)
+#if defined(CWCGL_EMSCRIPTEN)
 #include "backends/cwcgl_emscripten.c"
-#elif defined(EZGL_MAC)
+#elif defined(CWCGL_MAC)
 #include "backends/cwcgl_mac.c"
-#elif defined(EZGL_WINDOWS)
+#elif defined(CWCGL_WINDOWS)
 #include "backends/cwcgl_windows.c"
-#elif defined(EZGL_LINUX)
+#elif defined(CWCGL_LINUX)
 #include "backends/cwcgl_linux.c"
 #endif
 
@@ -346,7 +346,7 @@ void glutMainLoop(void) {
     state.running = 1;
     
     while (state.running) {
-#if defined(EZGL_LINUX)
+#if defined(CWCGL_LINUX)
         glWindowBucket *bucket = state.front;
         while (bucket) {
             PollNativeWindow(bucket->window.native);

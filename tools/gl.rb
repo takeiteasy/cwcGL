@@ -117,8 +117,8 @@ puts <<HEADER
 #endif
 #endif
 
-#if !defined(EZGL_VERSION)
-#define EZGL_VERSION 1000
+#if !defined(CWCGL_VERSION)
+#define CWCGL_VERSION 1000
 #endif
 HEADER
 
@@ -139,7 +139,7 @@ puts "\n/* khrplatform.h -- [https://registry.khronos.org/EGL/api/KHR/khrplatfor
 defined = []
 functions = {}
 features.each do |f|
-    puts "#if EZGL_VERSION >= #{f.attr 'name'}"
+    puts "#if CWCGL_VERSION >= #{f.attr 'name'}"
     ver = f.attr 'number'
     functions[ver] = []
     
@@ -174,7 +174,7 @@ features.each do |f|
             when /^<command/
                 proc = "PFN#{name.upcase}PROC"
                 puts "typedef #{commands[name][:result]} (APIENTRYP #{proc})(#{commands[name][:params].join ', '});"
-                puts "#define #{name} gll_#{name}"
+                puts "#define #{name} cwcgl#{name}"
                 functions[ver].append [proc, name]
             end
             defined << name
@@ -193,10 +193,10 @@ functions.each do |k, v|
 end
 
 # Define functions externs
-puts "", "#define X(T, N) extern T gll_##N;"
+puts "", "#define X(T, N) extern T cwcgl##N;"
 functions.each do |k, v|
     maj, min = k.split '.'
-    puts "#if EZGL_VERSION >= GL_VERSION_#{maj}_#{min}"
+    puts "#if CWCGL_VERSION >= GL_VERSION_#{maj}_#{min}"
     puts "GL_FUNCTIONS_#{maj}_#{min}"
     puts "#endif"
 end
