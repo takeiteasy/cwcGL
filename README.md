@@ -3,7 +3,7 @@
 A cross-platform OpenGL window + context. **WIP**
 
 <p align="center">
-  <img width="492" height="640" src="https://github.com/takeiteasy/cwcGL/blob/master/res/zap.jpg?raw=true">
+  <img width="492" height="640" src="https://raw.githubusercontent.com/takeiteasy/cwcGL/master/zap.jpg">
 </p>
 
 ## License
