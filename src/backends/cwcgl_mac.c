@@ -697,43 +697,41 @@ int glPollWindow(void) {
     if (!GLwindow.running)
         return 0;
     
-    AutoreleasePool({
-        id distantPast = ObjC(id)(class(NSDate), sel(distantPast));
-        id e = nil;
-        while (GLwindow.running && (e = ObjC(id, unsigned long long, id, id, BOOL)(NSApp, sel(nextEventMatchingMask:untilDate:inMode:dequeue:), NSUIntegerMax, distantPast, NSDefaultRunLoopMode, YES))) {
-            NSUInteger type = ObjC(NSUInteger)(e, sel(type));
-            switch (type) {
-                case NSEventTypeLeftMouseDown:
-                case NSEventTypeLeftMouseUp:
-                    glCallCallback(MouseButton, 1, ConvertMacMod(ObjC(NSUInteger)(e, sel(modifierFlags))), type == NSEventTypeLeftMouseDown);
-                    break;
-                case NSEventTypeRightMouseDown:
-                case NSEventTypeRightMouseUp:
-                    glCallCallback(MouseButton, 2, ConvertMacMod(ObjC(NSUInteger)(e, sel(modifierFlags))), type == NSEventTypeRightMouseDown);
-                    break;
-                case NSEventTypeOtherMouseDown:
-                case NSEventTypeOtherMouseUp:
-                    glCallCallback(MouseButton, (int)ObjC(NSUInteger)(e, sel(buttonNumber)), ConvertMacMod(ObjC(NSUInteger)(e, sel(modifierFlags))), type == NSEventTypeOtherMouseDown);
-                    break;
-                case NSEventTypeScrollWheel:
-                    glCallCallback(MouseScroll, ObjC(CGFloat)(e, sel(deltaX)), ObjC(CGFloat)(e, sel(deltaY)), ConvertMacMod(ObjC(NSUInteger)(e, sel(modifierFlags))));
-                    break;
-                case NSEventTypeKeyDown:
-                case NSEventTypeKeyUp:
-                    glCallCallback(Keyboard, ConvertMacKey(ObjC(unsigned short)(e, sel(keyCode))), ConvertMacMod(ObjC(NSUInteger)(e, sel(modifierFlags))), type == NSEventTypeKeyDown);
-                    break;
-                case NSEventTypeMouseMoved:
-                    if (GLnative.cursorInWindow) {
-                        CGPoint locationInWindow = ObjC(CGPoint)(e, sel(locationInWindow));
-                        glCallCallback(MouseMove, (int)locationInWindow.x, (int)(ObjC_Struct(CGRect)(ObjC(id)(GLnative.window, sel(contentView)), sel(frame)).size.height - roundf(locationInWindow.y)), ObjC(CGFloat)(e, sel(deltaX)), ObjC(CGFloat)(e, sel(deltaY)));
-                    }
-                    break;
-                default:
-                    break;
-            }
-            ObjC(void, id)(NSApp, sel(sendEvent:), e);
+    id distantPast = ObjC(id)(class(NSDate), sel(distantPast));
+    id e = nil;
+    while (GLwindow.running && (e = ObjC(id, unsigned long long, id, id, BOOL)(NSApp, sel(nextEventMatchingMask:untilDate:inMode:dequeue:), NSUIntegerMax, distantPast, NSDefaultRunLoopMode, YES))) {
+        NSUInteger type = ObjC(NSUInteger)(e, sel(type));
+        switch (type) {
+            case NSEventTypeLeftMouseDown:
+            case NSEventTypeLeftMouseUp:
+                glCallCallback(MouseButton, 1, ConvertMacMod(ObjC(NSUInteger)(e, sel(modifierFlags))), type == NSEventTypeLeftMouseDown);
+                break;
+            case NSEventTypeRightMouseDown:
+            case NSEventTypeRightMouseUp:
+                glCallCallback(MouseButton, 2, ConvertMacMod(ObjC(NSUInteger)(e, sel(modifierFlags))), type == NSEventTypeRightMouseDown);
+                break;
+            case NSEventTypeOtherMouseDown:
+            case NSEventTypeOtherMouseUp:
+                glCallCallback(MouseButton, (int)ObjC(NSUInteger)(e, sel(buttonNumber)), ConvertMacMod(ObjC(NSUInteger)(e, sel(modifierFlags))), type == NSEventTypeOtherMouseDown);
+                break;
+            case NSEventTypeScrollWheel:
+                glCallCallback(MouseScroll, ObjC(CGFloat)(e, sel(deltaX)), ObjC(CGFloat)(e, sel(deltaY)), ConvertMacMod(ObjC(NSUInteger)(e, sel(modifierFlags))));
+                break;
+            case NSEventTypeKeyUp:
+            case NSEventTypeKeyDown:
+                glCallCallback(Keyboard, ConvertMacKey(ObjC(unsigned short)(e, sel(keyCode))), ConvertMacMod(ObjC(NSUInteger)(e, sel(modifierFlags))), type == NSEventTypeKeyDown);
+                continue;
+            case NSEventTypeMouseMoved:
+                if (GLnative.cursorInWindow) {
+                    CGPoint locationInWindow = ObjC(CGPoint)(e, sel(locationInWindow));
+                    glCallCallback(MouseMove, (int)locationInWindow.x, (int)(ObjC_Struct(CGRect)(ObjC(id)(GLnative.window, sel(contentView)), sel(frame)).size.height - roundf(locationInWindow.y)), ObjC(CGFloat)(e, sel(deltaX)), ObjC(CGFloat)(e, sel(deltaY)));
+                }
+                break;
+            default:
+                continue;
         }
-    });
+        ObjC(void, id)(NSApp, sel(sendEvent:), e);
+    }
     return GLwindow.running;
 }
 
