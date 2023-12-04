@@ -135,7 +135,7 @@ end
 khr = File.readlines("tools/khrplatform.h").map { |l| l.rstrip }[4..-2]
 puts "\n/* khrplatform.h -- [https://registry.khronos.org/EGL/api/KHR/khrplatform.h]", khr.join("\n"), "/* end of khrplatform.h */", ""
 
-# Format features for each gl version
+# Format features for each OpenGL version
 defined = []
 functions = {}
 features.each do |f|
@@ -201,6 +201,7 @@ functions.each do |k, v|
 end
 puts "#undef X", ""
 
+# Generate header definitions
 commands.each do |k, v|
   argsVoid = (v[:params].length == 1 and v[:params][0] == "void")
   returnsVoid = v[:result] == "void"
@@ -209,6 +210,7 @@ commands.each do |k, v|
   puts "EXPORT void cwc#{k}(GLcontext *context#{params == "void" ? "" : ", " + params}#{returnValue});"
 end
 
+# Define extern implementations
 puts "", "#define X(T, N) T __##N = (T)((void*)0);"
 functions.each do |k, v|
   maj, min = k.split '.'
@@ -218,17 +220,23 @@ functions.each do |k, v|
 end
 puts "#undef X", ""
 
+# Toggle this to disable hot-reload wrapper generation
+exit 0 if 0
+
+# Define command-types enum for each OpenGL function
 puts "typedef enum {"
 commands.each do |k, _|
   puts "    cwc#{k}Command,"
 end
 puts "} cwcglCommandType;", ""
 
+# Define the base `command` type
 puts "typedef struct {"
 puts "    void* data;"
 puts "    cwcglCommandType type;"
 puts "} cwcglCommand;", ""
 
+# Generate command data structures and wrapper functions for each OpenGL function
 commands.each do |k, v|
   argsVoid = (v[:params].length == 1 and v[:params][0] == "void")
   returnsVoid = v[:result] == "void"
@@ -276,6 +284,7 @@ commands.each do |k, v|
   puts "}", ""
 end
 
+# Define function to free commands
 puts "void cwcglFreeCommand(cwcglCommand* command) {"
 puts "    switch (command->type)"
 commands.each do |k, v|
@@ -291,6 +300,7 @@ puts "            free(command);"
 puts "            break;"
 puts "}", ""
 
+# Define function to process commands back to OpenGL function
 puts "void cwcglProcessCommand(cwcglCommand* command) {"
 puts "    switch (command->type)"
 commands.each do |k, v|
