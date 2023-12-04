@@ -78,6 +78,10 @@ GL_FUNCTIONS_4_5
 #endif
 #undef X
 
+#if !defined(NULL)
+#define NULL ((void*)0)
+#endif
+
 #if defined(CWCGL_WINDOWS) || defined(__CYGWIN__)
 #ifndef _WINDOWS_
 #undef APIENTRY
