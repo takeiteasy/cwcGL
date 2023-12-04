@@ -180,12 +180,12 @@ features.each do |f|
       defined << name
     end
   end
-  puts "#endif"
-  puts
+  puts "#endif", ""
 end
 
 # Store functions in macros for later
 functions.each do |k, v|
+  puts "", "#define GL_FUNCTIONS_#{k.gsub '.', '_'} \\"
   v.each do |vv|
     puts "\tX(#{vv[0]}, #{vv[1]}) \\"
   end
