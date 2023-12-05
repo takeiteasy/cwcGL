@@ -30,7 +30,7 @@ require "net/http"
 
 $EnableHeaderFileOut = true
 $EnableSourceFileOut = true
-$DisableWrapperOut = true
+$DisableWrapperOut = false
 $DisableGLLoaderOut = false
 
 # Download required files if needed
@@ -77,6 +77,8 @@ end.to_h
 
 # NOTE: Start of writing header
 
+$OriginalOut = $>.clone
+
 def RestoreOriginalOut
   $>.close
   $> = $OriginalOut
@@ -112,6 +114,12 @@ puts <<HEADER
  TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
+
+#ifndef CWCGL_WRAPPER_HEADER
+#define CWCGL_WRAPPER_HEADER
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #define __gl_glcorearb_h_ 1  /* Khronos core */
 #define __gl_glext_h_ 1      /* Khronos compatibility */
@@ -252,9 +260,18 @@ commands.each do |k, v|
   puts "EXPORT void cwc#{k}(GLcontext *context#{params == "void" ? "" : ", " + params}#{returnValue});"
 end
 
-unless $DisableWrapperOut
+if not $DisableWrapperOut
   # TODO: Generate wrapper headers here somehow ...
 end
+
+puts <<FOOTER
+EXPORT int InitOpenGL(void);
+
+#ifdef __cplusplus
+}
+#endif
+#endif // CWCGL_WRAPPER_HEADER
+FOOTER
 
 RestoreOriginalOut() if $EnableHeaderFileOut
 
