@@ -32,6 +32,7 @@ $EnableHeaderFileOut = true
 $EnableSourceFileOut = true
 $DisableWrapperOut = false
 $DisableGLLoaderOut = false
+$OutputGLBindings = false
 
 # Download required files if needed
 xml = ["https://registry.khronos.org/EGL/api/KHR/khrplatform.h",
@@ -75,7 +76,7 @@ commands = doc.xpath("//commands").children.map do |f|
   [name, parts]
 end.to_h
 
-# NOTE: Start of writing header
+# INFO: Start of writing header
 
 $OriginalOut = $>.clone
 
@@ -187,11 +188,11 @@ puts "\n/* khrplatform.h -- [https://registry.khronos.org/EGL/api/KHR/khrplatfor
 
 # Format features for each OpenGL version
 defined = []
-functions = {}
+$functions = {}
 features.each do |f|
   puts "#if CWCGL_VERSION >= #{f.attr 'name'}"
   ver = f.attr 'number'
-  functions[ver] = []
+  $functions[ver] = []
 
   f.children.each do |ff|
     ff.children.each do |fff|
@@ -225,7 +226,7 @@ features.each do |f|
         proc = "PFN#{name.upcase}PROC"
         puts "typedef #{commands[name][:result]} (APIENTRYP #{proc})(#{commands[name][:params].join ', '});"
         puts "#define #{name} __#{name}"
-        functions[ver].append [proc, name]
+        $functions[ver].append [proc, name]
       end
       defined << name
     end
@@ -234,34 +235,38 @@ features.each do |f|
 end
 
 # Store functions in macros for later
-functions.each do |k, v|
-  puts "", "#define GL_FUNCTIONS_#{k.gsub '.', '_'} \\"
-  v.each do |vv|
-    puts "\tX(#{vv[0]}, #{vv[1]}) \\"
+def PrintGLVersionsMacro
+  $functions.each do |k, v|
+    puts "", "#define GL_FUNCTIONS_#{k.gsub '.', '_'} \\"
+    v.each do |vv|
+      puts "\tX(#{vv[0]}, #{vv[1]}) \\"
+    end
   end
+  puts
 end
 
-# Define functions
-puts "", "#define X(T, N) extern T __##N;"
-functions.each do |k, v|
-  maj, min = k.split '.'
-  puts "#if CWCGL_VERSION >= GL_VERSION_#{maj}_#{min}"
-  puts "GL_FUNCTIONS_#{maj}_#{min}"
-  puts "#endif"
+# Define extern functions
+if $OutputGLBindings
+  PrintGLVersionsMacro()
+  puts "#define X(T, N) extern T __##N;"
+  $functions.each do |k, v|
+    maj, min = k.split '.'
+    puts "#if CWCGL_VERSION >= GL_VERSION_#{maj}_#{min}"
+    puts "GL_FUNCTIONS_#{maj}_#{min}"
+    puts "#endif"
+  end
+  puts "#undef X", ""
 end
-puts "#undef X", ""
 
 # Generate header definitions
-commands.each do |k, v|
-  argsVoid = (v[:params].length == 1 and v[:params][0] == "void")
-  returnsVoid = v[:result] == "void"
-  params = v[:params].join ", "
-  returnValue = returnsVoid ? "" : ", #{v[:result]}* return_value"
-  puts "EXPORT void cwc#{k}(GLcontext *context#{params == "void" ? "" : ", " + params}#{returnValue});"
-end
-
 if not $DisableWrapperOut
-  # TODO: Generate wrapper headers here somehow ...
+  commands.each do |k, v|
+    argsVoid = (v[:params].length == 1 and v[:params][0] == "void")
+    returnsVoid = v[:result] == "void"
+    params = v[:params].join ", "
+    returnValue = returnsVoid ? "" : ", #{v[:result]}* return_value"
+    puts "EXPORT void cwc#{k}(GLcontext *context#{params == "void" ? "" : ", " + params}#{returnValue});"
+  end
 end
 
 puts "EXPORT int InitOpenGL(void);" if not $DisableGLLoaderOut
@@ -276,7 +281,7 @@ FOOTER
 
 RestoreOriginalOut() if $EnableHeaderFileOut
 
-# NOTE: Start of writing source
+# INFO: Start of writing source
 
 $> = File.open("src/wrapper.c", "w") if $EnableHeaderFileOut
 
@@ -314,15 +319,19 @@ puts <<SOURCE
 
 SOURCE
 
+PrintGLVersionsMacro() if not $OutputGLBindings
+
 # Define extern implementations
 puts "#define X(T, N) T __##N = (T)((void*)0);"
-functions.each do |k, v|
+$functions.each do |k, v|
   maj, min = k.split '.'
   puts "#if CWCGL_VERSION >= GL_VERSION_#{maj}_#{min}"
   puts "GL_FUNCTIONS_#{maj}_#{min}"
   puts "#endif"
 end
 puts "#undef X", ""
+
+PrintGLVersionsMacro() if $OutputGLBindings
 
 unless $DisableGLLoaderOut
   puts <<LOADER
@@ -446,7 +455,7 @@ int InitOpenGL(void) {
     if (LoadGLLibrary()) {
 LOADER
 
-  functions.each do |k, v|
+  $functions.each do |k, v|
     maj, min = k.split '.'
     puts "#if CWCGL_VERSION >= GL_VERSION_#{maj}_#{min}"
     puts "GL_FUNCTIONS_#{maj}_#{min}"
@@ -582,3 +591,5 @@ end
 puts "        default:"
 puts "            abort();"
 puts "}", ""
+
+RestoreOriginalOut() if $DisableWrapperOut
