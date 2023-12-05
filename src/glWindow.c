@@ -1,4 +1,4 @@
-/* cwcgl.c -- https://github.com/takeiteasy/cwcGL
+/* glWindow.c -- https://github.com/takeiteasy/cwcGL
 
  The MIT License (MIT)
 
@@ -24,7 +24,7 @@
  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#include "cwcgl.h"
+#include "glWindow.h"
 
 static struct {
 #define X(NAME, ARGS) void(*NAME##Callback)ARGS;

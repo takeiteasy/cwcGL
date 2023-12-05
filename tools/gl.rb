@@ -85,7 +85,7 @@ def RestoreOriginalOut
   $> = $OriginalOut
 end
 
-$> = File.open("src/wrapper.h", 'w') if $EnableHeaderFileOut
+$> = File.open("src/glWrapper.h", 'w') if $EnableHeaderFileOut
 
 puts <<HEADER
 /*
@@ -283,7 +283,7 @@ RestoreOriginalOut() if $EnableHeaderFileOut
 
 # INFO: Start of writing source
 
-$> = File.open("src/wrapper.c", "w") if $EnableHeaderFileOut
+$> = File.open("src/glWrapper.c", "w") if $EnableHeaderFileOut
 
 puts <<SOURCE
 /*
