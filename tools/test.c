@@ -1,3 +1,4 @@
+#define CWCGL_VERSION 2000
 #include "cwcgl.h"
 #include <stdio.h>
 

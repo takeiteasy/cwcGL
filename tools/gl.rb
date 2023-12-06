@@ -51,11 +51,16 @@ doc = Nokogiri::XML File.open("tools/gl.xml") do |config|
 end
 
 # Parse <types>
+$GLhandleARB=nil
 types = doc.xpath("//types").children.reject { |c| c.class.to_s == "Nokogiri::XML::Comment" }.map do |t|
   html = t.inner_html.gsub "<apientry></apientry>", "APIENTRY"
   /<name>(?<name>.*)<\/name>/ =~ html
+  unless name
+    $GLhandleARB = t.text unless t.text.start_with?("#include")
+  end
   [name, t.text]
 end.to_h.delete_if { |k, v| k.nil? }
+
 # Parse <enums>
 enums = doc.xpath("//enums").children.map { |e| [e.attr('name'), e.attr('value')] }.to_h
 # Parse <commands>
@@ -214,6 +219,7 @@ features.each do |f|
             t.each do |tt|
               unless defined.include? tt
                 puts types[tt]
+                types.delete(tt)
                 defined << tt
               end
             end
@@ -243,6 +249,13 @@ features.each do |f|
   end
   puts "#endif", ""
 end
+
+types.each do |k, v|
+  if v.start_with?("typedef")
+    puts v unless v.start_with?("typedef void (")
+  end
+end
+puts $GLhandleARB, "" if $GLhandleARB
 
 # Store functions in macros for later
 def PrintGLVersionsMacro
@@ -522,52 +535,61 @@ static void PushCommand(GLcontext *context, GLcommand *command) {
 CONTEXT
 
 # Generate command data structures and wrapper functions for each OpenGL function
-commands.each do |k, v|
-  argsVoid = (v[:params].length == 1 and v[:params][0] == "void")
-  returnsVoid = v[:result] == "void"
-  if not argsVoid
-    puts "typedef struct {"
-    v[:params].each do |vv|
-      puts "    #{vv};"
-    end
-    unless returnsVoid
-      puts "    #{v[:result]} return_value;"
-    end
-    puts "} cwc#{k}CommandData;", ""
-  else
-    if not returnsVoid
-      puts "typedef struct {"
-      puts "    #{v[:result]} return_value;"
-      puts "} cwc#{k}CommandData;", ""
-    end
-  end
-  params = v[:params].join ", "
-  noParams = params == "void"
-  returnValue = returnsVoid ? "" : ", #{v[:result]}* return_value"
-  puts "void cwc#{k}(GLcontext *context#{noParams ? "" : ", " + params}#{returnValue}) {"
-  puts "    GLcommand* command = malloc(sizeof(GLcommand));"
-  hasParams = (not noParams or (not returnsVoid and argsVoid))
-  if hasParams
-    puts "    cwc#{k}CommandData* data = malloc(sizeof(cwc#{k}CommandData));"
+
+$functions.each do |k, v|
+  maj, min = k.split '.'
+  puts "#if CWCGL_VERSION >= GL_VERSION_#{maj}_#{min}"
+  v.each do |vv|
+    key = vv[1]
+    cmd = commands[key]
+    argsVoid = (cmd[:params].length == 1 and cmd[:params][0] == "void")
+    returnsVoid = cmd[:result] == "void"
     if not argsVoid
-      v[:params].each do |vv|
-        vvv = vv.split(' ')[-1]
-        puts "    data->#{vvv} = #{vvv};"
+      puts "typedef struct {"
+      cmd[:params].each do |vvv|
+        puts "    #{vvv};"
+      end
+      unless returnsVoid
+        puts "    #{cmd[:result]} return_value;"
+      end
+      puts "} cwc#{key}CommandData;", ""
+    else
+      if not returnsVoid
+        puts "typedef struct {"
+        puts "    #{cmd[:result]} return_value;"
+        puts "} cwc#{key}CommandData;", ""
       end
     end
-    unless returnsVoid
-      puts "    data->return_value = return_value;"
+    params = cmd[:params].join ", "
+    noParams = params == "void"
+    returnValue = returnsVoid ? "" : ", #{cmd[:result]}* return_value"
+    puts "void cwc#{key}(GLcontext *context#{noParams ? "" : ", " + params}#{returnValue}) {"
+    puts "    GLcommand* command = malloc(sizeof(GLcommand));"
+    hasParams = (not noParams or (not returnsVoid and argsVoid))
+    if hasParams
+      puts "    cwc#{key}CommandData* data = malloc(sizeof(cwc#{key}CommandData));"
+      if not argsVoid
+        cmd[:params].each do |vv|
+          vvv = vv.split(' ')[-1]
+          puts "    data->#{vvv} = #{vvv};"
+        end
+      end
+      unless returnsVoid
+        puts "    data->return_value = return_value;"
+      end
     end
+    puts "    command->type = cwc#{key}Command;"
+    if hasParams
+      puts "    command->data = data;"
+    else
+      puts "    command->data = NULL;"
+    end
+    puts "    PushCommand(context, command);"
+    puts "}", ""
   end
-  puts "    command->type = cwc#{k}Command;"
-  if hasParams
-    puts "    command->data = data;"
-  else
-    puts "    command->data = NULL;"
-  end
-  puts "    PushCommand(context, command);"
-  puts "}", ""
+  puts "#endif"
 end
+
 
 # Define function to free commands
 puts "static void FreeCommand(GLcommand* command) {"

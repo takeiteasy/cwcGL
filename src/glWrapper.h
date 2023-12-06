@@ -4403,6 +4403,28 @@ typedef void (APIENTRYP PFNGLPOLYGONOFFSETCLAMPPROC)(GLfloat factor, GLfloat uni
 #define GL_TRANSFORM_FEEDBACK_STREAM_OVERFLOW 0x82ED
 #endif
 
+typedef void GLvoid;
+typedef khronos_int32_t GLclampx;
+typedef khronos_float_t GLclampf;
+typedef double GLclampd;
+typedef void *GLeglClientBufferEXT;
+typedef void *GLeglImageOES;
+typedef char GLcharARB;
+typedef khronos_uint16_t GLhalf;
+typedef khronos_uint16_t GLhalfARB;
+typedef khronos_int32_t GLfixed;
+typedef khronos_intptr_t GLintptrARB;
+typedef khronos_ssize_t GLsizeiptrARB;
+typedef khronos_int64_t GLint64EXT;
+typedef khronos_uint64_t GLuint64EXT;
+typedef unsigned short GLhalfNV;
+typedef GLintptr GLvdpauSurfaceNV;
+#ifdef __APPLE__
+typedef void *GLhandleARB;
+#else
+typedef unsigned int GLhandleARB;
+#endif
+
 typedef enum {
     cwcglAccumCommand,
     cwcglAccumxOESCommand,
