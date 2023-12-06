@@ -567,20 +567,20 @@ $functions.each do |k, v|
     puts "    GLcommand* command = malloc(sizeof(GLcommand));"
     hasParams = (not noParams or (not returnsVoid and argsVoid))
     if hasParams
-      puts "    cwc#{key}CommandData* data = malloc(sizeof(cwc#{key}CommandData));"
+      puts "    cwc#{key}CommandData* command_data = malloc(sizeof(cwc#{key}CommandData));"
       if not argsVoid
         cmd[:params].each do |vv|
           vvv = vv.split(' ')[-1]
-          puts "    data->#{vvv} = #{vvv};"
+          puts "    command_data->#{vvv} = #{vvv};"
         end
       end
       unless returnsVoid
-        puts "    data->return_value = return_value;"
+        puts "    command_data->return_value = return_value;"
       end
     end
     puts "    command->type = cwc#{key}Command;"
     if hasParams
-      puts "    command->data = data;"
+      puts "    command->data = command_data;"
     else
       puts "    command->data = NULL;"
     end
@@ -593,7 +593,7 @@ end
 
 # Define function to free commands
 puts "static void FreeCommand(GLcommand* command) {"
-puts "    switch (command->type)"
+puts "    switch (command->type) {"
 commands.each do |k, v|
   argsVoid = v[:params].length == 1 and v[:params][0] == "void"
   returnsVoid = v[:result] == "void"
@@ -605,40 +605,52 @@ puts "            free(command->data);"
 puts "        default:"
 puts "            free(command);"
 puts "            break;"
+puts "    }"
 puts "}", ""
 
 # Define function to process commands back to OpenGL function
 puts "static void ProcessCommand(GLcommand* command) {"
-puts "    switch (command->type)"
-commands.each do |k, v|
-  argsVoid = v[:params].length == 1 and v[:params][0] == "void"
-  returnsVoid = v[:result] == "void"
-  if argsVoid and returnsVoid
-    puts "        case cwc#{k}Command:"
-    puts "            #{k}();"
-  else
-    puts "        case cwc#{k}Command: {"
-    puts "            cwc#{k}CommandData* data = (cwc#{k}CommandData*)command->data;"
-    params = unless argsVoid
-               v[:params].map do |p|
-                 "data->" + p.split(" ")[-1]
-               end.join ", "
-             else
-               ""
-             end
-    unless returnsVoid
-      puts "            if (data->return_value)"
-      puts "                *(data->return_value) = #{k}(#{params});"
-      puts "            else"
-      puts "                #{k}(#{params});"
+puts "    switch (command->type) {"
+
+$functions.each do |k, v|
+  maj, min = k.split '.'
+  puts "#if CWCGL_VERSION >= GL_VERSION_#{maj}_#{min}"
+  v.each do |vv|
+    key = vv[1]
+    cmd = commands[key]
+
+    argsVoid = cmd[:params].length == 1 and cmd[:params][0] == "void"
+    returnsVoid = cmd[:result] == "void"
+    if argsVoid and returnsVoid
+      puts "        case cwc#{key}Command:"
+      puts "            #{key}();"
     else
-      puts "            #{k}(#{params});"
+      puts "        case cwc#{key}Command: {"
+      puts "            cwc#{key}CommandData* command_data = (cwc#{key}CommandData*)command->data;"
+      params = unless argsVoid
+                 cmd[:params].map do |p|
+                   "command_data->" + p.split(" ")[-1]
+                 end.join ", "
+               else
+                 ""
+               end
+      unless returnsVoid
+        puts "            if (data->return_value)"
+        puts "                *(data->return_value) = #{key}(#{params});"
+        puts "            else"
+        puts "                #{key}(#{params});"
+      else
+        puts "            #{key}(#{params});"
+      end
+    end
+    puts "            break;"
+    if not argsVoid
+      puts "        }"
     end
   end
-  puts "            break;"
-  if not argsVoid
-    puts "        }"
-  end
+end
+
+commands.each do |k, v|
 end
 puts "        default:"
 puts "            abort();"
