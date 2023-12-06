@@ -4403,6 +4403,7 @@ typedef void (APIENTRYP PFNGLPOLYGONOFFSETCLAMPPROC)(GLfloat factor, GLfloat uni
 #define GL_TRANSFORM_FEEDBACK_STREAM_OVERFLOW 0x82ED
 #endif
 
+typedef khronos_intptr_t GLintptr;
 typedef void GLvoid;
 typedef khronos_int32_t GLclampx;
 typedef khronos_float_t GLclampf;

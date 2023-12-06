@@ -1374,7 +1374,6 @@ void cwcglCullFace(GLcontext *context, GLenum mode) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum mode;
 } cwcglFrontFaceCommandData;
@@ -1387,7 +1386,6 @@ void cwcglFrontFace(GLcontext *context, GLenum mode) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLenum mode;
@@ -1402,7 +1400,6 @@ void cwcglHint(GLcontext *context, GLenum target, GLenum mode) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLfloat width;
 } cwcglLineWidthCommandData;
@@ -1415,7 +1412,6 @@ void cwcglLineWidth(GLcontext *context, GLfloat width) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLfloat size;
 } cwcglPointSizeCommandData;
@@ -1428,7 +1424,6 @@ void cwcglPointSize(GLcontext *context, GLfloat size) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum face;
     GLenum mode;
@@ -1443,7 +1438,6 @@ void cwcglPolygonMode(GLcontext *context, GLenum face, GLenum mode) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLint x;
     GLint y;
@@ -1462,7 +1456,6 @@ void cwcglScissor(GLcontext *context, GLint x, GLint y, GLsizei width, GLsizei h
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLenum pname;
@@ -1479,7 +1472,6 @@ void cwcglTexParameterf(GLcontext *context, GLenum target, GLenum pname, GLfloat
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLenum pname;
@@ -1496,7 +1488,6 @@ void cwcglTexParameterfv(GLcontext *context, GLenum target, GLenum pname, const 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLenum pname;
@@ -1513,7 +1504,6 @@ void cwcglTexParameteri(GLcontext *context, GLenum target, GLenum pname, GLint p
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLenum pname;
@@ -1530,7 +1520,6 @@ void cwcglTexParameteriv(GLcontext *context, GLenum target, GLenum pname, const 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLint level;
@@ -1557,7 +1546,6 @@ void cwcglTexImage1D(GLcontext *context, GLenum target, GLint level, GLint inter
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLint level;
@@ -1586,7 +1574,6 @@ void cwcglTexImage2D(GLcontext *context, GLenum target, GLint level, GLint inter
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum buf;
 } cwcglDrawBufferCommandData;
@@ -1599,7 +1586,6 @@ void cwcglDrawBuffer(GLcontext *context, GLenum buf) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLbitfield mask;
 } cwcglClearCommandData;
@@ -1612,7 +1598,6 @@ void cwcglClear(GLcontext *context, GLbitfield mask) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLfloat red;
     GLfloat green;
@@ -1631,7 +1616,6 @@ void cwcglClearColor(GLcontext *context, GLfloat red, GLfloat green, GLfloat blu
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLint s;
 } cwcglClearStencilCommandData;
@@ -1644,7 +1628,6 @@ void cwcglClearStencil(GLcontext *context, GLint s) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLdouble depth;
 } cwcglClearDepthCommandData;
@@ -1657,7 +1640,6 @@ void cwcglClearDepth(GLcontext *context, GLdouble depth) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint mask;
 } cwcglStencilMaskCommandData;
@@ -1670,7 +1652,6 @@ void cwcglStencilMask(GLcontext *context, GLuint mask) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLboolean red;
     GLboolean green;
@@ -1689,7 +1670,6 @@ void cwcglColorMask(GLcontext *context, GLboolean red, GLboolean green, GLboolea
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLboolean flag;
 } cwcglDepthMaskCommandData;
@@ -1702,7 +1682,6 @@ void cwcglDepthMask(GLcontext *context, GLboolean flag) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum cap;
 } cwcglDisableCommandData;
@@ -1715,7 +1694,6 @@ void cwcglDisable(GLcontext *context, GLenum cap) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum cap;
 } cwcglEnableCommandData;
@@ -1728,21 +1706,18 @@ void cwcglEnable(GLcontext *context, GLenum cap) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 void cwcglFinish(GLcontext *context) {
     GLcommand* command = malloc(sizeof(GLcommand));
     command->type = cwcglFinishCommand;
     command->data = NULL;
     PushCommand(context, command);
 }
-
 void cwcglFlush(GLcontext *context) {
     GLcommand* command = malloc(sizeof(GLcommand));
     command->type = cwcglFlushCommand;
     command->data = NULL;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum sfactor;
     GLenum dfactor;
@@ -1757,7 +1732,6 @@ void cwcglBlendFunc(GLcontext *context, GLenum sfactor, GLenum dfactor) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum opcode;
 } cwcglLogicOpCommandData;
@@ -1770,7 +1744,6 @@ void cwcglLogicOp(GLcontext *context, GLenum opcode) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum func;
     GLint ref;
@@ -1787,7 +1760,6 @@ void cwcglStencilFunc(GLcontext *context, GLenum func, GLint ref, GLuint mask) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum fail;
     GLenum zfail;
@@ -1804,7 +1776,6 @@ void cwcglStencilOp(GLcontext *context, GLenum fail, GLenum zfail, GLenum zpass)
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum func;
 } cwcglDepthFuncCommandData;
@@ -1817,7 +1788,6 @@ void cwcglDepthFunc(GLcontext *context, GLenum func) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum pname;
     GLfloat param;
@@ -1832,7 +1802,6 @@ void cwcglPixelStoref(GLcontext *context, GLenum pname, GLfloat param) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum pname;
     GLint param;
@@ -1847,7 +1816,6 @@ void cwcglPixelStorei(GLcontext *context, GLenum pname, GLint param) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum src;
 } cwcglReadBufferCommandData;
@@ -1860,7 +1828,6 @@ void cwcglReadBuffer(GLcontext *context, GLenum src) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLint x;
     GLint y;
@@ -1885,7 +1852,6 @@ void cwcglReadPixels(GLcontext *context, GLint x, GLint y, GLsizei width, GLsize
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum pname;
     GLboolean * data;
@@ -1900,7 +1866,6 @@ void cwcglGetBooleanv(GLcontext *context, GLenum pname, GLboolean * data) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum pname;
     GLdouble * data;
@@ -1915,7 +1880,6 @@ void cwcglGetDoublev(GLcontext *context, GLenum pname, GLdouble * data) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum return_value;
 } cwcglGetErrorCommandData;
@@ -1923,12 +1887,10 @@ typedef struct {
 void cwcglGetError(GLcontext *context, GLenum* return_value) {
     GLcommand* command = malloc(sizeof(GLcommand));
     cwcglGetErrorCommandData* command_data = malloc(sizeof(cwcglGetErrorCommandData));
-    command_data->return_value = return_value;
     command->type = cwcglGetErrorCommand;
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum pname;
     GLfloat * data;
@@ -1943,7 +1905,6 @@ void cwcglGetFloatv(GLcontext *context, GLenum pname, GLfloat * data) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum pname;
     GLint * data;
@@ -1958,7 +1919,6 @@ void cwcglGetIntegerv(GLcontext *context, GLenum pname, GLint * data) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum name;
     const GLubyte * return_value;
@@ -1968,12 +1928,10 @@ void cwcglGetString(GLcontext *context, GLenum name, const GLubyte ** return_val
     GLcommand* command = malloc(sizeof(GLcommand));
     cwcglGetStringCommandData* command_data = malloc(sizeof(cwcglGetStringCommandData));
     command_data->name = name;
-    command_data->return_value = return_value;
     command->type = cwcglGetStringCommand;
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLint level;
@@ -1994,7 +1952,6 @@ void cwcglGetTexImage(GLcontext *context, GLenum target, GLint level, GLenum for
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLenum pname;
@@ -2011,7 +1968,6 @@ void cwcglGetTexParameterfv(GLcontext *context, GLenum target, GLenum pname, GLf
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLenum pname;
@@ -2028,7 +1984,6 @@ void cwcglGetTexParameteriv(GLcontext *context, GLenum target, GLenum pname, GLi
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLint level;
@@ -2047,7 +2002,6 @@ void cwcglGetTexLevelParameterfv(GLcontext *context, GLenum target, GLint level,
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLint level;
@@ -2066,7 +2020,6 @@ void cwcglGetTexLevelParameteriv(GLcontext *context, GLenum target, GLint level,
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum cap;
     GLboolean return_value;
@@ -2076,12 +2029,10 @@ void cwcglIsEnabled(GLcontext *context, GLenum cap, GLboolean* return_value) {
     GLcommand* command = malloc(sizeof(GLcommand));
     cwcglIsEnabledCommandData* command_data = malloc(sizeof(cwcglIsEnabledCommandData));
     command_data->cap = cap;
-    command_data->return_value = return_value;
     command->type = cwcglIsEnabledCommand;
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLdouble n;
     GLdouble f;
@@ -2096,7 +2047,6 @@ void cwcglDepthRange(GLcontext *context, GLdouble n, GLdouble f) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLint x;
     GLint y;
@@ -2115,7 +2065,6 @@ void cwcglViewport(GLcontext *context, GLint x, GLint y, GLsizei width, GLsizei 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint list;
     GLenum mode;
@@ -2130,14 +2079,12 @@ void cwcglNewList(GLcontext *context, GLuint list, GLenum mode) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 void cwcglEndList(GLcontext *context) {
     GLcommand* command = malloc(sizeof(GLcommand));
     command->type = cwcglEndListCommand;
     command->data = NULL;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint list;
 } cwcglCallListCommandData;
@@ -2150,7 +2097,6 @@ void cwcglCallList(GLcontext *context, GLuint list) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLsizei n;
     GLenum type;
@@ -2167,7 +2113,6 @@ void cwcglCallLists(GLcontext *context, GLsizei n, GLenum type, const void * lis
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint list;
     GLsizei range;
@@ -2182,7 +2127,6 @@ void cwcglDeleteLists(GLcontext *context, GLuint list, GLsizei range) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLsizei range;
     GLuint return_value;
@@ -2192,12 +2136,10 @@ void cwcglGenLists(GLcontext *context, GLsizei range, GLuint* return_value) {
     GLcommand* command = malloc(sizeof(GLcommand));
     cwcglGenListsCommandData* command_data = malloc(sizeof(cwcglGenListsCommandData));
     command_data->range = range;
-    command_data->return_value = return_value;
     command->type = cwcglGenListsCommand;
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint base;
 } cwcglListBaseCommandData;
@@ -2210,7 +2152,6 @@ void cwcglListBase(GLcontext *context, GLuint base) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum mode;
 } cwcglBeginCommandData;
@@ -2223,7 +2164,6 @@ void cwcglBegin(GLcontext *context, GLenum mode) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLsizei width;
     GLsizei height;
@@ -2248,7 +2188,6 @@ void cwcglBitmap(GLcontext *context, GLsizei width, GLsizei height, GLfloat xori
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLbyte red;
     GLbyte green;
@@ -2265,7 +2204,6 @@ void cwcglColor3b(GLcontext *context, GLbyte red, GLbyte green, GLbyte blue) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLbyte * v;
 } cwcglColor3bvCommandData;
@@ -2278,7 +2216,6 @@ void cwcglColor3bv(GLcontext *context, const GLbyte * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLdouble red;
     GLdouble green;
@@ -2295,7 +2232,6 @@ void cwcglColor3d(GLcontext *context, GLdouble red, GLdouble green, GLdouble blu
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLdouble * v;
 } cwcglColor3dvCommandData;
@@ -2308,7 +2244,6 @@ void cwcglColor3dv(GLcontext *context, const GLdouble * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLfloat red;
     GLfloat green;
@@ -2325,7 +2260,6 @@ void cwcglColor3f(GLcontext *context, GLfloat red, GLfloat green, GLfloat blue) 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLfloat * v;
 } cwcglColor3fvCommandData;
@@ -2338,7 +2272,6 @@ void cwcglColor3fv(GLcontext *context, const GLfloat * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLint red;
     GLint green;
@@ -2355,7 +2288,6 @@ void cwcglColor3i(GLcontext *context, GLint red, GLint green, GLint blue) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLint * v;
 } cwcglColor3ivCommandData;
@@ -2368,7 +2300,6 @@ void cwcglColor3iv(GLcontext *context, const GLint * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLshort red;
     GLshort green;
@@ -2385,7 +2316,6 @@ void cwcglColor3s(GLcontext *context, GLshort red, GLshort green, GLshort blue) 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLshort * v;
 } cwcglColor3svCommandData;
@@ -2398,7 +2328,6 @@ void cwcglColor3sv(GLcontext *context, const GLshort * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLubyte red;
     GLubyte green;
@@ -2415,7 +2344,6 @@ void cwcglColor3ub(GLcontext *context, GLubyte red, GLubyte green, GLubyte blue)
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLubyte * v;
 } cwcglColor3ubvCommandData;
@@ -2428,7 +2356,6 @@ void cwcglColor3ubv(GLcontext *context, const GLubyte * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint red;
     GLuint green;
@@ -2445,7 +2372,6 @@ void cwcglColor3ui(GLcontext *context, GLuint red, GLuint green, GLuint blue) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLuint * v;
 } cwcglColor3uivCommandData;
@@ -2458,7 +2384,6 @@ void cwcglColor3uiv(GLcontext *context, const GLuint * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLushort red;
     GLushort green;
@@ -2475,7 +2400,6 @@ void cwcglColor3us(GLcontext *context, GLushort red, GLushort green, GLushort bl
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLushort * v;
 } cwcglColor3usvCommandData;
@@ -2488,7 +2412,6 @@ void cwcglColor3usv(GLcontext *context, const GLushort * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLbyte red;
     GLbyte green;
@@ -2507,7 +2430,6 @@ void cwcglColor4b(GLcontext *context, GLbyte red, GLbyte green, GLbyte blue, GLb
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLbyte * v;
 } cwcglColor4bvCommandData;
@@ -2520,7 +2442,6 @@ void cwcglColor4bv(GLcontext *context, const GLbyte * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLdouble red;
     GLdouble green;
@@ -2539,7 +2460,6 @@ void cwcglColor4d(GLcontext *context, GLdouble red, GLdouble green, GLdouble blu
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLdouble * v;
 } cwcglColor4dvCommandData;
@@ -2552,7 +2472,6 @@ void cwcglColor4dv(GLcontext *context, const GLdouble * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLfloat red;
     GLfloat green;
@@ -2571,7 +2490,6 @@ void cwcglColor4f(GLcontext *context, GLfloat red, GLfloat green, GLfloat blue, 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLfloat * v;
 } cwcglColor4fvCommandData;
@@ -2584,7 +2502,6 @@ void cwcglColor4fv(GLcontext *context, const GLfloat * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLint red;
     GLint green;
@@ -2603,7 +2520,6 @@ void cwcglColor4i(GLcontext *context, GLint red, GLint green, GLint blue, GLint 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLint * v;
 } cwcglColor4ivCommandData;
@@ -2616,7 +2532,6 @@ void cwcglColor4iv(GLcontext *context, const GLint * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLshort red;
     GLshort green;
@@ -2635,7 +2550,6 @@ void cwcglColor4s(GLcontext *context, GLshort red, GLshort green, GLshort blue, 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLshort * v;
 } cwcglColor4svCommandData;
@@ -2648,7 +2562,6 @@ void cwcglColor4sv(GLcontext *context, const GLshort * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLubyte red;
     GLubyte green;
@@ -2667,7 +2580,6 @@ void cwcglColor4ub(GLcontext *context, GLubyte red, GLubyte green, GLubyte blue,
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLubyte * v;
 } cwcglColor4ubvCommandData;
@@ -2680,7 +2592,6 @@ void cwcglColor4ubv(GLcontext *context, const GLubyte * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint red;
     GLuint green;
@@ -2699,7 +2610,6 @@ void cwcglColor4ui(GLcontext *context, GLuint red, GLuint green, GLuint blue, GL
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLuint * v;
 } cwcglColor4uivCommandData;
@@ -2712,7 +2622,6 @@ void cwcglColor4uiv(GLcontext *context, const GLuint * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLushort red;
     GLushort green;
@@ -2731,7 +2640,6 @@ void cwcglColor4us(GLcontext *context, GLushort red, GLushort green, GLushort bl
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLushort * v;
 } cwcglColor4usvCommandData;
@@ -2744,7 +2652,6 @@ void cwcglColor4usv(GLcontext *context, const GLushort * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLboolean flag;
 } cwcglEdgeFlagCommandData;
@@ -2757,7 +2664,6 @@ void cwcglEdgeFlag(GLcontext *context, GLboolean flag) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLboolean * flag;
 } cwcglEdgeFlagvCommandData;
@@ -2770,14 +2676,12 @@ void cwcglEdgeFlagv(GLcontext *context, const GLboolean * flag) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 void cwcglEnd(GLcontext *context) {
     GLcommand* command = malloc(sizeof(GLcommand));
     command->type = cwcglEndCommand;
     command->data = NULL;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLdouble c;
 } cwcglIndexdCommandData;
@@ -2790,7 +2694,6 @@ void cwcglIndexd(GLcontext *context, GLdouble c) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLdouble * c;
 } cwcglIndexdvCommandData;
@@ -2803,7 +2706,6 @@ void cwcglIndexdv(GLcontext *context, const GLdouble * c) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLfloat c;
 } cwcglIndexfCommandData;
@@ -2816,7 +2718,6 @@ void cwcglIndexf(GLcontext *context, GLfloat c) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLfloat * c;
 } cwcglIndexfvCommandData;
@@ -2829,7 +2730,6 @@ void cwcglIndexfv(GLcontext *context, const GLfloat * c) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLint c;
 } cwcglIndexiCommandData;
@@ -2842,7 +2742,6 @@ void cwcglIndexi(GLcontext *context, GLint c) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLint * c;
 } cwcglIndexivCommandData;
@@ -2855,7 +2754,6 @@ void cwcglIndexiv(GLcontext *context, const GLint * c) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLshort c;
 } cwcglIndexsCommandData;
@@ -2868,7 +2766,6 @@ void cwcglIndexs(GLcontext *context, GLshort c) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLshort * c;
 } cwcglIndexsvCommandData;
@@ -2881,7 +2778,6 @@ void cwcglIndexsv(GLcontext *context, const GLshort * c) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLbyte nx;
     GLbyte ny;
@@ -2898,7 +2794,6 @@ void cwcglNormal3b(GLcontext *context, GLbyte nx, GLbyte ny, GLbyte nz) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLbyte * v;
 } cwcglNormal3bvCommandData;
@@ -2911,7 +2806,6 @@ void cwcglNormal3bv(GLcontext *context, const GLbyte * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLdouble nx;
     GLdouble ny;
@@ -2928,7 +2822,6 @@ void cwcglNormal3d(GLcontext *context, GLdouble nx, GLdouble ny, GLdouble nz) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLdouble * v;
 } cwcglNormal3dvCommandData;
@@ -2941,7 +2834,6 @@ void cwcglNormal3dv(GLcontext *context, const GLdouble * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLfloat nx;
     GLfloat ny;
@@ -2958,7 +2850,6 @@ void cwcglNormal3f(GLcontext *context, GLfloat nx, GLfloat ny, GLfloat nz) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLfloat * v;
 } cwcglNormal3fvCommandData;
@@ -2971,7 +2862,6 @@ void cwcglNormal3fv(GLcontext *context, const GLfloat * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLint nx;
     GLint ny;
@@ -2988,7 +2878,6 @@ void cwcglNormal3i(GLcontext *context, GLint nx, GLint ny, GLint nz) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLint * v;
 } cwcglNormal3ivCommandData;
@@ -3001,7 +2890,6 @@ void cwcglNormal3iv(GLcontext *context, const GLint * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLshort nx;
     GLshort ny;
@@ -3018,7 +2906,6 @@ void cwcglNormal3s(GLcontext *context, GLshort nx, GLshort ny, GLshort nz) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLshort * v;
 } cwcglNormal3svCommandData;
@@ -3031,7 +2918,6 @@ void cwcglNormal3sv(GLcontext *context, const GLshort * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLdouble x;
     GLdouble y;
@@ -3046,7 +2932,6 @@ void cwcglRasterPos2d(GLcontext *context, GLdouble x, GLdouble y) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLdouble * v;
 } cwcglRasterPos2dvCommandData;
@@ -3059,7 +2944,6 @@ void cwcglRasterPos2dv(GLcontext *context, const GLdouble * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLfloat x;
     GLfloat y;
@@ -3074,7 +2958,6 @@ void cwcglRasterPos2f(GLcontext *context, GLfloat x, GLfloat y) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLfloat * v;
 } cwcglRasterPos2fvCommandData;
@@ -3087,7 +2970,6 @@ void cwcglRasterPos2fv(GLcontext *context, const GLfloat * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLint x;
     GLint y;
@@ -3102,7 +2984,6 @@ void cwcglRasterPos2i(GLcontext *context, GLint x, GLint y) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLint * v;
 } cwcglRasterPos2ivCommandData;
@@ -3115,7 +2996,6 @@ void cwcglRasterPos2iv(GLcontext *context, const GLint * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLshort x;
     GLshort y;
@@ -3130,7 +3010,6 @@ void cwcglRasterPos2s(GLcontext *context, GLshort x, GLshort y) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLshort * v;
 } cwcglRasterPos2svCommandData;
@@ -3143,7 +3022,6 @@ void cwcglRasterPos2sv(GLcontext *context, const GLshort * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLdouble x;
     GLdouble y;
@@ -3160,7 +3038,6 @@ void cwcglRasterPos3d(GLcontext *context, GLdouble x, GLdouble y, GLdouble z) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLdouble * v;
 } cwcglRasterPos3dvCommandData;
@@ -3173,7 +3050,6 @@ void cwcglRasterPos3dv(GLcontext *context, const GLdouble * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLfloat x;
     GLfloat y;
@@ -3190,7 +3066,6 @@ void cwcglRasterPos3f(GLcontext *context, GLfloat x, GLfloat y, GLfloat z) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLfloat * v;
 } cwcglRasterPos3fvCommandData;
@@ -3203,7 +3078,6 @@ void cwcglRasterPos3fv(GLcontext *context, const GLfloat * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLint x;
     GLint y;
@@ -3220,7 +3094,6 @@ void cwcglRasterPos3i(GLcontext *context, GLint x, GLint y, GLint z) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLint * v;
 } cwcglRasterPos3ivCommandData;
@@ -3233,7 +3106,6 @@ void cwcglRasterPos3iv(GLcontext *context, const GLint * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLshort x;
     GLshort y;
@@ -3250,7 +3122,6 @@ void cwcglRasterPos3s(GLcontext *context, GLshort x, GLshort y, GLshort z) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLshort * v;
 } cwcglRasterPos3svCommandData;
@@ -3263,7 +3134,6 @@ void cwcglRasterPos3sv(GLcontext *context, const GLshort * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLdouble x;
     GLdouble y;
@@ -3282,7 +3152,6 @@ void cwcglRasterPos4d(GLcontext *context, GLdouble x, GLdouble y, GLdouble z, GL
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLdouble * v;
 } cwcglRasterPos4dvCommandData;
@@ -3295,7 +3164,6 @@ void cwcglRasterPos4dv(GLcontext *context, const GLdouble * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLfloat x;
     GLfloat y;
@@ -3314,7 +3182,6 @@ void cwcglRasterPos4f(GLcontext *context, GLfloat x, GLfloat y, GLfloat z, GLflo
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLfloat * v;
 } cwcglRasterPos4fvCommandData;
@@ -3327,7 +3194,6 @@ void cwcglRasterPos4fv(GLcontext *context, const GLfloat * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLint x;
     GLint y;
@@ -3346,7 +3212,6 @@ void cwcglRasterPos4i(GLcontext *context, GLint x, GLint y, GLint z, GLint w) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLint * v;
 } cwcglRasterPos4ivCommandData;
@@ -3359,7 +3224,6 @@ void cwcglRasterPos4iv(GLcontext *context, const GLint * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLshort x;
     GLshort y;
@@ -3378,7 +3242,6 @@ void cwcglRasterPos4s(GLcontext *context, GLshort x, GLshort y, GLshort z, GLsho
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLshort * v;
 } cwcglRasterPos4svCommandData;
@@ -3391,7 +3254,6 @@ void cwcglRasterPos4sv(GLcontext *context, const GLshort * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLdouble x1;
     GLdouble y1;
@@ -3410,7 +3272,6 @@ void cwcglRectd(GLcontext *context, GLdouble x1, GLdouble y1, GLdouble x2, GLdou
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLdouble * v1;
     const GLdouble * v2;
@@ -3425,7 +3286,6 @@ void cwcglRectdv(GLcontext *context, const GLdouble * v1, const GLdouble * v2) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLfloat x1;
     GLfloat y1;
@@ -3444,7 +3304,6 @@ void cwcglRectf(GLcontext *context, GLfloat x1, GLfloat y1, GLfloat x2, GLfloat 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLfloat * v1;
     const GLfloat * v2;
@@ -3459,7 +3318,6 @@ void cwcglRectfv(GLcontext *context, const GLfloat * v1, const GLfloat * v2) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLint x1;
     GLint y1;
@@ -3478,7 +3336,6 @@ void cwcglRecti(GLcontext *context, GLint x1, GLint y1, GLint x2, GLint y2) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLint * v1;
     const GLint * v2;
@@ -3493,7 +3350,6 @@ void cwcglRectiv(GLcontext *context, const GLint * v1, const GLint * v2) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLshort x1;
     GLshort y1;
@@ -3512,7 +3368,6 @@ void cwcglRects(GLcontext *context, GLshort x1, GLshort y1, GLshort x2, GLshort 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLshort * v1;
     const GLshort * v2;
@@ -3527,7 +3382,6 @@ void cwcglRectsv(GLcontext *context, const GLshort * v1, const GLshort * v2) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLdouble s;
 } cwcglTexCoord1dCommandData;
@@ -3540,7 +3394,6 @@ void cwcglTexCoord1d(GLcontext *context, GLdouble s) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLdouble * v;
 } cwcglTexCoord1dvCommandData;
@@ -3553,7 +3406,6 @@ void cwcglTexCoord1dv(GLcontext *context, const GLdouble * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLfloat s;
 } cwcglTexCoord1fCommandData;
@@ -3566,7 +3418,6 @@ void cwcglTexCoord1f(GLcontext *context, GLfloat s) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLfloat * v;
 } cwcglTexCoord1fvCommandData;
@@ -3579,7 +3430,6 @@ void cwcglTexCoord1fv(GLcontext *context, const GLfloat * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLint s;
 } cwcglTexCoord1iCommandData;
@@ -3592,7 +3442,6 @@ void cwcglTexCoord1i(GLcontext *context, GLint s) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLint * v;
 } cwcglTexCoord1ivCommandData;
@@ -3605,7 +3454,6 @@ void cwcglTexCoord1iv(GLcontext *context, const GLint * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLshort s;
 } cwcglTexCoord1sCommandData;
@@ -3618,7 +3466,6 @@ void cwcglTexCoord1s(GLcontext *context, GLshort s) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLshort * v;
 } cwcglTexCoord1svCommandData;
@@ -3631,7 +3478,6 @@ void cwcglTexCoord1sv(GLcontext *context, const GLshort * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLdouble s;
     GLdouble t;
@@ -3646,7 +3492,6 @@ void cwcglTexCoord2d(GLcontext *context, GLdouble s, GLdouble t) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLdouble * v;
 } cwcglTexCoord2dvCommandData;
@@ -3659,7 +3504,6 @@ void cwcglTexCoord2dv(GLcontext *context, const GLdouble * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLfloat s;
     GLfloat t;
@@ -3674,7 +3518,6 @@ void cwcglTexCoord2f(GLcontext *context, GLfloat s, GLfloat t) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLfloat * v;
 } cwcglTexCoord2fvCommandData;
@@ -3687,7 +3530,6 @@ void cwcglTexCoord2fv(GLcontext *context, const GLfloat * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLint s;
     GLint t;
@@ -3702,7 +3544,6 @@ void cwcglTexCoord2i(GLcontext *context, GLint s, GLint t) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLint * v;
 } cwcglTexCoord2ivCommandData;
@@ -3715,7 +3556,6 @@ void cwcglTexCoord2iv(GLcontext *context, const GLint * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLshort s;
     GLshort t;
@@ -3730,7 +3570,6 @@ void cwcglTexCoord2s(GLcontext *context, GLshort s, GLshort t) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLshort * v;
 } cwcglTexCoord2svCommandData;
@@ -3743,7 +3582,6 @@ void cwcglTexCoord2sv(GLcontext *context, const GLshort * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLdouble s;
     GLdouble t;
@@ -3760,7 +3598,6 @@ void cwcglTexCoord3d(GLcontext *context, GLdouble s, GLdouble t, GLdouble r) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLdouble * v;
 } cwcglTexCoord3dvCommandData;
@@ -3773,7 +3610,6 @@ void cwcglTexCoord3dv(GLcontext *context, const GLdouble * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLfloat s;
     GLfloat t;
@@ -3790,7 +3626,6 @@ void cwcglTexCoord3f(GLcontext *context, GLfloat s, GLfloat t, GLfloat r) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLfloat * v;
 } cwcglTexCoord3fvCommandData;
@@ -3803,7 +3638,6 @@ void cwcglTexCoord3fv(GLcontext *context, const GLfloat * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLint s;
     GLint t;
@@ -3820,7 +3654,6 @@ void cwcglTexCoord3i(GLcontext *context, GLint s, GLint t, GLint r) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLint * v;
 } cwcglTexCoord3ivCommandData;
@@ -3833,7 +3666,6 @@ void cwcglTexCoord3iv(GLcontext *context, const GLint * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLshort s;
     GLshort t;
@@ -3850,7 +3682,6 @@ void cwcglTexCoord3s(GLcontext *context, GLshort s, GLshort t, GLshort r) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLshort * v;
 } cwcglTexCoord3svCommandData;
@@ -3863,7 +3694,6 @@ void cwcglTexCoord3sv(GLcontext *context, const GLshort * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLdouble s;
     GLdouble t;
@@ -3882,7 +3712,6 @@ void cwcglTexCoord4d(GLcontext *context, GLdouble s, GLdouble t, GLdouble r, GLd
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLdouble * v;
 } cwcglTexCoord4dvCommandData;
@@ -3895,7 +3724,6 @@ void cwcglTexCoord4dv(GLcontext *context, const GLdouble * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLfloat s;
     GLfloat t;
@@ -3914,7 +3742,6 @@ void cwcglTexCoord4f(GLcontext *context, GLfloat s, GLfloat t, GLfloat r, GLfloa
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLfloat * v;
 } cwcglTexCoord4fvCommandData;
@@ -3927,7 +3754,6 @@ void cwcglTexCoord4fv(GLcontext *context, const GLfloat * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLint s;
     GLint t;
@@ -3946,7 +3772,6 @@ void cwcglTexCoord4i(GLcontext *context, GLint s, GLint t, GLint r, GLint q) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLint * v;
 } cwcglTexCoord4ivCommandData;
@@ -3959,7 +3784,6 @@ void cwcglTexCoord4iv(GLcontext *context, const GLint * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLshort s;
     GLshort t;
@@ -3978,7 +3802,6 @@ void cwcglTexCoord4s(GLcontext *context, GLshort s, GLshort t, GLshort r, GLshor
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLshort * v;
 } cwcglTexCoord4svCommandData;
@@ -3991,7 +3814,6 @@ void cwcglTexCoord4sv(GLcontext *context, const GLshort * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLdouble x;
     GLdouble y;
@@ -4006,7 +3828,6 @@ void cwcglVertex2d(GLcontext *context, GLdouble x, GLdouble y) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLdouble * v;
 } cwcglVertex2dvCommandData;
@@ -4019,7 +3840,6 @@ void cwcglVertex2dv(GLcontext *context, const GLdouble * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLfloat x;
     GLfloat y;
@@ -4034,7 +3854,6 @@ void cwcglVertex2f(GLcontext *context, GLfloat x, GLfloat y) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLfloat * v;
 } cwcglVertex2fvCommandData;
@@ -4047,7 +3866,6 @@ void cwcglVertex2fv(GLcontext *context, const GLfloat * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLint x;
     GLint y;
@@ -4062,7 +3880,6 @@ void cwcglVertex2i(GLcontext *context, GLint x, GLint y) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLint * v;
 } cwcglVertex2ivCommandData;
@@ -4075,7 +3892,6 @@ void cwcglVertex2iv(GLcontext *context, const GLint * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLshort x;
     GLshort y;
@@ -4090,7 +3906,6 @@ void cwcglVertex2s(GLcontext *context, GLshort x, GLshort y) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLshort * v;
 } cwcglVertex2svCommandData;
@@ -4103,7 +3918,6 @@ void cwcglVertex2sv(GLcontext *context, const GLshort * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLdouble x;
     GLdouble y;
@@ -4120,7 +3934,6 @@ void cwcglVertex3d(GLcontext *context, GLdouble x, GLdouble y, GLdouble z) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLdouble * v;
 } cwcglVertex3dvCommandData;
@@ -4133,7 +3946,6 @@ void cwcglVertex3dv(GLcontext *context, const GLdouble * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLfloat x;
     GLfloat y;
@@ -4150,7 +3962,6 @@ void cwcglVertex3f(GLcontext *context, GLfloat x, GLfloat y, GLfloat z) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLfloat * v;
 } cwcglVertex3fvCommandData;
@@ -4163,7 +3974,6 @@ void cwcglVertex3fv(GLcontext *context, const GLfloat * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLint x;
     GLint y;
@@ -4180,7 +3990,6 @@ void cwcglVertex3i(GLcontext *context, GLint x, GLint y, GLint z) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLint * v;
 } cwcglVertex3ivCommandData;
@@ -4193,7 +4002,6 @@ void cwcglVertex3iv(GLcontext *context, const GLint * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLshort x;
     GLshort y;
@@ -4210,7 +4018,6 @@ void cwcglVertex3s(GLcontext *context, GLshort x, GLshort y, GLshort z) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLshort * v;
 } cwcglVertex3svCommandData;
@@ -4223,7 +4030,6 @@ void cwcglVertex3sv(GLcontext *context, const GLshort * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLdouble x;
     GLdouble y;
@@ -4242,7 +4048,6 @@ void cwcglVertex4d(GLcontext *context, GLdouble x, GLdouble y, GLdouble z, GLdou
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLdouble * v;
 } cwcglVertex4dvCommandData;
@@ -4255,7 +4060,6 @@ void cwcglVertex4dv(GLcontext *context, const GLdouble * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLfloat x;
     GLfloat y;
@@ -4274,7 +4078,6 @@ void cwcglVertex4f(GLcontext *context, GLfloat x, GLfloat y, GLfloat z, GLfloat 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLfloat * v;
 } cwcglVertex4fvCommandData;
@@ -4287,7 +4090,6 @@ void cwcglVertex4fv(GLcontext *context, const GLfloat * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLint x;
     GLint y;
@@ -4306,7 +4108,6 @@ void cwcglVertex4i(GLcontext *context, GLint x, GLint y, GLint z, GLint w) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLint * v;
 } cwcglVertex4ivCommandData;
@@ -4319,7 +4120,6 @@ void cwcglVertex4iv(GLcontext *context, const GLint * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLshort x;
     GLshort y;
@@ -4338,7 +4138,6 @@ void cwcglVertex4s(GLcontext *context, GLshort x, GLshort y, GLshort z, GLshort 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLshort * v;
 } cwcglVertex4svCommandData;
@@ -4351,7 +4150,6 @@ void cwcglVertex4sv(GLcontext *context, const GLshort * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum plane;
     const GLdouble * equation;
@@ -4366,7 +4164,6 @@ void cwcglClipPlane(GLcontext *context, GLenum plane, const GLdouble * equation)
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum face;
     GLenum mode;
@@ -4381,7 +4178,6 @@ void cwcglColorMaterial(GLcontext *context, GLenum face, GLenum mode) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum pname;
     GLfloat param;
@@ -4396,7 +4192,6 @@ void cwcglFogf(GLcontext *context, GLenum pname, GLfloat param) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum pname;
     const GLfloat * params;
@@ -4411,7 +4206,6 @@ void cwcglFogfv(GLcontext *context, GLenum pname, const GLfloat * params) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum pname;
     GLint param;
@@ -4426,7 +4220,6 @@ void cwcglFogi(GLcontext *context, GLenum pname, GLint param) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum pname;
     const GLint * params;
@@ -4441,7 +4234,6 @@ void cwcglFogiv(GLcontext *context, GLenum pname, const GLint * params) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum light;
     GLenum pname;
@@ -4458,7 +4250,6 @@ void cwcglLightf(GLcontext *context, GLenum light, GLenum pname, GLfloat param) 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum light;
     GLenum pname;
@@ -4475,7 +4266,6 @@ void cwcglLightfv(GLcontext *context, GLenum light, GLenum pname, const GLfloat 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum light;
     GLenum pname;
@@ -4492,7 +4282,6 @@ void cwcglLighti(GLcontext *context, GLenum light, GLenum pname, GLint param) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum light;
     GLenum pname;
@@ -4509,7 +4298,6 @@ void cwcglLightiv(GLcontext *context, GLenum light, GLenum pname, const GLint * 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum pname;
     GLfloat param;
@@ -4524,7 +4312,6 @@ void cwcglLightModelf(GLcontext *context, GLenum pname, GLfloat param) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum pname;
     const GLfloat * params;
@@ -4539,7 +4326,6 @@ void cwcglLightModelfv(GLcontext *context, GLenum pname, const GLfloat * params)
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum pname;
     GLint param;
@@ -4554,7 +4340,6 @@ void cwcglLightModeli(GLcontext *context, GLenum pname, GLint param) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum pname;
     const GLint * params;
@@ -4569,7 +4354,6 @@ void cwcglLightModeliv(GLcontext *context, GLenum pname, const GLint * params) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLint factor;
     GLushort pattern;
@@ -4584,7 +4368,6 @@ void cwcglLineStipple(GLcontext *context, GLint factor, GLushort pattern) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum face;
     GLenum pname;
@@ -4601,7 +4384,6 @@ void cwcglMaterialf(GLcontext *context, GLenum face, GLenum pname, GLfloat param
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum face;
     GLenum pname;
@@ -4618,7 +4400,6 @@ void cwcglMaterialfv(GLcontext *context, GLenum face, GLenum pname, const GLfloa
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum face;
     GLenum pname;
@@ -4635,7 +4416,6 @@ void cwcglMateriali(GLcontext *context, GLenum face, GLenum pname, GLint param) 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum face;
     GLenum pname;
@@ -4652,7 +4432,6 @@ void cwcglMaterialiv(GLcontext *context, GLenum face, GLenum pname, const GLint 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLubyte * mask;
 } cwcglPolygonStippleCommandData;
@@ -4665,7 +4444,6 @@ void cwcglPolygonStipple(GLcontext *context, const GLubyte * mask) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum mode;
 } cwcglShadeModelCommandData;
@@ -4678,7 +4456,6 @@ void cwcglShadeModel(GLcontext *context, GLenum mode) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLenum pname;
@@ -4695,7 +4472,6 @@ void cwcglTexEnvf(GLcontext *context, GLenum target, GLenum pname, GLfloat param
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLenum pname;
@@ -4712,7 +4488,6 @@ void cwcglTexEnvfv(GLcontext *context, GLenum target, GLenum pname, const GLfloa
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLenum pname;
@@ -4729,7 +4504,6 @@ void cwcglTexEnvi(GLcontext *context, GLenum target, GLenum pname, GLint param) 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLenum pname;
@@ -4746,7 +4520,6 @@ void cwcglTexEnviv(GLcontext *context, GLenum target, GLenum pname, const GLint 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum coord;
     GLenum pname;
@@ -4763,7 +4536,6 @@ void cwcglTexGend(GLcontext *context, GLenum coord, GLenum pname, GLdouble param
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum coord;
     GLenum pname;
@@ -4780,7 +4552,6 @@ void cwcglTexGendv(GLcontext *context, GLenum coord, GLenum pname, const GLdoubl
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum coord;
     GLenum pname;
@@ -4797,7 +4568,6 @@ void cwcglTexGenf(GLcontext *context, GLenum coord, GLenum pname, GLfloat param)
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum coord;
     GLenum pname;
@@ -4814,7 +4584,6 @@ void cwcglTexGenfv(GLcontext *context, GLenum coord, GLenum pname, const GLfloat
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum coord;
     GLenum pname;
@@ -4831,7 +4600,6 @@ void cwcglTexGeni(GLcontext *context, GLenum coord, GLenum pname, GLint param) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum coord;
     GLenum pname;
@@ -4848,7 +4616,6 @@ void cwcglTexGeniv(GLcontext *context, GLenum coord, GLenum pname, const GLint *
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLsizei size;
     GLenum type;
@@ -4865,7 +4632,6 @@ void cwcglFeedbackBuffer(GLcontext *context, GLsizei size, GLenum type, GLfloat 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLsizei size;
     GLuint * buffer;
@@ -4880,7 +4646,6 @@ void cwcglSelectBuffer(GLcontext *context, GLsizei size, GLuint * buffer) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum mode;
     GLint return_value;
@@ -4890,19 +4655,16 @@ void cwcglRenderMode(GLcontext *context, GLenum mode, GLint* return_value) {
     GLcommand* command = malloc(sizeof(GLcommand));
     cwcglRenderModeCommandData* command_data = malloc(sizeof(cwcglRenderModeCommandData));
     command_data->mode = mode;
-    command_data->return_value = return_value;
     command->type = cwcglRenderModeCommand;
     command->data = command_data;
     PushCommand(context, command);
 }
-
 void cwcglInitNames(GLcontext *context) {
     GLcommand* command = malloc(sizeof(GLcommand));
     command->type = cwcglInitNamesCommand;
     command->data = NULL;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint name;
 } cwcglLoadNameCommandData;
@@ -4915,7 +4677,6 @@ void cwcglLoadName(GLcontext *context, GLuint name) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLfloat token;
 } cwcglPassThroughCommandData;
@@ -4928,14 +4689,12 @@ void cwcglPassThrough(GLcontext *context, GLfloat token) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 void cwcglPopName(GLcontext *context) {
     GLcommand* command = malloc(sizeof(GLcommand));
     command->type = cwcglPopNameCommand;
     command->data = NULL;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint name;
 } cwcglPushNameCommandData;
@@ -4948,7 +4707,6 @@ void cwcglPushName(GLcontext *context, GLuint name) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLfloat red;
     GLfloat green;
@@ -4967,7 +4725,6 @@ void cwcglClearAccum(GLcontext *context, GLfloat red, GLfloat green, GLfloat blu
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLfloat c;
 } cwcglClearIndexCommandData;
@@ -4980,7 +4737,6 @@ void cwcglClearIndex(GLcontext *context, GLfloat c) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint mask;
 } cwcglIndexMaskCommandData;
@@ -4993,7 +4749,6 @@ void cwcglIndexMask(GLcontext *context, GLuint mask) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum op;
     GLfloat value;
@@ -5008,14 +4763,12 @@ void cwcglAccum(GLcontext *context, GLenum op, GLfloat value) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 void cwcglPopAttrib(GLcontext *context) {
     GLcommand* command = malloc(sizeof(GLcommand));
     command->type = cwcglPopAttribCommand;
     command->data = NULL;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLbitfield mask;
 } cwcglPushAttribCommandData;
@@ -5028,7 +4781,6 @@ void cwcglPushAttrib(GLcontext *context, GLbitfield mask) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLdouble u1;
@@ -5051,7 +4803,6 @@ void cwcglMap1d(GLcontext *context, GLenum target, GLdouble u1, GLdouble u2, GLi
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLfloat u1;
@@ -5074,7 +4825,6 @@ void cwcglMap1f(GLcontext *context, GLenum target, GLfloat u1, GLfloat u2, GLint
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLdouble u1;
@@ -5105,7 +4855,6 @@ void cwcglMap2d(GLcontext *context, GLenum target, GLdouble u1, GLdouble u2, GLi
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLfloat u1;
@@ -5136,7 +4885,6 @@ void cwcglMap2f(GLcontext *context, GLenum target, GLfloat u1, GLfloat u2, GLint
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLint un;
     GLdouble u1;
@@ -5153,7 +4901,6 @@ void cwcglMapGrid1d(GLcontext *context, GLint un, GLdouble u1, GLdouble u2) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLint un;
     GLfloat u1;
@@ -5170,7 +4917,6 @@ void cwcglMapGrid1f(GLcontext *context, GLint un, GLfloat u1, GLfloat u2) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLint un;
     GLdouble u1;
@@ -5193,7 +4939,6 @@ void cwcglMapGrid2d(GLcontext *context, GLint un, GLdouble u1, GLdouble u2, GLin
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLint un;
     GLfloat u1;
@@ -5216,7 +4961,6 @@ void cwcglMapGrid2f(GLcontext *context, GLint un, GLfloat u1, GLfloat u2, GLint 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLdouble u;
 } cwcglEvalCoord1dCommandData;
@@ -5229,7 +4973,6 @@ void cwcglEvalCoord1d(GLcontext *context, GLdouble u) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLdouble * u;
 } cwcglEvalCoord1dvCommandData;
@@ -5242,7 +4985,6 @@ void cwcglEvalCoord1dv(GLcontext *context, const GLdouble * u) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLfloat u;
 } cwcglEvalCoord1fCommandData;
@@ -5255,7 +4997,6 @@ void cwcglEvalCoord1f(GLcontext *context, GLfloat u) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLfloat * u;
 } cwcglEvalCoord1fvCommandData;
@@ -5268,7 +5009,6 @@ void cwcglEvalCoord1fv(GLcontext *context, const GLfloat * u) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLdouble u;
     GLdouble v;
@@ -5283,7 +5023,6 @@ void cwcglEvalCoord2d(GLcontext *context, GLdouble u, GLdouble v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLdouble * u;
 } cwcglEvalCoord2dvCommandData;
@@ -5296,7 +5035,6 @@ void cwcglEvalCoord2dv(GLcontext *context, const GLdouble * u) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLfloat u;
     GLfloat v;
@@ -5311,7 +5049,6 @@ void cwcglEvalCoord2f(GLcontext *context, GLfloat u, GLfloat v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLfloat * u;
 } cwcglEvalCoord2fvCommandData;
@@ -5324,7 +5061,6 @@ void cwcglEvalCoord2fv(GLcontext *context, const GLfloat * u) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum mode;
     GLint i1;
@@ -5341,7 +5077,6 @@ void cwcglEvalMesh1(GLcontext *context, GLenum mode, GLint i1, GLint i2) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLint i;
 } cwcglEvalPoint1CommandData;
@@ -5354,7 +5089,6 @@ void cwcglEvalPoint1(GLcontext *context, GLint i) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum mode;
     GLint i1;
@@ -5375,7 +5109,6 @@ void cwcglEvalMesh2(GLcontext *context, GLenum mode, GLint i1, GLint i2, GLint j
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLint i;
     GLint j;
@@ -5390,7 +5123,6 @@ void cwcglEvalPoint2(GLcontext *context, GLint i, GLint j) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum func;
     GLfloat ref;
@@ -5405,7 +5137,6 @@ void cwcglAlphaFunc(GLcontext *context, GLenum func, GLfloat ref) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLfloat xfactor;
     GLfloat yfactor;
@@ -5420,7 +5151,6 @@ void cwcglPixelZoom(GLcontext *context, GLfloat xfactor, GLfloat yfactor) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum pname;
     GLfloat param;
@@ -5435,7 +5165,6 @@ void cwcglPixelTransferf(GLcontext *context, GLenum pname, GLfloat param) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum pname;
     GLint param;
@@ -5450,7 +5179,6 @@ void cwcglPixelTransferi(GLcontext *context, GLenum pname, GLint param) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum map;
     GLsizei mapsize;
@@ -5467,7 +5195,6 @@ void cwcglPixelMapfv(GLcontext *context, GLenum map, GLsizei mapsize, const GLfl
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum map;
     GLsizei mapsize;
@@ -5484,7 +5211,6 @@ void cwcglPixelMapuiv(GLcontext *context, GLenum map, GLsizei mapsize, const GLu
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum map;
     GLsizei mapsize;
@@ -5501,7 +5227,6 @@ void cwcglPixelMapusv(GLcontext *context, GLenum map, GLsizei mapsize, const GLu
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLint x;
     GLint y;
@@ -5522,7 +5247,6 @@ void cwcglCopyPixels(GLcontext *context, GLint x, GLint y, GLsizei width, GLsize
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLsizei width;
     GLsizei height;
@@ -5543,7 +5267,6 @@ void cwcglDrawPixels(GLcontext *context, GLsizei width, GLsizei height, GLenum f
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum plane;
     GLdouble * equation;
@@ -5558,7 +5281,6 @@ void cwcglGetClipPlane(GLcontext *context, GLenum plane, GLdouble * equation) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum light;
     GLenum pname;
@@ -5575,7 +5297,6 @@ void cwcglGetLightfv(GLcontext *context, GLenum light, GLenum pname, GLfloat * p
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum light;
     GLenum pname;
@@ -5592,7 +5313,6 @@ void cwcglGetLightiv(GLcontext *context, GLenum light, GLenum pname, GLint * par
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLenum query;
@@ -5609,7 +5329,6 @@ void cwcglGetMapdv(GLcontext *context, GLenum target, GLenum query, GLdouble * v
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLenum query;
@@ -5626,7 +5345,6 @@ void cwcglGetMapfv(GLcontext *context, GLenum target, GLenum query, GLfloat * v)
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLenum query;
@@ -5643,7 +5361,6 @@ void cwcglGetMapiv(GLcontext *context, GLenum target, GLenum query, GLint * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum face;
     GLenum pname;
@@ -5660,7 +5377,6 @@ void cwcglGetMaterialfv(GLcontext *context, GLenum face, GLenum pname, GLfloat *
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum face;
     GLenum pname;
@@ -5677,7 +5393,6 @@ void cwcglGetMaterialiv(GLcontext *context, GLenum face, GLenum pname, GLint * p
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum map;
     GLfloat * values;
@@ -5692,7 +5407,6 @@ void cwcglGetPixelMapfv(GLcontext *context, GLenum map, GLfloat * values) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum map;
     GLuint * values;
@@ -5707,7 +5421,6 @@ void cwcglGetPixelMapuiv(GLcontext *context, GLenum map, GLuint * values) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum map;
     GLushort * values;
@@ -5722,7 +5435,6 @@ void cwcglGetPixelMapusv(GLcontext *context, GLenum map, GLushort * values) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLubyte * mask;
 } cwcglGetPolygonStippleCommandData;
@@ -5735,7 +5447,6 @@ void cwcglGetPolygonStipple(GLcontext *context, GLubyte * mask) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLenum pname;
@@ -5752,7 +5463,6 @@ void cwcglGetTexEnvfv(GLcontext *context, GLenum target, GLenum pname, GLfloat *
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLenum pname;
@@ -5769,7 +5479,6 @@ void cwcglGetTexEnviv(GLcontext *context, GLenum target, GLenum pname, GLint * p
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum coord;
     GLenum pname;
@@ -5786,7 +5495,6 @@ void cwcglGetTexGendv(GLcontext *context, GLenum coord, GLenum pname, GLdouble *
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum coord;
     GLenum pname;
@@ -5803,7 +5511,6 @@ void cwcglGetTexGenfv(GLcontext *context, GLenum coord, GLenum pname, GLfloat * 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum coord;
     GLenum pname;
@@ -5820,7 +5527,6 @@ void cwcglGetTexGeniv(GLcontext *context, GLenum coord, GLenum pname, GLint * pa
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint list;
     GLboolean return_value;
@@ -5830,12 +5536,10 @@ void cwcglIsList(GLcontext *context, GLuint list, GLboolean* return_value) {
     GLcommand* command = malloc(sizeof(GLcommand));
     cwcglIsListCommandData* command_data = malloc(sizeof(cwcglIsListCommandData));
     command_data->list = list;
-    command_data->return_value = return_value;
     command->type = cwcglIsListCommand;
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLdouble left;
     GLdouble right;
@@ -5858,14 +5562,12 @@ void cwcglFrustum(GLcontext *context, GLdouble left, GLdouble right, GLdouble bo
     command->data = command_data;
     PushCommand(context, command);
 }
-
 void cwcglLoadIdentity(GLcontext *context) {
     GLcommand* command = malloc(sizeof(GLcommand));
     command->type = cwcglLoadIdentityCommand;
     command->data = NULL;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLfloat * m;
 } cwcglLoadMatrixfCommandData;
@@ -5878,7 +5580,6 @@ void cwcglLoadMatrixf(GLcontext *context, const GLfloat * m) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLdouble * m;
 } cwcglLoadMatrixdCommandData;
@@ -5891,7 +5592,6 @@ void cwcglLoadMatrixd(GLcontext *context, const GLdouble * m) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum mode;
 } cwcglMatrixModeCommandData;
@@ -5904,7 +5604,6 @@ void cwcglMatrixMode(GLcontext *context, GLenum mode) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLfloat * m;
 } cwcglMultMatrixfCommandData;
@@ -5917,7 +5616,6 @@ void cwcglMultMatrixf(GLcontext *context, const GLfloat * m) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLdouble * m;
 } cwcglMultMatrixdCommandData;
@@ -5930,7 +5628,6 @@ void cwcglMultMatrixd(GLcontext *context, const GLdouble * m) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLdouble left;
     GLdouble right;
@@ -5953,21 +5650,18 @@ void cwcglOrtho(GLcontext *context, GLdouble left, GLdouble right, GLdouble bott
     command->data = command_data;
     PushCommand(context, command);
 }
-
 void cwcglPopMatrix(GLcontext *context) {
     GLcommand* command = malloc(sizeof(GLcommand));
     command->type = cwcglPopMatrixCommand;
     command->data = NULL;
     PushCommand(context, command);
 }
-
 void cwcglPushMatrix(GLcontext *context) {
     GLcommand* command = malloc(sizeof(GLcommand));
     command->type = cwcglPushMatrixCommand;
     command->data = NULL;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLdouble angle;
     GLdouble x;
@@ -5986,7 +5680,6 @@ void cwcglRotated(GLcontext *context, GLdouble angle, GLdouble x, GLdouble y, GL
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLfloat angle;
     GLfloat x;
@@ -6005,7 +5698,6 @@ void cwcglRotatef(GLcontext *context, GLfloat angle, GLfloat x, GLfloat y, GLflo
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLdouble x;
     GLdouble y;
@@ -6022,7 +5714,6 @@ void cwcglScaled(GLcontext *context, GLdouble x, GLdouble y, GLdouble z) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLfloat x;
     GLfloat y;
@@ -6039,7 +5730,6 @@ void cwcglScalef(GLcontext *context, GLfloat x, GLfloat y, GLfloat z) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLdouble x;
     GLdouble y;
@@ -6056,7 +5746,6 @@ void cwcglTranslated(GLcontext *context, GLdouble x, GLdouble y, GLdouble z) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLfloat x;
     GLfloat y;
@@ -6073,7 +5762,6 @@ void cwcglTranslatef(GLcontext *context, GLfloat x, GLfloat y, GLfloat z) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 #endif
 #if CWCGL_VERSION >= GL_VERSION_1_1
 typedef struct {
@@ -6092,7 +5780,6 @@ void cwcglDrawArrays(GLcontext *context, GLenum mode, GLint first, GLsizei count
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum mode;
     GLsizei count;
@@ -6111,7 +5798,6 @@ void cwcglDrawElements(GLcontext *context, GLenum mode, GLsizei count, GLenum ty
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum pname;
     void ** params;
@@ -6126,7 +5812,6 @@ void cwcglGetPointerv(GLcontext *context, GLenum pname, void ** params) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLfloat factor;
     GLfloat units;
@@ -6141,7 +5826,6 @@ void cwcglPolygonOffset(GLcontext *context, GLfloat factor, GLfloat units) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLint level;
@@ -6166,7 +5850,6 @@ void cwcglCopyTexImage1D(GLcontext *context, GLenum target, GLint level, GLenum 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLint level;
@@ -6193,7 +5876,6 @@ void cwcglCopyTexImage2D(GLcontext *context, GLenum target, GLint level, GLenum 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLint level;
@@ -6216,7 +5898,6 @@ void cwcglCopyTexSubImage1D(GLcontext *context, GLenum target, GLint level, GLin
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLint level;
@@ -6243,7 +5924,6 @@ void cwcglCopyTexSubImage2D(GLcontext *context, GLenum target, GLint level, GLin
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLint level;
@@ -6268,7 +5948,6 @@ void cwcglTexSubImage1D(GLcontext *context, GLenum target, GLint level, GLint xo
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLint level;
@@ -6297,7 +5976,6 @@ void cwcglTexSubImage2D(GLcontext *context, GLenum target, GLint level, GLint xo
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLuint texture;
@@ -6312,7 +5990,6 @@ void cwcglBindTexture(GLcontext *context, GLenum target, GLuint texture) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLsizei n;
     const GLuint * textures;
@@ -6327,7 +6004,6 @@ void cwcglDeleteTextures(GLcontext *context, GLsizei n, const GLuint * textures)
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLsizei n;
     GLuint * textures;
@@ -6342,7 +6018,6 @@ void cwcglGenTextures(GLcontext *context, GLsizei n, GLuint * textures) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint texture;
     GLboolean return_value;
@@ -6352,12 +6027,10 @@ void cwcglIsTexture(GLcontext *context, GLuint texture, GLboolean* return_value)
     GLcommand* command = malloc(sizeof(GLcommand));
     cwcglIsTextureCommandData* command_data = malloc(sizeof(cwcglIsTextureCommandData));
     command_data->texture = texture;
-    command_data->return_value = return_value;
     command->type = cwcglIsTextureCommand;
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLint i;
 } cwcglArrayElementCommandData;
@@ -6370,7 +6043,6 @@ void cwcglArrayElement(GLcontext *context, GLint i) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLint size;
     GLenum type;
@@ -6389,7 +6061,6 @@ void cwcglColorPointer(GLcontext *context, GLint size, GLenum type, GLsizei stri
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum array;
 } cwcglDisableClientStateCommandData;
@@ -6402,7 +6073,6 @@ void cwcglDisableClientState(GLcontext *context, GLenum array) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLsizei stride;
     const void * pointer;
@@ -6417,7 +6087,6 @@ void cwcglEdgeFlagPointer(GLcontext *context, GLsizei stride, const void * point
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum array;
 } cwcglEnableClientStateCommandData;
@@ -6430,7 +6099,6 @@ void cwcglEnableClientState(GLcontext *context, GLenum array) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum type;
     GLsizei stride;
@@ -6447,7 +6115,6 @@ void cwcglIndexPointer(GLcontext *context, GLenum type, GLsizei stride, const vo
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum format;
     GLsizei stride;
@@ -6464,7 +6131,6 @@ void cwcglInterleavedArrays(GLcontext *context, GLenum format, GLsizei stride, c
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum type;
     GLsizei stride;
@@ -6481,7 +6147,6 @@ void cwcglNormalPointer(GLcontext *context, GLenum type, GLsizei stride, const v
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLint size;
     GLenum type;
@@ -6500,7 +6165,6 @@ void cwcglTexCoordPointer(GLcontext *context, GLint size, GLenum type, GLsizei s
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLint size;
     GLenum type;
@@ -6519,7 +6183,6 @@ void cwcglVertexPointer(GLcontext *context, GLint size, GLenum type, GLsizei str
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLsizei n;
     const GLuint * textures;
@@ -6533,12 +6196,10 @@ void cwcglAreTexturesResident(GLcontext *context, GLsizei n, const GLuint * text
     command_data->n = n;
     command_data->textures = textures;
     command_data->residences = residences;
-    command_data->return_value = return_value;
     command->type = cwcglAreTexturesResidentCommand;
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLsizei n;
     const GLuint * textures;
@@ -6555,7 +6216,6 @@ void cwcglPrioritizeTextures(GLcontext *context, GLsizei n, const GLuint * textu
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLubyte c;
 } cwcglIndexubCommandData;
@@ -6568,7 +6228,6 @@ void cwcglIndexub(GLcontext *context, GLubyte c) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLubyte * c;
 } cwcglIndexubvCommandData;
@@ -6581,14 +6240,12 @@ void cwcglIndexubv(GLcontext *context, const GLubyte * c) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 void cwcglPopClientAttrib(GLcontext *context) {
     GLcommand* command = malloc(sizeof(GLcommand));
     command->type = cwcglPopClientAttribCommand;
     command->data = NULL;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLbitfield mask;
 } cwcglPushClientAttribCommandData;
@@ -6601,7 +6258,6 @@ void cwcglPushClientAttrib(GLcontext *context, GLbitfield mask) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 #endif
 #if CWCGL_VERSION >= GL_VERSION_1_2
 typedef struct {
@@ -6626,7 +6282,6 @@ void cwcglDrawRangeElements(GLcontext *context, GLenum mode, GLuint start, GLuin
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLint level;
@@ -6657,7 +6312,6 @@ void cwcglTexImage3D(GLcontext *context, GLenum target, GLint level, GLint inter
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLint level;
@@ -6690,7 +6344,6 @@ void cwcglTexSubImage3D(GLcontext *context, GLenum target, GLint level, GLint xo
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLint level;
@@ -6719,7 +6372,6 @@ void cwcglCopyTexSubImage3D(GLcontext *context, GLenum target, GLint level, GLin
     command->data = command_data;
     PushCommand(context, command);
 }
-
 #endif
 #if CWCGL_VERSION >= GL_VERSION_1_3
 typedef struct {
@@ -6734,7 +6386,6 @@ void cwcglActiveTexture(GLcontext *context, GLenum texture) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLfloat value;
     GLboolean invert;
@@ -6749,7 +6400,6 @@ void cwcglSampleCoverage(GLcontext *context, GLfloat value, GLboolean invert) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLint level;
@@ -6778,7 +6428,6 @@ void cwcglCompressedTexImage3D(GLcontext *context, GLenum target, GLint level, G
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLint level;
@@ -6805,7 +6454,6 @@ void cwcglCompressedTexImage2D(GLcontext *context, GLenum target, GLint level, G
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLint level;
@@ -6830,7 +6478,6 @@ void cwcglCompressedTexImage1D(GLcontext *context, GLenum target, GLint level, G
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLint level;
@@ -6863,7 +6510,6 @@ void cwcglCompressedTexSubImage3D(GLcontext *context, GLenum target, GLint level
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLint level;
@@ -6892,7 +6538,6 @@ void cwcglCompressedTexSubImage2D(GLcontext *context, GLenum target, GLint level
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLint level;
@@ -6917,7 +6562,6 @@ void cwcglCompressedTexSubImage1D(GLcontext *context, GLenum target, GLint level
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLint level;
@@ -6934,7 +6578,6 @@ void cwcglGetCompressedTexImage(GLcontext *context, GLenum target, GLint level, 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum texture;
 } cwcglClientActiveTextureCommandData;
@@ -6947,7 +6590,6 @@ void cwcglClientActiveTexture(GLcontext *context, GLenum texture) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLdouble s;
@@ -6962,7 +6604,6 @@ void cwcglMultiTexCoord1d(GLcontext *context, GLenum target, GLdouble s) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     const GLdouble * v;
@@ -6977,7 +6618,6 @@ void cwcglMultiTexCoord1dv(GLcontext *context, GLenum target, const GLdouble * v
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLfloat s;
@@ -6992,7 +6632,6 @@ void cwcglMultiTexCoord1f(GLcontext *context, GLenum target, GLfloat s) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     const GLfloat * v;
@@ -7007,7 +6646,6 @@ void cwcglMultiTexCoord1fv(GLcontext *context, GLenum target, const GLfloat * v)
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLint s;
@@ -7022,7 +6660,6 @@ void cwcglMultiTexCoord1i(GLcontext *context, GLenum target, GLint s) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     const GLint * v;
@@ -7037,7 +6674,6 @@ void cwcglMultiTexCoord1iv(GLcontext *context, GLenum target, const GLint * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLshort s;
@@ -7052,7 +6688,6 @@ void cwcglMultiTexCoord1s(GLcontext *context, GLenum target, GLshort s) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     const GLshort * v;
@@ -7067,7 +6702,6 @@ void cwcglMultiTexCoord1sv(GLcontext *context, GLenum target, const GLshort * v)
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLdouble s;
@@ -7084,7 +6718,6 @@ void cwcglMultiTexCoord2d(GLcontext *context, GLenum target, GLdouble s, GLdoubl
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     const GLdouble * v;
@@ -7099,7 +6732,6 @@ void cwcglMultiTexCoord2dv(GLcontext *context, GLenum target, const GLdouble * v
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLfloat s;
@@ -7116,7 +6748,6 @@ void cwcglMultiTexCoord2f(GLcontext *context, GLenum target, GLfloat s, GLfloat 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     const GLfloat * v;
@@ -7131,7 +6762,6 @@ void cwcglMultiTexCoord2fv(GLcontext *context, GLenum target, const GLfloat * v)
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLint s;
@@ -7148,7 +6778,6 @@ void cwcglMultiTexCoord2i(GLcontext *context, GLenum target, GLint s, GLint t) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     const GLint * v;
@@ -7163,7 +6792,6 @@ void cwcglMultiTexCoord2iv(GLcontext *context, GLenum target, const GLint * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLshort s;
@@ -7180,7 +6808,6 @@ void cwcglMultiTexCoord2s(GLcontext *context, GLenum target, GLshort s, GLshort 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     const GLshort * v;
@@ -7195,7 +6822,6 @@ void cwcglMultiTexCoord2sv(GLcontext *context, GLenum target, const GLshort * v)
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLdouble s;
@@ -7214,7 +6840,6 @@ void cwcglMultiTexCoord3d(GLcontext *context, GLenum target, GLdouble s, GLdoubl
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     const GLdouble * v;
@@ -7229,7 +6854,6 @@ void cwcglMultiTexCoord3dv(GLcontext *context, GLenum target, const GLdouble * v
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLfloat s;
@@ -7248,7 +6872,6 @@ void cwcglMultiTexCoord3f(GLcontext *context, GLenum target, GLfloat s, GLfloat 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     const GLfloat * v;
@@ -7263,7 +6886,6 @@ void cwcglMultiTexCoord3fv(GLcontext *context, GLenum target, const GLfloat * v)
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLint s;
@@ -7282,7 +6904,6 @@ void cwcglMultiTexCoord3i(GLcontext *context, GLenum target, GLint s, GLint t, G
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     const GLint * v;
@@ -7297,7 +6918,6 @@ void cwcglMultiTexCoord3iv(GLcontext *context, GLenum target, const GLint * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLshort s;
@@ -7316,7 +6936,6 @@ void cwcglMultiTexCoord3s(GLcontext *context, GLenum target, GLshort s, GLshort 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     const GLshort * v;
@@ -7331,7 +6950,6 @@ void cwcglMultiTexCoord3sv(GLcontext *context, GLenum target, const GLshort * v)
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLdouble s;
@@ -7352,7 +6970,6 @@ void cwcglMultiTexCoord4d(GLcontext *context, GLenum target, GLdouble s, GLdoubl
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     const GLdouble * v;
@@ -7367,7 +6984,6 @@ void cwcglMultiTexCoord4dv(GLcontext *context, GLenum target, const GLdouble * v
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLfloat s;
@@ -7388,7 +7004,6 @@ void cwcglMultiTexCoord4f(GLcontext *context, GLenum target, GLfloat s, GLfloat 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     const GLfloat * v;
@@ -7403,7 +7018,6 @@ void cwcglMultiTexCoord4fv(GLcontext *context, GLenum target, const GLfloat * v)
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLint s;
@@ -7424,7 +7038,6 @@ void cwcglMultiTexCoord4i(GLcontext *context, GLenum target, GLint s, GLint t, G
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     const GLint * v;
@@ -7439,7 +7052,6 @@ void cwcglMultiTexCoord4iv(GLcontext *context, GLenum target, const GLint * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLshort s;
@@ -7460,7 +7072,6 @@ void cwcglMultiTexCoord4s(GLcontext *context, GLenum target, GLshort s, GLshort 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     const GLshort * v;
@@ -7475,7 +7086,6 @@ void cwcglMultiTexCoord4sv(GLcontext *context, GLenum target, const GLshort * v)
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLfloat * m;
 } cwcglLoadTransposeMatrixfCommandData;
@@ -7488,7 +7098,6 @@ void cwcglLoadTransposeMatrixf(GLcontext *context, const GLfloat * m) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLdouble * m;
 } cwcglLoadTransposeMatrixdCommandData;
@@ -7501,7 +7110,6 @@ void cwcglLoadTransposeMatrixd(GLcontext *context, const GLdouble * m) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLfloat * m;
 } cwcglMultTransposeMatrixfCommandData;
@@ -7514,7 +7122,6 @@ void cwcglMultTransposeMatrixf(GLcontext *context, const GLfloat * m) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLdouble * m;
 } cwcglMultTransposeMatrixdCommandData;
@@ -7527,7 +7134,6 @@ void cwcglMultTransposeMatrixd(GLcontext *context, const GLdouble * m) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 #endif
 #if CWCGL_VERSION >= GL_VERSION_1_4
 typedef struct {
@@ -7548,7 +7154,6 @@ void cwcglBlendFuncSeparate(GLcontext *context, GLenum sfactorRGB, GLenum dfacto
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum mode;
     const GLint * first;
@@ -7567,7 +7172,6 @@ void cwcglMultiDrawArrays(GLcontext *context, GLenum mode, const GLint * first, 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum mode;
     const GLsizei * count;
@@ -7588,7 +7192,6 @@ void cwcglMultiDrawElements(GLcontext *context, GLenum mode, const GLsizei * cou
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum pname;
     GLfloat param;
@@ -7603,7 +7206,6 @@ void cwcglPointParameterf(GLcontext *context, GLenum pname, GLfloat param) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum pname;
     const GLfloat * params;
@@ -7618,7 +7220,6 @@ void cwcglPointParameterfv(GLcontext *context, GLenum pname, const GLfloat * par
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum pname;
     GLint param;
@@ -7633,7 +7234,6 @@ void cwcglPointParameteri(GLcontext *context, GLenum pname, GLint param) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum pname;
     const GLint * params;
@@ -7648,7 +7248,6 @@ void cwcglPointParameteriv(GLcontext *context, GLenum pname, const GLint * param
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLfloat coord;
 } cwcglFogCoordfCommandData;
@@ -7661,7 +7260,6 @@ void cwcglFogCoordf(GLcontext *context, GLfloat coord) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLfloat * coord;
 } cwcglFogCoordfvCommandData;
@@ -7674,7 +7272,6 @@ void cwcglFogCoordfv(GLcontext *context, const GLfloat * coord) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLdouble coord;
 } cwcglFogCoorddCommandData;
@@ -7687,7 +7284,6 @@ void cwcglFogCoordd(GLcontext *context, GLdouble coord) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLdouble * coord;
 } cwcglFogCoorddvCommandData;
@@ -7700,7 +7296,6 @@ void cwcglFogCoorddv(GLcontext *context, const GLdouble * coord) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum type;
     GLsizei stride;
@@ -7717,7 +7312,6 @@ void cwcglFogCoordPointer(GLcontext *context, GLenum type, GLsizei stride, const
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLbyte red;
     GLbyte green;
@@ -7734,7 +7328,6 @@ void cwcglSecondaryColor3b(GLcontext *context, GLbyte red, GLbyte green, GLbyte 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLbyte * v;
 } cwcglSecondaryColor3bvCommandData;
@@ -7747,7 +7340,6 @@ void cwcglSecondaryColor3bv(GLcontext *context, const GLbyte * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLdouble red;
     GLdouble green;
@@ -7764,7 +7356,6 @@ void cwcglSecondaryColor3d(GLcontext *context, GLdouble red, GLdouble green, GLd
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLdouble * v;
 } cwcglSecondaryColor3dvCommandData;
@@ -7777,7 +7368,6 @@ void cwcglSecondaryColor3dv(GLcontext *context, const GLdouble * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLfloat red;
     GLfloat green;
@@ -7794,7 +7384,6 @@ void cwcglSecondaryColor3f(GLcontext *context, GLfloat red, GLfloat green, GLflo
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLfloat * v;
 } cwcglSecondaryColor3fvCommandData;
@@ -7807,7 +7396,6 @@ void cwcglSecondaryColor3fv(GLcontext *context, const GLfloat * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLint red;
     GLint green;
@@ -7824,7 +7412,6 @@ void cwcglSecondaryColor3i(GLcontext *context, GLint red, GLint green, GLint blu
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLint * v;
 } cwcglSecondaryColor3ivCommandData;
@@ -7837,7 +7424,6 @@ void cwcglSecondaryColor3iv(GLcontext *context, const GLint * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLshort red;
     GLshort green;
@@ -7854,7 +7440,6 @@ void cwcglSecondaryColor3s(GLcontext *context, GLshort red, GLshort green, GLsho
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLshort * v;
 } cwcglSecondaryColor3svCommandData;
@@ -7867,7 +7452,6 @@ void cwcglSecondaryColor3sv(GLcontext *context, const GLshort * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLubyte red;
     GLubyte green;
@@ -7884,7 +7468,6 @@ void cwcglSecondaryColor3ub(GLcontext *context, GLubyte red, GLubyte green, GLub
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLubyte * v;
 } cwcglSecondaryColor3ubvCommandData;
@@ -7897,7 +7480,6 @@ void cwcglSecondaryColor3ubv(GLcontext *context, const GLubyte * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint red;
     GLuint green;
@@ -7914,7 +7496,6 @@ void cwcglSecondaryColor3ui(GLcontext *context, GLuint red, GLuint green, GLuint
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLuint * v;
 } cwcglSecondaryColor3uivCommandData;
@@ -7927,7 +7508,6 @@ void cwcglSecondaryColor3uiv(GLcontext *context, const GLuint * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLushort red;
     GLushort green;
@@ -7944,7 +7524,6 @@ void cwcglSecondaryColor3us(GLcontext *context, GLushort red, GLushort green, GL
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLushort * v;
 } cwcglSecondaryColor3usvCommandData;
@@ -7957,7 +7536,6 @@ void cwcglSecondaryColor3usv(GLcontext *context, const GLushort * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLint size;
     GLenum type;
@@ -7976,7 +7554,6 @@ void cwcglSecondaryColorPointer(GLcontext *context, GLint size, GLenum type, GLs
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLdouble x;
     GLdouble y;
@@ -7991,7 +7568,6 @@ void cwcglWindowPos2d(GLcontext *context, GLdouble x, GLdouble y) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLdouble * v;
 } cwcglWindowPos2dvCommandData;
@@ -8004,7 +7580,6 @@ void cwcglWindowPos2dv(GLcontext *context, const GLdouble * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLfloat x;
     GLfloat y;
@@ -8019,7 +7594,6 @@ void cwcglWindowPos2f(GLcontext *context, GLfloat x, GLfloat y) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLfloat * v;
 } cwcglWindowPos2fvCommandData;
@@ -8032,7 +7606,6 @@ void cwcglWindowPos2fv(GLcontext *context, const GLfloat * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLint x;
     GLint y;
@@ -8047,7 +7620,6 @@ void cwcglWindowPos2i(GLcontext *context, GLint x, GLint y) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLint * v;
 } cwcglWindowPos2ivCommandData;
@@ -8060,7 +7632,6 @@ void cwcglWindowPos2iv(GLcontext *context, const GLint * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLshort x;
     GLshort y;
@@ -8075,7 +7646,6 @@ void cwcglWindowPos2s(GLcontext *context, GLshort x, GLshort y) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLshort * v;
 } cwcglWindowPos2svCommandData;
@@ -8088,7 +7658,6 @@ void cwcglWindowPos2sv(GLcontext *context, const GLshort * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLdouble x;
     GLdouble y;
@@ -8105,7 +7674,6 @@ void cwcglWindowPos3d(GLcontext *context, GLdouble x, GLdouble y, GLdouble z) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLdouble * v;
 } cwcglWindowPos3dvCommandData;
@@ -8118,7 +7686,6 @@ void cwcglWindowPos3dv(GLcontext *context, const GLdouble * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLfloat x;
     GLfloat y;
@@ -8135,7 +7702,6 @@ void cwcglWindowPos3f(GLcontext *context, GLfloat x, GLfloat y, GLfloat z) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLfloat * v;
 } cwcglWindowPos3fvCommandData;
@@ -8148,7 +7714,6 @@ void cwcglWindowPos3fv(GLcontext *context, const GLfloat * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLint x;
     GLint y;
@@ -8165,7 +7730,6 @@ void cwcglWindowPos3i(GLcontext *context, GLint x, GLint y, GLint z) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLint * v;
 } cwcglWindowPos3ivCommandData;
@@ -8178,7 +7742,6 @@ void cwcglWindowPos3iv(GLcontext *context, const GLint * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLshort x;
     GLshort y;
@@ -8195,7 +7758,6 @@ void cwcglWindowPos3s(GLcontext *context, GLshort x, GLshort y, GLshort z) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const GLshort * v;
 } cwcglWindowPos3svCommandData;
@@ -8208,7 +7770,6 @@ void cwcglWindowPos3sv(GLcontext *context, const GLshort * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLfloat red;
     GLfloat green;
@@ -8227,7 +7788,6 @@ void cwcglBlendColor(GLcontext *context, GLfloat red, GLfloat green, GLfloat blu
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum mode;
 } cwcglBlendEquationCommandData;
@@ -8240,7 +7800,6 @@ void cwcglBlendEquation(GLcontext *context, GLenum mode) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 #endif
 #if CWCGL_VERSION >= GL_VERSION_1_5
 typedef struct {
@@ -8257,7 +7816,6 @@ void cwcglGenQueries(GLcontext *context, GLsizei n, GLuint * ids) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLsizei n;
     const GLuint * ids;
@@ -8272,7 +7830,6 @@ void cwcglDeleteQueries(GLcontext *context, GLsizei n, const GLuint * ids) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint id;
     GLboolean return_value;
@@ -8282,12 +7839,10 @@ void cwcglIsQuery(GLcontext *context, GLuint id, GLboolean* return_value) {
     GLcommand* command = malloc(sizeof(GLcommand));
     cwcglIsQueryCommandData* command_data = malloc(sizeof(cwcglIsQueryCommandData));
     command_data->id = id;
-    command_data->return_value = return_value;
     command->type = cwcglIsQueryCommand;
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLuint id;
@@ -8302,7 +7857,6 @@ void cwcglBeginQuery(GLcontext *context, GLenum target, GLuint id) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
 } cwcglEndQueryCommandData;
@@ -8315,7 +7869,6 @@ void cwcglEndQuery(GLcontext *context, GLenum target) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLenum pname;
@@ -8332,7 +7885,6 @@ void cwcglGetQueryiv(GLcontext *context, GLenum target, GLenum pname, GLint * pa
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint id;
     GLenum pname;
@@ -8349,7 +7901,6 @@ void cwcglGetQueryObjectiv(GLcontext *context, GLuint id, GLenum pname, GLint * 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint id;
     GLenum pname;
@@ -8366,7 +7917,6 @@ void cwcglGetQueryObjectuiv(GLcontext *context, GLuint id, GLenum pname, GLuint 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLuint buffer;
@@ -8381,7 +7931,6 @@ void cwcglBindBuffer(GLcontext *context, GLenum target, GLuint buffer) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLsizei n;
     const GLuint * buffers;
@@ -8396,7 +7945,6 @@ void cwcglDeleteBuffers(GLcontext *context, GLsizei n, const GLuint * buffers) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLsizei n;
     GLuint * buffers;
@@ -8411,7 +7959,6 @@ void cwcglGenBuffers(GLcontext *context, GLsizei n, GLuint * buffers) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint buffer;
     GLboolean return_value;
@@ -8421,12 +7968,10 @@ void cwcglIsBuffer(GLcontext *context, GLuint buffer, GLboolean* return_value) {
     GLcommand* command = malloc(sizeof(GLcommand));
     cwcglIsBufferCommandData* command_data = malloc(sizeof(cwcglIsBufferCommandData));
     command_data->buffer = buffer;
-    command_data->return_value = return_value;
     command->type = cwcglIsBufferCommand;
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLsizeiptr size;
@@ -8445,7 +7990,6 @@ void cwcglBufferData(GLcontext *context, GLenum target, GLsizeiptr size, const v
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLintptr offset;
@@ -8464,7 +8008,6 @@ void cwcglBufferSubData(GLcontext *context, GLenum target, GLintptr offset, GLsi
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLintptr offset;
@@ -8483,7 +8026,6 @@ void cwcglGetBufferSubData(GLcontext *context, GLenum target, GLintptr offset, G
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLenum access;
@@ -8495,12 +8037,10 @@ void cwcglMapBuffer(GLcontext *context, GLenum target, GLenum access, void ** re
     cwcglMapBufferCommandData* command_data = malloc(sizeof(cwcglMapBufferCommandData));
     command_data->target = target;
     command_data->access = access;
-    command_data->return_value = return_value;
     command->type = cwcglMapBufferCommand;
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLboolean return_value;
@@ -8510,12 +8050,10 @@ void cwcglUnmapBuffer(GLcontext *context, GLenum target, GLboolean* return_value
     GLcommand* command = malloc(sizeof(GLcommand));
     cwcglUnmapBufferCommandData* command_data = malloc(sizeof(cwcglUnmapBufferCommandData));
     command_data->target = target;
-    command_data->return_value = return_value;
     command->type = cwcglUnmapBufferCommand;
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLenum pname;
@@ -8532,7 +8070,6 @@ void cwcglGetBufferParameteriv(GLcontext *context, GLenum target, GLenum pname, 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLenum pname;
@@ -8549,7 +8086,6 @@ void cwcglGetBufferPointerv(GLcontext *context, GLenum target, GLenum pname, voi
     command->data = command_data;
     PushCommand(context, command);
 }
-
 #endif
 #if CWCGL_VERSION >= GL_VERSION_2_0
 typedef struct {
@@ -8566,7 +8102,6 @@ void cwcglBlendEquationSeparate(GLcontext *context, GLenum modeRGB, GLenum modeA
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLsizei n;
     const GLenum * bufs;
@@ -8581,7 +8116,6 @@ void cwcglDrawBuffers(GLcontext *context, GLsizei n, const GLenum * bufs) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum face;
     GLenum sfail;
@@ -8600,7 +8134,6 @@ void cwcglStencilOpSeparate(GLcontext *context, GLenum face, GLenum sfail, GLenu
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum face;
     GLenum func;
@@ -8619,7 +8152,6 @@ void cwcglStencilFuncSeparate(GLcontext *context, GLenum face, GLenum func, GLin
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum face;
     GLuint mask;
@@ -8634,7 +8166,6 @@ void cwcglStencilMaskSeparate(GLcontext *context, GLenum face, GLuint mask) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLuint shader;
@@ -8649,7 +8180,6 @@ void cwcglAttachShader(GLcontext *context, GLuint program, GLuint shader) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLuint index;
@@ -8666,7 +8196,6 @@ void cwcglBindAttribLocation(GLcontext *context, GLuint program, GLuint index, c
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint shader;
 } cwcglCompileShaderCommandData;
@@ -8679,7 +8208,6 @@ void cwcglCompileShader(GLcontext *context, GLuint shader) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint return_value;
 } cwcglCreateProgramCommandData;
@@ -8687,12 +8215,10 @@ typedef struct {
 void cwcglCreateProgram(GLcontext *context, GLuint* return_value) {
     GLcommand* command = malloc(sizeof(GLcommand));
     cwcglCreateProgramCommandData* command_data = malloc(sizeof(cwcglCreateProgramCommandData));
-    command_data->return_value = return_value;
     command->type = cwcglCreateProgramCommand;
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum type;
     GLuint return_value;
@@ -8702,12 +8228,10 @@ void cwcglCreateShader(GLcontext *context, GLenum type, GLuint* return_value) {
     GLcommand* command = malloc(sizeof(GLcommand));
     cwcglCreateShaderCommandData* command_data = malloc(sizeof(cwcglCreateShaderCommandData));
     command_data->type = type;
-    command_data->return_value = return_value;
     command->type = cwcglCreateShaderCommand;
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
 } cwcglDeleteProgramCommandData;
@@ -8720,7 +8244,6 @@ void cwcglDeleteProgram(GLcontext *context, GLuint program) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint shader;
 } cwcglDeleteShaderCommandData;
@@ -8733,7 +8256,6 @@ void cwcglDeleteShader(GLcontext *context, GLuint shader) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLuint shader;
@@ -8748,7 +8270,6 @@ void cwcglDetachShader(GLcontext *context, GLuint program, GLuint shader) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint index;
 } cwcglDisableVertexAttribArrayCommandData;
@@ -8761,7 +8282,6 @@ void cwcglDisableVertexAttribArray(GLcontext *context, GLuint index) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint index;
 } cwcglEnableVertexAttribArrayCommandData;
@@ -8774,7 +8294,6 @@ void cwcglEnableVertexAttribArray(GLcontext *context, GLuint index) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLuint index;
@@ -8799,7 +8318,6 @@ void cwcglGetActiveAttrib(GLcontext *context, GLuint program, GLuint index, GLsi
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLuint index;
@@ -8824,7 +8342,6 @@ void cwcglGetActiveUniform(GLcontext *context, GLuint program, GLuint index, GLs
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLsizei maxCount;
@@ -8843,7 +8360,6 @@ void cwcglGetAttachedShaders(GLcontext *context, GLuint program, GLsizei maxCoun
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     const GLchar * name;
@@ -8855,12 +8371,10 @@ void cwcglGetAttribLocation(GLcontext *context, GLuint program, const GLchar * n
     cwcglGetAttribLocationCommandData* command_data = malloc(sizeof(cwcglGetAttribLocationCommandData));
     command_data->program = program;
     command_data->name = name;
-    command_data->return_value = return_value;
     command->type = cwcglGetAttribLocationCommand;
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLenum pname;
@@ -8877,7 +8391,6 @@ void cwcglGetProgramiv(GLcontext *context, GLuint program, GLenum pname, GLint *
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLsizei bufSize;
@@ -8896,7 +8409,6 @@ void cwcglGetProgramInfoLog(GLcontext *context, GLuint program, GLsizei bufSize,
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint shader;
     GLenum pname;
@@ -8913,7 +8425,6 @@ void cwcglGetShaderiv(GLcontext *context, GLuint shader, GLenum pname, GLint * p
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint shader;
     GLsizei bufSize;
@@ -8932,7 +8443,6 @@ void cwcglGetShaderInfoLog(GLcontext *context, GLuint shader, GLsizei bufSize, G
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint shader;
     GLsizei bufSize;
@@ -8951,7 +8461,6 @@ void cwcglGetShaderSource(GLcontext *context, GLuint shader, GLsizei bufSize, GL
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     const GLchar * name;
@@ -8963,12 +8472,10 @@ void cwcglGetUniformLocation(GLcontext *context, GLuint program, const GLchar * 
     cwcglGetUniformLocationCommandData* command_data = malloc(sizeof(cwcglGetUniformLocationCommandData));
     command_data->program = program;
     command_data->name = name;
-    command_data->return_value = return_value;
     command->type = cwcglGetUniformLocationCommand;
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLint location;
@@ -8985,7 +8492,6 @@ void cwcglGetUniformfv(GLcontext *context, GLuint program, GLint location, GLflo
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLint location;
@@ -9002,7 +8508,6 @@ void cwcglGetUniformiv(GLcontext *context, GLuint program, GLint location, GLint
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint index;
     GLenum pname;
@@ -9019,7 +8524,6 @@ void cwcglGetVertexAttribdv(GLcontext *context, GLuint index, GLenum pname, GLdo
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint index;
     GLenum pname;
@@ -9036,7 +8540,6 @@ void cwcglGetVertexAttribfv(GLcontext *context, GLuint index, GLenum pname, GLfl
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint index;
     GLenum pname;
@@ -9053,7 +8556,6 @@ void cwcglGetVertexAttribiv(GLcontext *context, GLuint index, GLenum pname, GLin
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint index;
     GLenum pname;
@@ -9070,7 +8572,6 @@ void cwcglGetVertexAttribPointerv(GLcontext *context, GLuint index, GLenum pname
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLboolean return_value;
@@ -9080,12 +8581,10 @@ void cwcglIsProgram(GLcontext *context, GLuint program, GLboolean* return_value)
     GLcommand* command = malloc(sizeof(GLcommand));
     cwcglIsProgramCommandData* command_data = malloc(sizeof(cwcglIsProgramCommandData));
     command_data->program = program;
-    command_data->return_value = return_value;
     command->type = cwcglIsProgramCommand;
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint shader;
     GLboolean return_value;
@@ -9095,12 +8594,10 @@ void cwcglIsShader(GLcontext *context, GLuint shader, GLboolean* return_value) {
     GLcommand* command = malloc(sizeof(GLcommand));
     cwcglIsShaderCommandData* command_data = malloc(sizeof(cwcglIsShaderCommandData));
     command_data->shader = shader;
-    command_data->return_value = return_value;
     command->type = cwcglIsShaderCommand;
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
 } cwcglLinkProgramCommandData;
@@ -9113,7 +8610,6 @@ void cwcglLinkProgram(GLcontext *context, GLuint program) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint shader;
     GLsizei count;
@@ -9132,7 +8628,6 @@ void cwcglShaderSource(GLcontext *context, GLuint shader, GLsizei count, const G
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
 } cwcglUseProgramCommandData;
@@ -9145,7 +8640,6 @@ void cwcglUseProgram(GLcontext *context, GLuint program) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLint location;
     GLfloat v0;
@@ -9160,7 +8654,6 @@ void cwcglUniform1f(GLcontext *context, GLint location, GLfloat v0) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLint location;
     GLfloat v0;
@@ -9177,7 +8670,6 @@ void cwcglUniform2f(GLcontext *context, GLint location, GLfloat v0, GLfloat v1) 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLint location;
     GLfloat v0;
@@ -9196,7 +8688,6 @@ void cwcglUniform3f(GLcontext *context, GLint location, GLfloat v0, GLfloat v1, 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLint location;
     GLfloat v0;
@@ -9217,7 +8708,6 @@ void cwcglUniform4f(GLcontext *context, GLint location, GLfloat v0, GLfloat v1, 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLint location;
     GLint v0;
@@ -9232,7 +8722,6 @@ void cwcglUniform1i(GLcontext *context, GLint location, GLint v0) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLint location;
     GLint v0;
@@ -9249,7 +8738,6 @@ void cwcglUniform2i(GLcontext *context, GLint location, GLint v0, GLint v1) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLint location;
     GLint v0;
@@ -9268,7 +8756,6 @@ void cwcglUniform3i(GLcontext *context, GLint location, GLint v0, GLint v1, GLin
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLint location;
     GLint v0;
@@ -9289,7 +8776,6 @@ void cwcglUniform4i(GLcontext *context, GLint location, GLint v0, GLint v1, GLin
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLint location;
     GLsizei count;
@@ -9306,7 +8792,6 @@ void cwcglUniform1fv(GLcontext *context, GLint location, GLsizei count, const GL
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLint location;
     GLsizei count;
@@ -9323,7 +8808,6 @@ void cwcglUniform2fv(GLcontext *context, GLint location, GLsizei count, const GL
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLint location;
     GLsizei count;
@@ -9340,7 +8824,6 @@ void cwcglUniform3fv(GLcontext *context, GLint location, GLsizei count, const GL
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLint location;
     GLsizei count;
@@ -9357,7 +8840,6 @@ void cwcglUniform4fv(GLcontext *context, GLint location, GLsizei count, const GL
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLint location;
     GLsizei count;
@@ -9374,7 +8856,6 @@ void cwcglUniform1iv(GLcontext *context, GLint location, GLsizei count, const GL
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLint location;
     GLsizei count;
@@ -9391,7 +8872,6 @@ void cwcglUniform2iv(GLcontext *context, GLint location, GLsizei count, const GL
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLint location;
     GLsizei count;
@@ -9408,7 +8888,6 @@ void cwcglUniform3iv(GLcontext *context, GLint location, GLsizei count, const GL
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLint location;
     GLsizei count;
@@ -9425,7 +8904,6 @@ void cwcglUniform4iv(GLcontext *context, GLint location, GLsizei count, const GL
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLint location;
     GLsizei count;
@@ -9444,7 +8922,6 @@ void cwcglUniformMatrix2fv(GLcontext *context, GLint location, GLsizei count, GL
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLint location;
     GLsizei count;
@@ -9463,7 +8940,6 @@ void cwcglUniformMatrix3fv(GLcontext *context, GLint location, GLsizei count, GL
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLint location;
     GLsizei count;
@@ -9482,7 +8958,6 @@ void cwcglUniformMatrix4fv(GLcontext *context, GLint location, GLsizei count, GL
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
 } cwcglValidateProgramCommandData;
@@ -9495,7 +8970,6 @@ void cwcglValidateProgram(GLcontext *context, GLuint program) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint index;
     GLdouble x;
@@ -9510,7 +8984,6 @@ void cwcglVertexAttrib1d(GLcontext *context, GLuint index, GLdouble x) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint index;
     const GLdouble * v;
@@ -9525,7 +8998,6 @@ void cwcglVertexAttrib1dv(GLcontext *context, GLuint index, const GLdouble * v) 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint index;
     GLfloat x;
@@ -9540,7 +9012,6 @@ void cwcglVertexAttrib1f(GLcontext *context, GLuint index, GLfloat x) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint index;
     const GLfloat * v;
@@ -9555,7 +9026,6 @@ void cwcglVertexAttrib1fv(GLcontext *context, GLuint index, const GLfloat * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint index;
     GLshort x;
@@ -9570,7 +9040,6 @@ void cwcglVertexAttrib1s(GLcontext *context, GLuint index, GLshort x) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint index;
     const GLshort * v;
@@ -9585,7 +9054,6 @@ void cwcglVertexAttrib1sv(GLcontext *context, GLuint index, const GLshort * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint index;
     GLdouble x;
@@ -9602,7 +9070,6 @@ void cwcglVertexAttrib2d(GLcontext *context, GLuint index, GLdouble x, GLdouble 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint index;
     const GLdouble * v;
@@ -9617,7 +9084,6 @@ void cwcglVertexAttrib2dv(GLcontext *context, GLuint index, const GLdouble * v) 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint index;
     GLfloat x;
@@ -9634,7 +9100,6 @@ void cwcglVertexAttrib2f(GLcontext *context, GLuint index, GLfloat x, GLfloat y)
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint index;
     const GLfloat * v;
@@ -9649,7 +9114,6 @@ void cwcglVertexAttrib2fv(GLcontext *context, GLuint index, const GLfloat * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint index;
     GLshort x;
@@ -9666,7 +9130,6 @@ void cwcglVertexAttrib2s(GLcontext *context, GLuint index, GLshort x, GLshort y)
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint index;
     const GLshort * v;
@@ -9681,7 +9144,6 @@ void cwcglVertexAttrib2sv(GLcontext *context, GLuint index, const GLshort * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint index;
     GLdouble x;
@@ -9700,7 +9162,6 @@ void cwcglVertexAttrib3d(GLcontext *context, GLuint index, GLdouble x, GLdouble 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint index;
     const GLdouble * v;
@@ -9715,7 +9176,6 @@ void cwcglVertexAttrib3dv(GLcontext *context, GLuint index, const GLdouble * v) 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint index;
     GLfloat x;
@@ -9734,7 +9194,6 @@ void cwcglVertexAttrib3f(GLcontext *context, GLuint index, GLfloat x, GLfloat y,
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint index;
     const GLfloat * v;
@@ -9749,7 +9208,6 @@ void cwcglVertexAttrib3fv(GLcontext *context, GLuint index, const GLfloat * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint index;
     GLshort x;
@@ -9768,7 +9226,6 @@ void cwcglVertexAttrib3s(GLcontext *context, GLuint index, GLshort x, GLshort y,
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint index;
     const GLshort * v;
@@ -9783,7 +9240,6 @@ void cwcglVertexAttrib3sv(GLcontext *context, GLuint index, const GLshort * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint index;
     const GLbyte * v;
@@ -9798,7 +9254,6 @@ void cwcglVertexAttrib4Nbv(GLcontext *context, GLuint index, const GLbyte * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint index;
     const GLint * v;
@@ -9813,7 +9268,6 @@ void cwcglVertexAttrib4Niv(GLcontext *context, GLuint index, const GLint * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint index;
     const GLshort * v;
@@ -9828,7 +9282,6 @@ void cwcglVertexAttrib4Nsv(GLcontext *context, GLuint index, const GLshort * v) 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint index;
     GLubyte x;
@@ -9849,7 +9302,6 @@ void cwcglVertexAttrib4Nub(GLcontext *context, GLuint index, GLubyte x, GLubyte 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint index;
     const GLubyte * v;
@@ -9864,7 +9316,6 @@ void cwcglVertexAttrib4Nubv(GLcontext *context, GLuint index, const GLubyte * v)
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint index;
     const GLuint * v;
@@ -9879,7 +9330,6 @@ void cwcglVertexAttrib4Nuiv(GLcontext *context, GLuint index, const GLuint * v) 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint index;
     const GLushort * v;
@@ -9894,7 +9344,6 @@ void cwcglVertexAttrib4Nusv(GLcontext *context, GLuint index, const GLushort * v
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint index;
     const GLbyte * v;
@@ -9909,7 +9358,6 @@ void cwcglVertexAttrib4bv(GLcontext *context, GLuint index, const GLbyte * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint index;
     GLdouble x;
@@ -9930,7 +9378,6 @@ void cwcglVertexAttrib4d(GLcontext *context, GLuint index, GLdouble x, GLdouble 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint index;
     const GLdouble * v;
@@ -9945,7 +9392,6 @@ void cwcglVertexAttrib4dv(GLcontext *context, GLuint index, const GLdouble * v) 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint index;
     GLfloat x;
@@ -9966,7 +9412,6 @@ void cwcglVertexAttrib4f(GLcontext *context, GLuint index, GLfloat x, GLfloat y,
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint index;
     const GLfloat * v;
@@ -9981,7 +9426,6 @@ void cwcglVertexAttrib4fv(GLcontext *context, GLuint index, const GLfloat * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint index;
     const GLint * v;
@@ -9996,7 +9440,6 @@ void cwcglVertexAttrib4iv(GLcontext *context, GLuint index, const GLint * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint index;
     GLshort x;
@@ -10017,7 +9460,6 @@ void cwcglVertexAttrib4s(GLcontext *context, GLuint index, GLshort x, GLshort y,
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint index;
     const GLshort * v;
@@ -10032,7 +9474,6 @@ void cwcglVertexAttrib4sv(GLcontext *context, GLuint index, const GLshort * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint index;
     const GLubyte * v;
@@ -10047,7 +9488,6 @@ void cwcglVertexAttrib4ubv(GLcontext *context, GLuint index, const GLubyte * v) 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint index;
     const GLuint * v;
@@ -10062,7 +9502,6 @@ void cwcglVertexAttrib4uiv(GLcontext *context, GLuint index, const GLuint * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint index;
     const GLushort * v;
@@ -10077,7 +9516,6 @@ void cwcglVertexAttrib4usv(GLcontext *context, GLuint index, const GLushort * v)
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint index;
     GLint size;
@@ -10100,7 +9538,6 @@ void cwcglVertexAttribPointer(GLcontext *context, GLuint index, GLint size, GLen
     command->data = command_data;
     PushCommand(context, command);
 }
-
 #endif
 #if CWCGL_VERSION >= GL_VERSION_2_1
 typedef struct {
@@ -10121,7 +9558,6 @@ void cwcglUniformMatrix2x3fv(GLcontext *context, GLint location, GLsizei count, 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLint location;
     GLsizei count;
@@ -10140,7 +9576,6 @@ void cwcglUniformMatrix3x2fv(GLcontext *context, GLint location, GLsizei count, 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLint location;
     GLsizei count;
@@ -10159,7 +9594,6 @@ void cwcglUniformMatrix2x4fv(GLcontext *context, GLint location, GLsizei count, 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLint location;
     GLsizei count;
@@ -10178,7 +9612,6 @@ void cwcglUniformMatrix4x2fv(GLcontext *context, GLint location, GLsizei count, 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLint location;
     GLsizei count;
@@ -10197,7 +9630,6 @@ void cwcglUniformMatrix3x4fv(GLcontext *context, GLint location, GLsizei count, 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLint location;
     GLsizei count;
@@ -10216,7 +9648,6 @@ void cwcglUniformMatrix4x3fv(GLcontext *context, GLint location, GLsizei count, 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 #endif
 #if CWCGL_VERSION >= GL_VERSION_3_0
 typedef struct {
@@ -10239,7 +9670,6 @@ void cwcglColorMaski(GLcontext *context, GLuint index, GLboolean r, GLboolean g,
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLuint index;
@@ -10256,7 +9686,6 @@ void cwcglGetBooleani_v(GLcontext *context, GLenum target, GLuint index, GLboole
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLuint index;
@@ -10273,7 +9702,6 @@ void cwcglGetIntegeri_v(GLcontext *context, GLenum target, GLuint index, GLint *
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLuint index;
@@ -10288,7 +9716,6 @@ void cwcglEnablei(GLcontext *context, GLenum target, GLuint index) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLuint index;
@@ -10303,7 +9730,6 @@ void cwcglDisablei(GLcontext *context, GLenum target, GLuint index) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLuint index;
@@ -10315,12 +9741,10 @@ void cwcglIsEnabledi(GLcontext *context, GLenum target, GLuint index, GLboolean*
     cwcglIsEnablediCommandData* command_data = malloc(sizeof(cwcglIsEnablediCommandData));
     command_data->target = target;
     command_data->index = index;
-    command_data->return_value = return_value;
     command->type = cwcglIsEnablediCommand;
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum primitiveMode;
 } cwcglBeginTransformFeedbackCommandData;
@@ -10333,14 +9757,12 @@ void cwcglBeginTransformFeedback(GLcontext *context, GLenum primitiveMode) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 void cwcglEndTransformFeedback(GLcontext *context) {
     GLcommand* command = malloc(sizeof(GLcommand));
     command->type = cwcglEndTransformFeedbackCommand;
     command->data = NULL;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLuint index;
@@ -10361,7 +9783,6 @@ void cwcglBindBufferRange(GLcontext *context, GLenum target, GLuint index, GLuin
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLuint index;
@@ -10378,7 +9799,6 @@ void cwcglBindBufferBase(GLcontext *context, GLenum target, GLuint index, GLuint
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLsizei count;
@@ -10397,7 +9817,6 @@ void cwcglTransformFeedbackVaryings(GLcontext *context, GLuint program, GLsizei 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLuint index;
@@ -10422,7 +9841,6 @@ void cwcglGetTransformFeedbackVarying(GLcontext *context, GLuint program, GLuint
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLenum clamp;
@@ -10437,7 +9855,6 @@ void cwcglClampColor(GLcontext *context, GLenum target, GLenum clamp) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint id;
     GLenum mode;
@@ -10452,14 +9869,12 @@ void cwcglBeginConditionalRender(GLcontext *context, GLuint id, GLenum mode) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 void cwcglEndConditionalRender(GLcontext *context) {
     GLcommand* command = malloc(sizeof(GLcommand));
     command->type = cwcglEndConditionalRenderCommand;
     command->data = NULL;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint index;
     GLint size;
@@ -10480,7 +9895,6 @@ void cwcglVertexAttribIPointer(GLcontext *context, GLuint index, GLint size, GLe
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint index;
     GLenum pname;
@@ -10497,7 +9911,6 @@ void cwcglGetVertexAttribIiv(GLcontext *context, GLuint index, GLenum pname, GLi
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint index;
     GLenum pname;
@@ -10514,7 +9927,6 @@ void cwcglGetVertexAttribIuiv(GLcontext *context, GLuint index, GLenum pname, GL
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint index;
     GLint x;
@@ -10529,7 +9941,6 @@ void cwcglVertexAttribI1i(GLcontext *context, GLuint index, GLint x) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint index;
     GLint x;
@@ -10546,7 +9957,6 @@ void cwcglVertexAttribI2i(GLcontext *context, GLuint index, GLint x, GLint y) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint index;
     GLint x;
@@ -10565,7 +9975,6 @@ void cwcglVertexAttribI3i(GLcontext *context, GLuint index, GLint x, GLint y, GL
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint index;
     GLint x;
@@ -10586,7 +9995,6 @@ void cwcglVertexAttribI4i(GLcontext *context, GLuint index, GLint x, GLint y, GL
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint index;
     GLuint x;
@@ -10601,7 +10009,6 @@ void cwcglVertexAttribI1ui(GLcontext *context, GLuint index, GLuint x) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint index;
     GLuint x;
@@ -10618,7 +10025,6 @@ void cwcglVertexAttribI2ui(GLcontext *context, GLuint index, GLuint x, GLuint y)
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint index;
     GLuint x;
@@ -10637,7 +10043,6 @@ void cwcglVertexAttribI3ui(GLcontext *context, GLuint index, GLuint x, GLuint y,
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint index;
     GLuint x;
@@ -10658,7 +10063,6 @@ void cwcglVertexAttribI4ui(GLcontext *context, GLuint index, GLuint x, GLuint y,
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint index;
     const GLint * v;
@@ -10673,7 +10077,6 @@ void cwcglVertexAttribI1iv(GLcontext *context, GLuint index, const GLint * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint index;
     const GLint * v;
@@ -10688,7 +10091,6 @@ void cwcglVertexAttribI2iv(GLcontext *context, GLuint index, const GLint * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint index;
     const GLint * v;
@@ -10703,7 +10105,6 @@ void cwcglVertexAttribI3iv(GLcontext *context, GLuint index, const GLint * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint index;
     const GLint * v;
@@ -10718,7 +10119,6 @@ void cwcglVertexAttribI4iv(GLcontext *context, GLuint index, const GLint * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint index;
     const GLuint * v;
@@ -10733,7 +10133,6 @@ void cwcglVertexAttribI1uiv(GLcontext *context, GLuint index, const GLuint * v) 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint index;
     const GLuint * v;
@@ -10748,7 +10147,6 @@ void cwcglVertexAttribI2uiv(GLcontext *context, GLuint index, const GLuint * v) 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint index;
     const GLuint * v;
@@ -10763,7 +10161,6 @@ void cwcglVertexAttribI3uiv(GLcontext *context, GLuint index, const GLuint * v) 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint index;
     const GLuint * v;
@@ -10778,7 +10175,6 @@ void cwcglVertexAttribI4uiv(GLcontext *context, GLuint index, const GLuint * v) 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint index;
     const GLbyte * v;
@@ -10793,7 +10189,6 @@ void cwcglVertexAttribI4bv(GLcontext *context, GLuint index, const GLbyte * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint index;
     const GLshort * v;
@@ -10808,7 +10203,6 @@ void cwcglVertexAttribI4sv(GLcontext *context, GLuint index, const GLshort * v) 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint index;
     const GLubyte * v;
@@ -10823,7 +10217,6 @@ void cwcglVertexAttribI4ubv(GLcontext *context, GLuint index, const GLubyte * v)
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint index;
     const GLushort * v;
@@ -10838,7 +10231,6 @@ void cwcglVertexAttribI4usv(GLcontext *context, GLuint index, const GLushort * v
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLint location;
@@ -10855,7 +10247,6 @@ void cwcglGetUniformuiv(GLcontext *context, GLuint program, GLint location, GLui
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLuint color;
@@ -10872,7 +10263,6 @@ void cwcglBindFragDataLocation(GLcontext *context, GLuint program, GLuint color,
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     const GLchar * name;
@@ -10884,12 +10274,10 @@ void cwcglGetFragDataLocation(GLcontext *context, GLuint program, const GLchar *
     cwcglGetFragDataLocationCommandData* command_data = malloc(sizeof(cwcglGetFragDataLocationCommandData));
     command_data->program = program;
     command_data->name = name;
-    command_data->return_value = return_value;
     command->type = cwcglGetFragDataLocationCommand;
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLint location;
     GLuint v0;
@@ -10904,7 +10292,6 @@ void cwcglUniform1ui(GLcontext *context, GLint location, GLuint v0) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLint location;
     GLuint v0;
@@ -10921,7 +10308,6 @@ void cwcglUniform2ui(GLcontext *context, GLint location, GLuint v0, GLuint v1) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLint location;
     GLuint v0;
@@ -10940,7 +10326,6 @@ void cwcglUniform3ui(GLcontext *context, GLint location, GLuint v0, GLuint v1, G
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLint location;
     GLuint v0;
@@ -10961,7 +10346,6 @@ void cwcglUniform4ui(GLcontext *context, GLint location, GLuint v0, GLuint v1, G
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLint location;
     GLsizei count;
@@ -10978,7 +10362,6 @@ void cwcglUniform1uiv(GLcontext *context, GLint location, GLsizei count, const G
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLint location;
     GLsizei count;
@@ -10995,7 +10378,6 @@ void cwcglUniform2uiv(GLcontext *context, GLint location, GLsizei count, const G
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLint location;
     GLsizei count;
@@ -11012,7 +10394,6 @@ void cwcglUniform3uiv(GLcontext *context, GLint location, GLsizei count, const G
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLint location;
     GLsizei count;
@@ -11029,7 +10410,6 @@ void cwcglUniform4uiv(GLcontext *context, GLint location, GLsizei count, const G
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLenum pname;
@@ -11046,7 +10426,6 @@ void cwcglTexParameterIiv(GLcontext *context, GLenum target, GLenum pname, const
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLenum pname;
@@ -11063,7 +10442,6 @@ void cwcglTexParameterIuiv(GLcontext *context, GLenum target, GLenum pname, cons
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLenum pname;
@@ -11080,7 +10458,6 @@ void cwcglGetTexParameterIiv(GLcontext *context, GLenum target, GLenum pname, GL
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLenum pname;
@@ -11097,7 +10474,6 @@ void cwcglGetTexParameterIuiv(GLcontext *context, GLenum target, GLenum pname, G
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum buffer;
     GLint drawbuffer;
@@ -11114,7 +10490,6 @@ void cwcglClearBufferiv(GLcontext *context, GLenum buffer, GLint drawbuffer, con
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum buffer;
     GLint drawbuffer;
@@ -11131,7 +10506,6 @@ void cwcglClearBufferuiv(GLcontext *context, GLenum buffer, GLint drawbuffer, co
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum buffer;
     GLint drawbuffer;
@@ -11148,7 +10522,6 @@ void cwcglClearBufferfv(GLcontext *context, GLenum buffer, GLint drawbuffer, con
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum buffer;
     GLint drawbuffer;
@@ -11167,7 +10540,6 @@ void cwcglClearBufferfi(GLcontext *context, GLenum buffer, GLint drawbuffer, GLf
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum name;
     GLuint index;
@@ -11179,12 +10551,10 @@ void cwcglGetStringi(GLcontext *context, GLenum name, GLuint index, const GLubyt
     cwcglGetStringiCommandData* command_data = malloc(sizeof(cwcglGetStringiCommandData));
     command_data->name = name;
     command_data->index = index;
-    command_data->return_value = return_value;
     command->type = cwcglGetStringiCommand;
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint renderbuffer;
     GLboolean return_value;
@@ -11194,12 +10564,10 @@ void cwcglIsRenderbuffer(GLcontext *context, GLuint renderbuffer, GLboolean* ret
     GLcommand* command = malloc(sizeof(GLcommand));
     cwcglIsRenderbufferCommandData* command_data = malloc(sizeof(cwcglIsRenderbufferCommandData));
     command_data->renderbuffer = renderbuffer;
-    command_data->return_value = return_value;
     command->type = cwcglIsRenderbufferCommand;
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLuint renderbuffer;
@@ -11214,7 +10582,6 @@ void cwcglBindRenderbuffer(GLcontext *context, GLenum target, GLuint renderbuffe
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLsizei n;
     const GLuint * renderbuffers;
@@ -11229,7 +10596,6 @@ void cwcglDeleteRenderbuffers(GLcontext *context, GLsizei n, const GLuint * rend
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLsizei n;
     GLuint * renderbuffers;
@@ -11244,7 +10610,6 @@ void cwcglGenRenderbuffers(GLcontext *context, GLsizei n, GLuint * renderbuffers
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLenum internalformat;
@@ -11263,7 +10628,6 @@ void cwcglRenderbufferStorage(GLcontext *context, GLenum target, GLenum internal
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLenum pname;
@@ -11280,7 +10644,6 @@ void cwcglGetRenderbufferParameteriv(GLcontext *context, GLenum target, GLenum p
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint framebuffer;
     GLboolean return_value;
@@ -11290,12 +10653,10 @@ void cwcglIsFramebuffer(GLcontext *context, GLuint framebuffer, GLboolean* retur
     GLcommand* command = malloc(sizeof(GLcommand));
     cwcglIsFramebufferCommandData* command_data = malloc(sizeof(cwcglIsFramebufferCommandData));
     command_data->framebuffer = framebuffer;
-    command_data->return_value = return_value;
     command->type = cwcglIsFramebufferCommand;
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLuint framebuffer;
@@ -11310,7 +10671,6 @@ void cwcglBindFramebuffer(GLcontext *context, GLenum target, GLuint framebuffer)
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLsizei n;
     const GLuint * framebuffers;
@@ -11325,7 +10685,6 @@ void cwcglDeleteFramebuffers(GLcontext *context, GLsizei n, const GLuint * frame
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLsizei n;
     GLuint * framebuffers;
@@ -11340,7 +10699,6 @@ void cwcglGenFramebuffers(GLcontext *context, GLsizei n, GLuint * framebuffers) 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLenum return_value;
@@ -11350,12 +10708,10 @@ void cwcglCheckFramebufferStatus(GLcontext *context, GLenum target, GLenum* retu
     GLcommand* command = malloc(sizeof(GLcommand));
     cwcglCheckFramebufferStatusCommandData* command_data = malloc(sizeof(cwcglCheckFramebufferStatusCommandData));
     command_data->target = target;
-    command_data->return_value = return_value;
     command->type = cwcglCheckFramebufferStatusCommand;
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLenum attachment;
@@ -11376,7 +10732,6 @@ void cwcglFramebufferTexture1D(GLcontext *context, GLenum target, GLenum attachm
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLenum attachment;
@@ -11397,7 +10752,6 @@ void cwcglFramebufferTexture2D(GLcontext *context, GLenum target, GLenum attachm
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLenum attachment;
@@ -11420,7 +10774,6 @@ void cwcglFramebufferTexture3D(GLcontext *context, GLenum target, GLenum attachm
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLenum attachment;
@@ -11439,7 +10792,6 @@ void cwcglFramebufferRenderbuffer(GLcontext *context, GLenum target, GLenum atta
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLenum attachment;
@@ -11458,7 +10810,6 @@ void cwcglGetFramebufferAttachmentParameteriv(GLcontext *context, GLenum target,
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
 } cwcglGenerateMipmapCommandData;
@@ -11471,7 +10822,6 @@ void cwcglGenerateMipmap(GLcontext *context, GLenum target) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLint srcX0;
     GLint srcY0;
@@ -11502,7 +10852,6 @@ void cwcglBlitFramebuffer(GLcontext *context, GLint srcX0, GLint srcY0, GLint sr
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLsizei samples;
@@ -11523,7 +10872,6 @@ void cwcglRenderbufferStorageMultisample(GLcontext *context, GLenum target, GLsi
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLenum attachment;
@@ -11544,7 +10892,6 @@ void cwcglFramebufferTextureLayer(GLcontext *context, GLenum target, GLenum atta
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLintptr offset;
@@ -11560,12 +10907,10 @@ void cwcglMapBufferRange(GLcontext *context, GLenum target, GLintptr offset, GLs
     command_data->offset = offset;
     command_data->length = length;
     command_data->access = access;
-    command_data->return_value = return_value;
     command->type = cwcglMapBufferRangeCommand;
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLintptr offset;
@@ -11582,7 +10927,6 @@ void cwcglFlushMappedBufferRange(GLcontext *context, GLenum target, GLintptr off
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint array;
 } cwcglBindVertexArrayCommandData;
@@ -11595,7 +10939,6 @@ void cwcglBindVertexArray(GLcontext *context, GLuint array) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLsizei n;
     const GLuint * arrays;
@@ -11610,7 +10953,6 @@ void cwcglDeleteVertexArrays(GLcontext *context, GLsizei n, const GLuint * array
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLsizei n;
     GLuint * arrays;
@@ -11625,7 +10967,6 @@ void cwcglGenVertexArrays(GLcontext *context, GLsizei n, GLuint * arrays) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint array;
     GLboolean return_value;
@@ -11635,12 +10976,10 @@ void cwcglIsVertexArray(GLcontext *context, GLuint array, GLboolean* return_valu
     GLcommand* command = malloc(sizeof(GLcommand));
     cwcglIsVertexArrayCommandData* command_data = malloc(sizeof(cwcglIsVertexArrayCommandData));
     command_data->array = array;
-    command_data->return_value = return_value;
     command->type = cwcglIsVertexArrayCommand;
     command->data = command_data;
     PushCommand(context, command);
 }
-
 #endif
 #if CWCGL_VERSION >= GL_VERSION_3_1
 typedef struct {
@@ -11661,7 +11000,6 @@ void cwcglDrawArraysInstanced(GLcontext *context, GLenum mode, GLint first, GLsi
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum mode;
     GLsizei count;
@@ -11682,7 +11020,6 @@ void cwcglDrawElementsInstanced(GLcontext *context, GLenum mode, GLsizei count, 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLenum internalformat;
@@ -11699,7 +11036,6 @@ void cwcglTexBuffer(GLcontext *context, GLenum target, GLenum internalformat, GL
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint index;
 } cwcglPrimitiveRestartIndexCommandData;
@@ -11712,7 +11048,6 @@ void cwcglPrimitiveRestartIndex(GLcontext *context, GLuint index) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum readTarget;
     GLenum writeTarget;
@@ -11733,7 +11068,6 @@ void cwcglCopyBufferSubData(GLcontext *context, GLenum readTarget, GLenum writeT
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLsizei uniformCount;
@@ -11752,7 +11086,6 @@ void cwcglGetUniformIndices(GLcontext *context, GLuint program, GLsizei uniformC
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLsizei uniformCount;
@@ -11773,7 +11106,6 @@ void cwcglGetActiveUniformsiv(GLcontext *context, GLuint program, GLsizei unifor
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLuint uniformIndex;
@@ -11794,7 +11126,6 @@ void cwcglGetActiveUniformName(GLcontext *context, GLuint program, GLuint unifor
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     const GLchar * uniformBlockName;
@@ -11806,12 +11137,10 @@ void cwcglGetUniformBlockIndex(GLcontext *context, GLuint program, const GLchar 
     cwcglGetUniformBlockIndexCommandData* command_data = malloc(sizeof(cwcglGetUniformBlockIndexCommandData));
     command_data->program = program;
     command_data->uniformBlockName = uniformBlockName;
-    command_data->return_value = return_value;
     command->type = cwcglGetUniformBlockIndexCommand;
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLuint uniformBlockIndex;
@@ -11830,7 +11159,6 @@ void cwcglGetActiveUniformBlockiv(GLcontext *context, GLuint program, GLuint uni
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLuint uniformBlockIndex;
@@ -11851,7 +11179,6 @@ void cwcglGetActiveUniformBlockName(GLcontext *context, GLuint program, GLuint u
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLuint uniformBlockIndex;
@@ -11868,7 +11195,6 @@ void cwcglUniformBlockBinding(GLcontext *context, GLuint program, GLuint uniform
     command->data = command_data;
     PushCommand(context, command);
 }
-
 #endif
 #if CWCGL_VERSION >= GL_VERSION_3_2
 typedef struct {
@@ -11891,7 +11217,6 @@ void cwcglDrawElementsBaseVertex(GLcontext *context, GLenum mode, GLsizei count,
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum mode;
     GLuint start;
@@ -11916,7 +11241,6 @@ void cwcglDrawRangeElementsBaseVertex(GLcontext *context, GLenum mode, GLuint st
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum mode;
     GLsizei count;
@@ -11939,7 +11263,6 @@ void cwcglDrawElementsInstancedBaseVertex(GLcontext *context, GLenum mode, GLsiz
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum mode;
     const GLsizei * count;
@@ -11962,7 +11285,6 @@ void cwcglMultiDrawElementsBaseVertex(GLcontext *context, GLenum mode, const GLs
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum mode;
 } cwcglProvokingVertexCommandData;
@@ -11975,7 +11297,6 @@ void cwcglProvokingVertex(GLcontext *context, GLenum mode) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum condition;
     GLbitfield flags;
@@ -11987,12 +11308,10 @@ void cwcglFenceSync(GLcontext *context, GLenum condition, GLbitfield flags, GLsy
     cwcglFenceSyncCommandData* command_data = malloc(sizeof(cwcglFenceSyncCommandData));
     command_data->condition = condition;
     command_data->flags = flags;
-    command_data->return_value = return_value;
     command->type = cwcglFenceSyncCommand;
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLsync sync;
     GLboolean return_value;
@@ -12002,12 +11321,10 @@ void cwcglIsSync(GLcontext *context, GLsync sync, GLboolean* return_value) {
     GLcommand* command = malloc(sizeof(GLcommand));
     cwcglIsSyncCommandData* command_data = malloc(sizeof(cwcglIsSyncCommandData));
     command_data->sync = sync;
-    command_data->return_value = return_value;
     command->type = cwcglIsSyncCommand;
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLsync sync;
 } cwcglDeleteSyncCommandData;
@@ -12020,7 +11337,6 @@ void cwcglDeleteSync(GLcontext *context, GLsync sync) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLsync sync;
     GLbitfield flags;
@@ -12034,12 +11350,10 @@ void cwcglClientWaitSync(GLcontext *context, GLsync sync, GLbitfield flags, GLui
     command_data->sync = sync;
     command_data->flags = flags;
     command_data->timeout = timeout;
-    command_data->return_value = return_value;
     command->type = cwcglClientWaitSyncCommand;
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLsync sync;
     GLbitfield flags;
@@ -12056,7 +11370,6 @@ void cwcglWaitSync(GLcontext *context, GLsync sync, GLbitfield flags, GLuint64 t
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum pname;
     GLint64 * data;
@@ -12071,7 +11384,6 @@ void cwcglGetInteger64v(GLcontext *context, GLenum pname, GLint64 * data) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLsync sync;
     GLenum pname;
@@ -12092,7 +11404,6 @@ void cwcglGetSynciv(GLcontext *context, GLsync sync, GLenum pname, GLsizei count
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLuint index;
@@ -12109,7 +11420,6 @@ void cwcglGetInteger64i_v(GLcontext *context, GLenum target, GLuint index, GLint
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLenum pname;
@@ -12126,7 +11436,6 @@ void cwcglGetBufferParameteri64v(GLcontext *context, GLenum target, GLenum pname
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLenum attachment;
@@ -12145,7 +11454,6 @@ void cwcglFramebufferTexture(GLcontext *context, GLenum target, GLenum attachmen
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLsizei samples;
@@ -12168,7 +11476,6 @@ void cwcglTexImage2DMultisample(GLcontext *context, GLenum target, GLsizei sampl
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLsizei samples;
@@ -12193,7 +11500,6 @@ void cwcglTexImage3DMultisample(GLcontext *context, GLenum target, GLsizei sampl
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum pname;
     GLuint index;
@@ -12210,7 +11516,6 @@ void cwcglGetMultisamplefv(GLcontext *context, GLenum pname, GLuint index, GLflo
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint maskNumber;
     GLbitfield mask;
@@ -12225,7 +11530,6 @@ void cwcglSampleMaski(GLcontext *context, GLuint maskNumber, GLbitfield mask) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 #endif
 #if CWCGL_VERSION >= GL_VERSION_3_3
 typedef struct {
@@ -12246,7 +11550,6 @@ void cwcglBindFragDataLocationIndexed(GLcontext *context, GLuint program, GLuint
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     const GLchar * name;
@@ -12258,12 +11561,10 @@ void cwcglGetFragDataIndex(GLcontext *context, GLuint program, const GLchar * na
     cwcglGetFragDataIndexCommandData* command_data = malloc(sizeof(cwcglGetFragDataIndexCommandData));
     command_data->program = program;
     command_data->name = name;
-    command_data->return_value = return_value;
     command->type = cwcglGetFragDataIndexCommand;
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLsizei count;
     GLuint * samplers;
@@ -12278,7 +11579,6 @@ void cwcglGenSamplers(GLcontext *context, GLsizei count, GLuint * samplers) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLsizei count;
     const GLuint * samplers;
@@ -12293,7 +11593,6 @@ void cwcglDeleteSamplers(GLcontext *context, GLsizei count, const GLuint * sampl
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint sampler;
     GLboolean return_value;
@@ -12303,12 +11602,10 @@ void cwcglIsSampler(GLcontext *context, GLuint sampler, GLboolean* return_value)
     GLcommand* command = malloc(sizeof(GLcommand));
     cwcglIsSamplerCommandData* command_data = malloc(sizeof(cwcglIsSamplerCommandData));
     command_data->sampler = sampler;
-    command_data->return_value = return_value;
     command->type = cwcglIsSamplerCommand;
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint unit;
     GLuint sampler;
@@ -12323,7 +11620,6 @@ void cwcglBindSampler(GLcontext *context, GLuint unit, GLuint sampler) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint sampler;
     GLenum pname;
@@ -12340,7 +11636,6 @@ void cwcglSamplerParameteri(GLcontext *context, GLuint sampler, GLenum pname, GL
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint sampler;
     GLenum pname;
@@ -12357,7 +11652,6 @@ void cwcglSamplerParameteriv(GLcontext *context, GLuint sampler, GLenum pname, c
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint sampler;
     GLenum pname;
@@ -12374,7 +11668,6 @@ void cwcglSamplerParameterf(GLcontext *context, GLuint sampler, GLenum pname, GL
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint sampler;
     GLenum pname;
@@ -12391,7 +11684,6 @@ void cwcglSamplerParameterfv(GLcontext *context, GLuint sampler, GLenum pname, c
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint sampler;
     GLenum pname;
@@ -12408,7 +11700,6 @@ void cwcglSamplerParameterIiv(GLcontext *context, GLuint sampler, GLenum pname, 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint sampler;
     GLenum pname;
@@ -12425,7 +11716,6 @@ void cwcglSamplerParameterIuiv(GLcontext *context, GLuint sampler, GLenum pname,
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint sampler;
     GLenum pname;
@@ -12442,7 +11732,6 @@ void cwcglGetSamplerParameteriv(GLcontext *context, GLuint sampler, GLenum pname
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint sampler;
     GLenum pname;
@@ -12459,7 +11748,6 @@ void cwcglGetSamplerParameterIiv(GLcontext *context, GLuint sampler, GLenum pnam
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint sampler;
     GLenum pname;
@@ -12476,7 +11764,6 @@ void cwcglGetSamplerParameterfv(GLcontext *context, GLuint sampler, GLenum pname
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint sampler;
     GLenum pname;
@@ -12493,7 +11780,6 @@ void cwcglGetSamplerParameterIuiv(GLcontext *context, GLuint sampler, GLenum pna
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint id;
     GLenum target;
@@ -12508,7 +11794,6 @@ void cwcglQueryCounter(GLcontext *context, GLuint id, GLenum target) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint id;
     GLenum pname;
@@ -12525,7 +11810,6 @@ void cwcglGetQueryObjecti64v(GLcontext *context, GLuint id, GLenum pname, GLint6
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint id;
     GLenum pname;
@@ -12542,7 +11826,6 @@ void cwcglGetQueryObjectui64v(GLcontext *context, GLuint id, GLenum pname, GLuin
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint index;
     GLuint divisor;
@@ -12557,7 +11840,6 @@ void cwcglVertexAttribDivisor(GLcontext *context, GLuint index, GLuint divisor) 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint index;
     GLenum type;
@@ -12576,7 +11858,6 @@ void cwcglVertexAttribP1ui(GLcontext *context, GLuint index, GLenum type, GLbool
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint index;
     GLenum type;
@@ -12595,7 +11876,6 @@ void cwcglVertexAttribP1uiv(GLcontext *context, GLuint index, GLenum type, GLboo
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint index;
     GLenum type;
@@ -12614,7 +11894,6 @@ void cwcglVertexAttribP2ui(GLcontext *context, GLuint index, GLenum type, GLbool
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint index;
     GLenum type;
@@ -12633,7 +11912,6 @@ void cwcglVertexAttribP2uiv(GLcontext *context, GLuint index, GLenum type, GLboo
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint index;
     GLenum type;
@@ -12652,7 +11930,6 @@ void cwcglVertexAttribP3ui(GLcontext *context, GLuint index, GLenum type, GLbool
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint index;
     GLenum type;
@@ -12671,7 +11948,6 @@ void cwcglVertexAttribP3uiv(GLcontext *context, GLuint index, GLenum type, GLboo
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint index;
     GLenum type;
@@ -12690,7 +11966,6 @@ void cwcglVertexAttribP4ui(GLcontext *context, GLuint index, GLenum type, GLbool
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint index;
     GLenum type;
@@ -12709,7 +11984,6 @@ void cwcglVertexAttribP4uiv(GLcontext *context, GLuint index, GLenum type, GLboo
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum type;
     GLuint value;
@@ -12724,7 +11998,6 @@ void cwcglVertexP2ui(GLcontext *context, GLenum type, GLuint value) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum type;
     const GLuint * value;
@@ -12739,7 +12012,6 @@ void cwcglVertexP2uiv(GLcontext *context, GLenum type, const GLuint * value) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum type;
     GLuint value;
@@ -12754,7 +12026,6 @@ void cwcglVertexP3ui(GLcontext *context, GLenum type, GLuint value) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum type;
     const GLuint * value;
@@ -12769,7 +12040,6 @@ void cwcglVertexP3uiv(GLcontext *context, GLenum type, const GLuint * value) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum type;
     GLuint value;
@@ -12784,7 +12054,6 @@ void cwcglVertexP4ui(GLcontext *context, GLenum type, GLuint value) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum type;
     const GLuint * value;
@@ -12799,7 +12068,6 @@ void cwcglVertexP4uiv(GLcontext *context, GLenum type, const GLuint * value) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum type;
     GLuint coords;
@@ -12814,7 +12082,6 @@ void cwcglTexCoordP1ui(GLcontext *context, GLenum type, GLuint coords) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum type;
     const GLuint * coords;
@@ -12829,7 +12096,6 @@ void cwcglTexCoordP1uiv(GLcontext *context, GLenum type, const GLuint * coords) 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum type;
     GLuint coords;
@@ -12844,7 +12110,6 @@ void cwcglTexCoordP2ui(GLcontext *context, GLenum type, GLuint coords) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum type;
     const GLuint * coords;
@@ -12859,7 +12124,6 @@ void cwcglTexCoordP2uiv(GLcontext *context, GLenum type, const GLuint * coords) 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum type;
     GLuint coords;
@@ -12874,7 +12138,6 @@ void cwcglTexCoordP3ui(GLcontext *context, GLenum type, GLuint coords) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum type;
     const GLuint * coords;
@@ -12889,7 +12152,6 @@ void cwcglTexCoordP3uiv(GLcontext *context, GLenum type, const GLuint * coords) 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum type;
     GLuint coords;
@@ -12904,7 +12166,6 @@ void cwcglTexCoordP4ui(GLcontext *context, GLenum type, GLuint coords) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum type;
     const GLuint * coords;
@@ -12919,7 +12180,6 @@ void cwcglTexCoordP4uiv(GLcontext *context, GLenum type, const GLuint * coords) 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum texture;
     GLenum type;
@@ -12936,7 +12196,6 @@ void cwcglMultiTexCoordP1ui(GLcontext *context, GLenum texture, GLenum type, GLu
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum texture;
     GLenum type;
@@ -12953,7 +12212,6 @@ void cwcglMultiTexCoordP1uiv(GLcontext *context, GLenum texture, GLenum type, co
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum texture;
     GLenum type;
@@ -12970,7 +12228,6 @@ void cwcglMultiTexCoordP2ui(GLcontext *context, GLenum texture, GLenum type, GLu
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum texture;
     GLenum type;
@@ -12987,7 +12244,6 @@ void cwcglMultiTexCoordP2uiv(GLcontext *context, GLenum texture, GLenum type, co
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum texture;
     GLenum type;
@@ -13004,7 +12260,6 @@ void cwcglMultiTexCoordP3ui(GLcontext *context, GLenum texture, GLenum type, GLu
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum texture;
     GLenum type;
@@ -13021,7 +12276,6 @@ void cwcglMultiTexCoordP3uiv(GLcontext *context, GLenum texture, GLenum type, co
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum texture;
     GLenum type;
@@ -13038,7 +12292,6 @@ void cwcglMultiTexCoordP4ui(GLcontext *context, GLenum texture, GLenum type, GLu
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum texture;
     GLenum type;
@@ -13055,7 +12308,6 @@ void cwcglMultiTexCoordP4uiv(GLcontext *context, GLenum texture, GLenum type, co
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum type;
     GLuint coords;
@@ -13070,7 +12322,6 @@ void cwcglNormalP3ui(GLcontext *context, GLenum type, GLuint coords) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum type;
     const GLuint * coords;
@@ -13085,7 +12336,6 @@ void cwcglNormalP3uiv(GLcontext *context, GLenum type, const GLuint * coords) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum type;
     GLuint color;
@@ -13100,7 +12350,6 @@ void cwcglColorP3ui(GLcontext *context, GLenum type, GLuint color) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum type;
     const GLuint * color;
@@ -13115,7 +12364,6 @@ void cwcglColorP3uiv(GLcontext *context, GLenum type, const GLuint * color) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum type;
     GLuint color;
@@ -13130,7 +12378,6 @@ void cwcglColorP4ui(GLcontext *context, GLenum type, GLuint color) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum type;
     const GLuint * color;
@@ -13145,7 +12392,6 @@ void cwcglColorP4uiv(GLcontext *context, GLenum type, const GLuint * color) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum type;
     GLuint color;
@@ -13160,7 +12406,6 @@ void cwcglSecondaryColorP3ui(GLcontext *context, GLenum type, GLuint color) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum type;
     const GLuint * color;
@@ -13175,7 +12420,6 @@ void cwcglSecondaryColorP3uiv(GLcontext *context, GLenum type, const GLuint * co
     command->data = command_data;
     PushCommand(context, command);
 }
-
 #endif
 #if CWCGL_VERSION >= GL_VERSION_4_0
 typedef struct {
@@ -13190,7 +12434,6 @@ void cwcglMinSampleShading(GLcontext *context, GLfloat value) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint buf;
     GLenum mode;
@@ -13205,7 +12448,6 @@ void cwcglBlendEquationi(GLcontext *context, GLuint buf, GLenum mode) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint buf;
     GLenum modeRGB;
@@ -13222,7 +12464,6 @@ void cwcglBlendEquationSeparatei(GLcontext *context, GLuint buf, GLenum modeRGB,
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint buf;
     GLenum src;
@@ -13239,7 +12480,6 @@ void cwcglBlendFunci(GLcontext *context, GLuint buf, GLenum src, GLenum dst) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint buf;
     GLenum srcRGB;
@@ -13260,7 +12500,6 @@ void cwcglBlendFuncSeparatei(GLcontext *context, GLuint buf, GLenum srcRGB, GLen
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum mode;
     const void * indirect;
@@ -13275,7 +12514,6 @@ void cwcglDrawArraysIndirect(GLcontext *context, GLenum mode, const void * indir
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum mode;
     GLenum type;
@@ -13292,7 +12530,6 @@ void cwcglDrawElementsIndirect(GLcontext *context, GLenum mode, GLenum type, con
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLint location;
     GLdouble x;
@@ -13307,7 +12544,6 @@ void cwcglUniform1d(GLcontext *context, GLint location, GLdouble x) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLint location;
     GLdouble x;
@@ -13324,7 +12560,6 @@ void cwcglUniform2d(GLcontext *context, GLint location, GLdouble x, GLdouble y) 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLint location;
     GLdouble x;
@@ -13343,7 +12578,6 @@ void cwcglUniform3d(GLcontext *context, GLint location, GLdouble x, GLdouble y, 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLint location;
     GLdouble x;
@@ -13364,7 +12598,6 @@ void cwcglUniform4d(GLcontext *context, GLint location, GLdouble x, GLdouble y, 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLint location;
     GLsizei count;
@@ -13381,7 +12614,6 @@ void cwcglUniform1dv(GLcontext *context, GLint location, GLsizei count, const GL
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLint location;
     GLsizei count;
@@ -13398,7 +12630,6 @@ void cwcglUniform2dv(GLcontext *context, GLint location, GLsizei count, const GL
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLint location;
     GLsizei count;
@@ -13415,7 +12646,6 @@ void cwcglUniform3dv(GLcontext *context, GLint location, GLsizei count, const GL
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLint location;
     GLsizei count;
@@ -13432,7 +12662,6 @@ void cwcglUniform4dv(GLcontext *context, GLint location, GLsizei count, const GL
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLint location;
     GLsizei count;
@@ -13451,7 +12680,6 @@ void cwcglUniformMatrix2dv(GLcontext *context, GLint location, GLsizei count, GL
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLint location;
     GLsizei count;
@@ -13470,7 +12698,6 @@ void cwcglUniformMatrix3dv(GLcontext *context, GLint location, GLsizei count, GL
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLint location;
     GLsizei count;
@@ -13489,7 +12716,6 @@ void cwcglUniformMatrix4dv(GLcontext *context, GLint location, GLsizei count, GL
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLint location;
     GLsizei count;
@@ -13508,7 +12734,6 @@ void cwcglUniformMatrix2x3dv(GLcontext *context, GLint location, GLsizei count, 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLint location;
     GLsizei count;
@@ -13527,7 +12752,6 @@ void cwcglUniformMatrix2x4dv(GLcontext *context, GLint location, GLsizei count, 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLint location;
     GLsizei count;
@@ -13546,7 +12770,6 @@ void cwcglUniformMatrix3x2dv(GLcontext *context, GLint location, GLsizei count, 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLint location;
     GLsizei count;
@@ -13565,7 +12788,6 @@ void cwcglUniformMatrix3x4dv(GLcontext *context, GLint location, GLsizei count, 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLint location;
     GLsizei count;
@@ -13584,7 +12806,6 @@ void cwcglUniformMatrix4x2dv(GLcontext *context, GLint location, GLsizei count, 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLint location;
     GLsizei count;
@@ -13603,7 +12824,6 @@ void cwcglUniformMatrix4x3dv(GLcontext *context, GLint location, GLsizei count, 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLint location;
@@ -13620,7 +12840,6 @@ void cwcglGetUniformdv(GLcontext *context, GLuint program, GLint location, GLdou
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLenum shadertype;
@@ -13634,12 +12853,10 @@ void cwcglGetSubroutineUniformLocation(GLcontext *context, GLuint program, GLenu
     command_data->program = program;
     command_data->shadertype = shadertype;
     command_data->name = name;
-    command_data->return_value = return_value;
     command->type = cwcglGetSubroutineUniformLocationCommand;
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLenum shadertype;
@@ -13653,12 +12870,10 @@ void cwcglGetSubroutineIndex(GLcontext *context, GLuint program, GLenum shaderty
     command_data->program = program;
     command_data->shadertype = shadertype;
     command_data->name = name;
-    command_data->return_value = return_value;
     command->type = cwcglGetSubroutineIndexCommand;
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLenum shadertype;
@@ -13679,7 +12894,6 @@ void cwcglGetActiveSubroutineUniformiv(GLcontext *context, GLuint program, GLenu
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLenum shadertype;
@@ -13702,7 +12916,6 @@ void cwcglGetActiveSubroutineUniformName(GLcontext *context, GLuint program, GLe
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLenum shadertype;
@@ -13725,7 +12938,6 @@ void cwcglGetActiveSubroutineName(GLcontext *context, GLuint program, GLenum sha
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum shadertype;
     GLsizei count;
@@ -13742,7 +12954,6 @@ void cwcglUniformSubroutinesuiv(GLcontext *context, GLenum shadertype, GLsizei c
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum shadertype;
     GLint location;
@@ -13759,7 +12970,6 @@ void cwcglGetUniformSubroutineuiv(GLcontext *context, GLenum shadertype, GLint l
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLenum shadertype;
@@ -13778,7 +12988,6 @@ void cwcglGetProgramStageiv(GLcontext *context, GLuint program, GLenum shadertyp
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum pname;
     GLint value;
@@ -13793,7 +13002,6 @@ void cwcglPatchParameteri(GLcontext *context, GLenum pname, GLint value) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum pname;
     const GLfloat * values;
@@ -13808,7 +13016,6 @@ void cwcglPatchParameterfv(GLcontext *context, GLenum pname, const GLfloat * val
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLuint id;
@@ -13823,7 +13030,6 @@ void cwcglBindTransformFeedback(GLcontext *context, GLenum target, GLuint id) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLsizei n;
     const GLuint * ids;
@@ -13838,7 +13044,6 @@ void cwcglDeleteTransformFeedbacks(GLcontext *context, GLsizei n, const GLuint *
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLsizei n;
     GLuint * ids;
@@ -13853,7 +13058,6 @@ void cwcglGenTransformFeedbacks(GLcontext *context, GLsizei n, GLuint * ids) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint id;
     GLboolean return_value;
@@ -13863,26 +13067,22 @@ void cwcglIsTransformFeedback(GLcontext *context, GLuint id, GLboolean* return_v
     GLcommand* command = malloc(sizeof(GLcommand));
     cwcglIsTransformFeedbackCommandData* command_data = malloc(sizeof(cwcglIsTransformFeedbackCommandData));
     command_data->id = id;
-    command_data->return_value = return_value;
     command->type = cwcglIsTransformFeedbackCommand;
     command->data = command_data;
     PushCommand(context, command);
 }
-
 void cwcglPauseTransformFeedback(GLcontext *context) {
     GLcommand* command = malloc(sizeof(GLcommand));
     command->type = cwcglPauseTransformFeedbackCommand;
     command->data = NULL;
     PushCommand(context, command);
 }
-
 void cwcglResumeTransformFeedback(GLcontext *context) {
     GLcommand* command = malloc(sizeof(GLcommand));
     command->type = cwcglResumeTransformFeedbackCommand;
     command->data = NULL;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum mode;
     GLuint id;
@@ -13897,7 +13097,6 @@ void cwcglDrawTransformFeedback(GLcontext *context, GLenum mode, GLuint id) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum mode;
     GLuint id;
@@ -13914,7 +13113,6 @@ void cwcglDrawTransformFeedbackStream(GLcontext *context, GLenum mode, GLuint id
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLuint index;
@@ -13931,7 +13129,6 @@ void cwcglBeginQueryIndexed(GLcontext *context, GLenum target, GLuint index, GLu
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLuint index;
@@ -13946,7 +13143,6 @@ void cwcglEndQueryIndexed(GLcontext *context, GLenum target, GLuint index) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLuint index;
@@ -13965,7 +13161,6 @@ void cwcglGetQueryIndexediv(GLcontext *context, GLenum target, GLuint index, GLe
     command->data = command_data;
     PushCommand(context, command);
 }
-
 #endif
 #if CWCGL_VERSION >= GL_VERSION_4_1
 void cwcglReleaseShaderCompiler(GLcontext *context) {
@@ -13974,7 +13169,6 @@ void cwcglReleaseShaderCompiler(GLcontext *context) {
     command->data = NULL;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLsizei count;
     const GLuint * shaders;
@@ -13995,7 +13189,6 @@ void cwcglShaderBinary(GLcontext *context, GLsizei count, const GLuint * shaders
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum shadertype;
     GLenum precisiontype;
@@ -14014,7 +13207,6 @@ void cwcglGetShaderPrecisionFormat(GLcontext *context, GLenum shadertype, GLenum
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLfloat n;
     GLfloat f;
@@ -14029,7 +13221,6 @@ void cwcglDepthRangef(GLcontext *context, GLfloat n, GLfloat f) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLfloat d;
 } cwcglClearDepthfCommandData;
@@ -14042,7 +13233,6 @@ void cwcglClearDepthf(GLcontext *context, GLfloat d) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLsizei bufSize;
@@ -14063,7 +13253,6 @@ void cwcglGetProgramBinary(GLcontext *context, GLuint program, GLsizei bufSize, 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLenum binaryFormat;
@@ -14082,7 +13271,6 @@ void cwcglProgramBinary(GLcontext *context, GLuint program, GLenum binaryFormat,
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLenum pname;
@@ -14099,7 +13287,6 @@ void cwcglProgramParameteri(GLcontext *context, GLuint program, GLenum pname, GL
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint pipeline;
     GLbitfield stages;
@@ -14116,7 +13303,6 @@ void cwcglUseProgramStages(GLcontext *context, GLuint pipeline, GLbitfield stage
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint pipeline;
     GLuint program;
@@ -14131,7 +13317,6 @@ void cwcglActiveShaderProgram(GLcontext *context, GLuint pipeline, GLuint progra
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum type;
     GLsizei count;
@@ -14145,12 +13330,10 @@ void cwcglCreateShaderProgramv(GLcontext *context, GLenum type, GLsizei count, c
     command_data->type = type;
     command_data->count = count;
     command_data->strings = strings;
-    command_data->return_value = return_value;
     command->type = cwcglCreateShaderProgramvCommand;
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint pipeline;
 } cwcglBindProgramPipelineCommandData;
@@ -14163,7 +13346,6 @@ void cwcglBindProgramPipeline(GLcontext *context, GLuint pipeline) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLsizei n;
     const GLuint * pipelines;
@@ -14178,7 +13360,6 @@ void cwcglDeleteProgramPipelines(GLcontext *context, GLsizei n, const GLuint * p
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLsizei n;
     GLuint * pipelines;
@@ -14193,7 +13374,6 @@ void cwcglGenProgramPipelines(GLcontext *context, GLsizei n, GLuint * pipelines)
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint pipeline;
     GLboolean return_value;
@@ -14203,12 +13383,10 @@ void cwcglIsProgramPipeline(GLcontext *context, GLuint pipeline, GLboolean* retu
     GLcommand* command = malloc(sizeof(GLcommand));
     cwcglIsProgramPipelineCommandData* command_data = malloc(sizeof(cwcglIsProgramPipelineCommandData));
     command_data->pipeline = pipeline;
-    command_data->return_value = return_value;
     command->type = cwcglIsProgramPipelineCommand;
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint pipeline;
     GLenum pname;
@@ -14225,7 +13403,6 @@ void cwcglGetProgramPipelineiv(GLcontext *context, GLuint pipeline, GLenum pname
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLint location;
@@ -14242,7 +13419,6 @@ void cwcglProgramUniform1i(GLcontext *context, GLuint program, GLint location, G
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLint location;
@@ -14261,7 +13437,6 @@ void cwcglProgramUniform1iv(GLcontext *context, GLuint program, GLint location, 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLint location;
@@ -14278,7 +13453,6 @@ void cwcglProgramUniform1f(GLcontext *context, GLuint program, GLint location, G
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLint location;
@@ -14297,7 +13471,6 @@ void cwcglProgramUniform1fv(GLcontext *context, GLuint program, GLint location, 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLint location;
@@ -14314,7 +13487,6 @@ void cwcglProgramUniform1d(GLcontext *context, GLuint program, GLint location, G
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLint location;
@@ -14333,7 +13505,6 @@ void cwcglProgramUniform1dv(GLcontext *context, GLuint program, GLint location, 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLint location;
@@ -14350,7 +13521,6 @@ void cwcglProgramUniform1ui(GLcontext *context, GLuint program, GLint location, 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLint location;
@@ -14369,7 +13539,6 @@ void cwcglProgramUniform1uiv(GLcontext *context, GLuint program, GLint location,
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLint location;
@@ -14388,7 +13557,6 @@ void cwcglProgramUniform2i(GLcontext *context, GLuint program, GLint location, G
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLint location;
@@ -14407,7 +13575,6 @@ void cwcglProgramUniform2iv(GLcontext *context, GLuint program, GLint location, 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLint location;
@@ -14426,7 +13593,6 @@ void cwcglProgramUniform2f(GLcontext *context, GLuint program, GLint location, G
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLint location;
@@ -14445,7 +13611,6 @@ void cwcglProgramUniform2fv(GLcontext *context, GLuint program, GLint location, 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLint location;
@@ -14464,7 +13629,6 @@ void cwcglProgramUniform2d(GLcontext *context, GLuint program, GLint location, G
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLint location;
@@ -14483,7 +13647,6 @@ void cwcglProgramUniform2dv(GLcontext *context, GLuint program, GLint location, 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLint location;
@@ -14502,7 +13665,6 @@ void cwcglProgramUniform2ui(GLcontext *context, GLuint program, GLint location, 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLint location;
@@ -14521,7 +13683,6 @@ void cwcglProgramUniform2uiv(GLcontext *context, GLuint program, GLint location,
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLint location;
@@ -14542,7 +13703,6 @@ void cwcglProgramUniform3i(GLcontext *context, GLuint program, GLint location, G
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLint location;
@@ -14561,7 +13721,6 @@ void cwcglProgramUniform3iv(GLcontext *context, GLuint program, GLint location, 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLint location;
@@ -14582,7 +13741,6 @@ void cwcglProgramUniform3f(GLcontext *context, GLuint program, GLint location, G
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLint location;
@@ -14601,7 +13759,6 @@ void cwcglProgramUniform3fv(GLcontext *context, GLuint program, GLint location, 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLint location;
@@ -14622,7 +13779,6 @@ void cwcglProgramUniform3d(GLcontext *context, GLuint program, GLint location, G
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLint location;
@@ -14641,7 +13797,6 @@ void cwcglProgramUniform3dv(GLcontext *context, GLuint program, GLint location, 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLint location;
@@ -14662,7 +13817,6 @@ void cwcglProgramUniform3ui(GLcontext *context, GLuint program, GLint location, 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLint location;
@@ -14681,7 +13835,6 @@ void cwcglProgramUniform3uiv(GLcontext *context, GLuint program, GLint location,
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLint location;
@@ -14704,7 +13857,6 @@ void cwcglProgramUniform4i(GLcontext *context, GLuint program, GLint location, G
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLint location;
@@ -14723,7 +13875,6 @@ void cwcglProgramUniform4iv(GLcontext *context, GLuint program, GLint location, 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLint location;
@@ -14746,7 +13897,6 @@ void cwcglProgramUniform4f(GLcontext *context, GLuint program, GLint location, G
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLint location;
@@ -14765,7 +13915,6 @@ void cwcglProgramUniform4fv(GLcontext *context, GLuint program, GLint location, 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLint location;
@@ -14788,7 +13937,6 @@ void cwcglProgramUniform4d(GLcontext *context, GLuint program, GLint location, G
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLint location;
@@ -14807,7 +13955,6 @@ void cwcglProgramUniform4dv(GLcontext *context, GLuint program, GLint location, 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLint location;
@@ -14830,7 +13977,6 @@ void cwcglProgramUniform4ui(GLcontext *context, GLuint program, GLint location, 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLint location;
@@ -14849,7 +13995,6 @@ void cwcglProgramUniform4uiv(GLcontext *context, GLuint program, GLint location,
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLint location;
@@ -14870,7 +14015,6 @@ void cwcglProgramUniformMatrix2fv(GLcontext *context, GLuint program, GLint loca
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLint location;
@@ -14891,7 +14035,6 @@ void cwcglProgramUniformMatrix3fv(GLcontext *context, GLuint program, GLint loca
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLint location;
@@ -14912,7 +14055,6 @@ void cwcglProgramUniformMatrix4fv(GLcontext *context, GLuint program, GLint loca
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLint location;
@@ -14933,7 +14075,6 @@ void cwcglProgramUniformMatrix2dv(GLcontext *context, GLuint program, GLint loca
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLint location;
@@ -14954,7 +14095,6 @@ void cwcglProgramUniformMatrix3dv(GLcontext *context, GLuint program, GLint loca
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLint location;
@@ -14975,7 +14115,6 @@ void cwcglProgramUniformMatrix4dv(GLcontext *context, GLuint program, GLint loca
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLint location;
@@ -14996,7 +14135,6 @@ void cwcglProgramUniformMatrix2x3fv(GLcontext *context, GLuint program, GLint lo
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLint location;
@@ -15017,7 +14155,6 @@ void cwcglProgramUniformMatrix3x2fv(GLcontext *context, GLuint program, GLint lo
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLint location;
@@ -15038,7 +14175,6 @@ void cwcglProgramUniformMatrix2x4fv(GLcontext *context, GLuint program, GLint lo
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLint location;
@@ -15059,7 +14195,6 @@ void cwcglProgramUniformMatrix4x2fv(GLcontext *context, GLuint program, GLint lo
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLint location;
@@ -15080,7 +14215,6 @@ void cwcglProgramUniformMatrix3x4fv(GLcontext *context, GLuint program, GLint lo
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLint location;
@@ -15101,7 +14235,6 @@ void cwcglProgramUniformMatrix4x3fv(GLcontext *context, GLuint program, GLint lo
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLint location;
@@ -15122,7 +14255,6 @@ void cwcglProgramUniformMatrix2x3dv(GLcontext *context, GLuint program, GLint lo
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLint location;
@@ -15143,7 +14275,6 @@ void cwcglProgramUniformMatrix3x2dv(GLcontext *context, GLuint program, GLint lo
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLint location;
@@ -15164,7 +14295,6 @@ void cwcglProgramUniformMatrix2x4dv(GLcontext *context, GLuint program, GLint lo
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLint location;
@@ -15185,7 +14315,6 @@ void cwcglProgramUniformMatrix4x2dv(GLcontext *context, GLuint program, GLint lo
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLint location;
@@ -15206,7 +14335,6 @@ void cwcglProgramUniformMatrix3x4dv(GLcontext *context, GLuint program, GLint lo
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLint location;
@@ -15227,7 +14355,6 @@ void cwcglProgramUniformMatrix4x3dv(GLcontext *context, GLuint program, GLint lo
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint pipeline;
 } cwcglValidateProgramPipelineCommandData;
@@ -15240,7 +14367,6 @@ void cwcglValidateProgramPipeline(GLcontext *context, GLuint pipeline) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint pipeline;
     GLsizei bufSize;
@@ -15259,7 +14385,6 @@ void cwcglGetProgramPipelineInfoLog(GLcontext *context, GLuint pipeline, GLsizei
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint index;
     GLdouble x;
@@ -15274,7 +14399,6 @@ void cwcglVertexAttribL1d(GLcontext *context, GLuint index, GLdouble x) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint index;
     GLdouble x;
@@ -15291,7 +14415,6 @@ void cwcglVertexAttribL2d(GLcontext *context, GLuint index, GLdouble x, GLdouble
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint index;
     GLdouble x;
@@ -15310,7 +14433,6 @@ void cwcglVertexAttribL3d(GLcontext *context, GLuint index, GLdouble x, GLdouble
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint index;
     GLdouble x;
@@ -15331,7 +14453,6 @@ void cwcglVertexAttribL4d(GLcontext *context, GLuint index, GLdouble x, GLdouble
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint index;
     const GLdouble * v;
@@ -15346,7 +14467,6 @@ void cwcglVertexAttribL1dv(GLcontext *context, GLuint index, const GLdouble * v)
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint index;
     const GLdouble * v;
@@ -15361,7 +14481,6 @@ void cwcglVertexAttribL2dv(GLcontext *context, GLuint index, const GLdouble * v)
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint index;
     const GLdouble * v;
@@ -15376,7 +14495,6 @@ void cwcglVertexAttribL3dv(GLcontext *context, GLuint index, const GLdouble * v)
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint index;
     const GLdouble * v;
@@ -15391,7 +14509,6 @@ void cwcglVertexAttribL4dv(GLcontext *context, GLuint index, const GLdouble * v)
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint index;
     GLint size;
@@ -15412,7 +14529,6 @@ void cwcglVertexAttribLPointer(GLcontext *context, GLuint index, GLint size, GLe
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint index;
     GLenum pname;
@@ -15429,7 +14545,6 @@ void cwcglGetVertexAttribLdv(GLcontext *context, GLuint index, GLenum pname, GLd
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint first;
     GLsizei count;
@@ -15446,7 +14561,6 @@ void cwcglViewportArrayv(GLcontext *context, GLuint first, GLsizei count, const 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint index;
     GLfloat x;
@@ -15467,7 +14581,6 @@ void cwcglViewportIndexedf(GLcontext *context, GLuint index, GLfloat x, GLfloat 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint index;
     const GLfloat * v;
@@ -15482,7 +14595,6 @@ void cwcglViewportIndexedfv(GLcontext *context, GLuint index, const GLfloat * v)
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint first;
     GLsizei count;
@@ -15499,7 +14611,6 @@ void cwcglScissorArrayv(GLcontext *context, GLuint first, GLsizei count, const G
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint index;
     GLint left;
@@ -15520,7 +14631,6 @@ void cwcglScissorIndexed(GLcontext *context, GLuint index, GLint left, GLint bot
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint index;
     const GLint * v;
@@ -15535,7 +14645,6 @@ void cwcglScissorIndexedv(GLcontext *context, GLuint index, const GLint * v) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint first;
     GLsizei count;
@@ -15552,7 +14661,6 @@ void cwcglDepthRangeArrayv(GLcontext *context, GLuint first, GLsizei count, cons
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint index;
     GLdouble n;
@@ -15569,7 +14677,6 @@ void cwcglDepthRangeIndexed(GLcontext *context, GLuint index, GLdouble n, GLdoub
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLuint index;
@@ -15586,7 +14693,6 @@ void cwcglGetFloati_v(GLcontext *context, GLenum target, GLuint index, GLfloat *
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLuint index;
@@ -15603,7 +14709,6 @@ void cwcglGetDoublei_v(GLcontext *context, GLenum target, GLuint index, GLdouble
     command->data = command_data;
     PushCommand(context, command);
 }
-
 #endif
 #if CWCGL_VERSION >= GL_VERSION_4_2
 typedef struct {
@@ -15626,7 +14731,6 @@ void cwcglDrawArraysInstancedBaseInstance(GLcontext *context, GLenum mode, GLint
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum mode;
     GLsizei count;
@@ -15649,7 +14753,6 @@ void cwcglDrawElementsInstancedBaseInstance(GLcontext *context, GLenum mode, GLs
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum mode;
     GLsizei count;
@@ -15674,7 +14777,6 @@ void cwcglDrawElementsInstancedBaseVertexBaseInstance(GLcontext *context, GLenum
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLenum internalformat;
@@ -15695,7 +14797,6 @@ void cwcglGetInternalformativ(GLcontext *context, GLenum target, GLenum internal
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLuint bufferIndex;
@@ -15714,7 +14815,6 @@ void cwcglGetActiveAtomicCounterBufferiv(GLcontext *context, GLuint program, GLu
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint unit;
     GLuint texture;
@@ -15739,7 +14839,6 @@ void cwcglBindImageTexture(GLcontext *context, GLuint unit, GLuint texture, GLin
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLbitfield barriers;
 } cwcglMemoryBarrierCommandData;
@@ -15752,7 +14851,6 @@ void cwcglMemoryBarrier(GLcontext *context, GLbitfield barriers) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLsizei levels;
@@ -15771,7 +14869,6 @@ void cwcglTexStorage1D(GLcontext *context, GLenum target, GLsizei levels, GLenum
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLsizei levels;
@@ -15792,7 +14889,6 @@ void cwcglTexStorage2D(GLcontext *context, GLenum target, GLsizei levels, GLenum
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLsizei levels;
@@ -15815,7 +14911,6 @@ void cwcglTexStorage3D(GLcontext *context, GLenum target, GLsizei levels, GLenum
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum mode;
     GLuint id;
@@ -15832,7 +14927,6 @@ void cwcglDrawTransformFeedbackInstanced(GLcontext *context, GLenum mode, GLuint
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum mode;
     GLuint id;
@@ -15851,7 +14945,6 @@ void cwcglDrawTransformFeedbackStreamInstanced(GLcontext *context, GLenum mode, 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 #endif
 #if CWCGL_VERSION >= GL_VERSION_4_3
 typedef struct {
@@ -15874,7 +14967,6 @@ void cwcglClearBufferData(GLcontext *context, GLenum target, GLenum internalform
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLenum internalformat;
@@ -15899,7 +14991,6 @@ void cwcglClearBufferSubData(GLcontext *context, GLenum target, GLenum internalf
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint num_groups_x;
     GLuint num_groups_y;
@@ -15916,7 +15007,6 @@ void cwcglDispatchCompute(GLcontext *context, GLuint num_groups_x, GLuint num_gr
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLintptr indirect;
 } cwcglDispatchComputeIndirectCommandData;
@@ -15929,7 +15019,6 @@ void cwcglDispatchComputeIndirect(GLcontext *context, GLintptr indirect) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint srcName;
     GLenum srcTarget;
@@ -15970,7 +15059,6 @@ void cwcglCopyImageSubData(GLcontext *context, GLuint srcName, GLenum srcTarget,
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLenum pname;
@@ -15987,7 +15075,6 @@ void cwcglFramebufferParameteri(GLcontext *context, GLenum target, GLenum pname,
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLenum pname;
@@ -16004,7 +15091,6 @@ void cwcglGetFramebufferParameteriv(GLcontext *context, GLenum target, GLenum pn
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLenum internalformat;
@@ -16025,7 +15111,6 @@ void cwcglGetInternalformati64v(GLcontext *context, GLenum target, GLenum intern
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint texture;
     GLint level;
@@ -16052,7 +15137,6 @@ void cwcglInvalidateTexSubImage(GLcontext *context, GLuint texture, GLint level,
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint texture;
     GLint level;
@@ -16067,7 +15151,6 @@ void cwcglInvalidateTexImage(GLcontext *context, GLuint texture, GLint level) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint buffer;
     GLintptr offset;
@@ -16084,7 +15167,6 @@ void cwcglInvalidateBufferSubData(GLcontext *context, GLuint buffer, GLintptr of
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint buffer;
 } cwcglInvalidateBufferDataCommandData;
@@ -16097,7 +15179,6 @@ void cwcglInvalidateBufferData(GLcontext *context, GLuint buffer) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLsizei numAttachments;
@@ -16114,7 +15195,6 @@ void cwcglInvalidateFramebuffer(GLcontext *context, GLenum target, GLsizei numAt
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLsizei numAttachments;
@@ -16139,7 +15219,6 @@ void cwcglInvalidateSubFramebuffer(GLcontext *context, GLenum target, GLsizei nu
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum mode;
     const void * indirect;
@@ -16158,7 +15237,6 @@ void cwcglMultiDrawArraysIndirect(GLcontext *context, GLenum mode, const void * 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum mode;
     GLenum type;
@@ -16179,7 +15257,6 @@ void cwcglMultiDrawElementsIndirect(GLcontext *context, GLenum mode, GLenum type
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLenum programInterface;
@@ -16198,7 +15275,6 @@ void cwcglGetProgramInterfaceiv(GLcontext *context, GLuint program, GLenum progr
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLenum programInterface;
@@ -16212,12 +15288,10 @@ void cwcglGetProgramResourceIndex(GLcontext *context, GLuint program, GLenum pro
     command_data->program = program;
     command_data->programInterface = programInterface;
     command_data->name = name;
-    command_data->return_value = return_value;
     command->type = cwcglGetProgramResourceIndexCommand;
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLenum programInterface;
@@ -16240,7 +15314,6 @@ void cwcglGetProgramResourceName(GLcontext *context, GLuint program, GLenum prog
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLenum programInterface;
@@ -16267,7 +15340,6 @@ void cwcglGetProgramResourceiv(GLcontext *context, GLuint program, GLenum progra
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLenum programInterface;
@@ -16281,12 +15353,10 @@ void cwcglGetProgramResourceLocation(GLcontext *context, GLuint program, GLenum 
     command_data->program = program;
     command_data->programInterface = programInterface;
     command_data->name = name;
-    command_data->return_value = return_value;
     command->type = cwcglGetProgramResourceLocationCommand;
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLenum programInterface;
@@ -16300,12 +15370,10 @@ void cwcglGetProgramResourceLocationIndex(GLcontext *context, GLuint program, GL
     command_data->program = program;
     command_data->programInterface = programInterface;
     command_data->name = name;
-    command_data->return_value = return_value;
     command->type = cwcglGetProgramResourceLocationIndexCommand;
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLuint storageBlockIndex;
@@ -16322,7 +15390,6 @@ void cwcglShaderStorageBlockBinding(GLcontext *context, GLuint program, GLuint s
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLenum internalformat;
@@ -16343,7 +15410,6 @@ void cwcglTexBufferRange(GLcontext *context, GLenum target, GLenum internalforma
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLsizei samples;
@@ -16366,7 +15432,6 @@ void cwcglTexStorage2DMultisample(GLcontext *context, GLenum target, GLsizei sam
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLsizei samples;
@@ -16391,7 +15456,6 @@ void cwcglTexStorage3DMultisample(GLcontext *context, GLenum target, GLsizei sam
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint texture;
     GLenum target;
@@ -16418,7 +15482,6 @@ void cwcglTextureView(GLcontext *context, GLuint texture, GLenum target, GLuint 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint bindingindex;
     GLuint buffer;
@@ -16437,7 +15500,6 @@ void cwcglBindVertexBuffer(GLcontext *context, GLuint bindingindex, GLuint buffe
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint attribindex;
     GLint size;
@@ -16458,7 +15520,6 @@ void cwcglVertexAttribFormat(GLcontext *context, GLuint attribindex, GLint size,
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint attribindex;
     GLint size;
@@ -16477,7 +15538,6 @@ void cwcglVertexAttribIFormat(GLcontext *context, GLuint attribindex, GLint size
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint attribindex;
     GLint size;
@@ -16496,7 +15556,6 @@ void cwcglVertexAttribLFormat(GLcontext *context, GLuint attribindex, GLint size
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint attribindex;
     GLuint bindingindex;
@@ -16511,7 +15570,6 @@ void cwcglVertexAttribBinding(GLcontext *context, GLuint attribindex, GLuint bin
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint bindingindex;
     GLuint divisor;
@@ -16526,7 +15584,6 @@ void cwcglVertexBindingDivisor(GLcontext *context, GLuint bindingindex, GLuint d
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum source;
     GLenum type;
@@ -16549,7 +15606,6 @@ void cwcglDebugMessageControl(GLcontext *context, GLenum source, GLenum type, GL
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum source;
     GLenum type;
@@ -16572,7 +15628,6 @@ void cwcglDebugMessageInsert(GLcontext *context, GLenum source, GLenum type, GLu
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLDEBUGPROC callback;
     const void * userParam;
@@ -16587,7 +15642,6 @@ void cwcglDebugMessageCallback(GLcontext *context, GLDEBUGPROC callback, const v
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint count;
     GLsizei bufSize;
@@ -16611,12 +15665,10 @@ void cwcglGetDebugMessageLog(GLcontext *context, GLuint count, GLsizei bufSize, 
     command_data->severities = severities;
     command_data->lengths = lengths;
     command_data->messageLog = messageLog;
-    command_data->return_value = return_value;
     command->type = cwcglGetDebugMessageLogCommand;
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum source;
     GLuint id;
@@ -16635,14 +15687,12 @@ void cwcglPushDebugGroup(GLcontext *context, GLenum source, GLuint id, GLsizei l
     command->data = command_data;
     PushCommand(context, command);
 }
-
 void cwcglPopDebugGroup(GLcontext *context) {
     GLcommand* command = malloc(sizeof(GLcommand));
     command->type = cwcglPopDebugGroupCommand;
     command->data = NULL;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum identifier;
     GLuint name;
@@ -16661,7 +15711,6 @@ void cwcglObjectLabel(GLcontext *context, GLenum identifier, GLuint name, GLsize
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum identifier;
     GLuint name;
@@ -16682,7 +15731,6 @@ void cwcglGetObjectLabel(GLcontext *context, GLenum identifier, GLuint name, GLs
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const void * ptr;
     GLsizei length;
@@ -16699,7 +15747,6 @@ void cwcglObjectPtrLabel(GLcontext *context, const void * ptr, GLsizei length, c
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     const void * ptr;
     GLsizei bufSize;
@@ -16718,7 +15765,6 @@ void cwcglGetObjectPtrLabel(GLcontext *context, const void * ptr, GLsizei bufSiz
     command->data = command_data;
     PushCommand(context, command);
 }
-
 #endif
 #if CWCGL_VERSION >= GL_VERSION_4_4
 typedef struct {
@@ -16739,7 +15785,6 @@ void cwcglBufferStorage(GLcontext *context, GLenum target, GLsizeiptr size, cons
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint texture;
     GLint level;
@@ -16760,7 +15805,6 @@ void cwcglClearTexImage(GLcontext *context, GLuint texture, GLint level, GLenum 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint texture;
     GLint level;
@@ -16793,7 +15837,6 @@ void cwcglClearTexSubImage(GLcontext *context, GLuint texture, GLint level, GLin
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLuint first;
@@ -16812,7 +15855,6 @@ void cwcglBindBuffersBase(GLcontext *context, GLenum target, GLuint first, GLsiz
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLuint first;
@@ -16835,7 +15877,6 @@ void cwcglBindBuffersRange(GLcontext *context, GLenum target, GLuint first, GLsi
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint first;
     GLsizei count;
@@ -16852,7 +15893,6 @@ void cwcglBindTextures(GLcontext *context, GLuint first, GLsizei count, const GL
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint first;
     GLsizei count;
@@ -16869,7 +15909,6 @@ void cwcglBindSamplers(GLcontext *context, GLuint first, GLsizei count, const GL
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint first;
     GLsizei count;
@@ -16886,7 +15925,6 @@ void cwcglBindImageTextures(GLcontext *context, GLuint first, GLsizei count, con
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint first;
     GLsizei count;
@@ -16907,7 +15945,6 @@ void cwcglBindVertexBuffers(GLcontext *context, GLuint first, GLsizei count, con
     command->data = command_data;
     PushCommand(context, command);
 }
-
 #endif
 #if CWCGL_VERSION >= GL_VERSION_4_5
 typedef struct {
@@ -16924,7 +15961,6 @@ void cwcglClipControl(GLcontext *context, GLenum origin, GLenum depth) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLsizei n;
     GLuint * ids;
@@ -16939,7 +15975,6 @@ void cwcglCreateTransformFeedbacks(GLcontext *context, GLsizei n, GLuint * ids) 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint xfb;
     GLuint index;
@@ -16956,7 +15991,6 @@ void cwcglTransformFeedbackBufferBase(GLcontext *context, GLuint xfb, GLuint ind
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint xfb;
     GLuint index;
@@ -16977,7 +16011,6 @@ void cwcglTransformFeedbackBufferRange(GLcontext *context, GLuint xfb, GLuint in
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint xfb;
     GLenum pname;
@@ -16994,7 +16027,6 @@ void cwcglGetTransformFeedbackiv(GLcontext *context, GLuint xfb, GLenum pname, G
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint xfb;
     GLenum pname;
@@ -17013,7 +16045,6 @@ void cwcglGetTransformFeedbacki_v(GLcontext *context, GLuint xfb, GLenum pname, 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint xfb;
     GLenum pname;
@@ -17032,7 +16063,6 @@ void cwcglGetTransformFeedbacki64_v(GLcontext *context, GLuint xfb, GLenum pname
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLsizei n;
     GLuint * buffers;
@@ -17047,7 +16077,6 @@ void cwcglCreateBuffers(GLcontext *context, GLsizei n, GLuint * buffers) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint buffer;
     GLsizeiptr size;
@@ -17066,7 +16095,6 @@ void cwcglNamedBufferStorage(GLcontext *context, GLuint buffer, GLsizeiptr size,
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint buffer;
     GLsizeiptr size;
@@ -17085,7 +16113,6 @@ void cwcglNamedBufferData(GLcontext *context, GLuint buffer, GLsizeiptr size, co
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint buffer;
     GLintptr offset;
@@ -17104,7 +16131,6 @@ void cwcglNamedBufferSubData(GLcontext *context, GLuint buffer, GLintptr offset,
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint readBuffer;
     GLuint writeBuffer;
@@ -17125,7 +16151,6 @@ void cwcglCopyNamedBufferSubData(GLcontext *context, GLuint readBuffer, GLuint w
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint buffer;
     GLenum internalformat;
@@ -17146,7 +16171,6 @@ void cwcglClearNamedBufferData(GLcontext *context, GLuint buffer, GLenum interna
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint buffer;
     GLenum internalformat;
@@ -17171,7 +16195,6 @@ void cwcglClearNamedBufferSubData(GLcontext *context, GLuint buffer, GLenum inte
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint buffer;
     GLenum access;
@@ -17183,12 +16206,10 @@ void cwcglMapNamedBuffer(GLcontext *context, GLuint buffer, GLenum access, void 
     cwcglMapNamedBufferCommandData* command_data = malloc(sizeof(cwcglMapNamedBufferCommandData));
     command_data->buffer = buffer;
     command_data->access = access;
-    command_data->return_value = return_value;
     command->type = cwcglMapNamedBufferCommand;
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint buffer;
     GLintptr offset;
@@ -17204,12 +16225,10 @@ void cwcglMapNamedBufferRange(GLcontext *context, GLuint buffer, GLintptr offset
     command_data->offset = offset;
     command_data->length = length;
     command_data->access = access;
-    command_data->return_value = return_value;
     command->type = cwcglMapNamedBufferRangeCommand;
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint buffer;
     GLboolean return_value;
@@ -17219,12 +16238,10 @@ void cwcglUnmapNamedBuffer(GLcontext *context, GLuint buffer, GLboolean* return_
     GLcommand* command = malloc(sizeof(GLcommand));
     cwcglUnmapNamedBufferCommandData* command_data = malloc(sizeof(cwcglUnmapNamedBufferCommandData));
     command_data->buffer = buffer;
-    command_data->return_value = return_value;
     command->type = cwcglUnmapNamedBufferCommand;
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint buffer;
     GLintptr offset;
@@ -17241,7 +16258,6 @@ void cwcglFlushMappedNamedBufferRange(GLcontext *context, GLuint buffer, GLintpt
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint buffer;
     GLenum pname;
@@ -17258,7 +16274,6 @@ void cwcglGetNamedBufferParameteriv(GLcontext *context, GLuint buffer, GLenum pn
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint buffer;
     GLenum pname;
@@ -17275,7 +16290,6 @@ void cwcglGetNamedBufferParameteri64v(GLcontext *context, GLuint buffer, GLenum 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint buffer;
     GLenum pname;
@@ -17292,7 +16306,6 @@ void cwcglGetNamedBufferPointerv(GLcontext *context, GLuint buffer, GLenum pname
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint buffer;
     GLintptr offset;
@@ -17311,7 +16324,6 @@ void cwcglGetNamedBufferSubData(GLcontext *context, GLuint buffer, GLintptr offs
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLsizei n;
     GLuint * framebuffers;
@@ -17326,7 +16338,6 @@ void cwcglCreateFramebuffers(GLcontext *context, GLsizei n, GLuint * framebuffer
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint framebuffer;
     GLenum attachment;
@@ -17345,7 +16356,6 @@ void cwcglNamedFramebufferRenderbuffer(GLcontext *context, GLuint framebuffer, G
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint framebuffer;
     GLenum pname;
@@ -17362,7 +16372,6 @@ void cwcglNamedFramebufferParameteri(GLcontext *context, GLuint framebuffer, GLe
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint framebuffer;
     GLenum attachment;
@@ -17381,7 +16390,6 @@ void cwcglNamedFramebufferTexture(GLcontext *context, GLuint framebuffer, GLenum
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint framebuffer;
     GLenum attachment;
@@ -17402,7 +16410,6 @@ void cwcglNamedFramebufferTextureLayer(GLcontext *context, GLuint framebuffer, G
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint framebuffer;
     GLenum buf;
@@ -17417,7 +16424,6 @@ void cwcglNamedFramebufferDrawBuffer(GLcontext *context, GLuint framebuffer, GLe
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint framebuffer;
     GLsizei n;
@@ -17434,7 +16440,6 @@ void cwcglNamedFramebufferDrawBuffers(GLcontext *context, GLuint framebuffer, GL
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint framebuffer;
     GLenum src;
@@ -17449,7 +16454,6 @@ void cwcglNamedFramebufferReadBuffer(GLcontext *context, GLuint framebuffer, GLe
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint framebuffer;
     GLsizei numAttachments;
@@ -17466,7 +16470,6 @@ void cwcglInvalidateNamedFramebufferData(GLcontext *context, GLuint framebuffer,
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint framebuffer;
     GLsizei numAttachments;
@@ -17491,7 +16494,6 @@ void cwcglInvalidateNamedFramebufferSubData(GLcontext *context, GLuint framebuff
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint framebuffer;
     GLenum buffer;
@@ -17510,7 +16512,6 @@ void cwcglClearNamedFramebufferiv(GLcontext *context, GLuint framebuffer, GLenum
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint framebuffer;
     GLenum buffer;
@@ -17529,7 +16530,6 @@ void cwcglClearNamedFramebufferuiv(GLcontext *context, GLuint framebuffer, GLenu
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint framebuffer;
     GLenum buffer;
@@ -17548,7 +16548,6 @@ void cwcglClearNamedFramebufferfv(GLcontext *context, GLuint framebuffer, GLenum
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint framebuffer;
     GLenum buffer;
@@ -17569,7 +16568,6 @@ void cwcglClearNamedFramebufferfi(GLcontext *context, GLuint framebuffer, GLenum
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint readFramebuffer;
     GLuint drawFramebuffer;
@@ -17604,7 +16602,6 @@ void cwcglBlitNamedFramebuffer(GLcontext *context, GLuint readFramebuffer, GLuin
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint framebuffer;
     GLenum target;
@@ -17616,12 +16613,10 @@ void cwcglCheckNamedFramebufferStatus(GLcontext *context, GLuint framebuffer, GL
     cwcglCheckNamedFramebufferStatusCommandData* command_data = malloc(sizeof(cwcglCheckNamedFramebufferStatusCommandData));
     command_data->framebuffer = framebuffer;
     command_data->target = target;
-    command_data->return_value = return_value;
     command->type = cwcglCheckNamedFramebufferStatusCommand;
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint framebuffer;
     GLenum pname;
@@ -17638,7 +16633,6 @@ void cwcglGetNamedFramebufferParameteriv(GLcontext *context, GLuint framebuffer,
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint framebuffer;
     GLenum attachment;
@@ -17657,7 +16651,6 @@ void cwcglGetNamedFramebufferAttachmentParameteriv(GLcontext *context, GLuint fr
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLsizei n;
     GLuint * renderbuffers;
@@ -17672,7 +16665,6 @@ void cwcglCreateRenderbuffers(GLcontext *context, GLsizei n, GLuint * renderbuff
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint renderbuffer;
     GLenum internalformat;
@@ -17691,7 +16683,6 @@ void cwcglNamedRenderbufferStorage(GLcontext *context, GLuint renderbuffer, GLen
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint renderbuffer;
     GLsizei samples;
@@ -17712,7 +16703,6 @@ void cwcglNamedRenderbufferStorageMultisample(GLcontext *context, GLuint renderb
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint renderbuffer;
     GLenum pname;
@@ -17729,7 +16719,6 @@ void cwcglGetNamedRenderbufferParameteriv(GLcontext *context, GLuint renderbuffe
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLsizei n;
@@ -17746,7 +16735,6 @@ void cwcglCreateTextures(GLcontext *context, GLenum target, GLsizei n, GLuint * 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint texture;
     GLenum internalformat;
@@ -17763,7 +16751,6 @@ void cwcglTextureBuffer(GLcontext *context, GLuint texture, GLenum internalforma
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint texture;
     GLenum internalformat;
@@ -17784,7 +16771,6 @@ void cwcglTextureBufferRange(GLcontext *context, GLuint texture, GLenum internal
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint texture;
     GLsizei levels;
@@ -17803,7 +16789,6 @@ void cwcglTextureStorage1D(GLcontext *context, GLuint texture, GLsizei levels, G
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint texture;
     GLsizei levels;
@@ -17824,7 +16809,6 @@ void cwcglTextureStorage2D(GLcontext *context, GLuint texture, GLsizei levels, G
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint texture;
     GLsizei levels;
@@ -17847,7 +16831,6 @@ void cwcglTextureStorage3D(GLcontext *context, GLuint texture, GLsizei levels, G
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint texture;
     GLsizei samples;
@@ -17870,7 +16853,6 @@ void cwcglTextureStorage2DMultisample(GLcontext *context, GLuint texture, GLsize
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint texture;
     GLsizei samples;
@@ -17895,7 +16877,6 @@ void cwcglTextureStorage3DMultisample(GLcontext *context, GLuint texture, GLsize
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint texture;
     GLint level;
@@ -17920,7 +16901,6 @@ void cwcglTextureSubImage1D(GLcontext *context, GLuint texture, GLint level, GLi
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint texture;
     GLint level;
@@ -17949,7 +16929,6 @@ void cwcglTextureSubImage2D(GLcontext *context, GLuint texture, GLint level, GLi
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint texture;
     GLint level;
@@ -17982,7 +16961,6 @@ void cwcglTextureSubImage3D(GLcontext *context, GLuint texture, GLint level, GLi
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint texture;
     GLint level;
@@ -18007,7 +16985,6 @@ void cwcglCompressedTextureSubImage1D(GLcontext *context, GLuint texture, GLint 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint texture;
     GLint level;
@@ -18036,7 +17013,6 @@ void cwcglCompressedTextureSubImage2D(GLcontext *context, GLuint texture, GLint 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint texture;
     GLint level;
@@ -18069,7 +17045,6 @@ void cwcglCompressedTextureSubImage3D(GLcontext *context, GLuint texture, GLint 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint texture;
     GLint level;
@@ -18092,7 +17067,6 @@ void cwcglCopyTextureSubImage1D(GLcontext *context, GLuint texture, GLint level,
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint texture;
     GLint level;
@@ -18119,7 +17093,6 @@ void cwcglCopyTextureSubImage2D(GLcontext *context, GLuint texture, GLint level,
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint texture;
     GLint level;
@@ -18148,7 +17121,6 @@ void cwcglCopyTextureSubImage3D(GLcontext *context, GLuint texture, GLint level,
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint texture;
     GLenum pname;
@@ -18165,7 +17137,6 @@ void cwcglTextureParameterf(GLcontext *context, GLuint texture, GLenum pname, GL
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint texture;
     GLenum pname;
@@ -18182,7 +17153,6 @@ void cwcglTextureParameterfv(GLcontext *context, GLuint texture, GLenum pname, c
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint texture;
     GLenum pname;
@@ -18199,7 +17169,6 @@ void cwcglTextureParameteri(GLcontext *context, GLuint texture, GLenum pname, GL
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint texture;
     GLenum pname;
@@ -18216,7 +17185,6 @@ void cwcglTextureParameterIiv(GLcontext *context, GLuint texture, GLenum pname, 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint texture;
     GLenum pname;
@@ -18233,7 +17201,6 @@ void cwcglTextureParameterIuiv(GLcontext *context, GLuint texture, GLenum pname,
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint texture;
     GLenum pname;
@@ -18250,7 +17217,6 @@ void cwcglTextureParameteriv(GLcontext *context, GLuint texture, GLenum pname, c
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint texture;
 } cwcglGenerateTextureMipmapCommandData;
@@ -18263,7 +17229,6 @@ void cwcglGenerateTextureMipmap(GLcontext *context, GLuint texture) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint unit;
     GLuint texture;
@@ -18278,7 +17243,6 @@ void cwcglBindTextureUnit(GLcontext *context, GLuint unit, GLuint texture) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint texture;
     GLint level;
@@ -18301,7 +17265,6 @@ void cwcglGetTextureImage(GLcontext *context, GLuint texture, GLint level, GLenu
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint texture;
     GLint level;
@@ -18320,7 +17283,6 @@ void cwcglGetCompressedTextureImage(GLcontext *context, GLuint texture, GLint le
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint texture;
     GLint level;
@@ -18339,7 +17301,6 @@ void cwcglGetTextureLevelParameterfv(GLcontext *context, GLuint texture, GLint l
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint texture;
     GLint level;
@@ -18358,7 +17319,6 @@ void cwcglGetTextureLevelParameteriv(GLcontext *context, GLuint texture, GLint l
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint texture;
     GLenum pname;
@@ -18375,7 +17335,6 @@ void cwcglGetTextureParameterfv(GLcontext *context, GLuint texture, GLenum pname
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint texture;
     GLenum pname;
@@ -18392,7 +17351,6 @@ void cwcglGetTextureParameterIiv(GLcontext *context, GLuint texture, GLenum pnam
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint texture;
     GLenum pname;
@@ -18409,7 +17367,6 @@ void cwcglGetTextureParameterIuiv(GLcontext *context, GLuint texture, GLenum pna
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint texture;
     GLenum pname;
@@ -18426,7 +17383,6 @@ void cwcglGetTextureParameteriv(GLcontext *context, GLuint texture, GLenum pname
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLsizei n;
     GLuint * arrays;
@@ -18441,7 +17397,6 @@ void cwcglCreateVertexArrays(GLcontext *context, GLsizei n, GLuint * arrays) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint vaobj;
     GLuint index;
@@ -18456,7 +17411,6 @@ void cwcglDisableVertexArrayAttrib(GLcontext *context, GLuint vaobj, GLuint inde
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint vaobj;
     GLuint index;
@@ -18471,7 +17425,6 @@ void cwcglEnableVertexArrayAttrib(GLcontext *context, GLuint vaobj, GLuint index
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint vaobj;
     GLuint buffer;
@@ -18486,7 +17439,6 @@ void cwcglVertexArrayElementBuffer(GLcontext *context, GLuint vaobj, GLuint buff
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint vaobj;
     GLuint bindingindex;
@@ -18507,7 +17459,6 @@ void cwcglVertexArrayVertexBuffer(GLcontext *context, GLuint vaobj, GLuint bindi
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint vaobj;
     GLuint first;
@@ -18530,7 +17481,6 @@ void cwcglVertexArrayVertexBuffers(GLcontext *context, GLuint vaobj, GLuint firs
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint vaobj;
     GLuint attribindex;
@@ -18547,7 +17497,6 @@ void cwcglVertexArrayAttribBinding(GLcontext *context, GLuint vaobj, GLuint attr
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint vaobj;
     GLuint attribindex;
@@ -18570,7 +17519,6 @@ void cwcglVertexArrayAttribFormat(GLcontext *context, GLuint vaobj, GLuint attri
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint vaobj;
     GLuint attribindex;
@@ -18591,7 +17539,6 @@ void cwcglVertexArrayAttribIFormat(GLcontext *context, GLuint vaobj, GLuint attr
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint vaobj;
     GLuint attribindex;
@@ -18612,7 +17559,6 @@ void cwcglVertexArrayAttribLFormat(GLcontext *context, GLuint vaobj, GLuint attr
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint vaobj;
     GLuint bindingindex;
@@ -18629,7 +17575,6 @@ void cwcglVertexArrayBindingDivisor(GLcontext *context, GLuint vaobj, GLuint bin
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint vaobj;
     GLenum pname;
@@ -18646,7 +17591,6 @@ void cwcglGetVertexArrayiv(GLcontext *context, GLuint vaobj, GLenum pname, GLint
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint vaobj;
     GLuint index;
@@ -18665,7 +17609,6 @@ void cwcglGetVertexArrayIndexediv(GLcontext *context, GLuint vaobj, GLuint index
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint vaobj;
     GLuint index;
@@ -18684,7 +17627,6 @@ void cwcglGetVertexArrayIndexed64iv(GLcontext *context, GLuint vaobj, GLuint ind
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLsizei n;
     GLuint * samplers;
@@ -18699,7 +17641,6 @@ void cwcglCreateSamplers(GLcontext *context, GLsizei n, GLuint * samplers) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLsizei n;
     GLuint * pipelines;
@@ -18714,7 +17655,6 @@ void cwcglCreateProgramPipelines(GLcontext *context, GLsizei n, GLuint * pipelin
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLsizei n;
@@ -18731,7 +17671,6 @@ void cwcglCreateQueries(GLcontext *context, GLenum target, GLsizei n, GLuint * i
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint id;
     GLuint buffer;
@@ -18750,7 +17689,6 @@ void cwcglGetQueryBufferObjecti64v(GLcontext *context, GLuint id, GLuint buffer,
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint id;
     GLuint buffer;
@@ -18769,7 +17707,6 @@ void cwcglGetQueryBufferObjectiv(GLcontext *context, GLuint id, GLuint buffer, G
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint id;
     GLuint buffer;
@@ -18788,7 +17725,6 @@ void cwcglGetQueryBufferObjectui64v(GLcontext *context, GLuint id, GLuint buffer
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint id;
     GLuint buffer;
@@ -18807,7 +17743,6 @@ void cwcglGetQueryBufferObjectuiv(GLcontext *context, GLuint id, GLuint buffer, 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLbitfield barriers;
 } cwcglMemoryBarrierByRegionCommandData;
@@ -18820,7 +17755,6 @@ void cwcglMemoryBarrierByRegion(GLcontext *context, GLbitfield barriers) {
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint texture;
     GLint level;
@@ -18855,7 +17789,6 @@ void cwcglGetTextureSubImage(GLcontext *context, GLuint texture, GLint level, GL
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint texture;
     GLint level;
@@ -18886,7 +17819,6 @@ void cwcglGetCompressedTextureSubImage(GLcontext *context, GLuint texture, GLint
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum return_value;
 } cwcglGetGraphicsResetStatusCommandData;
@@ -18894,12 +17826,10 @@ typedef struct {
 void cwcglGetGraphicsResetStatus(GLcontext *context, GLenum* return_value) {
     GLcommand* command = malloc(sizeof(GLcommand));
     cwcglGetGraphicsResetStatusCommandData* command_data = malloc(sizeof(cwcglGetGraphicsResetStatusCommandData));
-    command_data->return_value = return_value;
     command->type = cwcglGetGraphicsResetStatusCommand;
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLint lod;
@@ -18918,7 +17848,6 @@ void cwcglGetnCompressedTexImage(GLcontext *context, GLenum target, GLint lod, G
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLint level;
@@ -18941,7 +17870,6 @@ void cwcglGetnTexImage(GLcontext *context, GLenum target, GLint level, GLenum fo
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLint location;
@@ -18960,7 +17888,6 @@ void cwcglGetnUniformdv(GLcontext *context, GLuint program, GLint location, GLsi
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLint location;
@@ -18979,7 +17906,6 @@ void cwcglGetnUniformfv(GLcontext *context, GLuint program, GLint location, GLsi
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLint location;
@@ -18998,7 +17924,6 @@ void cwcglGetnUniformiv(GLcontext *context, GLuint program, GLint location, GLsi
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLuint program;
     GLint location;
@@ -19017,7 +17942,6 @@ void cwcglGetnUniformuiv(GLcontext *context, GLuint program, GLint location, GLs
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLint x;
     GLint y;
@@ -19044,7 +17968,6 @@ void cwcglReadnPixels(GLcontext *context, GLint x, GLint y, GLsizei width, GLsiz
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLenum query;
@@ -19063,7 +17986,6 @@ void cwcglGetnMapdv(GLcontext *context, GLenum target, GLenum query, GLsizei buf
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLenum query;
@@ -19082,7 +18004,6 @@ void cwcglGetnMapfv(GLcontext *context, GLenum target, GLenum query, GLsizei buf
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLenum query;
@@ -19101,7 +18022,6 @@ void cwcglGetnMapiv(GLcontext *context, GLenum target, GLenum query, GLsizei buf
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum map;
     GLsizei bufSize;
@@ -19118,7 +18038,6 @@ void cwcglGetnPixelMapfv(GLcontext *context, GLenum map, GLsizei bufSize, GLfloa
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum map;
     GLsizei bufSize;
@@ -19135,7 +18054,6 @@ void cwcglGetnPixelMapuiv(GLcontext *context, GLenum map, GLsizei bufSize, GLuin
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum map;
     GLsizei bufSize;
@@ -19152,7 +18070,6 @@ void cwcglGetnPixelMapusv(GLcontext *context, GLenum map, GLsizei bufSize, GLush
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLsizei bufSize;
     GLubyte * pattern;
@@ -19167,7 +18084,6 @@ void cwcglGetnPolygonStipple(GLcontext *context, GLsizei bufSize, GLubyte * patt
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLenum format;
@@ -19188,7 +18104,6 @@ void cwcglGetnColorTable(GLcontext *context, GLenum target, GLenum format, GLenu
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLenum format;
@@ -19209,7 +18124,6 @@ void cwcglGetnConvolutionFilter(GLcontext *context, GLenum target, GLenum format
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLenum format;
@@ -19236,7 +18150,6 @@ void cwcglGetnSeparableFilter(GLcontext *context, GLenum target, GLenum format, 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLboolean reset;
@@ -19259,7 +18172,6 @@ void cwcglGetnHistogram(GLcontext *context, GLenum target, GLboolean reset, GLen
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum target;
     GLboolean reset;
@@ -19282,14 +18194,12 @@ void cwcglGetnMinmax(GLcontext *context, GLenum target, GLboolean reset, GLenum 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 void cwcglTextureBarrier(GLcontext *context) {
     GLcommand* command = malloc(sizeof(GLcommand));
     command->type = cwcglTextureBarrierCommand;
     command->data = NULL;
     PushCommand(context, command);
 }
-
 #endif
 #if CWCGL_VERSION >= GL_VERSION_4_6
 typedef struct {
@@ -19312,7 +18222,6 @@ void cwcglSpecializeShader(GLcontext *context, GLuint shader, const GLchar * pEn
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum mode;
     const void * indirect;
@@ -19333,7 +18242,6 @@ void cwcglMultiDrawArraysIndirectCount(GLcontext *context, GLenum mode, const vo
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLenum mode;
     GLenum type;
@@ -19356,7 +18264,6 @@ void cwcglMultiDrawElementsIndirectCount(GLcontext *context, GLenum mode, GLenum
     command->data = command_data;
     PushCommand(context, command);
 }
-
 typedef struct {
     GLfloat factor;
     GLfloat units;
@@ -19373,7 +18280,6 @@ void cwcglPolygonOffsetClamp(GLcontext *context, GLfloat factor, GLfloat units, 
     command->data = command_data;
     PushCommand(context, command);
 }
-
 #endif
 static void FreeCommand(GLcommand* command) {
     switch (command->type) {
@@ -22211,23 +21117,31 @@ static void FreeCommand(GLcommand* command) {
 static void ProcessCommand(GLcommand* command) {
     switch (command->type) {
 #if CWCGL_VERSION >= GL_VERSION_1_0
-        case cwcglCullFaceCommand:
-            glCullFace();
+        case cwcglCullFaceCommand: {
+            cwcglCullFaceCommandData* command_data = (cwcglCullFaceCommandData*)command->data;
+            glCullFace(command_data->mode);
             break;
-        case cwcglFrontFaceCommand:
-            glFrontFace();
+        }
+        case cwcglFrontFaceCommand: {
+            cwcglFrontFaceCommandData* command_data = (cwcglFrontFaceCommandData*)command->data;
+            glFrontFace(command_data->mode);
             break;
+        }
         case cwcglHintCommand: {
             cwcglHintCommandData* command_data = (cwcglHintCommandData*)command->data;
             glHint(command_data->target, command_data->mode);
             break;
         }
-        case cwcglLineWidthCommand:
-            glLineWidth();
+        case cwcglLineWidthCommand: {
+            cwcglLineWidthCommandData* command_data = (cwcglLineWidthCommandData*)command->data;
+            glLineWidth(command_data->width);
             break;
-        case cwcglPointSizeCommand:
-            glPointSize();
+        }
+        case cwcglPointSizeCommand: {
+            cwcglPointSizeCommandData* command_data = (cwcglPointSizeCommandData*)command->data;
+            glPointSize(command_data->size);
             break;
+        }
         case cwcglPolygonModeCommand: {
             cwcglPolygonModeCommandData* command_data = (cwcglPolygonModeCommandData*)command->data;
             glPolygonMode(command_data->face, command_data->mode);
@@ -22268,40 +21182,56 @@ static void ProcessCommand(GLcommand* command) {
             glTexImage2D(command_data->target, command_data->level, command_data->internalformat, command_data->width, command_data->height, command_data->border, command_data->format, command_data->type, command_data->pixels);
             break;
         }
-        case cwcglDrawBufferCommand:
-            glDrawBuffer();
+        case cwcglDrawBufferCommand: {
+            cwcglDrawBufferCommandData* command_data = (cwcglDrawBufferCommandData*)command->data;
+            glDrawBuffer(command_data->buf);
             break;
-        case cwcglClearCommand:
-            glClear();
+        }
+        case cwcglClearCommand: {
+            cwcglClearCommandData* command_data = (cwcglClearCommandData*)command->data;
+            glClear(command_data->mask);
             break;
+        }
         case cwcglClearColorCommand: {
             cwcglClearColorCommandData* command_data = (cwcglClearColorCommandData*)command->data;
             glClearColor(command_data->red, command_data->green, command_data->blue, command_data->alpha);
             break;
         }
-        case cwcglClearStencilCommand:
-            glClearStencil();
+        case cwcglClearStencilCommand: {
+            cwcglClearStencilCommandData* command_data = (cwcglClearStencilCommandData*)command->data;
+            glClearStencil(command_data->s);
             break;
-        case cwcglClearDepthCommand:
-            glClearDepth();
+        }
+        case cwcglClearDepthCommand: {
+            cwcglClearDepthCommandData* command_data = (cwcglClearDepthCommandData*)command->data;
+            glClearDepth(command_data->depth);
             break;
-        case cwcglStencilMaskCommand:
-            glStencilMask();
+        }
+        case cwcglStencilMaskCommand: {
+            cwcglStencilMaskCommandData* command_data = (cwcglStencilMaskCommandData*)command->data;
+            glStencilMask(command_data->mask);
             break;
+        }
         case cwcglColorMaskCommand: {
             cwcglColorMaskCommandData* command_data = (cwcglColorMaskCommandData*)command->data;
             glColorMask(command_data->red, command_data->green, command_data->blue, command_data->alpha);
             break;
         }
-        case cwcglDepthMaskCommand:
-            glDepthMask();
+        case cwcglDepthMaskCommand: {
+            cwcglDepthMaskCommandData* command_data = (cwcglDepthMaskCommandData*)command->data;
+            glDepthMask(command_data->flag);
             break;
-        case cwcglDisableCommand:
-            glDisable();
+        }
+        case cwcglDisableCommand: {
+            cwcglDisableCommandData* command_data = (cwcglDisableCommandData*)command->data;
+            glDisable(command_data->cap);
             break;
-        case cwcglEnableCommand:
-            glEnable();
+        }
+        case cwcglEnableCommand: {
+            cwcglEnableCommandData* command_data = (cwcglEnableCommandData*)command->data;
+            glEnable(command_data->cap);
             break;
+        }
         case cwcglFinishCommand:
             glFinish();
             break;
@@ -22313,9 +21243,11 @@ static void ProcessCommand(GLcommand* command) {
             glBlendFunc(command_data->sfactor, command_data->dfactor);
             break;
         }
-        case cwcglLogicOpCommand:
-            glLogicOp();
+        case cwcglLogicOpCommand: {
+            cwcglLogicOpCommandData* command_data = (cwcglLogicOpCommandData*)command->data;
+            glLogicOp(command_data->opcode);
             break;
+        }
         case cwcglStencilFuncCommand: {
             cwcglStencilFuncCommandData* command_data = (cwcglStencilFuncCommandData*)command->data;
             glStencilFunc(command_data->func, command_data->ref, command_data->mask);
@@ -22326,9 +21258,11 @@ static void ProcessCommand(GLcommand* command) {
             glStencilOp(command_data->fail, command_data->zfail, command_data->zpass);
             break;
         }
-        case cwcglDepthFuncCommand:
-            glDepthFunc();
+        case cwcglDepthFuncCommand: {
+            cwcglDepthFuncCommandData* command_data = (cwcglDepthFuncCommandData*)command->data;
+            glDepthFunc(command_data->func);
             break;
+        }
         case cwcglPixelStorefCommand: {
             cwcglPixelStorefCommandData* command_data = (cwcglPixelStorefCommandData*)command->data;
             glPixelStoref(command_data->pname, command_data->param);
@@ -22339,9 +21273,11 @@ static void ProcessCommand(GLcommand* command) {
             glPixelStorei(command_data->pname, command_data->param);
             break;
         }
-        case cwcglReadBufferCommand:
-            glReadBuffer();
+        case cwcglReadBufferCommand: {
+            cwcglReadBufferCommandData* command_data = (cwcglReadBufferCommandData*)command->data;
+            glReadBuffer(command_data->src);
             break;
+        }
         case cwcglReadPixelsCommand: {
             cwcglReadPixelsCommandData* command_data = (cwcglReadPixelsCommandData*)command->data;
             glReadPixels(command_data->x, command_data->y, command_data->width, command_data->height, command_data->format, command_data->type, command_data->pixels);
@@ -22359,11 +21295,8 @@ static void ProcessCommand(GLcommand* command) {
         }
         case cwcglGetErrorCommand: {
             cwcglGetErrorCommandData* command_data = (cwcglGetErrorCommandData*)command->data;
-            if (data->return_value)
-                *(data->return_value) = glGetError();
-            else
-                glGetError();
             break;
+        }
         case cwcglGetFloatvCommand: {
             cwcglGetFloatvCommandData* command_data = (cwcglGetFloatvCommandData*)command->data;
             glGetFloatv(command_data->pname, command_data->data);
@@ -22376,11 +21309,8 @@ static void ProcessCommand(GLcommand* command) {
         }
         case cwcglGetStringCommand: {
             cwcglGetStringCommandData* command_data = (cwcglGetStringCommandData*)command->data;
-            if (data->return_value)
-                *(data->return_value) = glGetString();
-            else
-                glGetString();
             break;
+        }
         case cwcglGetTexImageCommand: {
             cwcglGetTexImageCommandData* command_data = (cwcglGetTexImageCommandData*)command->data;
             glGetTexImage(command_data->target, command_data->level, command_data->format, command_data->type, command_data->pixels);
@@ -22408,11 +21338,8 @@ static void ProcessCommand(GLcommand* command) {
         }
         case cwcglIsEnabledCommand: {
             cwcglIsEnabledCommandData* command_data = (cwcglIsEnabledCommandData*)command->data;
-            if (data->return_value)
-                *(data->return_value) = glIsEnabled();
-            else
-                glIsEnabled();
             break;
+        }
         case cwcglDepthRangeCommand: {
             cwcglDepthRangeCommandData* command_data = (cwcglDepthRangeCommandData*)command->data;
             glDepthRange(command_data->n, command_data->f);
@@ -22431,9 +21358,11 @@ static void ProcessCommand(GLcommand* command) {
         case cwcglEndListCommand:
             glEndList();
             break;
-        case cwcglCallListCommand:
-            glCallList();
+        case cwcglCallListCommand: {
+            cwcglCallListCommandData* command_data = (cwcglCallListCommandData*)command->data;
+            glCallList(command_data->list);
             break;
+        }
         case cwcglCallListsCommand: {
             cwcglCallListsCommandData* command_data = (cwcglCallListsCommandData*)command->data;
             glCallLists(command_data->n, command_data->type, command_data->lists);
@@ -22446,17 +21375,18 @@ static void ProcessCommand(GLcommand* command) {
         }
         case cwcglGenListsCommand: {
             cwcglGenListsCommandData* command_data = (cwcglGenListsCommandData*)command->data;
-            if (data->return_value)
-                *(data->return_value) = glGenLists();
-            else
-                glGenLists();
             break;
-        case cwcglListBaseCommand:
-            glListBase();
+        }
+        case cwcglListBaseCommand: {
+            cwcglListBaseCommandData* command_data = (cwcglListBaseCommandData*)command->data;
+            glListBase(command_data->base);
             break;
-        case cwcglBeginCommand:
-            glBegin();
+        }
+        case cwcglBeginCommand: {
+            cwcglBeginCommandData* command_data = (cwcglBeginCommandData*)command->data;
+            glBegin(command_data->mode);
             break;
+        }
         case cwcglBitmapCommand: {
             cwcglBitmapCommandData* command_data = (cwcglBitmapCommandData*)command->data;
             glBitmap(command_data->width, command_data->height, command_data->xorig, command_data->yorig, command_data->xmove, command_data->ymove, command_data->bitmap);
@@ -22467,298 +21397,384 @@ static void ProcessCommand(GLcommand* command) {
             glColor3b(command_data->red, command_data->green, command_data->blue);
             break;
         }
-        case cwcglColor3bvCommand:
-            glColor3bv();
+        case cwcglColor3bvCommand: {
+            cwcglColor3bvCommandData* command_data = (cwcglColor3bvCommandData*)command->data;
+            glColor3bv(command_data->v);
             break;
+        }
         case cwcglColor3dCommand: {
             cwcglColor3dCommandData* command_data = (cwcglColor3dCommandData*)command->data;
             glColor3d(command_data->red, command_data->green, command_data->blue);
             break;
         }
-        case cwcglColor3dvCommand:
-            glColor3dv();
+        case cwcglColor3dvCommand: {
+            cwcglColor3dvCommandData* command_data = (cwcglColor3dvCommandData*)command->data;
+            glColor3dv(command_data->v);
             break;
+        }
         case cwcglColor3fCommand: {
             cwcglColor3fCommandData* command_data = (cwcglColor3fCommandData*)command->data;
             glColor3f(command_data->red, command_data->green, command_data->blue);
             break;
         }
-        case cwcglColor3fvCommand:
-            glColor3fv();
+        case cwcglColor3fvCommand: {
+            cwcglColor3fvCommandData* command_data = (cwcglColor3fvCommandData*)command->data;
+            glColor3fv(command_data->v);
             break;
+        }
         case cwcglColor3iCommand: {
             cwcglColor3iCommandData* command_data = (cwcglColor3iCommandData*)command->data;
             glColor3i(command_data->red, command_data->green, command_data->blue);
             break;
         }
-        case cwcglColor3ivCommand:
-            glColor3iv();
+        case cwcglColor3ivCommand: {
+            cwcglColor3ivCommandData* command_data = (cwcglColor3ivCommandData*)command->data;
+            glColor3iv(command_data->v);
             break;
+        }
         case cwcglColor3sCommand: {
             cwcglColor3sCommandData* command_data = (cwcglColor3sCommandData*)command->data;
             glColor3s(command_data->red, command_data->green, command_data->blue);
             break;
         }
-        case cwcglColor3svCommand:
-            glColor3sv();
+        case cwcglColor3svCommand: {
+            cwcglColor3svCommandData* command_data = (cwcglColor3svCommandData*)command->data;
+            glColor3sv(command_data->v);
             break;
+        }
         case cwcglColor3ubCommand: {
             cwcglColor3ubCommandData* command_data = (cwcglColor3ubCommandData*)command->data;
             glColor3ub(command_data->red, command_data->green, command_data->blue);
             break;
         }
-        case cwcglColor3ubvCommand:
-            glColor3ubv();
+        case cwcglColor3ubvCommand: {
+            cwcglColor3ubvCommandData* command_data = (cwcglColor3ubvCommandData*)command->data;
+            glColor3ubv(command_data->v);
             break;
+        }
         case cwcglColor3uiCommand: {
             cwcglColor3uiCommandData* command_data = (cwcglColor3uiCommandData*)command->data;
             glColor3ui(command_data->red, command_data->green, command_data->blue);
             break;
         }
-        case cwcglColor3uivCommand:
-            glColor3uiv();
+        case cwcglColor3uivCommand: {
+            cwcglColor3uivCommandData* command_data = (cwcglColor3uivCommandData*)command->data;
+            glColor3uiv(command_data->v);
             break;
+        }
         case cwcglColor3usCommand: {
             cwcglColor3usCommandData* command_data = (cwcglColor3usCommandData*)command->data;
             glColor3us(command_data->red, command_data->green, command_data->blue);
             break;
         }
-        case cwcglColor3usvCommand:
-            glColor3usv();
+        case cwcglColor3usvCommand: {
+            cwcglColor3usvCommandData* command_data = (cwcglColor3usvCommandData*)command->data;
+            glColor3usv(command_data->v);
             break;
+        }
         case cwcglColor4bCommand: {
             cwcglColor4bCommandData* command_data = (cwcglColor4bCommandData*)command->data;
             glColor4b(command_data->red, command_data->green, command_data->blue, command_data->alpha);
             break;
         }
-        case cwcglColor4bvCommand:
-            glColor4bv();
+        case cwcglColor4bvCommand: {
+            cwcglColor4bvCommandData* command_data = (cwcglColor4bvCommandData*)command->data;
+            glColor4bv(command_data->v);
             break;
+        }
         case cwcglColor4dCommand: {
             cwcglColor4dCommandData* command_data = (cwcglColor4dCommandData*)command->data;
             glColor4d(command_data->red, command_data->green, command_data->blue, command_data->alpha);
             break;
         }
-        case cwcglColor4dvCommand:
-            glColor4dv();
+        case cwcglColor4dvCommand: {
+            cwcglColor4dvCommandData* command_data = (cwcglColor4dvCommandData*)command->data;
+            glColor4dv(command_data->v);
             break;
+        }
         case cwcglColor4fCommand: {
             cwcglColor4fCommandData* command_data = (cwcglColor4fCommandData*)command->data;
             glColor4f(command_data->red, command_data->green, command_data->blue, command_data->alpha);
             break;
         }
-        case cwcglColor4fvCommand:
-            glColor4fv();
+        case cwcglColor4fvCommand: {
+            cwcglColor4fvCommandData* command_data = (cwcglColor4fvCommandData*)command->data;
+            glColor4fv(command_data->v);
             break;
+        }
         case cwcglColor4iCommand: {
             cwcglColor4iCommandData* command_data = (cwcglColor4iCommandData*)command->data;
             glColor4i(command_data->red, command_data->green, command_data->blue, command_data->alpha);
             break;
         }
-        case cwcglColor4ivCommand:
-            glColor4iv();
+        case cwcglColor4ivCommand: {
+            cwcglColor4ivCommandData* command_data = (cwcglColor4ivCommandData*)command->data;
+            glColor4iv(command_data->v);
             break;
+        }
         case cwcglColor4sCommand: {
             cwcglColor4sCommandData* command_data = (cwcglColor4sCommandData*)command->data;
             glColor4s(command_data->red, command_data->green, command_data->blue, command_data->alpha);
             break;
         }
-        case cwcglColor4svCommand:
-            glColor4sv();
+        case cwcglColor4svCommand: {
+            cwcglColor4svCommandData* command_data = (cwcglColor4svCommandData*)command->data;
+            glColor4sv(command_data->v);
             break;
+        }
         case cwcglColor4ubCommand: {
             cwcglColor4ubCommandData* command_data = (cwcglColor4ubCommandData*)command->data;
             glColor4ub(command_data->red, command_data->green, command_data->blue, command_data->alpha);
             break;
         }
-        case cwcglColor4ubvCommand:
-            glColor4ubv();
+        case cwcglColor4ubvCommand: {
+            cwcglColor4ubvCommandData* command_data = (cwcglColor4ubvCommandData*)command->data;
+            glColor4ubv(command_data->v);
             break;
+        }
         case cwcglColor4uiCommand: {
             cwcglColor4uiCommandData* command_data = (cwcglColor4uiCommandData*)command->data;
             glColor4ui(command_data->red, command_data->green, command_data->blue, command_data->alpha);
             break;
         }
-        case cwcglColor4uivCommand:
-            glColor4uiv();
+        case cwcglColor4uivCommand: {
+            cwcglColor4uivCommandData* command_data = (cwcglColor4uivCommandData*)command->data;
+            glColor4uiv(command_data->v);
             break;
+        }
         case cwcglColor4usCommand: {
             cwcglColor4usCommandData* command_data = (cwcglColor4usCommandData*)command->data;
             glColor4us(command_data->red, command_data->green, command_data->blue, command_data->alpha);
             break;
         }
-        case cwcglColor4usvCommand:
-            glColor4usv();
+        case cwcglColor4usvCommand: {
+            cwcglColor4usvCommandData* command_data = (cwcglColor4usvCommandData*)command->data;
+            glColor4usv(command_data->v);
             break;
-        case cwcglEdgeFlagCommand:
-            glEdgeFlag();
+        }
+        case cwcglEdgeFlagCommand: {
+            cwcglEdgeFlagCommandData* command_data = (cwcglEdgeFlagCommandData*)command->data;
+            glEdgeFlag(command_data->flag);
             break;
-        case cwcglEdgeFlagvCommand:
-            glEdgeFlagv();
+        }
+        case cwcglEdgeFlagvCommand: {
+            cwcglEdgeFlagvCommandData* command_data = (cwcglEdgeFlagvCommandData*)command->data;
+            glEdgeFlagv(command_data->flag);
             break;
+        }
         case cwcglEndCommand:
             glEnd();
             break;
-        case cwcglIndexdCommand:
-            glIndexd();
+        case cwcglIndexdCommand: {
+            cwcglIndexdCommandData* command_data = (cwcglIndexdCommandData*)command->data;
+            glIndexd(command_data->c);
             break;
-        case cwcglIndexdvCommand:
-            glIndexdv();
+        }
+        case cwcglIndexdvCommand: {
+            cwcglIndexdvCommandData* command_data = (cwcglIndexdvCommandData*)command->data;
+            glIndexdv(command_data->c);
             break;
-        case cwcglIndexfCommand:
-            glIndexf();
+        }
+        case cwcglIndexfCommand: {
+            cwcglIndexfCommandData* command_data = (cwcglIndexfCommandData*)command->data;
+            glIndexf(command_data->c);
             break;
-        case cwcglIndexfvCommand:
-            glIndexfv();
+        }
+        case cwcglIndexfvCommand: {
+            cwcglIndexfvCommandData* command_data = (cwcglIndexfvCommandData*)command->data;
+            glIndexfv(command_data->c);
             break;
-        case cwcglIndexiCommand:
-            glIndexi();
+        }
+        case cwcglIndexiCommand: {
+            cwcglIndexiCommandData* command_data = (cwcglIndexiCommandData*)command->data;
+            glIndexi(command_data->c);
             break;
-        case cwcglIndexivCommand:
-            glIndexiv();
+        }
+        case cwcglIndexivCommand: {
+            cwcglIndexivCommandData* command_data = (cwcglIndexivCommandData*)command->data;
+            glIndexiv(command_data->c);
             break;
-        case cwcglIndexsCommand:
-            glIndexs();
+        }
+        case cwcglIndexsCommand: {
+            cwcglIndexsCommandData* command_data = (cwcglIndexsCommandData*)command->data;
+            glIndexs(command_data->c);
             break;
-        case cwcglIndexsvCommand:
-            glIndexsv();
+        }
+        case cwcglIndexsvCommand: {
+            cwcglIndexsvCommandData* command_data = (cwcglIndexsvCommandData*)command->data;
+            glIndexsv(command_data->c);
             break;
+        }
         case cwcglNormal3bCommand: {
             cwcglNormal3bCommandData* command_data = (cwcglNormal3bCommandData*)command->data;
             glNormal3b(command_data->nx, command_data->ny, command_data->nz);
             break;
         }
-        case cwcglNormal3bvCommand:
-            glNormal3bv();
+        case cwcglNormal3bvCommand: {
+            cwcglNormal3bvCommandData* command_data = (cwcglNormal3bvCommandData*)command->data;
+            glNormal3bv(command_data->v);
             break;
+        }
         case cwcglNormal3dCommand: {
             cwcglNormal3dCommandData* command_data = (cwcglNormal3dCommandData*)command->data;
             glNormal3d(command_data->nx, command_data->ny, command_data->nz);
             break;
         }
-        case cwcglNormal3dvCommand:
-            glNormal3dv();
+        case cwcglNormal3dvCommand: {
+            cwcglNormal3dvCommandData* command_data = (cwcglNormal3dvCommandData*)command->data;
+            glNormal3dv(command_data->v);
             break;
+        }
         case cwcglNormal3fCommand: {
             cwcglNormal3fCommandData* command_data = (cwcglNormal3fCommandData*)command->data;
             glNormal3f(command_data->nx, command_data->ny, command_data->nz);
             break;
         }
-        case cwcglNormal3fvCommand:
-            glNormal3fv();
+        case cwcglNormal3fvCommand: {
+            cwcglNormal3fvCommandData* command_data = (cwcglNormal3fvCommandData*)command->data;
+            glNormal3fv(command_data->v);
             break;
+        }
         case cwcglNormal3iCommand: {
             cwcglNormal3iCommandData* command_data = (cwcglNormal3iCommandData*)command->data;
             glNormal3i(command_data->nx, command_data->ny, command_data->nz);
             break;
         }
-        case cwcglNormal3ivCommand:
-            glNormal3iv();
+        case cwcglNormal3ivCommand: {
+            cwcglNormal3ivCommandData* command_data = (cwcglNormal3ivCommandData*)command->data;
+            glNormal3iv(command_data->v);
             break;
+        }
         case cwcglNormal3sCommand: {
             cwcglNormal3sCommandData* command_data = (cwcglNormal3sCommandData*)command->data;
             glNormal3s(command_data->nx, command_data->ny, command_data->nz);
             break;
         }
-        case cwcglNormal3svCommand:
-            glNormal3sv();
+        case cwcglNormal3svCommand: {
+            cwcglNormal3svCommandData* command_data = (cwcglNormal3svCommandData*)command->data;
+            glNormal3sv(command_data->v);
             break;
+        }
         case cwcglRasterPos2dCommand: {
             cwcglRasterPos2dCommandData* command_data = (cwcglRasterPos2dCommandData*)command->data;
             glRasterPos2d(command_data->x, command_data->y);
             break;
         }
-        case cwcglRasterPos2dvCommand:
-            glRasterPos2dv();
+        case cwcglRasterPos2dvCommand: {
+            cwcglRasterPos2dvCommandData* command_data = (cwcglRasterPos2dvCommandData*)command->data;
+            glRasterPos2dv(command_data->v);
             break;
+        }
         case cwcglRasterPos2fCommand: {
             cwcglRasterPos2fCommandData* command_data = (cwcglRasterPos2fCommandData*)command->data;
             glRasterPos2f(command_data->x, command_data->y);
             break;
         }
-        case cwcglRasterPos2fvCommand:
-            glRasterPos2fv();
+        case cwcglRasterPos2fvCommand: {
+            cwcglRasterPos2fvCommandData* command_data = (cwcglRasterPos2fvCommandData*)command->data;
+            glRasterPos2fv(command_data->v);
             break;
+        }
         case cwcglRasterPos2iCommand: {
             cwcglRasterPos2iCommandData* command_data = (cwcglRasterPos2iCommandData*)command->data;
             glRasterPos2i(command_data->x, command_data->y);
             break;
         }
-        case cwcglRasterPos2ivCommand:
-            glRasterPos2iv();
+        case cwcglRasterPos2ivCommand: {
+            cwcglRasterPos2ivCommandData* command_data = (cwcglRasterPos2ivCommandData*)command->data;
+            glRasterPos2iv(command_data->v);
             break;
+        }
         case cwcglRasterPos2sCommand: {
             cwcglRasterPos2sCommandData* command_data = (cwcglRasterPos2sCommandData*)command->data;
             glRasterPos2s(command_data->x, command_data->y);
             break;
         }
-        case cwcglRasterPos2svCommand:
-            glRasterPos2sv();
+        case cwcglRasterPos2svCommand: {
+            cwcglRasterPos2svCommandData* command_data = (cwcglRasterPos2svCommandData*)command->data;
+            glRasterPos2sv(command_data->v);
             break;
+        }
         case cwcglRasterPos3dCommand: {
             cwcglRasterPos3dCommandData* command_data = (cwcglRasterPos3dCommandData*)command->data;
             glRasterPos3d(command_data->x, command_data->y, command_data->z);
             break;
         }
-        case cwcglRasterPos3dvCommand:
-            glRasterPos3dv();
+        case cwcglRasterPos3dvCommand: {
+            cwcglRasterPos3dvCommandData* command_data = (cwcglRasterPos3dvCommandData*)command->data;
+            glRasterPos3dv(command_data->v);
             break;
+        }
         case cwcglRasterPos3fCommand: {
             cwcglRasterPos3fCommandData* command_data = (cwcglRasterPos3fCommandData*)command->data;
             glRasterPos3f(command_data->x, command_data->y, command_data->z);
             break;
         }
-        case cwcglRasterPos3fvCommand:
-            glRasterPos3fv();
+        case cwcglRasterPos3fvCommand: {
+            cwcglRasterPos3fvCommandData* command_data = (cwcglRasterPos3fvCommandData*)command->data;
+            glRasterPos3fv(command_data->v);
             break;
+        }
         case cwcglRasterPos3iCommand: {
             cwcglRasterPos3iCommandData* command_data = (cwcglRasterPos3iCommandData*)command->data;
             glRasterPos3i(command_data->x, command_data->y, command_data->z);
             break;
         }
-        case cwcglRasterPos3ivCommand:
-            glRasterPos3iv();
+        case cwcglRasterPos3ivCommand: {
+            cwcglRasterPos3ivCommandData* command_data = (cwcglRasterPos3ivCommandData*)command->data;
+            glRasterPos3iv(command_data->v);
             break;
+        }
         case cwcglRasterPos3sCommand: {
             cwcglRasterPos3sCommandData* command_data = (cwcglRasterPos3sCommandData*)command->data;
             glRasterPos3s(command_data->x, command_data->y, command_data->z);
             break;
         }
-        case cwcglRasterPos3svCommand:
-            glRasterPos3sv();
+        case cwcglRasterPos3svCommand: {
+            cwcglRasterPos3svCommandData* command_data = (cwcglRasterPos3svCommandData*)command->data;
+            glRasterPos3sv(command_data->v);
             break;
+        }
         case cwcglRasterPos4dCommand: {
             cwcglRasterPos4dCommandData* command_data = (cwcglRasterPos4dCommandData*)command->data;
             glRasterPos4d(command_data->x, command_data->y, command_data->z, command_data->w);
             break;
         }
-        case cwcglRasterPos4dvCommand:
-            glRasterPos4dv();
+        case cwcglRasterPos4dvCommand: {
+            cwcglRasterPos4dvCommandData* command_data = (cwcglRasterPos4dvCommandData*)command->data;
+            glRasterPos4dv(command_data->v);
             break;
+        }
         case cwcglRasterPos4fCommand: {
             cwcglRasterPos4fCommandData* command_data = (cwcglRasterPos4fCommandData*)command->data;
             glRasterPos4f(command_data->x, command_data->y, command_data->z, command_data->w);
             break;
         }
-        case cwcglRasterPos4fvCommand:
-            glRasterPos4fv();
+        case cwcglRasterPos4fvCommand: {
+            cwcglRasterPos4fvCommandData* command_data = (cwcglRasterPos4fvCommandData*)command->data;
+            glRasterPos4fv(command_data->v);
             break;
+        }
         case cwcglRasterPos4iCommand: {
             cwcglRasterPos4iCommandData* command_data = (cwcglRasterPos4iCommandData*)command->data;
             glRasterPos4i(command_data->x, command_data->y, command_data->z, command_data->w);
             break;
         }
-        case cwcglRasterPos4ivCommand:
-            glRasterPos4iv();
+        case cwcglRasterPos4ivCommand: {
+            cwcglRasterPos4ivCommandData* command_data = (cwcglRasterPos4ivCommandData*)command->data;
+            glRasterPos4iv(command_data->v);
             break;
+        }
         case cwcglRasterPos4sCommand: {
             cwcglRasterPos4sCommandData* command_data = (cwcglRasterPos4sCommandData*)command->data;
             glRasterPos4s(command_data->x, command_data->y, command_data->z, command_data->w);
             break;
         }
-        case cwcglRasterPos4svCommand:
-            glRasterPos4sv();
+        case cwcglRasterPos4svCommand: {
+            cwcglRasterPos4svCommandData* command_data = (cwcglRasterPos4svCommandData*)command->data;
+            glRasterPos4sv(command_data->v);
             break;
+        }
         case cwcglRectdCommand: {
             cwcglRectdCommandData* command_data = (cwcglRectdCommandData*)command->data;
             glRectd(command_data->x1, command_data->y1, command_data->x2, command_data->y2);
@@ -22799,222 +21815,286 @@ static void ProcessCommand(GLcommand* command) {
             glRectsv(command_data->v1, command_data->v2);
             break;
         }
-        case cwcglTexCoord1dCommand:
-            glTexCoord1d();
+        case cwcglTexCoord1dCommand: {
+            cwcglTexCoord1dCommandData* command_data = (cwcglTexCoord1dCommandData*)command->data;
+            glTexCoord1d(command_data->s);
             break;
-        case cwcglTexCoord1dvCommand:
-            glTexCoord1dv();
+        }
+        case cwcglTexCoord1dvCommand: {
+            cwcglTexCoord1dvCommandData* command_data = (cwcglTexCoord1dvCommandData*)command->data;
+            glTexCoord1dv(command_data->v);
             break;
-        case cwcglTexCoord1fCommand:
-            glTexCoord1f();
+        }
+        case cwcglTexCoord1fCommand: {
+            cwcglTexCoord1fCommandData* command_data = (cwcglTexCoord1fCommandData*)command->data;
+            glTexCoord1f(command_data->s);
             break;
-        case cwcglTexCoord1fvCommand:
-            glTexCoord1fv();
+        }
+        case cwcglTexCoord1fvCommand: {
+            cwcglTexCoord1fvCommandData* command_data = (cwcglTexCoord1fvCommandData*)command->data;
+            glTexCoord1fv(command_data->v);
             break;
-        case cwcglTexCoord1iCommand:
-            glTexCoord1i();
+        }
+        case cwcglTexCoord1iCommand: {
+            cwcglTexCoord1iCommandData* command_data = (cwcglTexCoord1iCommandData*)command->data;
+            glTexCoord1i(command_data->s);
             break;
-        case cwcglTexCoord1ivCommand:
-            glTexCoord1iv();
+        }
+        case cwcglTexCoord1ivCommand: {
+            cwcglTexCoord1ivCommandData* command_data = (cwcglTexCoord1ivCommandData*)command->data;
+            glTexCoord1iv(command_data->v);
             break;
-        case cwcglTexCoord1sCommand:
-            glTexCoord1s();
+        }
+        case cwcglTexCoord1sCommand: {
+            cwcglTexCoord1sCommandData* command_data = (cwcglTexCoord1sCommandData*)command->data;
+            glTexCoord1s(command_data->s);
             break;
-        case cwcglTexCoord1svCommand:
-            glTexCoord1sv();
+        }
+        case cwcglTexCoord1svCommand: {
+            cwcglTexCoord1svCommandData* command_data = (cwcglTexCoord1svCommandData*)command->data;
+            glTexCoord1sv(command_data->v);
             break;
+        }
         case cwcglTexCoord2dCommand: {
             cwcglTexCoord2dCommandData* command_data = (cwcglTexCoord2dCommandData*)command->data;
             glTexCoord2d(command_data->s, command_data->t);
             break;
         }
-        case cwcglTexCoord2dvCommand:
-            glTexCoord2dv();
+        case cwcglTexCoord2dvCommand: {
+            cwcglTexCoord2dvCommandData* command_data = (cwcglTexCoord2dvCommandData*)command->data;
+            glTexCoord2dv(command_data->v);
             break;
+        }
         case cwcglTexCoord2fCommand: {
             cwcglTexCoord2fCommandData* command_data = (cwcglTexCoord2fCommandData*)command->data;
             glTexCoord2f(command_data->s, command_data->t);
             break;
         }
-        case cwcglTexCoord2fvCommand:
-            glTexCoord2fv();
+        case cwcglTexCoord2fvCommand: {
+            cwcglTexCoord2fvCommandData* command_data = (cwcglTexCoord2fvCommandData*)command->data;
+            glTexCoord2fv(command_data->v);
             break;
+        }
         case cwcglTexCoord2iCommand: {
             cwcglTexCoord2iCommandData* command_data = (cwcglTexCoord2iCommandData*)command->data;
             glTexCoord2i(command_data->s, command_data->t);
             break;
         }
-        case cwcglTexCoord2ivCommand:
-            glTexCoord2iv();
+        case cwcglTexCoord2ivCommand: {
+            cwcglTexCoord2ivCommandData* command_data = (cwcglTexCoord2ivCommandData*)command->data;
+            glTexCoord2iv(command_data->v);
             break;
+        }
         case cwcglTexCoord2sCommand: {
             cwcglTexCoord2sCommandData* command_data = (cwcglTexCoord2sCommandData*)command->data;
             glTexCoord2s(command_data->s, command_data->t);
             break;
         }
-        case cwcglTexCoord2svCommand:
-            glTexCoord2sv();
+        case cwcglTexCoord2svCommand: {
+            cwcglTexCoord2svCommandData* command_data = (cwcglTexCoord2svCommandData*)command->data;
+            glTexCoord2sv(command_data->v);
             break;
+        }
         case cwcglTexCoord3dCommand: {
             cwcglTexCoord3dCommandData* command_data = (cwcglTexCoord3dCommandData*)command->data;
             glTexCoord3d(command_data->s, command_data->t, command_data->r);
             break;
         }
-        case cwcglTexCoord3dvCommand:
-            glTexCoord3dv();
+        case cwcglTexCoord3dvCommand: {
+            cwcglTexCoord3dvCommandData* command_data = (cwcglTexCoord3dvCommandData*)command->data;
+            glTexCoord3dv(command_data->v);
             break;
+        }
         case cwcglTexCoord3fCommand: {
             cwcglTexCoord3fCommandData* command_data = (cwcglTexCoord3fCommandData*)command->data;
             glTexCoord3f(command_data->s, command_data->t, command_data->r);
             break;
         }
-        case cwcglTexCoord3fvCommand:
-            glTexCoord3fv();
+        case cwcglTexCoord3fvCommand: {
+            cwcglTexCoord3fvCommandData* command_data = (cwcglTexCoord3fvCommandData*)command->data;
+            glTexCoord3fv(command_data->v);
             break;
+        }
         case cwcglTexCoord3iCommand: {
             cwcglTexCoord3iCommandData* command_data = (cwcglTexCoord3iCommandData*)command->data;
             glTexCoord3i(command_data->s, command_data->t, command_data->r);
             break;
         }
-        case cwcglTexCoord3ivCommand:
-            glTexCoord3iv();
+        case cwcglTexCoord3ivCommand: {
+            cwcglTexCoord3ivCommandData* command_data = (cwcglTexCoord3ivCommandData*)command->data;
+            glTexCoord3iv(command_data->v);
             break;
+        }
         case cwcglTexCoord3sCommand: {
             cwcglTexCoord3sCommandData* command_data = (cwcglTexCoord3sCommandData*)command->data;
             glTexCoord3s(command_data->s, command_data->t, command_data->r);
             break;
         }
-        case cwcglTexCoord3svCommand:
-            glTexCoord3sv();
+        case cwcglTexCoord3svCommand: {
+            cwcglTexCoord3svCommandData* command_data = (cwcglTexCoord3svCommandData*)command->data;
+            glTexCoord3sv(command_data->v);
             break;
+        }
         case cwcglTexCoord4dCommand: {
             cwcglTexCoord4dCommandData* command_data = (cwcglTexCoord4dCommandData*)command->data;
             glTexCoord4d(command_data->s, command_data->t, command_data->r, command_data->q);
             break;
         }
-        case cwcglTexCoord4dvCommand:
-            glTexCoord4dv();
+        case cwcglTexCoord4dvCommand: {
+            cwcglTexCoord4dvCommandData* command_data = (cwcglTexCoord4dvCommandData*)command->data;
+            glTexCoord4dv(command_data->v);
             break;
+        }
         case cwcglTexCoord4fCommand: {
             cwcglTexCoord4fCommandData* command_data = (cwcglTexCoord4fCommandData*)command->data;
             glTexCoord4f(command_data->s, command_data->t, command_data->r, command_data->q);
             break;
         }
-        case cwcglTexCoord4fvCommand:
-            glTexCoord4fv();
+        case cwcglTexCoord4fvCommand: {
+            cwcglTexCoord4fvCommandData* command_data = (cwcglTexCoord4fvCommandData*)command->data;
+            glTexCoord4fv(command_data->v);
             break;
+        }
         case cwcglTexCoord4iCommand: {
             cwcglTexCoord4iCommandData* command_data = (cwcglTexCoord4iCommandData*)command->data;
             glTexCoord4i(command_data->s, command_data->t, command_data->r, command_data->q);
             break;
         }
-        case cwcglTexCoord4ivCommand:
-            glTexCoord4iv();
+        case cwcglTexCoord4ivCommand: {
+            cwcglTexCoord4ivCommandData* command_data = (cwcglTexCoord4ivCommandData*)command->data;
+            glTexCoord4iv(command_data->v);
             break;
+        }
         case cwcglTexCoord4sCommand: {
             cwcglTexCoord4sCommandData* command_data = (cwcglTexCoord4sCommandData*)command->data;
             glTexCoord4s(command_data->s, command_data->t, command_data->r, command_data->q);
             break;
         }
-        case cwcglTexCoord4svCommand:
-            glTexCoord4sv();
+        case cwcglTexCoord4svCommand: {
+            cwcglTexCoord4svCommandData* command_data = (cwcglTexCoord4svCommandData*)command->data;
+            glTexCoord4sv(command_data->v);
             break;
+        }
         case cwcglVertex2dCommand: {
             cwcglVertex2dCommandData* command_data = (cwcglVertex2dCommandData*)command->data;
             glVertex2d(command_data->x, command_data->y);
             break;
         }
-        case cwcglVertex2dvCommand:
-            glVertex2dv();
+        case cwcglVertex2dvCommand: {
+            cwcglVertex2dvCommandData* command_data = (cwcglVertex2dvCommandData*)command->data;
+            glVertex2dv(command_data->v);
             break;
+        }
         case cwcglVertex2fCommand: {
             cwcglVertex2fCommandData* command_data = (cwcglVertex2fCommandData*)command->data;
             glVertex2f(command_data->x, command_data->y);
             break;
         }
-        case cwcglVertex2fvCommand:
-            glVertex2fv();
+        case cwcglVertex2fvCommand: {
+            cwcglVertex2fvCommandData* command_data = (cwcglVertex2fvCommandData*)command->data;
+            glVertex2fv(command_data->v);
             break;
+        }
         case cwcglVertex2iCommand: {
             cwcglVertex2iCommandData* command_data = (cwcglVertex2iCommandData*)command->data;
             glVertex2i(command_data->x, command_data->y);
             break;
         }
-        case cwcglVertex2ivCommand:
-            glVertex2iv();
+        case cwcglVertex2ivCommand: {
+            cwcglVertex2ivCommandData* command_data = (cwcglVertex2ivCommandData*)command->data;
+            glVertex2iv(command_data->v);
             break;
+        }
         case cwcglVertex2sCommand: {
             cwcglVertex2sCommandData* command_data = (cwcglVertex2sCommandData*)command->data;
             glVertex2s(command_data->x, command_data->y);
             break;
         }
-        case cwcglVertex2svCommand:
-            glVertex2sv();
+        case cwcglVertex2svCommand: {
+            cwcglVertex2svCommandData* command_data = (cwcglVertex2svCommandData*)command->data;
+            glVertex2sv(command_data->v);
             break;
+        }
         case cwcglVertex3dCommand: {
             cwcglVertex3dCommandData* command_data = (cwcglVertex3dCommandData*)command->data;
             glVertex3d(command_data->x, command_data->y, command_data->z);
             break;
         }
-        case cwcglVertex3dvCommand:
-            glVertex3dv();
+        case cwcglVertex3dvCommand: {
+            cwcglVertex3dvCommandData* command_data = (cwcglVertex3dvCommandData*)command->data;
+            glVertex3dv(command_data->v);
             break;
+        }
         case cwcglVertex3fCommand: {
             cwcglVertex3fCommandData* command_data = (cwcglVertex3fCommandData*)command->data;
             glVertex3f(command_data->x, command_data->y, command_data->z);
             break;
         }
-        case cwcglVertex3fvCommand:
-            glVertex3fv();
+        case cwcglVertex3fvCommand: {
+            cwcglVertex3fvCommandData* command_data = (cwcglVertex3fvCommandData*)command->data;
+            glVertex3fv(command_data->v);
             break;
+        }
         case cwcglVertex3iCommand: {
             cwcglVertex3iCommandData* command_data = (cwcglVertex3iCommandData*)command->data;
             glVertex3i(command_data->x, command_data->y, command_data->z);
             break;
         }
-        case cwcglVertex3ivCommand:
-            glVertex3iv();
+        case cwcglVertex3ivCommand: {
+            cwcglVertex3ivCommandData* command_data = (cwcglVertex3ivCommandData*)command->data;
+            glVertex3iv(command_data->v);
             break;
+        }
         case cwcglVertex3sCommand: {
             cwcglVertex3sCommandData* command_data = (cwcglVertex3sCommandData*)command->data;
             glVertex3s(command_data->x, command_data->y, command_data->z);
             break;
         }
-        case cwcglVertex3svCommand:
-            glVertex3sv();
+        case cwcglVertex3svCommand: {
+            cwcglVertex3svCommandData* command_data = (cwcglVertex3svCommandData*)command->data;
+            glVertex3sv(command_data->v);
             break;
+        }
         case cwcglVertex4dCommand: {
             cwcglVertex4dCommandData* command_data = (cwcglVertex4dCommandData*)command->data;
             glVertex4d(command_data->x, command_data->y, command_data->z, command_data->w);
             break;
         }
-        case cwcglVertex4dvCommand:
-            glVertex4dv();
+        case cwcglVertex4dvCommand: {
+            cwcglVertex4dvCommandData* command_data = (cwcglVertex4dvCommandData*)command->data;
+            glVertex4dv(command_data->v);
             break;
+        }
         case cwcglVertex4fCommand: {
             cwcglVertex4fCommandData* command_data = (cwcglVertex4fCommandData*)command->data;
             glVertex4f(command_data->x, command_data->y, command_data->z, command_data->w);
             break;
         }
-        case cwcglVertex4fvCommand:
-            glVertex4fv();
+        case cwcglVertex4fvCommand: {
+            cwcglVertex4fvCommandData* command_data = (cwcglVertex4fvCommandData*)command->data;
+            glVertex4fv(command_data->v);
             break;
+        }
         case cwcglVertex4iCommand: {
             cwcglVertex4iCommandData* command_data = (cwcglVertex4iCommandData*)command->data;
             glVertex4i(command_data->x, command_data->y, command_data->z, command_data->w);
             break;
         }
-        case cwcglVertex4ivCommand:
-            glVertex4iv();
+        case cwcglVertex4ivCommand: {
+            cwcglVertex4ivCommandData* command_data = (cwcglVertex4ivCommandData*)command->data;
+            glVertex4iv(command_data->v);
             break;
+        }
         case cwcglVertex4sCommand: {
             cwcglVertex4sCommandData* command_data = (cwcglVertex4sCommandData*)command->data;
             glVertex4s(command_data->x, command_data->y, command_data->z, command_data->w);
             break;
         }
-        case cwcglVertex4svCommand:
-            glVertex4sv();
+        case cwcglVertex4svCommand: {
+            cwcglVertex4svCommandData* command_data = (cwcglVertex4svCommandData*)command->data;
+            glVertex4sv(command_data->v);
             break;
+        }
         case cwcglClipPlaneCommand: {
             cwcglClipPlaneCommandData* command_data = (cwcglClipPlaneCommandData*)command->data;
             glClipPlane(command_data->plane, command_data->equation);
@@ -23110,12 +22190,16 @@ static void ProcessCommand(GLcommand* command) {
             glMaterialiv(command_data->face, command_data->pname, command_data->params);
             break;
         }
-        case cwcglPolygonStippleCommand:
-            glPolygonStipple();
+        case cwcglPolygonStippleCommand: {
+            cwcglPolygonStippleCommandData* command_data = (cwcglPolygonStippleCommandData*)command->data;
+            glPolygonStipple(command_data->mask);
             break;
-        case cwcglShadeModelCommand:
-            glShadeModel();
+        }
+        case cwcglShadeModelCommand: {
+            cwcglShadeModelCommandData* command_data = (cwcglShadeModelCommandData*)command->data;
+            glShadeModel(command_data->mode);
             break;
+        }
         case cwcglTexEnvfCommand: {
             cwcglTexEnvfCommandData* command_data = (cwcglTexEnvfCommandData*)command->data;
             glTexEnvf(command_data->target, command_data->pname, command_data->param);
@@ -23178,37 +22262,44 @@ static void ProcessCommand(GLcommand* command) {
         }
         case cwcglRenderModeCommand: {
             cwcglRenderModeCommandData* command_data = (cwcglRenderModeCommandData*)command->data;
-            if (data->return_value)
-                *(data->return_value) = glRenderMode();
-            else
-                glRenderMode();
             break;
+        }
         case cwcglInitNamesCommand:
             glInitNames();
             break;
-        case cwcglLoadNameCommand:
-            glLoadName();
+        case cwcglLoadNameCommand: {
+            cwcglLoadNameCommandData* command_data = (cwcglLoadNameCommandData*)command->data;
+            glLoadName(command_data->name);
             break;
-        case cwcglPassThroughCommand:
-            glPassThrough();
+        }
+        case cwcglPassThroughCommand: {
+            cwcglPassThroughCommandData* command_data = (cwcglPassThroughCommandData*)command->data;
+            glPassThrough(command_data->token);
             break;
+        }
         case cwcglPopNameCommand:
             glPopName();
             break;
-        case cwcglPushNameCommand:
-            glPushName();
+        case cwcglPushNameCommand: {
+            cwcglPushNameCommandData* command_data = (cwcglPushNameCommandData*)command->data;
+            glPushName(command_data->name);
             break;
+        }
         case cwcglClearAccumCommand: {
             cwcglClearAccumCommandData* command_data = (cwcglClearAccumCommandData*)command->data;
             glClearAccum(command_data->red, command_data->green, command_data->blue, command_data->alpha);
             break;
         }
-        case cwcglClearIndexCommand:
-            glClearIndex();
+        case cwcglClearIndexCommand: {
+            cwcglClearIndexCommandData* command_data = (cwcglClearIndexCommandData*)command->data;
+            glClearIndex(command_data->c);
             break;
-        case cwcglIndexMaskCommand:
-            glIndexMask();
+        }
+        case cwcglIndexMaskCommand: {
+            cwcglIndexMaskCommandData* command_data = (cwcglIndexMaskCommandData*)command->data;
+            glIndexMask(command_data->mask);
             break;
+        }
         case cwcglAccumCommand: {
             cwcglAccumCommandData* command_data = (cwcglAccumCommandData*)command->data;
             glAccum(command_data->op, command_data->value);
@@ -23217,9 +22308,11 @@ static void ProcessCommand(GLcommand* command) {
         case cwcglPopAttribCommand:
             glPopAttrib();
             break;
-        case cwcglPushAttribCommand:
-            glPushAttrib();
+        case cwcglPushAttribCommand: {
+            cwcglPushAttribCommandData* command_data = (cwcglPushAttribCommandData*)command->data;
+            glPushAttrib(command_data->mask);
             break;
+        }
         case cwcglMap1dCommand: {
             cwcglMap1dCommandData* command_data = (cwcglMap1dCommandData*)command->data;
             glMap1d(command_data->target, command_data->u1, command_data->u2, command_data->stride, command_data->order, command_data->points);
@@ -23260,42 +22353,56 @@ static void ProcessCommand(GLcommand* command) {
             glMapGrid2f(command_data->un, command_data->u1, command_data->u2, command_data->vn, command_data->v1, command_data->v2);
             break;
         }
-        case cwcglEvalCoord1dCommand:
-            glEvalCoord1d();
+        case cwcglEvalCoord1dCommand: {
+            cwcglEvalCoord1dCommandData* command_data = (cwcglEvalCoord1dCommandData*)command->data;
+            glEvalCoord1d(command_data->u);
             break;
-        case cwcglEvalCoord1dvCommand:
-            glEvalCoord1dv();
+        }
+        case cwcglEvalCoord1dvCommand: {
+            cwcglEvalCoord1dvCommandData* command_data = (cwcglEvalCoord1dvCommandData*)command->data;
+            glEvalCoord1dv(command_data->u);
             break;
-        case cwcglEvalCoord1fCommand:
-            glEvalCoord1f();
+        }
+        case cwcglEvalCoord1fCommand: {
+            cwcglEvalCoord1fCommandData* command_data = (cwcglEvalCoord1fCommandData*)command->data;
+            glEvalCoord1f(command_data->u);
             break;
-        case cwcglEvalCoord1fvCommand:
-            glEvalCoord1fv();
+        }
+        case cwcglEvalCoord1fvCommand: {
+            cwcglEvalCoord1fvCommandData* command_data = (cwcglEvalCoord1fvCommandData*)command->data;
+            glEvalCoord1fv(command_data->u);
             break;
+        }
         case cwcglEvalCoord2dCommand: {
             cwcglEvalCoord2dCommandData* command_data = (cwcglEvalCoord2dCommandData*)command->data;
             glEvalCoord2d(command_data->u, command_data->v);
             break;
         }
-        case cwcglEvalCoord2dvCommand:
-            glEvalCoord2dv();
+        case cwcglEvalCoord2dvCommand: {
+            cwcglEvalCoord2dvCommandData* command_data = (cwcglEvalCoord2dvCommandData*)command->data;
+            glEvalCoord2dv(command_data->u);
             break;
+        }
         case cwcglEvalCoord2fCommand: {
             cwcglEvalCoord2fCommandData* command_data = (cwcglEvalCoord2fCommandData*)command->data;
             glEvalCoord2f(command_data->u, command_data->v);
             break;
         }
-        case cwcglEvalCoord2fvCommand:
-            glEvalCoord2fv();
+        case cwcglEvalCoord2fvCommand: {
+            cwcglEvalCoord2fvCommandData* command_data = (cwcglEvalCoord2fvCommandData*)command->data;
+            glEvalCoord2fv(command_data->u);
             break;
+        }
         case cwcglEvalMesh1Command: {
             cwcglEvalMesh1CommandData* command_data = (cwcglEvalMesh1CommandData*)command->data;
             glEvalMesh1(command_data->mode, command_data->i1, command_data->i2);
             break;
         }
-        case cwcglEvalPoint1Command:
-            glEvalPoint1();
+        case cwcglEvalPoint1Command: {
+            cwcglEvalPoint1CommandData* command_data = (cwcglEvalPoint1CommandData*)command->data;
+            glEvalPoint1(command_data->i);
             break;
+        }
         case cwcglEvalMesh2Command: {
             cwcglEvalMesh2CommandData* command_data = (cwcglEvalMesh2CommandData*)command->data;
             glEvalMesh2(command_data->mode, command_data->i1, command_data->i2, command_data->j1, command_data->j2);
@@ -23406,9 +22513,11 @@ static void ProcessCommand(GLcommand* command) {
             glGetPixelMapusv(command_data->map, command_data->values);
             break;
         }
-        case cwcglGetPolygonStippleCommand:
-            glGetPolygonStipple();
+        case cwcglGetPolygonStippleCommand: {
+            cwcglGetPolygonStippleCommandData* command_data = (cwcglGetPolygonStippleCommandData*)command->data;
+            glGetPolygonStipple(command_data->mask);
             break;
+        }
         case cwcglGetTexEnvfvCommand: {
             cwcglGetTexEnvfvCommandData* command_data = (cwcglGetTexEnvfvCommandData*)command->data;
             glGetTexEnvfv(command_data->target, command_data->pname, command_data->params);
@@ -23436,11 +22545,8 @@ static void ProcessCommand(GLcommand* command) {
         }
         case cwcglIsListCommand: {
             cwcglIsListCommandData* command_data = (cwcglIsListCommandData*)command->data;
-            if (data->return_value)
-                *(data->return_value) = glIsList();
-            else
-                glIsList();
             break;
+        }
         case cwcglFrustumCommand: {
             cwcglFrustumCommandData* command_data = (cwcglFrustumCommandData*)command->data;
             glFrustum(command_data->left, command_data->right, command_data->bottom, command_data->top, command_data->zNear, command_data->zFar);
@@ -23449,21 +22555,31 @@ static void ProcessCommand(GLcommand* command) {
         case cwcglLoadIdentityCommand:
             glLoadIdentity();
             break;
-        case cwcglLoadMatrixfCommand:
-            glLoadMatrixf();
+        case cwcglLoadMatrixfCommand: {
+            cwcglLoadMatrixfCommandData* command_data = (cwcglLoadMatrixfCommandData*)command->data;
+            glLoadMatrixf(command_data->m);
             break;
-        case cwcglLoadMatrixdCommand:
-            glLoadMatrixd();
+        }
+        case cwcglLoadMatrixdCommand: {
+            cwcglLoadMatrixdCommandData* command_data = (cwcglLoadMatrixdCommandData*)command->data;
+            glLoadMatrixd(command_data->m);
             break;
-        case cwcglMatrixModeCommand:
-            glMatrixMode();
+        }
+        case cwcglMatrixModeCommand: {
+            cwcglMatrixModeCommandData* command_data = (cwcglMatrixModeCommandData*)command->data;
+            glMatrixMode(command_data->mode);
             break;
-        case cwcglMultMatrixfCommand:
-            glMultMatrixf();
+        }
+        case cwcglMultMatrixfCommand: {
+            cwcglMultMatrixfCommandData* command_data = (cwcglMultMatrixfCommandData*)command->data;
+            glMultMatrixf(command_data->m);
             break;
-        case cwcglMultMatrixdCommand:
-            glMultMatrixd();
+        }
+        case cwcglMultMatrixdCommand: {
+            cwcglMultMatrixdCommandData* command_data = (cwcglMultMatrixdCommandData*)command->data;
+            glMultMatrixd(command_data->m);
             break;
+        }
         case cwcglOrthoCommand: {
             cwcglOrthoCommandData* command_data = (cwcglOrthoCommandData*)command->data;
             glOrtho(command_data->left, command_data->right, command_data->bottom, command_data->top, command_data->zNear, command_data->zFar);
@@ -23505,6 +22621,7 @@ static void ProcessCommand(GLcommand* command) {
             glTranslatef(command_data->x, command_data->y, command_data->z);
             break;
         }
+#endif
 #if CWCGL_VERSION >= GL_VERSION_1_1
         case cwcglDrawArraysCommand: {
             cwcglDrawArraysCommandData* command_data = (cwcglDrawArraysCommandData*)command->data;
@@ -23573,30 +22690,33 @@ static void ProcessCommand(GLcommand* command) {
         }
         case cwcglIsTextureCommand: {
             cwcglIsTextureCommandData* command_data = (cwcglIsTextureCommandData*)command->data;
-            if (data->return_value)
-                *(data->return_value) = glIsTexture();
-            else
-                glIsTexture();
             break;
-        case cwcglArrayElementCommand:
-            glArrayElement();
+        }
+        case cwcglArrayElementCommand: {
+            cwcglArrayElementCommandData* command_data = (cwcglArrayElementCommandData*)command->data;
+            glArrayElement(command_data->i);
             break;
+        }
         case cwcglColorPointerCommand: {
             cwcglColorPointerCommandData* command_data = (cwcglColorPointerCommandData*)command->data;
             glColorPointer(command_data->size, command_data->type, command_data->stride, command_data->pointer);
             break;
         }
-        case cwcglDisableClientStateCommand:
-            glDisableClientState();
+        case cwcglDisableClientStateCommand: {
+            cwcglDisableClientStateCommandData* command_data = (cwcglDisableClientStateCommandData*)command->data;
+            glDisableClientState(command_data->array);
             break;
+        }
         case cwcglEdgeFlagPointerCommand: {
             cwcglEdgeFlagPointerCommandData* command_data = (cwcglEdgeFlagPointerCommandData*)command->data;
             glEdgeFlagPointer(command_data->stride, command_data->pointer);
             break;
         }
-        case cwcglEnableClientStateCommand:
-            glEnableClientState();
+        case cwcglEnableClientStateCommand: {
+            cwcglEnableClientStateCommandData* command_data = (cwcglEnableClientStateCommandData*)command->data;
+            glEnableClientState(command_data->array);
             break;
+        }
         case cwcglIndexPointerCommand: {
             cwcglIndexPointerCommandData* command_data = (cwcglIndexPointerCommandData*)command->data;
             glIndexPointer(command_data->type, command_data->stride, command_data->pointer);
@@ -23624,10 +22744,6 @@ static void ProcessCommand(GLcommand* command) {
         }
         case cwcglAreTexturesResidentCommand: {
             cwcglAreTexturesResidentCommandData* command_data = (cwcglAreTexturesResidentCommandData*)command->data;
-            if (data->return_value)
-                *(data->return_value) = glAreTexturesResident(command_data->n, command_data->textures, command_data->residences);
-            else
-                glAreTexturesResident(command_data->n, command_data->textures, command_data->residences);
             break;
         }
         case cwcglPrioritizeTexturesCommand: {
@@ -23635,18 +22751,25 @@ static void ProcessCommand(GLcommand* command) {
             glPrioritizeTextures(command_data->n, command_data->textures, command_data->priorities);
             break;
         }
-        case cwcglIndexubCommand:
-            glIndexub();
+        case cwcglIndexubCommand: {
+            cwcglIndexubCommandData* command_data = (cwcglIndexubCommandData*)command->data;
+            glIndexub(command_data->c);
             break;
-        case cwcglIndexubvCommand:
-            glIndexubv();
+        }
+        case cwcglIndexubvCommand: {
+            cwcglIndexubvCommandData* command_data = (cwcglIndexubvCommandData*)command->data;
+            glIndexubv(command_data->c);
             break;
+        }
         case cwcglPopClientAttribCommand:
             glPopClientAttrib();
             break;
-        case cwcglPushClientAttribCommand:
-            glPushClientAttrib();
+        case cwcglPushClientAttribCommand: {
+            cwcglPushClientAttribCommandData* command_data = (cwcglPushClientAttribCommandData*)command->data;
+            glPushClientAttrib(command_data->mask);
             break;
+        }
+#endif
 #if CWCGL_VERSION >= GL_VERSION_1_2
         case cwcglDrawRangeElementsCommand: {
             cwcglDrawRangeElementsCommandData* command_data = (cwcglDrawRangeElementsCommandData*)command->data;
@@ -23668,10 +22791,13 @@ static void ProcessCommand(GLcommand* command) {
             glCopyTexSubImage3D(command_data->target, command_data->level, command_data->xoffset, command_data->yoffset, command_data->zoffset, command_data->x, command_data->y, command_data->width, command_data->height);
             break;
         }
+#endif
 #if CWCGL_VERSION >= GL_VERSION_1_3
-        case cwcglActiveTextureCommand:
-            glActiveTexture();
+        case cwcglActiveTextureCommand: {
+            cwcglActiveTextureCommandData* command_data = (cwcglActiveTextureCommandData*)command->data;
+            glActiveTexture(command_data->texture);
             break;
+        }
         case cwcglSampleCoverageCommand: {
             cwcglSampleCoverageCommandData* command_data = (cwcglSampleCoverageCommandData*)command->data;
             glSampleCoverage(command_data->value, command_data->invert);
@@ -23712,9 +22838,11 @@ static void ProcessCommand(GLcommand* command) {
             glGetCompressedTexImage(command_data->target, command_data->level, command_data->img);
             break;
         }
-        case cwcglClientActiveTextureCommand:
-            glClientActiveTexture();
+        case cwcglClientActiveTextureCommand: {
+            cwcglClientActiveTextureCommandData* command_data = (cwcglClientActiveTextureCommandData*)command->data;
+            glClientActiveTexture(command_data->texture);
             break;
+        }
         case cwcglMultiTexCoord1dCommand: {
             cwcglMultiTexCoord1dCommandData* command_data = (cwcglMultiTexCoord1dCommandData*)command->data;
             glMultiTexCoord1d(command_data->target, command_data->s);
@@ -23875,18 +23003,27 @@ static void ProcessCommand(GLcommand* command) {
             glMultiTexCoord4sv(command_data->target, command_data->v);
             break;
         }
-        case cwcglLoadTransposeMatrixfCommand:
-            glLoadTransposeMatrixf();
+        case cwcglLoadTransposeMatrixfCommand: {
+            cwcglLoadTransposeMatrixfCommandData* command_data = (cwcglLoadTransposeMatrixfCommandData*)command->data;
+            glLoadTransposeMatrixf(command_data->m);
             break;
-        case cwcglLoadTransposeMatrixdCommand:
-            glLoadTransposeMatrixd();
+        }
+        case cwcglLoadTransposeMatrixdCommand: {
+            cwcglLoadTransposeMatrixdCommandData* command_data = (cwcglLoadTransposeMatrixdCommandData*)command->data;
+            glLoadTransposeMatrixd(command_data->m);
             break;
-        case cwcglMultTransposeMatrixfCommand:
-            glMultTransposeMatrixf();
+        }
+        case cwcglMultTransposeMatrixfCommand: {
+            cwcglMultTransposeMatrixfCommandData* command_data = (cwcglMultTransposeMatrixfCommandData*)command->data;
+            glMultTransposeMatrixf(command_data->m);
             break;
-        case cwcglMultTransposeMatrixdCommand:
-            glMultTransposeMatrixd();
+        }
+        case cwcglMultTransposeMatrixdCommand: {
+            cwcglMultTransposeMatrixdCommandData* command_data = (cwcglMultTransposeMatrixdCommandData*)command->data;
+            glMultTransposeMatrixd(command_data->m);
             break;
+        }
+#endif
 #if CWCGL_VERSION >= GL_VERSION_1_4
         case cwcglBlendFuncSeparateCommand: {
             cwcglBlendFuncSeparateCommandData* command_data = (cwcglBlendFuncSeparateCommandData*)command->data;
@@ -23923,18 +23060,26 @@ static void ProcessCommand(GLcommand* command) {
             glPointParameteriv(command_data->pname, command_data->params);
             break;
         }
-        case cwcglFogCoordfCommand:
-            glFogCoordf();
+        case cwcglFogCoordfCommand: {
+            cwcglFogCoordfCommandData* command_data = (cwcglFogCoordfCommandData*)command->data;
+            glFogCoordf(command_data->coord);
             break;
-        case cwcglFogCoordfvCommand:
-            glFogCoordfv();
+        }
+        case cwcglFogCoordfvCommand: {
+            cwcglFogCoordfvCommandData* command_data = (cwcglFogCoordfvCommandData*)command->data;
+            glFogCoordfv(command_data->coord);
             break;
-        case cwcglFogCoorddCommand:
-            glFogCoordd();
+        }
+        case cwcglFogCoorddCommand: {
+            cwcglFogCoorddCommandData* command_data = (cwcglFogCoorddCommandData*)command->data;
+            glFogCoordd(command_data->coord);
             break;
-        case cwcglFogCoorddvCommand:
-            glFogCoorddv();
+        }
+        case cwcglFogCoorddvCommand: {
+            cwcglFogCoorddvCommandData* command_data = (cwcglFogCoorddvCommandData*)command->data;
+            glFogCoorddv(command_data->coord);
             break;
+        }
         case cwcglFogCoordPointerCommand: {
             cwcglFogCoordPointerCommandData* command_data = (cwcglFogCoordPointerCommandData*)command->data;
             glFogCoordPointer(command_data->type, command_data->stride, command_data->pointer);
@@ -23945,65 +23090,81 @@ static void ProcessCommand(GLcommand* command) {
             glSecondaryColor3b(command_data->red, command_data->green, command_data->blue);
             break;
         }
-        case cwcglSecondaryColor3bvCommand:
-            glSecondaryColor3bv();
+        case cwcglSecondaryColor3bvCommand: {
+            cwcglSecondaryColor3bvCommandData* command_data = (cwcglSecondaryColor3bvCommandData*)command->data;
+            glSecondaryColor3bv(command_data->v);
             break;
+        }
         case cwcglSecondaryColor3dCommand: {
             cwcglSecondaryColor3dCommandData* command_data = (cwcglSecondaryColor3dCommandData*)command->data;
             glSecondaryColor3d(command_data->red, command_data->green, command_data->blue);
             break;
         }
-        case cwcglSecondaryColor3dvCommand:
-            glSecondaryColor3dv();
+        case cwcglSecondaryColor3dvCommand: {
+            cwcglSecondaryColor3dvCommandData* command_data = (cwcglSecondaryColor3dvCommandData*)command->data;
+            glSecondaryColor3dv(command_data->v);
             break;
+        }
         case cwcglSecondaryColor3fCommand: {
             cwcglSecondaryColor3fCommandData* command_data = (cwcglSecondaryColor3fCommandData*)command->data;
             glSecondaryColor3f(command_data->red, command_data->green, command_data->blue);
             break;
         }
-        case cwcglSecondaryColor3fvCommand:
-            glSecondaryColor3fv();
+        case cwcglSecondaryColor3fvCommand: {
+            cwcglSecondaryColor3fvCommandData* command_data = (cwcglSecondaryColor3fvCommandData*)command->data;
+            glSecondaryColor3fv(command_data->v);
             break;
+        }
         case cwcglSecondaryColor3iCommand: {
             cwcglSecondaryColor3iCommandData* command_data = (cwcglSecondaryColor3iCommandData*)command->data;
             glSecondaryColor3i(command_data->red, command_data->green, command_data->blue);
             break;
         }
-        case cwcglSecondaryColor3ivCommand:
-            glSecondaryColor3iv();
+        case cwcglSecondaryColor3ivCommand: {
+            cwcglSecondaryColor3ivCommandData* command_data = (cwcglSecondaryColor3ivCommandData*)command->data;
+            glSecondaryColor3iv(command_data->v);
             break;
+        }
         case cwcglSecondaryColor3sCommand: {
             cwcglSecondaryColor3sCommandData* command_data = (cwcglSecondaryColor3sCommandData*)command->data;
             glSecondaryColor3s(command_data->red, command_data->green, command_data->blue);
             break;
         }
-        case cwcglSecondaryColor3svCommand:
-            glSecondaryColor3sv();
+        case cwcglSecondaryColor3svCommand: {
+            cwcglSecondaryColor3svCommandData* command_data = (cwcglSecondaryColor3svCommandData*)command->data;
+            glSecondaryColor3sv(command_data->v);
             break;
+        }
         case cwcglSecondaryColor3ubCommand: {
             cwcglSecondaryColor3ubCommandData* command_data = (cwcglSecondaryColor3ubCommandData*)command->data;
             glSecondaryColor3ub(command_data->red, command_data->green, command_data->blue);
             break;
         }
-        case cwcglSecondaryColor3ubvCommand:
-            glSecondaryColor3ubv();
+        case cwcglSecondaryColor3ubvCommand: {
+            cwcglSecondaryColor3ubvCommandData* command_data = (cwcglSecondaryColor3ubvCommandData*)command->data;
+            glSecondaryColor3ubv(command_data->v);
             break;
+        }
         case cwcglSecondaryColor3uiCommand: {
             cwcglSecondaryColor3uiCommandData* command_data = (cwcglSecondaryColor3uiCommandData*)command->data;
             glSecondaryColor3ui(command_data->red, command_data->green, command_data->blue);
             break;
         }
-        case cwcglSecondaryColor3uivCommand:
-            glSecondaryColor3uiv();
+        case cwcglSecondaryColor3uivCommand: {
+            cwcglSecondaryColor3uivCommandData* command_data = (cwcglSecondaryColor3uivCommandData*)command->data;
+            glSecondaryColor3uiv(command_data->v);
             break;
+        }
         case cwcglSecondaryColor3usCommand: {
             cwcglSecondaryColor3usCommandData* command_data = (cwcglSecondaryColor3usCommandData*)command->data;
             glSecondaryColor3us(command_data->red, command_data->green, command_data->blue);
             break;
         }
-        case cwcglSecondaryColor3usvCommand:
-            glSecondaryColor3usv();
+        case cwcglSecondaryColor3usvCommand: {
+            cwcglSecondaryColor3usvCommandData* command_data = (cwcglSecondaryColor3usvCommandData*)command->data;
+            glSecondaryColor3usv(command_data->v);
             break;
+        }
         case cwcglSecondaryColorPointerCommand: {
             cwcglSecondaryColorPointerCommandData* command_data = (cwcglSecondaryColorPointerCommandData*)command->data;
             glSecondaryColorPointer(command_data->size, command_data->type, command_data->stride, command_data->pointer);
@@ -24014,73 +23175,92 @@ static void ProcessCommand(GLcommand* command) {
             glWindowPos2d(command_data->x, command_data->y);
             break;
         }
-        case cwcglWindowPos2dvCommand:
-            glWindowPos2dv();
+        case cwcglWindowPos2dvCommand: {
+            cwcglWindowPos2dvCommandData* command_data = (cwcglWindowPos2dvCommandData*)command->data;
+            glWindowPos2dv(command_data->v);
             break;
+        }
         case cwcglWindowPos2fCommand: {
             cwcglWindowPos2fCommandData* command_data = (cwcglWindowPos2fCommandData*)command->data;
             glWindowPos2f(command_data->x, command_data->y);
             break;
         }
-        case cwcglWindowPos2fvCommand:
-            glWindowPos2fv();
+        case cwcglWindowPos2fvCommand: {
+            cwcglWindowPos2fvCommandData* command_data = (cwcglWindowPos2fvCommandData*)command->data;
+            glWindowPos2fv(command_data->v);
             break;
+        }
         case cwcglWindowPos2iCommand: {
             cwcglWindowPos2iCommandData* command_data = (cwcglWindowPos2iCommandData*)command->data;
             glWindowPos2i(command_data->x, command_data->y);
             break;
         }
-        case cwcglWindowPos2ivCommand:
-            glWindowPos2iv();
+        case cwcglWindowPos2ivCommand: {
+            cwcglWindowPos2ivCommandData* command_data = (cwcglWindowPos2ivCommandData*)command->data;
+            glWindowPos2iv(command_data->v);
             break;
+        }
         case cwcglWindowPos2sCommand: {
             cwcglWindowPos2sCommandData* command_data = (cwcglWindowPos2sCommandData*)command->data;
             glWindowPos2s(command_data->x, command_data->y);
             break;
         }
-        case cwcglWindowPos2svCommand:
-            glWindowPos2sv();
+        case cwcglWindowPos2svCommand: {
+            cwcglWindowPos2svCommandData* command_data = (cwcglWindowPos2svCommandData*)command->data;
+            glWindowPos2sv(command_data->v);
             break;
+        }
         case cwcglWindowPos3dCommand: {
             cwcglWindowPos3dCommandData* command_data = (cwcglWindowPos3dCommandData*)command->data;
             glWindowPos3d(command_data->x, command_data->y, command_data->z);
             break;
         }
-        case cwcglWindowPos3dvCommand:
-            glWindowPos3dv();
+        case cwcglWindowPos3dvCommand: {
+            cwcglWindowPos3dvCommandData* command_data = (cwcglWindowPos3dvCommandData*)command->data;
+            glWindowPos3dv(command_data->v);
             break;
+        }
         case cwcglWindowPos3fCommand: {
             cwcglWindowPos3fCommandData* command_data = (cwcglWindowPos3fCommandData*)command->data;
             glWindowPos3f(command_data->x, command_data->y, command_data->z);
             break;
         }
-        case cwcglWindowPos3fvCommand:
-            glWindowPos3fv();
+        case cwcglWindowPos3fvCommand: {
+            cwcglWindowPos3fvCommandData* command_data = (cwcglWindowPos3fvCommandData*)command->data;
+            glWindowPos3fv(command_data->v);
             break;
+        }
         case cwcglWindowPos3iCommand: {
             cwcglWindowPos3iCommandData* command_data = (cwcglWindowPos3iCommandData*)command->data;
             glWindowPos3i(command_data->x, command_data->y, command_data->z);
             break;
         }
-        case cwcglWindowPos3ivCommand:
-            glWindowPos3iv();
+        case cwcglWindowPos3ivCommand: {
+            cwcglWindowPos3ivCommandData* command_data = (cwcglWindowPos3ivCommandData*)command->data;
+            glWindowPos3iv(command_data->v);
             break;
+        }
         case cwcglWindowPos3sCommand: {
             cwcglWindowPos3sCommandData* command_data = (cwcglWindowPos3sCommandData*)command->data;
             glWindowPos3s(command_data->x, command_data->y, command_data->z);
             break;
         }
-        case cwcglWindowPos3svCommand:
-            glWindowPos3sv();
+        case cwcglWindowPos3svCommand: {
+            cwcglWindowPos3svCommandData* command_data = (cwcglWindowPos3svCommandData*)command->data;
+            glWindowPos3sv(command_data->v);
             break;
+        }
         case cwcglBlendColorCommand: {
             cwcglBlendColorCommandData* command_data = (cwcglBlendColorCommandData*)command->data;
             glBlendColor(command_data->red, command_data->green, command_data->blue, command_data->alpha);
             break;
         }
-        case cwcglBlendEquationCommand:
-            glBlendEquation();
+        case cwcglBlendEquationCommand: {
+            cwcglBlendEquationCommandData* command_data = (cwcglBlendEquationCommandData*)command->data;
+            glBlendEquation(command_data->mode);
             break;
+        }
+#endif
 #if CWCGL_VERSION >= GL_VERSION_1_5
         case cwcglGenQueriesCommand: {
             cwcglGenQueriesCommandData* command_data = (cwcglGenQueriesCommandData*)command->data;
@@ -24094,19 +23274,18 @@ static void ProcessCommand(GLcommand* command) {
         }
         case cwcglIsQueryCommand: {
             cwcglIsQueryCommandData* command_data = (cwcglIsQueryCommandData*)command->data;
-            if (data->return_value)
-                *(data->return_value) = glIsQuery();
-            else
-                glIsQuery();
             break;
+        }
         case cwcglBeginQueryCommand: {
             cwcglBeginQueryCommandData* command_data = (cwcglBeginQueryCommandData*)command->data;
             glBeginQuery(command_data->target, command_data->id);
             break;
         }
-        case cwcglEndQueryCommand:
-            glEndQuery();
+        case cwcglEndQueryCommand: {
+            cwcglEndQueryCommandData* command_data = (cwcglEndQueryCommandData*)command->data;
+            glEndQuery(command_data->target);
             break;
+        }
         case cwcglGetQueryivCommand: {
             cwcglGetQueryivCommandData* command_data = (cwcglGetQueryivCommandData*)command->data;
             glGetQueryiv(command_data->target, command_data->pname, command_data->params);
@@ -24139,11 +23318,8 @@ static void ProcessCommand(GLcommand* command) {
         }
         case cwcglIsBufferCommand: {
             cwcglIsBufferCommandData* command_data = (cwcglIsBufferCommandData*)command->data;
-            if (data->return_value)
-                *(data->return_value) = glIsBuffer();
-            else
-                glIsBuffer();
             break;
+        }
         case cwcglBufferDataCommand: {
             cwcglBufferDataCommandData* command_data = (cwcglBufferDataCommandData*)command->data;
             glBufferData(command_data->target, command_data->size, command_data->data, command_data->usage);
@@ -24161,19 +23337,12 @@ static void ProcessCommand(GLcommand* command) {
         }
         case cwcglMapBufferCommand: {
             cwcglMapBufferCommandData* command_data = (cwcglMapBufferCommandData*)command->data;
-            if (data->return_value)
-                *(data->return_value) = glMapBuffer(command_data->target, command_data->access);
-            else
-                glMapBuffer(command_data->target, command_data->access);
             break;
         }
         case cwcglUnmapBufferCommand: {
             cwcglUnmapBufferCommandData* command_data = (cwcglUnmapBufferCommandData*)command->data;
-            if (data->return_value)
-                *(data->return_value) = glUnmapBuffer();
-            else
-                glUnmapBuffer();
             break;
+        }
         case cwcglGetBufferParameterivCommand: {
             cwcglGetBufferParameterivCommandData* command_data = (cwcglGetBufferParameterivCommandData*)command->data;
             glGetBufferParameteriv(command_data->target, command_data->pname, command_data->params);
@@ -24184,6 +23353,7 @@ static void ProcessCommand(GLcommand* command) {
             glGetBufferPointerv(command_data->target, command_data->pname, command_data->params);
             break;
         }
+#endif
 #if CWCGL_VERSION >= GL_VERSION_2_0
         case cwcglBlendEquationSeparateCommand: {
             cwcglBlendEquationSeparateCommandData* command_data = (cwcglBlendEquationSeparateCommandData*)command->data;
@@ -24220,40 +23390,44 @@ static void ProcessCommand(GLcommand* command) {
             glBindAttribLocation(command_data->program, command_data->index, command_data->name);
             break;
         }
-        case cwcglCompileShaderCommand:
-            glCompileShader();
+        case cwcglCompileShaderCommand: {
+            cwcglCompileShaderCommandData* command_data = (cwcglCompileShaderCommandData*)command->data;
+            glCompileShader(command_data->shader);
             break;
+        }
         case cwcglCreateProgramCommand: {
             cwcglCreateProgramCommandData* command_data = (cwcglCreateProgramCommandData*)command->data;
-            if (data->return_value)
-                *(data->return_value) = glCreateProgram();
-            else
-                glCreateProgram();
             break;
+        }
         case cwcglCreateShaderCommand: {
             cwcglCreateShaderCommandData* command_data = (cwcglCreateShaderCommandData*)command->data;
-            if (data->return_value)
-                *(data->return_value) = glCreateShader();
-            else
-                glCreateShader();
             break;
-        case cwcglDeleteProgramCommand:
-            glDeleteProgram();
+        }
+        case cwcglDeleteProgramCommand: {
+            cwcglDeleteProgramCommandData* command_data = (cwcglDeleteProgramCommandData*)command->data;
+            glDeleteProgram(command_data->program);
             break;
-        case cwcglDeleteShaderCommand:
-            glDeleteShader();
+        }
+        case cwcglDeleteShaderCommand: {
+            cwcglDeleteShaderCommandData* command_data = (cwcglDeleteShaderCommandData*)command->data;
+            glDeleteShader(command_data->shader);
             break;
+        }
         case cwcglDetachShaderCommand: {
             cwcglDetachShaderCommandData* command_data = (cwcglDetachShaderCommandData*)command->data;
             glDetachShader(command_data->program, command_data->shader);
             break;
         }
-        case cwcglDisableVertexAttribArrayCommand:
-            glDisableVertexAttribArray();
+        case cwcglDisableVertexAttribArrayCommand: {
+            cwcglDisableVertexAttribArrayCommandData* command_data = (cwcglDisableVertexAttribArrayCommandData*)command->data;
+            glDisableVertexAttribArray(command_data->index);
             break;
-        case cwcglEnableVertexAttribArrayCommand:
-            glEnableVertexAttribArray();
+        }
+        case cwcglEnableVertexAttribArrayCommand: {
+            cwcglEnableVertexAttribArrayCommandData* command_data = (cwcglEnableVertexAttribArrayCommandData*)command->data;
+            glEnableVertexAttribArray(command_data->index);
             break;
+        }
         case cwcglGetActiveAttribCommand: {
             cwcglGetActiveAttribCommandData* command_data = (cwcglGetActiveAttribCommandData*)command->data;
             glGetActiveAttrib(command_data->program, command_data->index, command_data->bufSize, command_data->length, command_data->size, command_data->type, command_data->name);
@@ -24271,10 +23445,6 @@ static void ProcessCommand(GLcommand* command) {
         }
         case cwcglGetAttribLocationCommand: {
             cwcglGetAttribLocationCommandData* command_data = (cwcglGetAttribLocationCommandData*)command->data;
-            if (data->return_value)
-                *(data->return_value) = glGetAttribLocation(command_data->program, command_data->name);
-            else
-                glGetAttribLocation(command_data->program, command_data->name);
             break;
         }
         case cwcglGetProgramivCommand: {
@@ -24304,10 +23474,6 @@ static void ProcessCommand(GLcommand* command) {
         }
         case cwcglGetUniformLocationCommand: {
             cwcglGetUniformLocationCommandData* command_data = (cwcglGetUniformLocationCommandData*)command->data;
-            if (data->return_value)
-                *(data->return_value) = glGetUniformLocation(command_data->program, command_data->name);
-            else
-                glGetUniformLocation(command_data->program, command_data->name);
             break;
         }
         case cwcglGetUniformfvCommand: {
@@ -24342,29 +23508,27 @@ static void ProcessCommand(GLcommand* command) {
         }
         case cwcglIsProgramCommand: {
             cwcglIsProgramCommandData* command_data = (cwcglIsProgramCommandData*)command->data;
-            if (data->return_value)
-                *(data->return_value) = glIsProgram();
-            else
-                glIsProgram();
             break;
+        }
         case cwcglIsShaderCommand: {
             cwcglIsShaderCommandData* command_data = (cwcglIsShaderCommandData*)command->data;
-            if (data->return_value)
-                *(data->return_value) = glIsShader();
-            else
-                glIsShader();
             break;
-        case cwcglLinkProgramCommand:
-            glLinkProgram();
+        }
+        case cwcglLinkProgramCommand: {
+            cwcglLinkProgramCommandData* command_data = (cwcglLinkProgramCommandData*)command->data;
+            glLinkProgram(command_data->program);
             break;
+        }
         case cwcglShaderSourceCommand: {
             cwcglShaderSourceCommandData* command_data = (cwcglShaderSourceCommandData*)command->data;
             glShaderSource(command_data->shader, command_data->count, command_data->string, command_data->length);
             break;
         }
-        case cwcglUseProgramCommand:
-            glUseProgram();
+        case cwcglUseProgramCommand: {
+            cwcglUseProgramCommandData* command_data = (cwcglUseProgramCommandData*)command->data;
+            glUseProgram(command_data->program);
             break;
+        }
         case cwcglUniform1fCommand: {
             cwcglUniform1fCommandData* command_data = (cwcglUniform1fCommandData*)command->data;
             glUniform1f(command_data->location, command_data->v0);
@@ -24460,9 +23624,11 @@ static void ProcessCommand(GLcommand* command) {
             glUniformMatrix4fv(command_data->location, command_data->count, command_data->transpose, command_data->value);
             break;
         }
-        case cwcglValidateProgramCommand:
-            glValidateProgram();
+        case cwcglValidateProgramCommand: {
+            cwcglValidateProgramCommandData* command_data = (cwcglValidateProgramCommandData*)command->data;
+            glValidateProgram(command_data->program);
             break;
+        }
         case cwcglVertexAttrib1dCommand: {
             cwcglVertexAttrib1dCommandData* command_data = (cwcglVertexAttrib1dCommandData*)command->data;
             glVertexAttrib1d(command_data->index, command_data->x);
@@ -24648,6 +23814,7 @@ static void ProcessCommand(GLcommand* command) {
             glVertexAttribPointer(command_data->index, command_data->size, command_data->type, command_data->normalized, command_data->stride, command_data->pointer);
             break;
         }
+#endif
 #if CWCGL_VERSION >= GL_VERSION_2_1
         case cwcglUniformMatrix2x3fvCommand: {
             cwcglUniformMatrix2x3fvCommandData* command_data = (cwcglUniformMatrix2x3fvCommandData*)command->data;
@@ -24679,6 +23846,7 @@ static void ProcessCommand(GLcommand* command) {
             glUniformMatrix4x3fv(command_data->location, command_data->count, command_data->transpose, command_data->value);
             break;
         }
+#endif
 #if CWCGL_VERSION >= GL_VERSION_3_0
         case cwcglColorMaskiCommand: {
             cwcglColorMaskiCommandData* command_data = (cwcglColorMaskiCommandData*)command->data;
@@ -24707,15 +23875,13 @@ static void ProcessCommand(GLcommand* command) {
         }
         case cwcglIsEnablediCommand: {
             cwcglIsEnablediCommandData* command_data = (cwcglIsEnablediCommandData*)command->data;
-            if (data->return_value)
-                *(data->return_value) = glIsEnabledi(command_data->target, command_data->index);
-            else
-                glIsEnabledi(command_data->target, command_data->index);
             break;
         }
-        case cwcglBeginTransformFeedbackCommand:
-            glBeginTransformFeedback();
+        case cwcglBeginTransformFeedbackCommand: {
+            cwcglBeginTransformFeedbackCommandData* command_data = (cwcglBeginTransformFeedbackCommandData*)command->data;
+            glBeginTransformFeedback(command_data->primitiveMode);
             break;
+        }
         case cwcglEndTransformFeedbackCommand:
             glEndTransformFeedback();
             break;
@@ -24879,10 +24045,6 @@ static void ProcessCommand(GLcommand* command) {
         }
         case cwcglGetFragDataLocationCommand: {
             cwcglGetFragDataLocationCommandData* command_data = (cwcglGetFragDataLocationCommandData*)command->data;
-            if (data->return_value)
-                *(data->return_value) = glGetFragDataLocation(command_data->program, command_data->name);
-            else
-                glGetFragDataLocation(command_data->program, command_data->name);
             break;
         }
         case cwcglUniform1uiCommand: {
@@ -24967,19 +24129,12 @@ static void ProcessCommand(GLcommand* command) {
         }
         case cwcglGetStringiCommand: {
             cwcglGetStringiCommandData* command_data = (cwcglGetStringiCommandData*)command->data;
-            if (data->return_value)
-                *(data->return_value) = glGetStringi(command_data->name, command_data->index);
-            else
-                glGetStringi(command_data->name, command_data->index);
             break;
         }
         case cwcglIsRenderbufferCommand: {
             cwcglIsRenderbufferCommandData* command_data = (cwcglIsRenderbufferCommandData*)command->data;
-            if (data->return_value)
-                *(data->return_value) = glIsRenderbuffer();
-            else
-                glIsRenderbuffer();
             break;
+        }
         case cwcglBindRenderbufferCommand: {
             cwcglBindRenderbufferCommandData* command_data = (cwcglBindRenderbufferCommandData*)command->data;
             glBindRenderbuffer(command_data->target, command_data->renderbuffer);
@@ -25007,11 +24162,8 @@ static void ProcessCommand(GLcommand* command) {
         }
         case cwcglIsFramebufferCommand: {
             cwcglIsFramebufferCommandData* command_data = (cwcglIsFramebufferCommandData*)command->data;
-            if (data->return_value)
-                *(data->return_value) = glIsFramebuffer();
-            else
-                glIsFramebuffer();
             break;
+        }
         case cwcglBindFramebufferCommand: {
             cwcglBindFramebufferCommandData* command_data = (cwcglBindFramebufferCommandData*)command->data;
             glBindFramebuffer(command_data->target, command_data->framebuffer);
@@ -25029,11 +24181,8 @@ static void ProcessCommand(GLcommand* command) {
         }
         case cwcglCheckFramebufferStatusCommand: {
             cwcglCheckFramebufferStatusCommandData* command_data = (cwcglCheckFramebufferStatusCommandData*)command->data;
-            if (data->return_value)
-                *(data->return_value) = glCheckFramebufferStatus();
-            else
-                glCheckFramebufferStatus();
             break;
+        }
         case cwcglFramebufferTexture1DCommand: {
             cwcglFramebufferTexture1DCommandData* command_data = (cwcglFramebufferTexture1DCommandData*)command->data;
             glFramebufferTexture1D(command_data->target, command_data->attachment, command_data->textarget, command_data->texture, command_data->level);
@@ -25059,9 +24208,11 @@ static void ProcessCommand(GLcommand* command) {
             glGetFramebufferAttachmentParameteriv(command_data->target, command_data->attachment, command_data->pname, command_data->params);
             break;
         }
-        case cwcglGenerateMipmapCommand:
-            glGenerateMipmap();
+        case cwcglGenerateMipmapCommand: {
+            cwcglGenerateMipmapCommandData* command_data = (cwcglGenerateMipmapCommandData*)command->data;
+            glGenerateMipmap(command_data->target);
             break;
+        }
         case cwcglBlitFramebufferCommand: {
             cwcglBlitFramebufferCommandData* command_data = (cwcglBlitFramebufferCommandData*)command->data;
             glBlitFramebuffer(command_data->srcX0, command_data->srcY0, command_data->srcX1, command_data->srcY1, command_data->dstX0, command_data->dstY0, command_data->dstX1, command_data->dstY1, command_data->mask, command_data->filter);
@@ -25079,10 +24230,6 @@ static void ProcessCommand(GLcommand* command) {
         }
         case cwcglMapBufferRangeCommand: {
             cwcglMapBufferRangeCommandData* command_data = (cwcglMapBufferRangeCommandData*)command->data;
-            if (data->return_value)
-                *(data->return_value) = glMapBufferRange(command_data->target, command_data->offset, command_data->length, command_data->access);
-            else
-                glMapBufferRange(command_data->target, command_data->offset, command_data->length, command_data->access);
             break;
         }
         case cwcglFlushMappedBufferRangeCommand: {
@@ -25090,9 +24237,11 @@ static void ProcessCommand(GLcommand* command) {
             glFlushMappedBufferRange(command_data->target, command_data->offset, command_data->length);
             break;
         }
-        case cwcglBindVertexArrayCommand:
-            glBindVertexArray();
+        case cwcglBindVertexArrayCommand: {
+            cwcglBindVertexArrayCommandData* command_data = (cwcglBindVertexArrayCommandData*)command->data;
+            glBindVertexArray(command_data->array);
             break;
+        }
         case cwcglDeleteVertexArraysCommand: {
             cwcglDeleteVertexArraysCommandData* command_data = (cwcglDeleteVertexArraysCommandData*)command->data;
             glDeleteVertexArrays(command_data->n, command_data->arrays);
@@ -25105,11 +24254,9 @@ static void ProcessCommand(GLcommand* command) {
         }
         case cwcglIsVertexArrayCommand: {
             cwcglIsVertexArrayCommandData* command_data = (cwcglIsVertexArrayCommandData*)command->data;
-            if (data->return_value)
-                *(data->return_value) = glIsVertexArray();
-            else
-                glIsVertexArray();
             break;
+        }
+#endif
 #if CWCGL_VERSION >= GL_VERSION_3_1
         case cwcglDrawArraysInstancedCommand: {
             cwcglDrawArraysInstancedCommandData* command_data = (cwcglDrawArraysInstancedCommandData*)command->data;
@@ -25126,9 +24273,11 @@ static void ProcessCommand(GLcommand* command) {
             glTexBuffer(command_data->target, command_data->internalformat, command_data->buffer);
             break;
         }
-        case cwcglPrimitiveRestartIndexCommand:
-            glPrimitiveRestartIndex();
+        case cwcglPrimitiveRestartIndexCommand: {
+            cwcglPrimitiveRestartIndexCommandData* command_data = (cwcglPrimitiveRestartIndexCommandData*)command->data;
+            glPrimitiveRestartIndex(command_data->index);
             break;
+        }
         case cwcglCopyBufferSubDataCommand: {
             cwcglCopyBufferSubDataCommandData* command_data = (cwcglCopyBufferSubDataCommandData*)command->data;
             glCopyBufferSubData(command_data->readTarget, command_data->writeTarget, command_data->readOffset, command_data->writeOffset, command_data->size);
@@ -25151,10 +24300,6 @@ static void ProcessCommand(GLcommand* command) {
         }
         case cwcglGetUniformBlockIndexCommand: {
             cwcglGetUniformBlockIndexCommandData* command_data = (cwcglGetUniformBlockIndexCommandData*)command->data;
-            if (data->return_value)
-                *(data->return_value) = glGetUniformBlockIndex(command_data->program, command_data->uniformBlockName);
-            else
-                glGetUniformBlockIndex(command_data->program, command_data->uniformBlockName);
             break;
         }
         case cwcglGetActiveUniformBlockivCommand: {
@@ -25172,6 +24317,7 @@ static void ProcessCommand(GLcommand* command) {
             glUniformBlockBinding(command_data->program, command_data->uniformBlockIndex, command_data->uniformBlockBinding);
             break;
         }
+#endif
 #if CWCGL_VERSION >= GL_VERSION_3_2
         case cwcglDrawElementsBaseVertexCommand: {
             cwcglDrawElementsBaseVertexCommandData* command_data = (cwcglDrawElementsBaseVertexCommandData*)command->data;
@@ -25193,33 +24339,26 @@ static void ProcessCommand(GLcommand* command) {
             glMultiDrawElementsBaseVertex(command_data->mode, command_data->count, command_data->type, command_data->indices, command_data->drawcount, command_data->basevertex);
             break;
         }
-        case cwcglProvokingVertexCommand:
-            glProvokingVertex();
+        case cwcglProvokingVertexCommand: {
+            cwcglProvokingVertexCommandData* command_data = (cwcglProvokingVertexCommandData*)command->data;
+            glProvokingVertex(command_data->mode);
             break;
+        }
         case cwcglFenceSyncCommand: {
             cwcglFenceSyncCommandData* command_data = (cwcglFenceSyncCommandData*)command->data;
-            if (data->return_value)
-                *(data->return_value) = glFenceSync(command_data->condition, command_data->flags);
-            else
-                glFenceSync(command_data->condition, command_data->flags);
             break;
         }
         case cwcglIsSyncCommand: {
             cwcglIsSyncCommandData* command_data = (cwcglIsSyncCommandData*)command->data;
-            if (data->return_value)
-                *(data->return_value) = glIsSync();
-            else
-                glIsSync();
             break;
-        case cwcglDeleteSyncCommand:
-            glDeleteSync();
+        }
+        case cwcglDeleteSyncCommand: {
+            cwcglDeleteSyncCommandData* command_data = (cwcglDeleteSyncCommandData*)command->data;
+            glDeleteSync(command_data->sync);
             break;
+        }
         case cwcglClientWaitSyncCommand: {
             cwcglClientWaitSyncCommandData* command_data = (cwcglClientWaitSyncCommandData*)command->data;
-            if (data->return_value)
-                *(data->return_value) = glClientWaitSync(command_data->sync, command_data->flags, command_data->timeout);
-            else
-                glClientWaitSync(command_data->sync, command_data->flags, command_data->timeout);
             break;
         }
         case cwcglWaitSyncCommand: {
@@ -25272,6 +24411,7 @@ static void ProcessCommand(GLcommand* command) {
             glSampleMaski(command_data->maskNumber, command_data->mask);
             break;
         }
+#endif
 #if CWCGL_VERSION >= GL_VERSION_3_3
         case cwcglBindFragDataLocationIndexedCommand: {
             cwcglBindFragDataLocationIndexedCommandData* command_data = (cwcglBindFragDataLocationIndexedCommandData*)command->data;
@@ -25280,10 +24420,6 @@ static void ProcessCommand(GLcommand* command) {
         }
         case cwcglGetFragDataIndexCommand: {
             cwcglGetFragDataIndexCommandData* command_data = (cwcglGetFragDataIndexCommandData*)command->data;
-            if (data->return_value)
-                *(data->return_value) = glGetFragDataIndex(command_data->program, command_data->name);
-            else
-                glGetFragDataIndex(command_data->program, command_data->name);
             break;
         }
         case cwcglGenSamplersCommand: {
@@ -25298,11 +24434,8 @@ static void ProcessCommand(GLcommand* command) {
         }
         case cwcglIsSamplerCommand: {
             cwcglIsSamplerCommandData* command_data = (cwcglIsSamplerCommandData*)command->data;
-            if (data->return_value)
-                *(data->return_value) = glIsSampler();
-            else
-                glIsSampler();
             break;
+        }
         case cwcglBindSamplerCommand: {
             cwcglBindSamplerCommandData* command_data = (cwcglBindSamplerCommandData*)command->data;
             glBindSampler(command_data->unit, command_data->sampler);
@@ -25568,10 +24701,13 @@ static void ProcessCommand(GLcommand* command) {
             glSecondaryColorP3uiv(command_data->type, command_data->color);
             break;
         }
+#endif
 #if CWCGL_VERSION >= GL_VERSION_4_0
-        case cwcglMinSampleShadingCommand:
-            glMinSampleShading();
+        case cwcglMinSampleShadingCommand: {
+            cwcglMinSampleShadingCommandData* command_data = (cwcglMinSampleShadingCommandData*)command->data;
+            glMinSampleShading(command_data->value);
             break;
+        }
         case cwcglBlendEquationiCommand: {
             cwcglBlendEquationiCommandData* command_data = (cwcglBlendEquationiCommandData*)command->data;
             glBlendEquationi(command_data->buf, command_data->mode);
@@ -25694,18 +24830,10 @@ static void ProcessCommand(GLcommand* command) {
         }
         case cwcglGetSubroutineUniformLocationCommand: {
             cwcglGetSubroutineUniformLocationCommandData* command_data = (cwcglGetSubroutineUniformLocationCommandData*)command->data;
-            if (data->return_value)
-                *(data->return_value) = glGetSubroutineUniformLocation(command_data->program, command_data->shadertype, command_data->name);
-            else
-                glGetSubroutineUniformLocation(command_data->program, command_data->shadertype, command_data->name);
             break;
         }
         case cwcglGetSubroutineIndexCommand: {
             cwcglGetSubroutineIndexCommandData* command_data = (cwcglGetSubroutineIndexCommandData*)command->data;
-            if (data->return_value)
-                *(data->return_value) = glGetSubroutineIndex(command_data->program, command_data->shadertype, command_data->name);
-            else
-                glGetSubroutineIndex(command_data->program, command_data->shadertype, command_data->name);
             break;
         }
         case cwcglGetActiveSubroutineUniformivCommand: {
@@ -25765,11 +24893,8 @@ static void ProcessCommand(GLcommand* command) {
         }
         case cwcglIsTransformFeedbackCommand: {
             cwcglIsTransformFeedbackCommandData* command_data = (cwcglIsTransformFeedbackCommandData*)command->data;
-            if (data->return_value)
-                *(data->return_value) = glIsTransformFeedback();
-            else
-                glIsTransformFeedback();
             break;
+        }
         case cwcglPauseTransformFeedbackCommand:
             glPauseTransformFeedback();
             break;
@@ -25801,6 +24926,7 @@ static void ProcessCommand(GLcommand* command) {
             glGetQueryIndexediv(command_data->target, command_data->index, command_data->pname, command_data->params);
             break;
         }
+#endif
 #if CWCGL_VERSION >= GL_VERSION_4_1
         case cwcglReleaseShaderCompilerCommand:
             glReleaseShaderCompiler();
@@ -25820,9 +24946,11 @@ static void ProcessCommand(GLcommand* command) {
             glDepthRangef(command_data->n, command_data->f);
             break;
         }
-        case cwcglClearDepthfCommand:
-            glClearDepthf();
+        case cwcglClearDepthfCommand: {
+            cwcglClearDepthfCommandData* command_data = (cwcglClearDepthfCommandData*)command->data;
+            glClearDepthf(command_data->d);
             break;
+        }
         case cwcglGetProgramBinaryCommand: {
             cwcglGetProgramBinaryCommandData* command_data = (cwcglGetProgramBinaryCommandData*)command->data;
             glGetProgramBinary(command_data->program, command_data->bufSize, command_data->length, command_data->binaryFormat, command_data->binary);
@@ -25850,15 +24978,13 @@ static void ProcessCommand(GLcommand* command) {
         }
         case cwcglCreateShaderProgramvCommand: {
             cwcglCreateShaderProgramvCommandData* command_data = (cwcglCreateShaderProgramvCommandData*)command->data;
-            if (data->return_value)
-                *(data->return_value) = glCreateShaderProgramv(command_data->type, command_data->count, command_data->strings);
-            else
-                glCreateShaderProgramv(command_data->type, command_data->count, command_data->strings);
             break;
         }
-        case cwcglBindProgramPipelineCommand:
-            glBindProgramPipeline();
+        case cwcglBindProgramPipelineCommand: {
+            cwcglBindProgramPipelineCommandData* command_data = (cwcglBindProgramPipelineCommandData*)command->data;
+            glBindProgramPipeline(command_data->pipeline);
             break;
+        }
         case cwcglDeleteProgramPipelinesCommand: {
             cwcglDeleteProgramPipelinesCommandData* command_data = (cwcglDeleteProgramPipelinesCommandData*)command->data;
             glDeleteProgramPipelines(command_data->n, command_data->pipelines);
@@ -25871,11 +24997,8 @@ static void ProcessCommand(GLcommand* command) {
         }
         case cwcglIsProgramPipelineCommand: {
             cwcglIsProgramPipelineCommandData* command_data = (cwcglIsProgramPipelineCommandData*)command->data;
-            if (data->return_value)
-                *(data->return_value) = glIsProgramPipeline();
-            else
-                glIsProgramPipeline();
             break;
+        }
         case cwcglGetProgramPipelineivCommand: {
             cwcglGetProgramPipelineivCommandData* command_data = (cwcglGetProgramPipelineivCommandData*)command->data;
             glGetProgramPipelineiv(command_data->pipeline, command_data->pname, command_data->params);
@@ -26131,9 +25254,11 @@ static void ProcessCommand(GLcommand* command) {
             glProgramUniformMatrix4x3dv(command_data->program, command_data->location, command_data->count, command_data->transpose, command_data->value);
             break;
         }
-        case cwcglValidateProgramPipelineCommand:
-            glValidateProgramPipeline();
+        case cwcglValidateProgramPipelineCommand: {
+            cwcglValidateProgramPipelineCommandData* command_data = (cwcglValidateProgramPipelineCommandData*)command->data;
+            glValidateProgramPipeline(command_data->pipeline);
             break;
+        }
         case cwcglGetProgramPipelineInfoLogCommand: {
             cwcglGetProgramPipelineInfoLogCommandData* command_data = (cwcglGetProgramPipelineInfoLogCommandData*)command->data;
             glGetProgramPipelineInfoLog(command_data->pipeline, command_data->bufSize, command_data->length, command_data->infoLog);
@@ -26239,6 +25364,7 @@ static void ProcessCommand(GLcommand* command) {
             glGetDoublei_v(command_data->target, command_data->index, command_data->data);
             break;
         }
+#endif
 #if CWCGL_VERSION >= GL_VERSION_4_2
         case cwcglDrawArraysInstancedBaseInstanceCommand: {
             cwcglDrawArraysInstancedBaseInstanceCommandData* command_data = (cwcglDrawArraysInstancedBaseInstanceCommandData*)command->data;
@@ -26270,9 +25396,11 @@ static void ProcessCommand(GLcommand* command) {
             glBindImageTexture(command_data->unit, command_data->texture, command_data->level, command_data->layered, command_data->layer, command_data->access, command_data->format);
             break;
         }
-        case cwcglMemoryBarrierCommand:
-            glMemoryBarrier();
+        case cwcglMemoryBarrierCommand: {
+            cwcglMemoryBarrierCommandData* command_data = (cwcglMemoryBarrierCommandData*)command->data;
+            glMemoryBarrier(command_data->barriers);
             break;
+        }
         case cwcglTexStorage1DCommand: {
             cwcglTexStorage1DCommandData* command_data = (cwcglTexStorage1DCommandData*)command->data;
             glTexStorage1D(command_data->target, command_data->levels, command_data->internalformat, command_data->width);
@@ -26298,6 +25426,7 @@ static void ProcessCommand(GLcommand* command) {
             glDrawTransformFeedbackStreamInstanced(command_data->mode, command_data->id, command_data->stream, command_data->instancecount);
             break;
         }
+#endif
 #if CWCGL_VERSION >= GL_VERSION_4_3
         case cwcglClearBufferDataCommand: {
             cwcglClearBufferDataCommandData* command_data = (cwcglClearBufferDataCommandData*)command->data;
@@ -26314,9 +25443,11 @@ static void ProcessCommand(GLcommand* command) {
             glDispatchCompute(command_data->num_groups_x, command_data->num_groups_y, command_data->num_groups_z);
             break;
         }
-        case cwcglDispatchComputeIndirectCommand:
-            glDispatchComputeIndirect();
+        case cwcglDispatchComputeIndirectCommand: {
+            cwcglDispatchComputeIndirectCommandData* command_data = (cwcglDispatchComputeIndirectCommandData*)command->data;
+            glDispatchComputeIndirect(command_data->indirect);
             break;
+        }
         case cwcglCopyImageSubDataCommand: {
             cwcglCopyImageSubDataCommandData* command_data = (cwcglCopyImageSubDataCommandData*)command->data;
             glCopyImageSubData(command_data->srcName, command_data->srcTarget, command_data->srcLevel, command_data->srcX, command_data->srcY, command_data->srcZ, command_data->dstName, command_data->dstTarget, command_data->dstLevel, command_data->dstX, command_data->dstY, command_data->dstZ, command_data->srcWidth, command_data->srcHeight, command_data->srcDepth);
@@ -26352,9 +25483,11 @@ static void ProcessCommand(GLcommand* command) {
             glInvalidateBufferSubData(command_data->buffer, command_data->offset, command_data->length);
             break;
         }
-        case cwcglInvalidateBufferDataCommand:
-            glInvalidateBufferData();
+        case cwcglInvalidateBufferDataCommand: {
+            cwcglInvalidateBufferDataCommandData* command_data = (cwcglInvalidateBufferDataCommandData*)command->data;
+            glInvalidateBufferData(command_data->buffer);
             break;
+        }
         case cwcglInvalidateFramebufferCommand: {
             cwcglInvalidateFramebufferCommandData* command_data = (cwcglInvalidateFramebufferCommandData*)command->data;
             glInvalidateFramebuffer(command_data->target, command_data->numAttachments, command_data->attachments);
@@ -26382,10 +25515,6 @@ static void ProcessCommand(GLcommand* command) {
         }
         case cwcglGetProgramResourceIndexCommand: {
             cwcglGetProgramResourceIndexCommandData* command_data = (cwcglGetProgramResourceIndexCommandData*)command->data;
-            if (data->return_value)
-                *(data->return_value) = glGetProgramResourceIndex(command_data->program, command_data->programInterface, command_data->name);
-            else
-                glGetProgramResourceIndex(command_data->program, command_data->programInterface, command_data->name);
             break;
         }
         case cwcglGetProgramResourceNameCommand: {
@@ -26400,18 +25529,10 @@ static void ProcessCommand(GLcommand* command) {
         }
         case cwcglGetProgramResourceLocationCommand: {
             cwcglGetProgramResourceLocationCommandData* command_data = (cwcglGetProgramResourceLocationCommandData*)command->data;
-            if (data->return_value)
-                *(data->return_value) = glGetProgramResourceLocation(command_data->program, command_data->programInterface, command_data->name);
-            else
-                glGetProgramResourceLocation(command_data->program, command_data->programInterface, command_data->name);
             break;
         }
         case cwcglGetProgramResourceLocationIndexCommand: {
             cwcglGetProgramResourceLocationIndexCommandData* command_data = (cwcglGetProgramResourceLocationIndexCommandData*)command->data;
-            if (data->return_value)
-                *(data->return_value) = glGetProgramResourceLocationIndex(command_data->program, command_data->programInterface, command_data->name);
-            else
-                glGetProgramResourceLocationIndex(command_data->program, command_data->programInterface, command_data->name);
             break;
         }
         case cwcglShaderStorageBlockBindingCommand: {
@@ -26486,10 +25607,6 @@ static void ProcessCommand(GLcommand* command) {
         }
         case cwcglGetDebugMessageLogCommand: {
             cwcglGetDebugMessageLogCommandData* command_data = (cwcglGetDebugMessageLogCommandData*)command->data;
-            if (data->return_value)
-                *(data->return_value) = glGetDebugMessageLog(command_data->count, command_data->bufSize, command_data->sources, command_data->types, command_data->ids, command_data->severities, command_data->lengths, command_data->messageLog);
-            else
-                glGetDebugMessageLog(command_data->count, command_data->bufSize, command_data->sources, command_data->types, command_data->ids, command_data->severities, command_data->lengths, command_data->messageLog);
             break;
         }
         case cwcglPushDebugGroupCommand: {
@@ -26520,6 +25637,7 @@ static void ProcessCommand(GLcommand* command) {
             glGetObjectPtrLabel(command_data->ptr, command_data->bufSize, command_data->length, command_data->label);
             break;
         }
+#endif
 #if CWCGL_VERSION >= GL_VERSION_4_4
         case cwcglBufferStorageCommand: {
             cwcglBufferStorageCommandData* command_data = (cwcglBufferStorageCommandData*)command->data;
@@ -26566,6 +25684,7 @@ static void ProcessCommand(GLcommand* command) {
             glBindVertexBuffers(command_data->first, command_data->count, command_data->buffers, command_data->offsets, command_data->strides);
             break;
         }
+#endif
 #if CWCGL_VERSION >= GL_VERSION_4_5
         case cwcglClipControlCommand: {
             cwcglClipControlCommandData* command_data = (cwcglClipControlCommandData*)command->data;
@@ -26639,27 +25758,16 @@ static void ProcessCommand(GLcommand* command) {
         }
         case cwcglMapNamedBufferCommand: {
             cwcglMapNamedBufferCommandData* command_data = (cwcglMapNamedBufferCommandData*)command->data;
-            if (data->return_value)
-                *(data->return_value) = glMapNamedBuffer(command_data->buffer, command_data->access);
-            else
-                glMapNamedBuffer(command_data->buffer, command_data->access);
             break;
         }
         case cwcglMapNamedBufferRangeCommand: {
             cwcglMapNamedBufferRangeCommandData* command_data = (cwcglMapNamedBufferRangeCommandData*)command->data;
-            if (data->return_value)
-                *(data->return_value) = glMapNamedBufferRange(command_data->buffer, command_data->offset, command_data->length, command_data->access);
-            else
-                glMapNamedBufferRange(command_data->buffer, command_data->offset, command_data->length, command_data->access);
             break;
         }
         case cwcglUnmapNamedBufferCommand: {
             cwcglUnmapNamedBufferCommandData* command_data = (cwcglUnmapNamedBufferCommandData*)command->data;
-            if (data->return_value)
-                *(data->return_value) = glUnmapNamedBuffer();
-            else
-                glUnmapNamedBuffer();
             break;
+        }
         case cwcglFlushMappedNamedBufferRangeCommand: {
             cwcglFlushMappedNamedBufferRangeCommandData* command_data = (cwcglFlushMappedNamedBufferRangeCommandData*)command->data;
             glFlushMappedNamedBufferRange(command_data->buffer, command_data->offset, command_data->length);
@@ -26762,10 +25870,6 @@ static void ProcessCommand(GLcommand* command) {
         }
         case cwcglCheckNamedFramebufferStatusCommand: {
             cwcglCheckNamedFramebufferStatusCommandData* command_data = (cwcglCheckNamedFramebufferStatusCommandData*)command->data;
-            if (data->return_value)
-                *(data->return_value) = glCheckNamedFramebufferStatus(command_data->framebuffer, command_data->target);
-            else
-                glCheckNamedFramebufferStatus(command_data->framebuffer, command_data->target);
             break;
         }
         case cwcglGetNamedFramebufferParameterivCommand: {
@@ -26913,9 +26017,11 @@ static void ProcessCommand(GLcommand* command) {
             glTextureParameteriv(command_data->texture, command_data->pname, command_data->param);
             break;
         }
-        case cwcglGenerateTextureMipmapCommand:
-            glGenerateTextureMipmap();
+        case cwcglGenerateTextureMipmapCommand: {
+            cwcglGenerateTextureMipmapCommandData* command_data = (cwcglGenerateTextureMipmapCommandData*)command->data;
+            glGenerateTextureMipmap(command_data->texture);
             break;
+        }
         case cwcglBindTextureUnitCommand: {
             cwcglBindTextureUnitCommandData* command_data = (cwcglBindTextureUnitCommandData*)command->data;
             glBindTextureUnit(command_data->unit, command_data->texture);
@@ -27066,9 +26172,11 @@ static void ProcessCommand(GLcommand* command) {
             glGetQueryBufferObjectuiv(command_data->id, command_data->buffer, command_data->pname, command_data->offset);
             break;
         }
-        case cwcglMemoryBarrierByRegionCommand:
-            glMemoryBarrierByRegion();
+        case cwcglMemoryBarrierByRegionCommand: {
+            cwcglMemoryBarrierByRegionCommandData* command_data = (cwcglMemoryBarrierByRegionCommandData*)command->data;
+            glMemoryBarrierByRegion(command_data->barriers);
             break;
+        }
         case cwcglGetTextureSubImageCommand: {
             cwcglGetTextureSubImageCommandData* command_data = (cwcglGetTextureSubImageCommandData*)command->data;
             glGetTextureSubImage(command_data->texture, command_data->level, command_data->xoffset, command_data->yoffset, command_data->zoffset, command_data->width, command_data->height, command_data->depth, command_data->format, command_data->type, command_data->bufSize, command_data->pixels);
@@ -27081,11 +26189,8 @@ static void ProcessCommand(GLcommand* command) {
         }
         case cwcglGetGraphicsResetStatusCommand: {
             cwcglGetGraphicsResetStatusCommandData* command_data = (cwcglGetGraphicsResetStatusCommandData*)command->data;
-            if (data->return_value)
-                *(data->return_value) = glGetGraphicsResetStatus();
-            else
-                glGetGraphicsResetStatus();
             break;
+        }
         case cwcglGetnCompressedTexImageCommand: {
             cwcglGetnCompressedTexImageCommandData* command_data = (cwcglGetnCompressedTexImageCommandData*)command->data;
             glGetnCompressedTexImage(command_data->target, command_data->lod, command_data->bufSize, command_data->pixels);
@@ -27184,6 +26289,7 @@ static void ProcessCommand(GLcommand* command) {
         case cwcglTextureBarrierCommand:
             glTextureBarrier();
             break;
+#endif
 #if CWCGL_VERSION >= GL_VERSION_4_6
         case cwcglSpecializeShaderCommand: {
             cwcglSpecializeShaderCommandData* command_data = (cwcglSpecializeShaderCommandData*)command->data;
@@ -27205,7 +26311,9 @@ static void ProcessCommand(GLcommand* command) {
             glPolygonOffsetClamp(command_data->factor, command_data->units, command_data->clamp);
             break;
         }
+#endif
         default:
-            abort();
+            break;
+    }
 }
 

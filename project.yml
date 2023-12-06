@@ -16,6 +16,9 @@ targets:
     sources:
         - path: tools/
           type: folder
+          excludes:
+            - "test.c"
+        - path: tools/test.c
         - path: build/
           type: folder
         - path: project.yml
@@ -33,4 +36,4 @@ targets:
         - sdk: Cocoa.framework
     settings:
         HEADER_SEARCH_PATHS: [$(PROJECT_DIR)/src]
-        OTHER_CFLAGS: [-DCWCGL_VERSION=2000 -DGL_SILENCE_DEPRECATION]
+        OTHER_CFLAGS: [-DGL_SILENCE_DEPRECATION]

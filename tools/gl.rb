@@ -28,8 +28,9 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 require "nokogiri"
 require "net/http"
 
-$EnableHeaderFileOut = true
-$EnableSourceFileOut = true
+$DisableFileOut = false
+$EnableHeaderFileOut = !$DisableFileOut
+$EnableSourceFileOut = !$DisableFileOut
 $DisableWrapperOut = false
 $DisableGLLoaderOut = false
 $OutputGLBindings = false
@@ -250,6 +251,7 @@ features.each do |f|
   puts "#endif", ""
 end
 
+puts "typedef khronos_intptr_t GLintptr;"
 types.each do |k, v|
   if v.start_with?("typedef")
     puts v unless v.start_with?("typedef void (")
@@ -574,9 +576,9 @@ $functions.each do |k, v|
           puts "    command_data->#{vvv} = #{vvv};"
         end
       end
-      unless returnsVoid
-        puts "    command_data->return_value = return_value;"
-      end
+    #   unless returnsVoid
+    #     puts "    command_data->return_value = return_value;"
+    #   end
     end
     puts "    command->type = cwc#{key}Command;"
     if hasParams
@@ -585,7 +587,7 @@ $functions.each do |k, v|
       puts "    command->data = NULL;"
     end
     puts "    PushCommand(context, command);"
-    puts "}", ""
+    puts "}"
   end
   puts "#endif"
 end
@@ -619,11 +621,13 @@ $functions.each do |k, v|
     key = vv[1]
     cmd = commands[key]
 
-    argsVoid = cmd[:params].length == 1 and cmd[:params][0] == "void"
+    argsVoid = (cmd[:params].length == 1 and cmd[:params][0] == "void")
     returnsVoid = cmd[:result] == "void"
+    closeBrace = true
     if argsVoid and returnsVoid
       puts "        case cwc#{key}Command:"
       puts "            #{key}();"
+      closeBrace = false
     else
       puts "        case cwc#{key}Command: {"
       puts "            cwc#{key}CommandData* command_data = (cwc#{key}CommandData*)command->data;"
@@ -635,25 +639,22 @@ $functions.each do |k, v|
                  ""
                end
       unless returnsVoid
-        puts "            if (data->return_value)"
-        puts "                *(data->return_value) = #{key}(#{params});"
-        puts "            else"
-        puts "                #{key}(#{params});"
+      #   puts "            if (command_data->return_value)"
+      #   puts "                *(command_data->return_value) = #{key}(#{params});"
+      #   puts "            else"
+      #   puts "                #{key}(#{params});"
       else
         puts "            #{key}(#{params});"
       end
     end
     puts "            break;"
-    if not argsVoid
-      puts "        }"
-    end
+    puts "        }" if closeBrace
   end
-end
-
-commands.each do |k, v|
+  puts "#endif"
 end
 puts "        default:"
-puts "            abort();"
+puts "            break;"
+puts "    }"
 puts "}", ""
 
 RestoreOriginalOut() if $DisableWrapperOut
