@@ -34,7 +34,7 @@ void onClosed(void *userdata) {
 int main(int argc, const char *argv[]) {
     if (!glWindow(640, 480, "glWindow", glResizable))
         return 1;
-    if (!InitOpenGL())
+    if (InitOpenGL())
         return 1;
 
 #define X(NAME, ARGS) on##NAME,
