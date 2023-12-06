@@ -78,6 +78,16 @@ extern "C" {
 #endif
 #endif
 
+#if !defined(EXPORT)
+#if defined(CWCGL_WINDOWS)
+#define EXPORT __declspec(dllexport)
+#elif defined(CWCGL_EMSCRIPTEN)
+#define EXPORT EMSCRIPTEN_KEEPALIVE
+#else
+#define EXPORT
+#endif
+#endif
+
 #if !defined(CWCGL_VERSION)
 #define CWCGL_VERSION 1000
 #endif
@@ -99,6 +109,7 @@ extern "C" {
 #define GL_VERSION_4_3 4030
 #define GL_VERSION_4_4 4040
 #define GL_VERSION_4_5 4050
+#define GL_VERSION_4_6 4060
 
 /* khrplatform.h -- [https://registry.khronos.org/EGL/api/KHR/khrplatform.h]
 ** Copyright (c) 2008-2018 The Khronos Group Inc.
@@ -419,9 +430,433 @@ typedef unsigned int GLuint;
 typedef unsigned char GLboolean;
 typedef khronos_uint8_t GLubyte;
 typedef khronos_int8_t GLbyte;
-typedef short GLshort;
-typedef unsigned short GLushort;
+typedef khronos_int16_t GLshort;
+typedef khronos_uint16_t GLushort;
 typedef void GLvoid;
+#define GL_DEPTH_BUFFER_BIT 0x00000100
+#define GL_STENCIL_BUFFER_BIT 0x00000400
+#define GL_COLOR_BUFFER_BIT 0x00004000
+#define GL_FALSE 0
+#define GL_TRUE 1
+#define GL_POINTS 0x0000
+#define GL_LINES 0x0001
+#define GL_LINE_LOOP 0x0002
+#define GL_LINE_STRIP 0x0003
+#define GL_TRIANGLES 0x0004
+#define GL_TRIANGLE_STRIP 0x0005
+#define GL_TRIANGLE_FAN 0x0006
+#define GL_QUADS 0x0007
+#define GL_NEVER 0x0200
+#define GL_LESS 0x0201
+#define GL_EQUAL 0x0202
+#define GL_LEQUAL 0x0203
+#define GL_GREATER 0x0204
+#define GL_NOTEQUAL 0x0205
+#define GL_GEQUAL 0x0206
+#define GL_ALWAYS 0x0207
+#define GL_ZERO 0
+#define GL_ONE 1
+#define GL_SRC_COLOR 0x0300
+#define GL_ONE_MINUS_SRC_COLOR 0x0301
+#define GL_SRC_ALPHA 0x0302
+#define GL_ONE_MINUS_SRC_ALPHA 0x0303
+#define GL_DST_ALPHA 0x0304
+#define GL_ONE_MINUS_DST_ALPHA 0x0305
+#define GL_DST_COLOR 0x0306
+#define GL_ONE_MINUS_DST_COLOR 0x0307
+#define GL_SRC_ALPHA_SATURATE 0x0308
+#define GL_NONE 0
+#define GL_FRONT_LEFT 0x0400
+#define GL_FRONT_RIGHT 0x0401
+#define GL_BACK_LEFT 0x0402
+#define GL_BACK_RIGHT 0x0403
+#define GL_FRONT 0x0404
+#define GL_BACK 0x0405
+#define GL_LEFT 0x0406
+#define GL_RIGHT 0x0407
+#define GL_FRONT_AND_BACK 0x0408
+#define GL_NO_ERROR 0
+#define GL_INVALID_ENUM 0x0500
+#define GL_INVALID_VALUE 0x0501
+#define GL_INVALID_OPERATION 0x0502
+#define GL_OUT_OF_MEMORY 0x0505
+#define GL_CW 0x0900
+#define GL_CCW 0x0901
+#define GL_POINT_SIZE 0x0B11
+#define GL_POINT_SIZE_RANGE 0x0B12
+#define GL_POINT_SIZE_GRANULARITY 0x0B13
+#define GL_LINE_SMOOTH 0x0B20
+#define GL_LINE_WIDTH 0x0B21
+#define GL_LINE_WIDTH_RANGE 0x0B22
+#define GL_LINE_WIDTH_GRANULARITY 0x0B23
+#define GL_POLYGON_MODE 0x0B40
+#define GL_POLYGON_SMOOTH 0x0B41
+#define GL_CULL_FACE 0x0B44
+#define GL_CULL_FACE_MODE 0x0B45
+#define GL_FRONT_FACE 0x0B46
+#define GL_DEPTH_RANGE 0x0B70
+#define GL_DEPTH_TEST 0x0B71
+#define GL_DEPTH_WRITEMASK 0x0B72
+#define GL_DEPTH_CLEAR_VALUE 0x0B73
+#define GL_DEPTH_FUNC 0x0B74
+#define GL_STENCIL_TEST 0x0B90
+#define GL_STENCIL_CLEAR_VALUE 0x0B91
+#define GL_STENCIL_FUNC 0x0B92
+#define GL_STENCIL_VALUE_MASK 0x0B93
+#define GL_STENCIL_FAIL 0x0B94
+#define GL_STENCIL_PASS_DEPTH_FAIL 0x0B95
+#define GL_STENCIL_PASS_DEPTH_PASS 0x0B96
+#define GL_STENCIL_REF 0x0B97
+#define GL_STENCIL_WRITEMASK 0x0B98
+#define GL_VIEWPORT 0x0BA2
+#define GL_DITHER 0x0BD0
+#define GL_BLEND_DST 0x0BE0
+#define GL_BLEND_SRC 0x0BE1
+#define GL_BLEND 0x0BE2
+#define GL_LOGIC_OP_MODE 0x0BF0
+#define GL_DRAW_BUFFER 0x0C01
+#define GL_READ_BUFFER 0x0C02
+#define GL_SCISSOR_BOX 0x0C10
+#define GL_SCISSOR_TEST 0x0C11
+#define GL_COLOR_CLEAR_VALUE 0x0C22
+#define GL_COLOR_WRITEMASK 0x0C23
+#define GL_DOUBLEBUFFER 0x0C32
+#define GL_STEREO 0x0C33
+#define GL_LINE_SMOOTH_HINT 0x0C52
+#define GL_POLYGON_SMOOTH_HINT 0x0C53
+#define GL_UNPACK_SWAP_BYTES 0x0CF0
+#define GL_UNPACK_LSB_FIRST 0x0CF1
+#define GL_UNPACK_ROW_LENGTH 0x0CF2
+#define GL_UNPACK_SKIP_ROWS 0x0CF3
+#define GL_UNPACK_SKIP_PIXELS 0x0CF4
+#define GL_UNPACK_ALIGNMENT 0x0CF5
+#define GL_PACK_SWAP_BYTES 0x0D00
+#define GL_PACK_LSB_FIRST 0x0D01
+#define GL_PACK_ROW_LENGTH 0x0D02
+#define GL_PACK_SKIP_ROWS 0x0D03
+#define GL_PACK_SKIP_PIXELS 0x0D04
+#define GL_PACK_ALIGNMENT 0x0D05
+#define GL_MAX_TEXTURE_SIZE 0x0D33
+#define GL_MAX_VIEWPORT_DIMS 0x0D3A
+#define GL_SUBPIXEL_BITS 0x0D50
+#define GL_TEXTURE_1D 0x0DE0
+#define GL_TEXTURE_2D 0x0DE1
+#define GL_TEXTURE_WIDTH 0x1000
+#define GL_TEXTURE_HEIGHT 0x1001
+#define GL_TEXTURE_BORDER_COLOR 0x1004
+#define GL_DONT_CARE 0x1100
+#define GL_FASTEST 0x1101
+#define GL_NICEST 0x1102
+#define GL_BYTE 0x1400
+#define GL_UNSIGNED_BYTE 0x1401
+#define GL_SHORT 0x1402
+#define GL_UNSIGNED_SHORT 0x1403
+#define GL_INT 0x1404
+#define GL_UNSIGNED_INT 0x1405
+#define GL_FLOAT 0x1406
+#define GL_STACK_OVERFLOW 0x0503
+#define GL_STACK_UNDERFLOW 0x0504
+#define GL_CLEAR 0x1500
+#define GL_AND 0x1501
+#define GL_AND_REVERSE 0x1502
+#define GL_COPY 0x1503
+#define GL_AND_INVERTED 0x1504
+#define GL_NOOP 0x1505
+#define GL_XOR 0x1506
+#define GL_OR 0x1507
+#define GL_NOR 0x1508
+#define GL_EQUIV 0x1509
+#define GL_INVERT 0x150A
+#define GL_OR_REVERSE 0x150B
+#define GL_COPY_INVERTED 0x150C
+#define GL_OR_INVERTED 0x150D
+#define GL_NAND 0x150E
+#define GL_SET 0x150F
+#define GL_TEXTURE 0x1702
+#define GL_COLOR 0x1800
+#define GL_DEPTH 0x1801
+#define GL_STENCIL 0x1802
+#define GL_STENCIL_INDEX 0x1901
+#define GL_DEPTH_COMPONENT 0x1902
+#define GL_RED 0x1903
+#define GL_GREEN 0x1904
+#define GL_BLUE 0x1905
+#define GL_ALPHA 0x1906
+#define GL_RGB 0x1907
+#define GL_RGBA 0x1908
+#define GL_POINT 0x1B00
+#define GL_LINE 0x1B01
+#define GL_FILL 0x1B02
+#define GL_KEEP 0x1E00
+#define GL_REPLACE 0x1E01
+#define GL_INCR 0x1E02
+#define GL_DECR 0x1E03
+#define GL_VENDOR 0x1F00
+#define GL_RENDERER 0x1F01
+#define GL_VERSION 0x1F02
+#define GL_EXTENSIONS 0x1F03
+#define GL_NEAREST 0x2600
+#define GL_LINEAR 0x2601
+#define GL_NEAREST_MIPMAP_NEAREST 0x2700
+#define GL_LINEAR_MIPMAP_NEAREST 0x2701
+#define GL_NEAREST_MIPMAP_LINEAR 0x2702
+#define GL_LINEAR_MIPMAP_LINEAR 0x2703
+#define GL_TEXTURE_MAG_FILTER 0x2800
+#define GL_TEXTURE_MIN_FILTER 0x2801
+#define GL_TEXTURE_WRAP_S 0x2802
+#define GL_TEXTURE_WRAP_T 0x2803
+#define GL_REPEAT 0x2901
+#define GL_CURRENT_BIT 0x00000001
+#define GL_POINT_BIT 0x00000002
+#define GL_LINE_BIT 0x00000004
+#define GL_POLYGON_BIT 0x00000008
+#define GL_POLYGON_STIPPLE_BIT 0x00000010
+#define GL_PIXEL_MODE_BIT 0x00000020
+#define GL_LIGHTING_BIT 0x00000040
+#define GL_FOG_BIT 0x00000080
+#define GL_ACCUM_BUFFER_BIT 0x00000200
+#define GL_VIEWPORT_BIT 0x00000800
+#define GL_TRANSFORM_BIT 0x00001000
+#define GL_ENABLE_BIT 0x00002000
+#define GL_HINT_BIT 0x00008000
+#define GL_EVAL_BIT 0x00010000
+#define GL_LIST_BIT 0x00020000
+#define GL_TEXTURE_BIT 0x00040000
+#define GL_SCISSOR_BIT 0x00080000
+#define GL_ALL_ATTRIB_BITS 0xFFFFFFFF
+#define GL_QUAD_STRIP 0x0008
+#define GL_POLYGON 0x0009
+#define GL_ACCUM 0x0100
+#define GL_LOAD 0x0101
+#define GL_RETURN 0x0102
+#define GL_MULT 0x0103
+#define GL_ADD 0x0104
+#define GL_AUX0 0x0409
+#define GL_AUX1 0x040A
+#define GL_AUX2 0x040B
+#define GL_AUX3 0x040C
+#define GL_2D 0x0600
+#define GL_3D 0x0601
+#define GL_3D_COLOR 0x0602
+#define GL_3D_COLOR_TEXTURE 0x0603
+#define GL_4D_COLOR_TEXTURE 0x0604
+#define GL_PASS_THROUGH_TOKEN 0x0700
+#define GL_POINT_TOKEN 0x0701
+#define GL_LINE_TOKEN 0x0702
+#define GL_POLYGON_TOKEN 0x0703
+#define GL_BITMAP_TOKEN 0x0704
+#define GL_DRAW_PIXEL_TOKEN 0x0705
+#define GL_COPY_PIXEL_TOKEN 0x0706
+#define GL_LINE_RESET_TOKEN 0x0707
+#define GL_EXP 0x0800
+#define GL_EXP2 0x0801
+#define GL_COEFF 0x0A00
+#define GL_ORDER 0x0A01
+#define GL_DOMAIN 0x0A02
+#define GL_PIXEL_MAP_I_TO_I 0x0C70
+#define GL_PIXEL_MAP_S_TO_S 0x0C71
+#define GL_PIXEL_MAP_I_TO_R 0x0C72
+#define GL_PIXEL_MAP_I_TO_G 0x0C73
+#define GL_PIXEL_MAP_I_TO_B 0x0C74
+#define GL_PIXEL_MAP_I_TO_A 0x0C75
+#define GL_PIXEL_MAP_R_TO_R 0x0C76
+#define GL_PIXEL_MAP_G_TO_G 0x0C77
+#define GL_PIXEL_MAP_B_TO_B 0x0C78
+#define GL_PIXEL_MAP_A_TO_A 0x0C79
+#define GL_CURRENT_COLOR 0x0B00
+#define GL_CURRENT_INDEX 0x0B01
+#define GL_CURRENT_NORMAL 0x0B02
+#define GL_CURRENT_TEXTURE_COORDS 0x0B03
+#define GL_CURRENT_RASTER_COLOR 0x0B04
+#define GL_CURRENT_RASTER_INDEX 0x0B05
+#define GL_CURRENT_RASTER_TEXTURE_COORDS 0x0B06
+#define GL_CURRENT_RASTER_POSITION 0x0B07
+#define GL_CURRENT_RASTER_POSITION_VALID 0x0B08
+#define GL_CURRENT_RASTER_DISTANCE 0x0B09
+#define GL_POINT_SMOOTH 0x0B10
+#define GL_LINE_STIPPLE 0x0B24
+#define GL_LINE_STIPPLE_PATTERN 0x0B25
+#define GL_LINE_STIPPLE_REPEAT 0x0B26
+#define GL_LIST_MODE 0x0B30
+#define GL_MAX_LIST_NESTING 0x0B31
+#define GL_LIST_BASE 0x0B32
+#define GL_LIST_INDEX 0x0B33
+#define GL_POLYGON_STIPPLE 0x0B42
+#define GL_EDGE_FLAG 0x0B43
+#define GL_LIGHTING 0x0B50
+#define GL_LIGHT_MODEL_LOCAL_VIEWER 0x0B51
+#define GL_LIGHT_MODEL_TWO_SIDE 0x0B52
+#define GL_LIGHT_MODEL_AMBIENT 0x0B53
+#define GL_SHADE_MODEL 0x0B54
+#define GL_COLOR_MATERIAL_FACE 0x0B55
+#define GL_COLOR_MATERIAL_PARAMETER 0x0B56
+#define GL_COLOR_MATERIAL 0x0B57
+#define GL_FOG 0x0B60
+#define GL_FOG_INDEX 0x0B61
+#define GL_FOG_DENSITY 0x0B62
+#define GL_FOG_START 0x0B63
+#define GL_FOG_END 0x0B64
+#define GL_FOG_MODE 0x0B65
+#define GL_FOG_COLOR 0x0B66
+#define GL_ACCUM_CLEAR_VALUE 0x0B80
+#define GL_MATRIX_MODE 0x0BA0
+#define GL_NORMALIZE 0x0BA1
+#define GL_MODELVIEW_STACK_DEPTH 0x0BA3
+#define GL_PROJECTION_STACK_DEPTH 0x0BA4
+#define GL_TEXTURE_STACK_DEPTH 0x0BA5
+#define GL_MODELVIEW_MATRIX 0x0BA6
+#define GL_PROJECTION_MATRIX 0x0BA7
+#define GL_TEXTURE_MATRIX 0x0BA8
+#define GL_ATTRIB_STACK_DEPTH 0x0BB0
+#define GL_ALPHA_TEST 0x0BC0
+#define GL_ALPHA_TEST_FUNC 0x0BC1
+#define GL_ALPHA_TEST_REF 0x0BC2
+#define GL_LOGIC_OP 0x0BF1
+#define GL_AUX_BUFFERS 0x0C00
+#define GL_INDEX_CLEAR_VALUE 0x0C20
+#define GL_INDEX_WRITEMASK 0x0C21
+#define GL_INDEX_MODE 0x0C30
+#define GL_RGBA_MODE 0x0C31
+#define GL_RENDER_MODE 0x0C40
+#define GL_PERSPECTIVE_CORRECTION_HINT 0x0C50
+#define GL_POINT_SMOOTH_HINT 0x0C51
+#define GL_FOG_HINT 0x0C54
+#define GL_TEXTURE_GEN_S 0x0C60
+#define GL_TEXTURE_GEN_T 0x0C61
+#define GL_TEXTURE_GEN_R 0x0C62
+#define GL_TEXTURE_GEN_Q 0x0C63
+#define GL_PIXEL_MAP_I_TO_I_SIZE 0x0CB0
+#define GL_PIXEL_MAP_S_TO_S_SIZE 0x0CB1
+#define GL_PIXEL_MAP_I_TO_R_SIZE 0x0CB2
+#define GL_PIXEL_MAP_I_TO_G_SIZE 0x0CB3
+#define GL_PIXEL_MAP_I_TO_B_SIZE 0x0CB4
+#define GL_PIXEL_MAP_I_TO_A_SIZE 0x0CB5
+#define GL_PIXEL_MAP_R_TO_R_SIZE 0x0CB6
+#define GL_PIXEL_MAP_G_TO_G_SIZE 0x0CB7
+#define GL_PIXEL_MAP_B_TO_B_SIZE 0x0CB8
+#define GL_PIXEL_MAP_A_TO_A_SIZE 0x0CB9
+#define GL_MAP_COLOR 0x0D10
+#define GL_MAP_STENCIL 0x0D11
+#define GL_INDEX_SHIFT 0x0D12
+#define GL_INDEX_OFFSET 0x0D13
+#define GL_RED_SCALE 0x0D14
+#define GL_RED_BIAS 0x0D15
+#define GL_ZOOM_X 0x0D16
+#define GL_ZOOM_Y 0x0D17
+#define GL_GREEN_SCALE 0x0D18
+#define GL_GREEN_BIAS 0x0D19
+#define GL_BLUE_SCALE 0x0D1A
+#define GL_BLUE_BIAS 0x0D1B
+#define GL_ALPHA_SCALE 0x0D1C
+#define GL_ALPHA_BIAS 0x0D1D
+#define GL_DEPTH_SCALE 0x0D1E
+#define GL_DEPTH_BIAS 0x0D1F
+#define GL_MAX_EVAL_ORDER 0x0D30
+#define GL_MAX_LIGHTS 0x0D31
+#define GL_MAX_CLIP_PLANES 0x0D32
+#define GL_MAX_PIXEL_MAP_TABLE 0x0D34
+#define GL_MAX_ATTRIB_STACK_DEPTH 0x0D35
+#define GL_MAX_MODELVIEW_STACK_DEPTH 0x0D36
+#define GL_MAX_NAME_STACK_DEPTH 0x0D37
+#define GL_MAX_PROJECTION_STACK_DEPTH 0x0D38
+#define GL_MAX_TEXTURE_STACK_DEPTH 0x0D39
+#define GL_INDEX_BITS 0x0D51
+#define GL_RED_BITS 0x0D52
+#define GL_GREEN_BITS 0x0D53
+#define GL_BLUE_BITS 0x0D54
+#define GL_ALPHA_BITS 0x0D55
+#define GL_DEPTH_BITS 0x0D56
+#define GL_STENCIL_BITS 0x0D57
+#define GL_ACCUM_RED_BITS 0x0D58
+#define GL_ACCUM_GREEN_BITS 0x0D59
+#define GL_ACCUM_BLUE_BITS 0x0D5A
+#define GL_ACCUM_ALPHA_BITS 0x0D5B
+#define GL_NAME_STACK_DEPTH 0x0D70
+#define GL_AUTO_NORMAL 0x0D80
+#define GL_MAP1_COLOR_4 0x0D90
+#define GL_MAP1_INDEX 0x0D91
+#define GL_MAP1_NORMAL 0x0D92
+#define GL_MAP1_TEXTURE_COORD_1 0x0D93
+#define GL_MAP1_TEXTURE_COORD_2 0x0D94
+#define GL_MAP1_TEXTURE_COORD_3 0x0D95
+#define GL_MAP1_TEXTURE_COORD_4 0x0D96
+#define GL_MAP1_VERTEX_3 0x0D97
+#define GL_MAP1_VERTEX_4 0x0D98
+#define GL_MAP2_COLOR_4 0x0DB0
+#define GL_MAP2_INDEX 0x0DB1
+#define GL_MAP2_NORMAL 0x0DB2
+#define GL_MAP2_TEXTURE_COORD_1 0x0DB3
+#define GL_MAP2_TEXTURE_COORD_2 0x0DB4
+#define GL_MAP2_TEXTURE_COORD_3 0x0DB5
+#define GL_MAP2_TEXTURE_COORD_4 0x0DB6
+#define GL_MAP2_VERTEX_3 0x0DB7
+#define GL_MAP2_VERTEX_4 0x0DB8
+#define GL_MAP1_GRID_DOMAIN 0x0DD0
+#define GL_MAP1_GRID_SEGMENTS 0x0DD1
+#define GL_MAP2_GRID_DOMAIN 0x0DD2
+#define GL_MAP2_GRID_SEGMENTS 0x0DD3
+#define GL_TEXTURE_COMPONENTS 0x1003
+#define GL_TEXTURE_BORDER 0x1005
+#define GL_AMBIENT 0x1200
+#define GL_DIFFUSE 0x1201
+#define GL_SPECULAR 0x1202
+#define GL_POSITION 0x1203
+#define GL_SPOT_DIRECTION 0x1204
+#define GL_SPOT_EXPONENT 0x1205
+#define GL_SPOT_CUTOFF 0x1206
+#define GL_CONSTANT_ATTENUATION 0x1207
+#define GL_LINEAR_ATTENUATION 0x1208
+#define GL_QUADRATIC_ATTENUATION 0x1209
+#define GL_COMPILE 0x1300
+#define GL_COMPILE_AND_EXECUTE 0x1301
+#define GL_2_BYTES 0x1407
+#define GL_3_BYTES 0x1408
+#define GL_4_BYTES 0x1409
+#define GL_EMISSION 0x1600
+#define GL_SHININESS 0x1601
+#define GL_AMBIENT_AND_DIFFUSE 0x1602
+#define GL_COLOR_INDEXES 0x1603
+#define GL_MODELVIEW 0x1700
+#define GL_PROJECTION 0x1701
+#define GL_COLOR_INDEX 0x1900
+#define GL_LUMINANCE 0x1909
+#define GL_LUMINANCE_ALPHA 0x190A
+#define GL_BITMAP 0x1A00
+#define GL_RENDER 0x1C00
+#define GL_FEEDBACK 0x1C01
+#define GL_SELECT 0x1C02
+#define GL_FLAT 0x1D00
+#define GL_SMOOTH 0x1D01
+#define GL_S 0x2000
+#define GL_T 0x2001
+#define GL_R 0x2002
+#define GL_Q 0x2003
+#define GL_MODULATE 0x2100
+#define GL_DECAL 0x2101
+#define GL_TEXTURE_ENV_MODE 0x2200
+#define GL_TEXTURE_ENV_COLOR 0x2201
+#define GL_TEXTURE_ENV 0x2300
+#define GL_EYE_LINEAR 0x2400
+#define GL_OBJECT_LINEAR 0x2401
+#define GL_SPHERE_MAP 0x2402
+#define GL_TEXTURE_GEN_MODE 0x2500
+#define GL_OBJECT_PLANE 0x2501
+#define GL_EYE_PLANE 0x2502
+#define GL_CLAMP 0x2900
+#define GL_CLIP_PLANE0 0x3000
+#define GL_CLIP_PLANE1 0x3001
+#define GL_CLIP_PLANE2 0x3002
+#define GL_CLIP_PLANE3 0x3003
+#define GL_CLIP_PLANE4 0x3004
+#define GL_CLIP_PLANE5 0x3005
+#define GL_LIGHT0 0x4000
+#define GL_LIGHT1 0x4001
+#define GL_LIGHT2 0x4002
+#define GL_LIGHT3 0x4003
+#define GL_LIGHT4 0x4004
+#define GL_LIGHT5 0x4005
+#define GL_LIGHT6 0x4006
+#define GL_LIGHT7 0x4007
 typedef void (APIENTRYP PFNGLCULLFACEPROC)(GLenum mode);
 #define glCullFace __glCullFace
 typedef void (APIENTRYP PFNGLFRONTFACEPROC)(GLenum mode);
@@ -514,7 +949,7 @@ typedef void (APIENTRYP PFNGLGETTEXLEVELPARAMETERIVPROC)(GLenum target, GLint le
 #define glGetTexLevelParameteriv __glGetTexLevelParameteriv
 typedef GLboolean (APIENTRYP PFNGLISENABLEDPROC)(GLenum cap);
 #define glIsEnabled __glIsEnabled
-typedef void (APIENTRYP PFNGLDEPTHRANGEPROC)(GLdouble near, GLdouble far);
+typedef void (APIENTRYP PFNGLDEPTHRANGEPROC)(GLdouble n, GLdouble f);
 #define glDepthRange __glDepthRange
 typedef void (APIENTRYP PFNGLVIEWPORTPROC)(GLint x, GLint y, GLsizei width, GLsizei height);
 #define glViewport __glViewport
@@ -1039,115 +1474,7 @@ typedef void (APIENTRYP PFNGLTRANSLATEFPROC)(GLfloat x, GLfloat y, GLfloat z);
 #if CWCGL_VERSION >= GL_VERSION_1_1
 typedef khronos_float_t GLclampf;
 typedef double GLclampd;
-#define GL_DEPTH_BUFFER_BIT 0x00000100
-#define GL_STENCIL_BUFFER_BIT 0x00000400
-#define GL_COLOR_BUFFER_BIT 0x00004000
-#define GL_FALSE 0
-#define GL_TRUE 1
-#define GL_POINTS 0x0000
-#define GL_LINES 0x0001
-#define GL_LINE_LOOP 0x0002
-#define GL_LINE_STRIP 0x0003
-#define GL_TRIANGLES 0x0004
-#define GL_TRIANGLE_STRIP 0x0005
-#define GL_TRIANGLE_FAN 0x0006
-#define GL_QUADS 0x0007
-#define GL_NEVER 0x0200
-#define GL_LESS 0x0201
-#define GL_EQUAL 0x0202
-#define GL_LEQUAL 0x0203
-#define GL_GREATER 0x0204
-#define GL_NOTEQUAL 0x0205
-#define GL_GEQUAL 0x0206
-#define GL_ALWAYS 0x0207
-#define GL_ZERO 0
-#define GL_ONE 1
-#define GL_SRC_COLOR 0x0300
-#define GL_ONE_MINUS_SRC_COLOR 0x0301
-#define GL_SRC_ALPHA 0x0302
-#define GL_ONE_MINUS_SRC_ALPHA 0x0303
-#define GL_DST_ALPHA 0x0304
-#define GL_ONE_MINUS_DST_ALPHA 0x0305
-#define GL_DST_COLOR 0x0306
-#define GL_ONE_MINUS_DST_COLOR 0x0307
-#define GL_SRC_ALPHA_SATURATE 0x0308
-#define GL_NONE 0
-#define GL_FRONT_LEFT 0x0400
-#define GL_FRONT_RIGHT 0x0401
-#define GL_BACK_LEFT 0x0402
-#define GL_BACK_RIGHT 0x0403
-#define GL_FRONT 0x0404
-#define GL_BACK 0x0405
-#define GL_LEFT 0x0406
-#define GL_RIGHT 0x0407
-#define GL_FRONT_AND_BACK 0x0408
-#define GL_NO_ERROR 0
-#define GL_INVALID_ENUM 0x0500
-#define GL_INVALID_VALUE 0x0501
-#define GL_INVALID_OPERATION 0x0502
-#define GL_OUT_OF_MEMORY 0x0505
-#define GL_CW 0x0900
-#define GL_CCW 0x0901
-#define GL_POINT_SIZE 0x0B11
-#define GL_POINT_SIZE_RANGE 0x0B12
-#define GL_POINT_SIZE_GRANULARITY 0x0B13
-#define GL_LINE_SMOOTH 0x0B20
-#define GL_LINE_WIDTH 0x0B21
-#define GL_LINE_WIDTH_RANGE 0x0B22
-#define GL_LINE_WIDTH_GRANULARITY 0x0B23
-#define GL_POLYGON_MODE 0x0B40
-#define GL_POLYGON_SMOOTH 0x0B41
-#define GL_CULL_FACE 0x0B44
-#define GL_CULL_FACE_MODE 0x0B45
-#define GL_FRONT_FACE 0x0B46
-#define GL_DEPTH_RANGE 0x0B70
-#define GL_DEPTH_TEST 0x0B71
-#define GL_DEPTH_WRITEMASK 0x0B72
-#define GL_DEPTH_CLEAR_VALUE 0x0B73
-#define GL_DEPTH_FUNC 0x0B74
-#define GL_STENCIL_TEST 0x0B90
-#define GL_STENCIL_CLEAR_VALUE 0x0B91
-#define GL_STENCIL_FUNC 0x0B92
-#define GL_STENCIL_VALUE_MASK 0x0B93
-#define GL_STENCIL_FAIL 0x0B94
-#define GL_STENCIL_PASS_DEPTH_FAIL 0x0B95
-#define GL_STENCIL_PASS_DEPTH_PASS 0x0B96
-#define GL_STENCIL_REF 0x0B97
-#define GL_STENCIL_WRITEMASK 0x0B98
-#define GL_VIEWPORT 0x0BA2
-#define GL_DITHER 0x0BD0
-#define GL_BLEND_DST 0x0BE0
-#define GL_BLEND_SRC 0x0BE1
-#define GL_BLEND 0x0BE2
-#define GL_LOGIC_OP_MODE 0x0BF0
 #define GL_COLOR_LOGIC_OP 0x0BF2
-#define GL_DRAW_BUFFER 0x0C01
-#define GL_READ_BUFFER 0x0C02
-#define GL_SCISSOR_BOX 0x0C10
-#define GL_SCISSOR_TEST 0x0C11
-#define GL_COLOR_CLEAR_VALUE 0x0C22
-#define GL_COLOR_WRITEMASK 0x0C23
-#define GL_DOUBLEBUFFER 0x0C32
-#define GL_STEREO 0x0C33
-#define GL_LINE_SMOOTH_HINT 0x0C52
-#define GL_POLYGON_SMOOTH_HINT 0x0C53
-#define GL_UNPACK_SWAP_BYTES 0x0CF0
-#define GL_UNPACK_LSB_FIRST 0x0CF1
-#define GL_UNPACK_ROW_LENGTH 0x0CF2
-#define GL_UNPACK_SKIP_ROWS 0x0CF3
-#define GL_UNPACK_SKIP_PIXELS 0x0CF4
-#define GL_UNPACK_ALIGNMENT 0x0CF5
-#define GL_PACK_SWAP_BYTES 0x0D00
-#define GL_PACK_LSB_FIRST 0x0D01
-#define GL_PACK_ROW_LENGTH 0x0D02
-#define GL_PACK_SKIP_ROWS 0x0D03
-#define GL_PACK_SKIP_PIXELS 0x0D04
-#define GL_PACK_ALIGNMENT 0x0D05
-#define GL_MAX_TEXTURE_SIZE 0x0D33
-#define GL_MAX_VIEWPORT_DIMS 0x0D3A
-#define GL_SUBPIXEL_BITS 0x0D50
-#define GL_TEXTURE_1D 0x0DE0
-#define GL_TEXTURE_2D 0x0DE1
 #define GL_POLYGON_OFFSET_UNITS 0x2A00
 #define GL_POLYGON_OFFSET_POINT 0x2A01
 #define GL_POLYGON_OFFSET_LINE 0x2A02
@@ -1155,79 +1482,14 @@ typedef double GLclampd;
 #define GL_POLYGON_OFFSET_FACTOR 0x8038
 #define GL_TEXTURE_BINDING_1D 0x8068
 #define GL_TEXTURE_BINDING_2D 0x8069
-#define GL_TEXTURE_WIDTH 0x1000
-#define GL_TEXTURE_HEIGHT 0x1001
 #define GL_TEXTURE_INTERNAL_FORMAT 0x1003
-#define GL_TEXTURE_BORDER_COLOR 0x1004
 #define GL_TEXTURE_RED_SIZE 0x805C
 #define GL_TEXTURE_GREEN_SIZE 0x805D
 #define GL_TEXTURE_BLUE_SIZE 0x805E
 #define GL_TEXTURE_ALPHA_SIZE 0x805F
-#define GL_DONT_CARE 0x1100
-#define GL_FASTEST 0x1101
-#define GL_NICEST 0x1102
-#define GL_BYTE 0x1400
-#define GL_UNSIGNED_BYTE 0x1401
-#define GL_SHORT 0x1402
-#define GL_UNSIGNED_SHORT 0x1403
-#define GL_INT 0x1404
-#define GL_UNSIGNED_INT 0x1405
-#define GL_FLOAT 0x1406
 #define GL_DOUBLE 0x140A
-#define GL_STACK_OVERFLOW 0x0503
-#define GL_STACK_UNDERFLOW 0x0504
-#define GL_CLEAR 0x1500
-#define GL_AND 0x1501
-#define GL_AND_REVERSE 0x1502
-#define GL_COPY 0x1503
-#define GL_AND_INVERTED 0x1504
-#define GL_NOOP 0x1505
-#define GL_XOR 0x1506
-#define GL_OR 0x1507
-#define GL_NOR 0x1508
-#define GL_EQUIV 0x1509
-#define GL_INVERT 0x150A
-#define GL_OR_REVERSE 0x150B
-#define GL_COPY_INVERTED 0x150C
-#define GL_OR_INVERTED 0x150D
-#define GL_NAND 0x150E
-#define GL_SET 0x150F
-#define GL_TEXTURE 0x1702
-#define GL_COLOR 0x1800
-#define GL_DEPTH 0x1801
-#define GL_STENCIL 0x1802
-#define GL_STENCIL_INDEX 0x1901
-#define GL_DEPTH_COMPONENT 0x1902
-#define GL_RED 0x1903
-#define GL_GREEN 0x1904
-#define GL_BLUE 0x1905
-#define GL_ALPHA 0x1906
-#define GL_RGB 0x1907
-#define GL_RGBA 0x1908
-#define GL_POINT 0x1B00
-#define GL_LINE 0x1B01
-#define GL_FILL 0x1B02
-#define GL_KEEP 0x1E00
-#define GL_REPLACE 0x1E01
-#define GL_INCR 0x1E02
-#define GL_DECR 0x1E03
-#define GL_VENDOR 0x1F00
-#define GL_RENDERER 0x1F01
-#define GL_VERSION 0x1F02
-#define GL_EXTENSIONS 0x1F03
-#define GL_NEAREST 0x2600
-#define GL_LINEAR 0x2601
-#define GL_NEAREST_MIPMAP_NEAREST 0x2700
-#define GL_LINEAR_MIPMAP_NEAREST 0x2701
-#define GL_NEAREST_MIPMAP_LINEAR 0x2702
-#define GL_LINEAR_MIPMAP_LINEAR 0x2703
-#define GL_TEXTURE_MAG_FILTER 0x2800
-#define GL_TEXTURE_MIN_FILTER 0x2801
-#define GL_TEXTURE_WRAP_S 0x2802
-#define GL_TEXTURE_WRAP_T 0x2803
 #define GL_PROXY_TEXTURE_1D 0x8063
 #define GL_PROXY_TEXTURE_2D 0x8064
-#define GL_REPEAT 0x2901
 #define GL_R3_G3_B2 0x2A10
 #define GL_RGB4 0x804F
 #define GL_RGB5 0x8050
@@ -1242,66 +1504,9 @@ typedef double GLclampd;
 #define GL_RGB10_A2 0x8059
 #define GL_RGBA12 0x805A
 #define GL_RGBA16 0x805B
-#define GL_CURRENT_BIT 0x00000001
-#define GL_POINT_BIT 0x00000002
-#define GL_LINE_BIT 0x00000004
-#define GL_POLYGON_BIT 0x00000008
-#define GL_POLYGON_STIPPLE_BIT 0x00000010
-#define GL_PIXEL_MODE_BIT 0x00000020
-#define GL_LIGHTING_BIT 0x00000040
-#define GL_FOG_BIT 0x00000080
-#define GL_ACCUM_BUFFER_BIT 0x00000200
-#define GL_VIEWPORT_BIT 0x00000800
-#define GL_TRANSFORM_BIT 0x00001000
-#define GL_ENABLE_BIT 0x00002000
-#define GL_HINT_BIT 0x00008000
-#define GL_EVAL_BIT 0x00010000
-#define GL_LIST_BIT 0x00020000
-#define GL_TEXTURE_BIT 0x00040000
-#define GL_SCISSOR_BIT 0x00080000
-#define GL_ALL_ATTRIB_BITS 0xFFFFFFFF
 #define GL_CLIENT_PIXEL_STORE_BIT 0x00000001
 #define GL_CLIENT_VERTEX_ARRAY_BIT 0x00000002
 #define GL_CLIENT_ALL_ATTRIB_BITS 0xFFFFFFFF
-#define GL_QUAD_STRIP 0x0008
-#define GL_POLYGON 0x0009
-#define GL_ACCUM 0x0100
-#define GL_LOAD 0x0101
-#define GL_RETURN 0x0102
-#define GL_MULT 0x0103
-#define GL_ADD 0x0104
-#define GL_AUX0 0x0409
-#define GL_AUX1 0x040A
-#define GL_AUX2 0x040B
-#define GL_AUX3 0x040C
-#define GL_2D 0x0600
-#define GL_3D 0x0601
-#define GL_3D_COLOR 0x0602
-#define GL_3D_COLOR_TEXTURE 0x0603
-#define GL_4D_COLOR_TEXTURE 0x0604
-#define GL_PASS_THROUGH_TOKEN 0x0700
-#define GL_POINT_TOKEN 0x0701
-#define GL_LINE_TOKEN 0x0702
-#define GL_POLYGON_TOKEN 0x0703
-#define GL_BITMAP_TOKEN 0x0704
-#define GL_DRAW_PIXEL_TOKEN 0x0705
-#define GL_COPY_PIXEL_TOKEN 0x0706
-#define GL_LINE_RESET_TOKEN 0x0707
-#define GL_EXP 0x0800
-#define GL_EXP2 0x0801
-#define GL_COEFF 0x0A00
-#define GL_ORDER 0x0A01
-#define GL_DOMAIN 0x0A02
-#define GL_PIXEL_MAP_I_TO_I 0x0C70
-#define GL_PIXEL_MAP_S_TO_S 0x0C71
-#define GL_PIXEL_MAP_I_TO_R 0x0C72
-#define GL_PIXEL_MAP_I_TO_G 0x0C73
-#define GL_PIXEL_MAP_I_TO_B 0x0C74
-#define GL_PIXEL_MAP_I_TO_A 0x0C75
-#define GL_PIXEL_MAP_R_TO_R 0x0C76
-#define GL_PIXEL_MAP_G_TO_G 0x0C77
-#define GL_PIXEL_MAP_B_TO_B 0x0C78
-#define GL_PIXEL_MAP_A_TO_A 0x0C79
 #define GL_VERTEX_ARRAY_POINTER 0x808E
 #define GL_NORMAL_ARRAY_POINTER 0x808F
 #define GL_COLOR_ARRAY_POINTER 0x8090
@@ -1310,141 +1515,9 @@ typedef double GLclampd;
 #define GL_EDGE_FLAG_ARRAY_POINTER 0x8093
 #define GL_FEEDBACK_BUFFER_POINTER 0x0DF0
 #define GL_SELECTION_BUFFER_POINTER 0x0DF3
-#define GL_CURRENT_COLOR 0x0B00
-#define GL_CURRENT_INDEX 0x0B01
-#define GL_CURRENT_NORMAL 0x0B02
-#define GL_CURRENT_TEXTURE_COORDS 0x0B03
-#define GL_CURRENT_RASTER_COLOR 0x0B04
-#define GL_CURRENT_RASTER_INDEX 0x0B05
-#define GL_CURRENT_RASTER_TEXTURE_COORDS 0x0B06
-#define GL_CURRENT_RASTER_POSITION 0x0B07
-#define GL_CURRENT_RASTER_POSITION_VALID 0x0B08
-#define GL_CURRENT_RASTER_DISTANCE 0x0B09
-#define GL_POINT_SMOOTH 0x0B10
-#define GL_LINE_STIPPLE 0x0B24
-#define GL_LINE_STIPPLE_PATTERN 0x0B25
-#define GL_LINE_STIPPLE_REPEAT 0x0B26
-#define GL_LIST_MODE 0x0B30
-#define GL_MAX_LIST_NESTING 0x0B31
-#define GL_LIST_BASE 0x0B32
-#define GL_LIST_INDEX 0x0B33
-#define GL_POLYGON_STIPPLE 0x0B42
-#define GL_EDGE_FLAG 0x0B43
-#define GL_LIGHTING 0x0B50
-#define GL_LIGHT_MODEL_LOCAL_VIEWER 0x0B51
-#define GL_LIGHT_MODEL_TWO_SIDE 0x0B52
-#define GL_LIGHT_MODEL_AMBIENT 0x0B53
-#define GL_SHADE_MODEL 0x0B54
-#define GL_COLOR_MATERIAL_FACE 0x0B55
-#define GL_COLOR_MATERIAL_PARAMETER 0x0B56
-#define GL_COLOR_MATERIAL 0x0B57
-#define GL_FOG 0x0B60
-#define GL_FOG_INDEX 0x0B61
-#define GL_FOG_DENSITY 0x0B62
-#define GL_FOG_START 0x0B63
-#define GL_FOG_END 0x0B64
-#define GL_FOG_MODE 0x0B65
-#define GL_FOG_COLOR 0x0B66
-#define GL_ACCUM_CLEAR_VALUE 0x0B80
-#define GL_MATRIX_MODE 0x0BA0
-#define GL_NORMALIZE 0x0BA1
-#define GL_MODELVIEW_STACK_DEPTH 0x0BA3
-#define GL_PROJECTION_STACK_DEPTH 0x0BA4
-#define GL_TEXTURE_STACK_DEPTH 0x0BA5
-#define GL_MODELVIEW_MATRIX 0x0BA6
-#define GL_PROJECTION_MATRIX 0x0BA7
-#define GL_TEXTURE_MATRIX 0x0BA8
-#define GL_ATTRIB_STACK_DEPTH 0x0BB0
 #define GL_CLIENT_ATTRIB_STACK_DEPTH 0x0BB1
-#define GL_ALPHA_TEST 0x0BC0
-#define GL_ALPHA_TEST_FUNC 0x0BC1
-#define GL_ALPHA_TEST_REF 0x0BC2
 #define GL_INDEX_LOGIC_OP 0x0BF1
-#define GL_LOGIC_OP 0x0BF1
-#define GL_AUX_BUFFERS 0x0C00
-#define GL_INDEX_CLEAR_VALUE 0x0C20
-#define GL_INDEX_WRITEMASK 0x0C21
-#define GL_INDEX_MODE 0x0C30
-#define GL_RGBA_MODE 0x0C31
-#define GL_RENDER_MODE 0x0C40
-#define GL_PERSPECTIVE_CORRECTION_HINT 0x0C50
-#define GL_POINT_SMOOTH_HINT 0x0C51
-#define GL_FOG_HINT 0x0C54
-#define GL_TEXTURE_GEN_S 0x0C60
-#define GL_TEXTURE_GEN_T 0x0C61
-#define GL_TEXTURE_GEN_R 0x0C62
-#define GL_TEXTURE_GEN_Q 0x0C63
-#define GL_PIXEL_MAP_I_TO_I_SIZE 0x0CB0
-#define GL_PIXEL_MAP_S_TO_S_SIZE 0x0CB1
-#define GL_PIXEL_MAP_I_TO_R_SIZE 0x0CB2
-#define GL_PIXEL_MAP_I_TO_G_SIZE 0x0CB3
-#define GL_PIXEL_MAP_I_TO_B_SIZE 0x0CB4
-#define GL_PIXEL_MAP_I_TO_A_SIZE 0x0CB5
-#define GL_PIXEL_MAP_R_TO_R_SIZE 0x0CB6
-#define GL_PIXEL_MAP_G_TO_G_SIZE 0x0CB7
-#define GL_PIXEL_MAP_B_TO_B_SIZE 0x0CB8
-#define GL_PIXEL_MAP_A_TO_A_SIZE 0x0CB9
-#define GL_MAP_COLOR 0x0D10
-#define GL_MAP_STENCIL 0x0D11
-#define GL_INDEX_SHIFT 0x0D12
-#define GL_INDEX_OFFSET 0x0D13
-#define GL_RED_SCALE 0x0D14
-#define GL_RED_BIAS 0x0D15
-#define GL_ZOOM_X 0x0D16
-#define GL_ZOOM_Y 0x0D17
-#define GL_GREEN_SCALE 0x0D18
-#define GL_GREEN_BIAS 0x0D19
-#define GL_BLUE_SCALE 0x0D1A
-#define GL_BLUE_BIAS 0x0D1B
-#define GL_ALPHA_SCALE 0x0D1C
-#define GL_ALPHA_BIAS 0x0D1D
-#define GL_DEPTH_SCALE 0x0D1E
-#define GL_DEPTH_BIAS 0x0D1F
-#define GL_MAX_EVAL_ORDER 0x0D30
-#define GL_MAX_LIGHTS 0x0D31
-#define GL_MAX_CLIP_PLANES 0x0D32
-#define GL_MAX_PIXEL_MAP_TABLE 0x0D34
-#define GL_MAX_ATTRIB_STACK_DEPTH 0x0D35
-#define GL_MAX_MODELVIEW_STACK_DEPTH 0x0D36
-#define GL_MAX_NAME_STACK_DEPTH 0x0D37
-#define GL_MAX_PROJECTION_STACK_DEPTH 0x0D38
-#define GL_MAX_TEXTURE_STACK_DEPTH 0x0D39
 #define GL_MAX_CLIENT_ATTRIB_STACK_DEPTH 0x0D3B
-#define GL_INDEX_BITS 0x0D51
-#define GL_RED_BITS 0x0D52
-#define GL_GREEN_BITS 0x0D53
-#define GL_BLUE_BITS 0x0D54
-#define GL_ALPHA_BITS 0x0D55
-#define GL_DEPTH_BITS 0x0D56
-#define GL_STENCIL_BITS 0x0D57
-#define GL_ACCUM_RED_BITS 0x0D58
-#define GL_ACCUM_GREEN_BITS 0x0D59
-#define GL_ACCUM_BLUE_BITS 0x0D5A
-#define GL_ACCUM_ALPHA_BITS 0x0D5B
-#define GL_NAME_STACK_DEPTH 0x0D70
-#define GL_AUTO_NORMAL 0x0D80
-#define GL_MAP1_COLOR_4 0x0D90
-#define GL_MAP1_INDEX 0x0D91
-#define GL_MAP1_NORMAL 0x0D92
-#define GL_MAP1_TEXTURE_COORD_1 0x0D93
-#define GL_MAP1_TEXTURE_COORD_2 0x0D94
-#define GL_MAP1_TEXTURE_COORD_3 0x0D95
-#define GL_MAP1_TEXTURE_COORD_4 0x0D96
-#define GL_MAP1_VERTEX_3 0x0D97
-#define GL_MAP1_VERTEX_4 0x0D98
-#define GL_MAP2_COLOR_4 0x0DB0
-#define GL_MAP2_INDEX 0x0DB1
-#define GL_MAP2_NORMAL 0x0DB2
-#define GL_MAP2_TEXTURE_COORD_1 0x0DB3
-#define GL_MAP2_TEXTURE_COORD_2 0x0DB4
-#define GL_MAP2_TEXTURE_COORD_3 0x0DB5
-#define GL_MAP2_TEXTURE_COORD_4 0x0DB6
-#define GL_MAP2_VERTEX_3 0x0DB7
-#define GL_MAP2_VERTEX_4 0x0DB8
-#define GL_MAP1_GRID_DOMAIN 0x0DD0
-#define GL_MAP1_GRID_SEGMENTS 0x0DD1
-#define GL_MAP2_GRID_DOMAIN 0x0DD2
-#define GL_MAP2_GRID_SEGMENTS 0x0DD3
 #define GL_FEEDBACK_BUFFER_SIZE 0x0DF1
 #define GL_FEEDBACK_BUFFER_TYPE 0x0DF2
 #define GL_SELECTION_BUFFER_SIZE 0x0DF4
@@ -1468,58 +1541,10 @@ typedef double GLclampd;
 #define GL_TEXTURE_COORD_ARRAY_TYPE 0x8089
 #define GL_TEXTURE_COORD_ARRAY_STRIDE 0x808A
 #define GL_EDGE_FLAG_ARRAY_STRIDE 0x808C
-#define GL_TEXTURE_COMPONENTS 0x1003
-#define GL_TEXTURE_BORDER 0x1005
 #define GL_TEXTURE_LUMINANCE_SIZE 0x8060
 #define GL_TEXTURE_INTENSITY_SIZE 0x8061
 #define GL_TEXTURE_PRIORITY 0x8066
 #define GL_TEXTURE_RESIDENT 0x8067
-#define GL_AMBIENT 0x1200
-#define GL_DIFFUSE 0x1201
-#define GL_SPECULAR 0x1202
-#define GL_POSITION 0x1203
-#define GL_SPOT_DIRECTION 0x1204
-#define GL_SPOT_EXPONENT 0x1205
-#define GL_SPOT_CUTOFF 0x1206
-#define GL_CONSTANT_ATTENUATION 0x1207
-#define GL_LINEAR_ATTENUATION 0x1208
-#define GL_QUADRATIC_ATTENUATION 0x1209
-#define GL_COMPILE 0x1300
-#define GL_COMPILE_AND_EXECUTE 0x1301
-#define GL_2_BYTES 0x1407
-#define GL_3_BYTES 0x1408
-#define GL_4_BYTES 0x1409
-#define GL_EMISSION 0x1600
-#define GL_SHININESS 0x1601
-#define GL_AMBIENT_AND_DIFFUSE 0x1602
-#define GL_COLOR_INDEXES 0x1603
-#define GL_MODELVIEW 0x1700
-#define GL_PROJECTION 0x1701
-#define GL_COLOR_INDEX 0x1900
-#define GL_LUMINANCE 0x1909
-#define GL_LUMINANCE_ALPHA 0x190A
-#define GL_BITMAP 0x1A00
-#define GL_RENDER 0x1C00
-#define GL_FEEDBACK 0x1C01
-#define GL_SELECT 0x1C02
-#define GL_FLAT 0x1D00
-#define GL_SMOOTH 0x1D01
-#define GL_S 0x2000
-#define GL_T 0x2001
-#define GL_R 0x2002
-#define GL_Q 0x2003
-#define GL_MODULATE 0x2100
-#define GL_DECAL 0x2101
-#define GL_TEXTURE_ENV_MODE 0x2200
-#define GL_TEXTURE_ENV_COLOR 0x2201
-#define GL_TEXTURE_ENV 0x2300
-#define GL_EYE_LINEAR 0x2400
-#define GL_OBJECT_LINEAR 0x2401
-#define GL_SPHERE_MAP 0x2402
-#define GL_TEXTURE_GEN_MODE 0x2500
-#define GL_OBJECT_PLANE 0x2501
-#define GL_EYE_PLANE 0x2502
-#define GL_CLAMP 0x2900
 #define GL_ALPHA4 0x803B
 #define GL_ALPHA8 0x803C
 #define GL_ALPHA12 0x803D
@@ -1553,20 +1578,6 @@ typedef double GLclampd;
 #define GL_T2F_N3F_V3F 0x2A2B
 #define GL_T2F_C4F_N3F_V3F 0x2A2C
 #define GL_T4F_C4F_N3F_V4F 0x2A2D
-#define GL_CLIP_PLANE0 0x3000
-#define GL_CLIP_PLANE1 0x3001
-#define GL_CLIP_PLANE2 0x3002
-#define GL_CLIP_PLANE3 0x3003
-#define GL_CLIP_PLANE4 0x3004
-#define GL_CLIP_PLANE5 0x3005
-#define GL_LIGHT0 0x4000
-#define GL_LIGHT1 0x4001
-#define GL_LIGHT2 0x4002
-#define GL_LIGHT3 0x4003
-#define GL_LIGHT4 0x4004
-#define GL_LIGHT5 0x4005
-#define GL_LIGHT6 0x4006
-#define GL_LIGHT7 0x4007
 typedef void (APIENTRYP PFNGLDRAWARRAYSPROC)(GLenum mode, GLint first, GLsizei count);
 #define glDrawArrays __glDrawArrays
 typedef void (APIENTRYP PFNGLDRAWELEMENTSPROC)(GLenum mode, GLsizei count, GLenum type, const void * indices);
@@ -2002,15 +2013,17 @@ typedef void (APIENTRYP PFNGLWINDOWPOS3SPROC)(GLshort x, GLshort y, GLshort z);
 #define glWindowPos3s __glWindowPos3s
 typedef void (APIENTRYP PFNGLWINDOWPOS3SVPROC)(const GLshort * v);
 #define glWindowPos3sv __glWindowPos3sv
-#define GL_FUNC_ADD 0x8006
-#define GL_FUNC_SUBTRACT 0x800A
-#define GL_FUNC_REVERSE_SUBTRACT 0x800B
-#define GL_MIN 0x8007
-#define GL_MAX 0x8008
+#define GL_BLEND_COLOR 0x8005
+#define GL_BLEND_EQUATION 0x8009
 #define GL_CONSTANT_COLOR 0x8001
 #define GL_ONE_MINUS_CONSTANT_COLOR 0x8002
 #define GL_CONSTANT_ALPHA 0x8003
 #define GL_ONE_MINUS_CONSTANT_ALPHA 0x8004
+#define GL_FUNC_ADD 0x8006
+#define GL_FUNC_REVERSE_SUBTRACT 0x800B
+#define GL_FUNC_SUBTRACT 0x800A
+#define GL_MIN 0x8007
+#define GL_MAX 0x8008
 typedef void (APIENTRYP PFNGLBLENDCOLORPROC)(GLfloat red, GLfloat green, GLfloat blue, GLfloat alpha);
 #define glBlendColor __glBlendColor
 typedef void (APIENTRYP PFNGLBLENDEQUATIONPROC)(GLenum mode);
@@ -2735,6 +2748,7 @@ typedef const GLubyte * (APIENTRYP PFNGLGETSTRINGIPROC)(GLenum name, GLuint inde
 #define GL_RENDERBUFFER_STENCIL_SIZE 0x8D55
 #define GL_FRAMEBUFFER_INCOMPLETE_MULTISAMPLE 0x8D56
 #define GL_MAX_SAMPLES 0x8D57
+#define GL_INDEX 0x8222
 typedef GLboolean (APIENTRYP PFNGLISRENDERBUFFERPROC)(GLuint renderbuffer);
 #define glIsRenderbuffer __glIsRenderbuffer
 typedef void (APIENTRYP PFNGLBINDRENDERBUFFERPROC)(GLenum target, GLuint renderbuffer);
@@ -2775,11 +2789,10 @@ typedef void (APIENTRYP PFNGLRENDERBUFFERSTORAGEMULTISAMPLEPROC)(GLenum target, 
 #define glRenderbufferStorageMultisample __glRenderbufferStorageMultisample
 typedef void (APIENTRYP PFNGLFRAMEBUFFERTEXTURELAYERPROC)(GLenum target, GLenum attachment, GLuint texture, GLint level, GLint layer);
 #define glFramebufferTextureLayer __glFramebufferTextureLayer
-#define GL_INDEX 0x8222
 #define GL_TEXTURE_LUMINANCE_TYPE 0x8C14
 #define GL_TEXTURE_INTENSITY_TYPE 0x8C15
 #define GL_FRAMEBUFFER_SRGB 0x8DB9
-typedef unsigned short GLhalf;
+typedef khronos_uint16_t GLhalf;
 #define GL_HALF_FLOAT 0x140B
 #define GL_MAP_READ_BIT 0x0001
 #define GL_MAP_WRITE_BIT 0x0002
@@ -2988,7 +3001,7 @@ typedef void (APIENTRYP PFNGLWAITSYNCPROC)(GLsync sync, GLbitfield flags, GLuint
 #define glWaitSync __glWaitSync
 typedef void (APIENTRYP PFNGLGETINTEGER64VPROC)(GLenum pname, GLint64 * data);
 #define glGetInteger64v __glGetInteger64v
-typedef void (APIENTRYP PFNGLGETSYNCIVPROC)(GLsync sync, GLenum pname, GLsizei bufSize, GLsizei * length, GLint * values);
+typedef void (APIENTRYP PFNGLGETSYNCIVPROC)(GLsync sync, GLenum pname, GLsizei count, GLsizei * length, GLint * values);
 #define glGetSynciv __glGetSynciv
 #define GL_SAMPLE_POSITION 0x8E50
 #define GL_SAMPLE_MASK 0x8E51
@@ -3259,9 +3272,9 @@ typedef GLuint (APIENTRYP PFNGLGETSUBROUTINEINDEXPROC)(GLuint program, GLenum sh
 #define glGetSubroutineIndex __glGetSubroutineIndex
 typedef void (APIENTRYP PFNGLGETACTIVESUBROUTINEUNIFORMIVPROC)(GLuint program, GLenum shadertype, GLuint index, GLenum pname, GLint * values);
 #define glGetActiveSubroutineUniformiv __glGetActiveSubroutineUniformiv
-typedef void (APIENTRYP PFNGLGETACTIVESUBROUTINEUNIFORMNAMEPROC)(GLuint program, GLenum shadertype, GLuint index, GLsizei bufsize, GLsizei * length, GLchar * name);
+typedef void (APIENTRYP PFNGLGETACTIVESUBROUTINEUNIFORMNAMEPROC)(GLuint program, GLenum shadertype, GLuint index, GLsizei bufSize, GLsizei * length, GLchar * name);
 #define glGetActiveSubroutineUniformName __glGetActiveSubroutineUniformName
-typedef void (APIENTRYP PFNGLGETACTIVESUBROUTINENAMEPROC)(GLuint program, GLenum shadertype, GLuint index, GLsizei bufsize, GLsizei * length, GLchar * name);
+typedef void (APIENTRYP PFNGLGETACTIVESUBROUTINENAMEPROC)(GLuint program, GLenum shadertype, GLuint index, GLsizei bufSize, GLsizei * length, GLchar * name);
 #define glGetActiveSubroutineName __glGetActiveSubroutineName
 typedef void (APIENTRYP PFNGLUNIFORMSUBROUTINESUIVPROC)(GLenum shadertype, GLsizei count, const GLuint * indices);
 #define glUniformSubroutinesuiv __glUniformSubroutinesuiv
@@ -3372,7 +3385,7 @@ typedef void (APIENTRYP PFNGLGETQUERYINDEXEDIVPROC)(GLenum target, GLuint index,
 #define GL_UNDEFINED_VERTEX 0x8260
 typedef void (APIENTRYP PFNGLRELEASESHADERCOMPILERPROC)(void);
 #define glReleaseShaderCompiler __glReleaseShaderCompiler
-typedef void (APIENTRYP PFNGLSHADERBINARYPROC)(GLsizei count, const GLuint * shaders, GLenum binaryformat, const void * binary, GLsizei length);
+typedef void (APIENTRYP PFNGLSHADERBINARYPROC)(GLsizei count, const GLuint * shaders, GLenum binaryFormat, const void * binary, GLsizei length);
 #define glShaderBinary __glShaderBinary
 typedef void (APIENTRYP PFNGLGETSHADERPRECISIONFORMATPROC)(GLenum shadertype, GLenum precisiontype, GLint * range, GLint * precision);
 #define glGetShaderPrecisionFormat __glGetShaderPrecisionFormat
@@ -3667,7 +3680,7 @@ typedef void (APIENTRYP PFNGLDRAWELEMENTSINSTANCEDBASEINSTANCEPROC)(GLenum mode,
 #define glDrawElementsInstancedBaseInstance __glDrawElementsInstancedBaseInstance
 typedef void (APIENTRYP PFNGLDRAWELEMENTSINSTANCEDBASEVERTEXBASEINSTANCEPROC)(GLenum mode, GLsizei count, GLenum type, const void * indices, GLsizei instancecount, GLint basevertex, GLuint baseinstance);
 #define glDrawElementsInstancedBaseVertexBaseInstance __glDrawElementsInstancedBaseVertexBaseInstance
-typedef void (APIENTRYP PFNGLGETINTERNALFORMATIVPROC)(GLenum target, GLenum internalformat, GLenum pname, GLsizei bufSize, GLint * params);
+typedef void (APIENTRYP PFNGLGETINTERNALFORMATIVPROC)(GLenum target, GLenum internalformat, GLenum pname, GLsizei count, GLint * params);
 #define glGetInternalformativ __glGetInternalformativ
 typedef void (APIENTRYP PFNGLGETACTIVEATOMICCOUNTERBUFFERIVPROC)(GLuint program, GLuint bufferIndex, GLenum pname, GLint * params);
 #define glGetActiveAtomicCounterBufferiv __glGetActiveAtomicCounterBufferiv
@@ -3961,7 +3974,7 @@ typedef void (APIENTRYP PFNGLFRAMEBUFFERPARAMETERIPROC)(GLenum target, GLenum pn
 #define glFramebufferParameteri __glFramebufferParameteri
 typedef void (APIENTRYP PFNGLGETFRAMEBUFFERPARAMETERIVPROC)(GLenum target, GLenum pname, GLint * params);
 #define glGetFramebufferParameteriv __glGetFramebufferParameteriv
-typedef void (APIENTRYP PFNGLGETINTERNALFORMATI64VPROC)(GLenum target, GLenum internalformat, GLenum pname, GLsizei bufSize, GLint64 * params);
+typedef void (APIENTRYP PFNGLGETINTERNALFORMATI64VPROC)(GLenum target, GLenum internalformat, GLenum pname, GLsizei count, GLint64 * params);
 #define glGetInternalformati64v __glGetInternalformati64v
 typedef void (APIENTRYP PFNGLINVALIDATETEXSUBIMAGEPROC)(GLuint texture, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth);
 #define glInvalidateTexSubImage __glInvalidateTexSubImage
@@ -3985,7 +3998,7 @@ typedef GLuint (APIENTRYP PFNGLGETPROGRAMRESOURCEINDEXPROC)(GLuint program, GLen
 #define glGetProgramResourceIndex __glGetProgramResourceIndex
 typedef void (APIENTRYP PFNGLGETPROGRAMRESOURCENAMEPROC)(GLuint program, GLenum programInterface, GLuint index, GLsizei bufSize, GLsizei * length, GLchar * name);
 #define glGetProgramResourceName __glGetProgramResourceName
-typedef void (APIENTRYP PFNGLGETPROGRAMRESOURCEIVPROC)(GLuint program, GLenum programInterface, GLuint index, GLsizei propCount, const GLenum * props, GLsizei bufSize, GLsizei * length, GLint * params);
+typedef void (APIENTRYP PFNGLGETPROGRAMRESOURCEIVPROC)(GLuint program, GLenum programInterface, GLuint index, GLsizei propCount, const GLenum * props, GLsizei count, GLsizei * length, GLint * params);
 #define glGetProgramResourceiv __glGetProgramResourceiv
 typedef GLint (APIENTRYP PFNGLGETPROGRAMRESOURCELOCATIONPROC)(GLuint program, GLenum programInterface, const GLchar * name);
 #define glGetProgramResourceLocation __glGetProgramResourceLocation
@@ -4339,244 +4352,3428 @@ typedef void (APIENTRYP PFNGLGETNHISTOGRAMPROC)(GLenum target, GLboolean reset, 
 #define glGetnHistogram __glGetnHistogram
 typedef void (APIENTRYP PFNGLGETNMINMAXPROC)(GLenum target, GLboolean reset, GLenum format, GLenum type, GLsizei bufSize, void * values);
 #define glGetnMinmax __glGetnMinmax
+#define GL_COLOR_TABLE 0x80D0
+#define GL_POST_CONVOLUTION_COLOR_TABLE 0x80D1
+#define GL_POST_COLOR_MATRIX_COLOR_TABLE 0x80D2
+#define GL_PROXY_COLOR_TABLE 0x80D3
+#define GL_PROXY_POST_CONVOLUTION_COLOR_TABLE 0x80D4
+#define GL_PROXY_POST_COLOR_MATRIX_COLOR_TABLE 0x80D5
+#define GL_CONVOLUTION_1D 0x8010
+#define GL_CONVOLUTION_2D 0x8011
+#define GL_SEPARABLE_2D 0x8012
+#define GL_HISTOGRAM 0x8024
+#define GL_PROXY_HISTOGRAM 0x8025
+#define GL_MINMAX 0x802E
 typedef void (APIENTRYP PFNGLTEXTUREBARRIERPROC)(void);
 #define glTextureBarrier __glTextureBarrier
 #define GL_CONTEXT_RELEASE_BEHAVIOR 0x82FB
 #define GL_CONTEXT_RELEASE_BEHAVIOR_FLUSH 0x82FC
 #endif
 
-EXPORT void cwcglAccum(GLcontext *context, GLenum op, GLfloat value);
-EXPORT void cwcglAccumxOES(GLcontext *context, GLenum op, GLfixed value);
-EXPORT void cwcglActiveProgramEXT(GLcontext *context, GLuint program);
-EXPORT void cwcglActiveShaderProgram(GLcontext *context, GLuint pipeline, GLuint program);
-EXPORT void cwcglActiveShaderProgramEXT(GLcontext *context, GLuint pipeline, GLuint program);
-EXPORT void cwcglActiveStencilFaceEXT(GLcontext *context, GLenum face);
-EXPORT void cwcglActiveTexture(GLcontext *context, GLenum texture);
-EXPORT void cwcglActiveTextureARB(GLcontext *context, GLenum texture);
-EXPORT void cwcglActiveVaryingNV(GLcontext *context, GLuint program, const GLchar * name);
-EXPORT void cwcglAlphaFragmentOp1ATI(GLcontext *context, GLenum op, GLuint dst, GLuint dstMod, GLuint arg1, GLuint arg1Rep, GLuint arg1Mod);
-EXPORT void cwcglAlphaFragmentOp2ATI(GLcontext *context, GLenum op, GLuint dst, GLuint dstMod, GLuint arg1, GLuint arg1Rep, GLuint arg1Mod, GLuint arg2, GLuint arg2Rep, GLuint arg2Mod);
-EXPORT void cwcglAlphaFragmentOp3ATI(GLcontext *context, GLenum op, GLuint dst, GLuint dstMod, GLuint arg1, GLuint arg1Rep, GLuint arg1Mod, GLuint arg2, GLuint arg2Rep, GLuint arg2Mod, GLuint arg3, GLuint arg3Rep, GLuint arg3Mod);
-EXPORT void cwcglAlphaFunc(GLcontext *context, GLenum func, GLfloat ref);
-EXPORT void cwcglAlphaFuncQCOM(GLcontext *context, GLenum func, GLclampf ref);
-EXPORT void cwcglAlphaFuncx(GLcontext *context, GLenum func, GLfixed ref);
-EXPORT void cwcglAlphaFuncxOES(GLcontext *context, GLenum func, GLfixed ref);
-EXPORT void cwcglApplyFramebufferAttachmentCMAAINTEL(GLcontext *context);
-EXPORT void cwcglApplyTextureEXT(GLcontext *context, GLenum mode);
-EXPORT void cwcglAreProgramsResidentNV(GLcontext *context, GLsizei n, const GLuint * programs, GLboolean * residences, GLboolean* return_value);
-EXPORT void cwcglAreTexturesResident(GLcontext *context, GLsizei n, const GLuint * textures, GLboolean * residences, GLboolean* return_value);
-EXPORT void cwcglAreTexturesResidentEXT(GLcontext *context, GLsizei n, const GLuint * textures, GLboolean * residences, GLboolean* return_value);
-EXPORT void cwcglArrayElement(GLcontext *context, GLint i);
-EXPORT void cwcglArrayElementEXT(GLcontext *context, GLint i);
-EXPORT void cwcglArrayObjectATI(GLcontext *context, GLenum array, GLint size, GLenum type, GLsizei stride, GLuint buffer, GLuint offset);
-EXPORT void cwcglAsyncMarkerSGIX(GLcontext *context, GLuint marker);
-EXPORT void cwcglAttachObjectARB(GLcontext *context, GLhandleARB containerObj, GLhandleARB obj);
-EXPORT void cwcglAttachShader(GLcontext *context, GLuint program, GLuint shader);
-EXPORT void cwcglBegin(GLcontext *context, GLenum mode);
-EXPORT void cwcglBeginConditionalRender(GLcontext *context, GLuint id, GLenum mode);
-EXPORT void cwcglBeginConditionalRenderNV(GLcontext *context, GLuint id, GLenum mode);
-EXPORT void cwcglBeginConditionalRenderNVX(GLcontext *context, GLuint id);
-EXPORT void cwcglBeginFragmentShaderATI(GLcontext *context);
-EXPORT void cwcglBeginOcclusionQueryNV(GLcontext *context, GLuint id);
-EXPORT void cwcglBeginPerfMonitorAMD(GLcontext *context, GLuint monitor);
-EXPORT void cwcglBeginPerfQueryINTEL(GLcontext *context, GLuint queryHandle);
-EXPORT void cwcglBeginQuery(GLcontext *context, GLenum target, GLuint id);
-EXPORT void cwcglBeginQueryARB(GLcontext *context, GLenum target, GLuint id);
-EXPORT void cwcglBeginQueryEXT(GLcontext *context, GLenum target, GLuint id);
-EXPORT void cwcglBeginQueryIndexed(GLcontext *context, GLenum target, GLuint index, GLuint id);
-EXPORT void cwcglBeginTransformFeedback(GLcontext *context, GLenum primitiveMode);
-EXPORT void cwcglBeginTransformFeedbackEXT(GLcontext *context, GLenum primitiveMode);
-EXPORT void cwcglBeginTransformFeedbackNV(GLcontext *context, GLenum primitiveMode);
-EXPORT void cwcglBeginVertexShaderEXT(GLcontext *context);
-EXPORT void cwcglBeginVideoCaptureNV(GLcontext *context, GLuint video_capture_slot);
-EXPORT void cwcglBindAttribLocation(GLcontext *context, GLuint program, GLuint index, const GLchar * name);
-EXPORT void cwcglBindAttribLocationARB(GLcontext *context, GLhandleARB programObj, GLuint index, const GLcharARB * name);
-EXPORT void cwcglBindBuffer(GLcontext *context, GLenum target, GLuint buffer);
-EXPORT void cwcglBindBufferARB(GLcontext *context, GLenum target, GLuint buffer);
-EXPORT void cwcglBindBufferBase(GLcontext *context, GLenum target, GLuint index, GLuint buffer);
-EXPORT void cwcglBindBufferBaseEXT(GLcontext *context, GLenum target, GLuint index, GLuint buffer);
-EXPORT void cwcglBindBufferBaseNV(GLcontext *context, GLenum target, GLuint index, GLuint buffer);
-EXPORT void cwcglBindBufferOffsetEXT(GLcontext *context, GLenum target, GLuint index, GLuint buffer, GLintptr offset);
-EXPORT void cwcglBindBufferOffsetNV(GLcontext *context, GLenum target, GLuint index, GLuint buffer, GLintptr offset);
-EXPORT void cwcglBindBufferRange(GLcontext *context, GLenum target, GLuint index, GLuint buffer, GLintptr offset, GLsizeiptr size);
-EXPORT void cwcglBindBufferRangeEXT(GLcontext *context, GLenum target, GLuint index, GLuint buffer, GLintptr offset, GLsizeiptr size);
-EXPORT void cwcglBindBufferRangeNV(GLcontext *context, GLenum target, GLuint index, GLuint buffer, GLintptr offset, GLsizeiptr size);
-EXPORT void cwcglBindBuffersBase(GLcontext *context, GLenum target, GLuint first, GLsizei count, const GLuint * buffers);
-EXPORT void cwcglBindBuffersRange(GLcontext *context, GLenum target, GLuint first, GLsizei count, const GLuint * buffers, const GLintptr * offsets, const GLsizeiptr * sizes);
-EXPORT void cwcglBindFragDataLocation(GLcontext *context, GLuint program, GLuint color, const GLchar * name);
-EXPORT void cwcglBindFragDataLocationEXT(GLcontext *context, GLuint program, GLuint color, const GLchar * name);
-EXPORT void cwcglBindFragDataLocationIndexed(GLcontext *context, GLuint program, GLuint colorNumber, GLuint index, const GLchar * name);
-EXPORT void cwcglBindFragDataLocationIndexedEXT(GLcontext *context, GLuint program, GLuint colorNumber, GLuint index, const GLchar * name);
-EXPORT void cwcglBindFragmentShaderATI(GLcontext *context, GLuint id);
-EXPORT void cwcglBindFramebuffer(GLcontext *context, GLenum target, GLuint framebuffer);
-EXPORT void cwcglBindFramebufferEXT(GLcontext *context, GLenum target, GLuint framebuffer);
-EXPORT void cwcglBindFramebufferOES(GLcontext *context, GLenum target, GLuint framebuffer);
-EXPORT void cwcglBindImageTexture(GLcontext *context, GLuint unit, GLuint texture, GLint level, GLboolean layered, GLint layer, GLenum access, GLenum format);
-EXPORT void cwcglBindImageTextureEXT(GLcontext *context, GLuint index, GLuint texture, GLint level, GLboolean layered, GLint layer, GLenum access, GLint format);
-EXPORT void cwcglBindImageTextures(GLcontext *context, GLuint first, GLsizei count, const GLuint * textures);
-EXPORT void cwcglBindLightParameterEXT(GLcontext *context, GLenum light, GLenum value, GLuint* return_value);
-EXPORT void cwcglBindMaterialParameterEXT(GLcontext *context, GLenum face, GLenum value, GLuint* return_value);
-EXPORT void cwcglBindMultiTextureEXT(GLcontext *context, GLenum texunit, GLenum target, GLuint texture);
-EXPORT void cwcglBindParameterEXT(GLcontext *context, GLenum value, GLuint* return_value);
-EXPORT void cwcglBindProgramARB(GLcontext *context, GLenum target, GLuint program);
-EXPORT void cwcglBindProgramNV(GLcontext *context, GLenum target, GLuint id);
-EXPORT void cwcglBindProgramPipeline(GLcontext *context, GLuint pipeline);
-EXPORT void cwcglBindProgramPipelineEXT(GLcontext *context, GLuint pipeline);
-EXPORT void cwcglBindRenderbuffer(GLcontext *context, GLenum target, GLuint renderbuffer);
-EXPORT void cwcglBindRenderbufferEXT(GLcontext *context, GLenum target, GLuint renderbuffer);
-EXPORT void cwcglBindRenderbufferOES(GLcontext *context, GLenum target, GLuint renderbuffer);
-EXPORT void cwcglBindSampler(GLcontext *context, GLuint unit, GLuint sampler);
-EXPORT void cwcglBindSamplers(GLcontext *context, GLuint first, GLsizei count, const GLuint * samplers);
-EXPORT void cwcglBindTexGenParameterEXT(GLcontext *context, GLenum unit, GLenum coord, GLenum value, GLuint* return_value);
-EXPORT void cwcglBindTexture(GLcontext *context, GLenum target, GLuint texture);
-EXPORT void cwcglBindTextureEXT(GLcontext *context, GLenum target, GLuint texture);
-EXPORT void cwcglBindTextureUnit(GLcontext *context, GLuint unit, GLuint texture);
-EXPORT void cwcglBindTextureUnitParameterEXT(GLcontext *context, GLenum unit, GLenum value, GLuint* return_value);
-EXPORT void cwcglBindTextures(GLcontext *context, GLuint first, GLsizei count, const GLuint * textures);
-EXPORT void cwcglBindTransformFeedback(GLcontext *context, GLenum target, GLuint id);
-EXPORT void cwcglBindTransformFeedbackNV(GLcontext *context, GLenum target, GLuint id);
-EXPORT void cwcglBindVertexArray(GLcontext *context, GLuint array);
-EXPORT void cwcglBindVertexArrayAPPLE(GLcontext *context, GLuint array);
-EXPORT void cwcglBindVertexArrayOES(GLcontext *context, GLuint array);
-EXPORT void cwcglBindVertexBuffer(GLcontext *context, GLuint bindingindex, GLuint buffer, GLintptr offset, GLsizei stride);
-EXPORT void cwcglBindVertexBuffers(GLcontext *context, GLuint first, GLsizei count, const GLuint * buffers, const GLintptr * offsets, const GLsizei * strides);
-EXPORT void cwcglBindVertexShaderEXT(GLcontext *context, GLuint id);
-EXPORT void cwcglBindVideoCaptureStreamBufferNV(GLcontext *context, GLuint video_capture_slot, GLuint stream, GLenum frame_region, GLintptrARB offset);
-EXPORT void cwcglBindVideoCaptureStreamTextureNV(GLcontext *context, GLuint video_capture_slot, GLuint stream, GLenum frame_region, GLenum target, GLuint texture);
-EXPORT void cwcglBinormal3bEXT(GLcontext *context, GLbyte bx, GLbyte by, GLbyte bz);
-EXPORT void cwcglBinormal3bvEXT(GLcontext *context, const GLbyte * v);
-EXPORT void cwcglBinormal3dEXT(GLcontext *context, GLdouble bx, GLdouble by, GLdouble bz);
-EXPORT void cwcglBinormal3dvEXT(GLcontext *context, const GLdouble * v);
-EXPORT void cwcglBinormal3fEXT(GLcontext *context, GLfloat bx, GLfloat by, GLfloat bz);
-EXPORT void cwcglBinormal3fvEXT(GLcontext *context, const GLfloat * v);
-EXPORT void cwcglBinormal3iEXT(GLcontext *context, GLint bx, GLint by, GLint bz);
-EXPORT void cwcglBinormal3ivEXT(GLcontext *context, const GLint * v);
-EXPORT void cwcglBinormal3sEXT(GLcontext *context, GLshort bx, GLshort by, GLshort bz);
-EXPORT void cwcglBinormal3svEXT(GLcontext *context, const GLshort * v);
-EXPORT void cwcglBinormalPointerEXT(GLcontext *context, GLenum type, GLsizei stride, const void * pointer);
-EXPORT void cwcglBitmap(GLcontext *context, GLsizei width, GLsizei height, GLfloat xorig, GLfloat yorig, GLfloat xmove, GLfloat ymove, const GLubyte * bitmap);
-EXPORT void cwcglBitmapxOES(GLcontext *context, GLsizei width, GLsizei height, GLfixed xorig, GLfixed yorig, GLfixed xmove, GLfixed ymove, const GLubyte * bitmap);
-EXPORT void cwcglBlendBarrier(GLcontext *context);
-EXPORT void cwcglBlendBarrierKHR(GLcontext *context);
-EXPORT void cwcglBlendBarrierNV(GLcontext *context);
-EXPORT void cwcglBlendColor(GLcontext *context, GLfloat red, GLfloat green, GLfloat blue, GLfloat alpha);
-EXPORT void cwcglBlendColorEXT(GLcontext *context, GLfloat red, GLfloat green, GLfloat blue, GLfloat alpha);
-EXPORT void cwcglBlendColorxOES(GLcontext *context, GLfixed red, GLfixed green, GLfixed blue, GLfixed alpha);
-EXPORT void cwcglBlendEquation(GLcontext *context, GLenum mode);
-EXPORT void cwcglBlendEquationEXT(GLcontext *context, GLenum mode);
-EXPORT void cwcglBlendEquationIndexedAMD(GLcontext *context, GLuint buf, GLenum mode);
-EXPORT void cwcglBlendEquationOES(GLcontext *context, GLenum mode);
-EXPORT void cwcglBlendEquationSeparate(GLcontext *context, GLenum modeRGB, GLenum modeAlpha);
-EXPORT void cwcglBlendEquationSeparateEXT(GLcontext *context, GLenum modeRGB, GLenum modeAlpha);
-EXPORT void cwcglBlendEquationSeparateIndexedAMD(GLcontext *context, GLuint buf, GLenum modeRGB, GLenum modeAlpha);
-EXPORT void cwcglBlendEquationSeparateOES(GLcontext *context, GLenum modeRGB, GLenum modeAlpha);
-EXPORT void cwcglBlendEquationSeparatei(GLcontext *context, GLuint buf, GLenum modeRGB, GLenum modeAlpha);
-EXPORT void cwcglBlendEquationSeparateiARB(GLcontext *context, GLuint buf, GLenum modeRGB, GLenum modeAlpha);
-EXPORT void cwcglBlendEquationSeparateiEXT(GLcontext *context, GLuint buf, GLenum modeRGB, GLenum modeAlpha);
-EXPORT void cwcglBlendEquationSeparateiOES(GLcontext *context, GLuint buf, GLenum modeRGB, GLenum modeAlpha);
-EXPORT void cwcglBlendEquationi(GLcontext *context, GLuint buf, GLenum mode);
-EXPORT void cwcglBlendEquationiARB(GLcontext *context, GLuint buf, GLenum mode);
-EXPORT void cwcglBlendEquationiEXT(GLcontext *context, GLuint buf, GLenum mode);
-EXPORT void cwcglBlendEquationiOES(GLcontext *context, GLuint buf, GLenum mode);
+#if CWCGL_VERSION >= GL_VERSION_4_6
+#define GL_SHADER_BINARY_FORMAT_SPIR_V 0x9551
+#define GL_SPIR_V_BINARY 0x9552
+typedef void (APIENTRYP PFNGLSPECIALIZESHADERPROC)(GLuint shader, const GLchar * pEntryPoint, GLuint numSpecializationConstants, const GLuint * pConstantIndex, const GLuint * pConstantValue);
+#define glSpecializeShader __glSpecializeShader
+#define GL_PARAMETER_BUFFER 0x80EE
+#define GL_PARAMETER_BUFFER_BINDING 0x80EF
+typedef void (APIENTRYP PFNGLMULTIDRAWARRAYSINDIRECTCOUNTPROC)(GLenum mode, const void * indirect, GLintptr drawcount, GLsizei maxdrawcount, GLsizei stride);
+#define glMultiDrawArraysIndirectCount __glMultiDrawArraysIndirectCount
+typedef void (APIENTRYP PFNGLMULTIDRAWELEMENTSINDIRECTCOUNTPROC)(GLenum mode, GLenum type, const void * indirect, GLintptr drawcount, GLsizei maxdrawcount, GLsizei stride);
+#define glMultiDrawElementsIndirectCount __glMultiDrawElementsIndirectCount
+#define GL_CONTEXT_FLAG_NO_ERROR_BIT 0x00000008
+#define GL_VERTICES_SUBMITTED 0x82EE
+#define GL_PRIMITIVES_SUBMITTED 0x82EF
+#define GL_VERTEX_SHADER_INVOCATIONS 0x82F0
+#define GL_TESS_CONTROL_SHADER_PATCHES 0x82F1
+#define GL_TESS_EVALUATION_SHADER_INVOCATIONS 0x82F2
+#define GL_GEOMETRY_SHADER_PRIMITIVES_EMITTED 0x82F3
+#define GL_FRAGMENT_SHADER_INVOCATIONS 0x82F4
+#define GL_COMPUTE_SHADER_INVOCATIONS 0x82F5
+#define GL_CLIPPING_INPUT_PRIMITIVES 0x82F6
+#define GL_CLIPPING_OUTPUT_PRIMITIVES 0x82F7
+#define GL_POLYGON_OFFSET_CLAMP 0x8E1B
+typedef void (APIENTRYP PFNGLPOLYGONOFFSETCLAMPPROC)(GLfloat factor, GLfloat units, GLfloat clamp);
+#define glPolygonOffsetClamp __glPolygonOffsetClamp
+#define GL_SPIR_V_EXTENSIONS 0x9553
+#define GL_NUM_SPIR_V_EXTENSIONS 0x9554
+#define GL_TEXTURE_MAX_ANISOTROPY 0x84FE
+#define GL_MAX_TEXTURE_MAX_ANISOTROPY 0x84FF
+#define GL_TRANSFORM_FEEDBACK_OVERFLOW 0x82EC
+#define GL_TRANSFORM_FEEDBACK_STREAM_OVERFLOW 0x82ED
+#endif
+
+typedef enum {
+    cwcglAccumCommand,
+    cwcglAccumxOESCommand,
+    cwcglActiveProgramEXTCommand,
+    cwcglActiveShaderProgramCommand,
+    cwcglActiveShaderProgramEXTCommand,
+    cwcglActiveStencilFaceEXTCommand,
+    cwcglActiveTextureCommand,
+    cwcglActiveTextureARBCommand,
+    cwcglActiveVaryingNVCommand,
+    cwcglAlphaFragmentOp1ATICommand,
+    cwcglAlphaFragmentOp2ATICommand,
+    cwcglAlphaFragmentOp3ATICommand,
+    cwcglAlphaFuncCommand,
+    cwcglAlphaFuncQCOMCommand,
+    cwcglAlphaFuncxCommand,
+    cwcglAlphaFuncxOESCommand,
+    cwcglAlphaToCoverageDitherControlNVCommand,
+    cwcglApplyFramebufferAttachmentCMAAINTELCommand,
+    cwcglApplyTextureEXTCommand,
+    cwcglAcquireKeyedMutexWin32EXTCommand,
+    cwcglAreProgramsResidentNVCommand,
+    cwcglAreTexturesResidentCommand,
+    cwcglAreTexturesResidentEXTCommand,
+    cwcglArrayElementCommand,
+    cwcglArrayElementEXTCommand,
+    cwcglArrayObjectATICommand,
+    cwcglAsyncCopyBufferSubDataNVXCommand,
+    cwcglAsyncCopyImageSubDataNVXCommand,
+    cwcglAsyncMarkerSGIXCommand,
+    cwcglAttachObjectARBCommand,
+    cwcglAttachShaderCommand,
+    cwcglBeginCommand,
+    cwcglBeginConditionalRenderCommand,
+    cwcglBeginConditionalRenderNVCommand,
+    cwcglBeginConditionalRenderNVXCommand,
+    cwcglBeginFragmentShaderATICommand,
+    cwcglBeginOcclusionQueryNVCommand,
+    cwcglBeginPerfMonitorAMDCommand,
+    cwcglBeginPerfQueryINTELCommand,
+    cwcglBeginQueryCommand,
+    cwcglBeginQueryARBCommand,
+    cwcglBeginQueryEXTCommand,
+    cwcglBeginQueryIndexedCommand,
+    cwcglBeginTransformFeedbackCommand,
+    cwcglBeginTransformFeedbackEXTCommand,
+    cwcglBeginTransformFeedbackNVCommand,
+    cwcglBeginVertexShaderEXTCommand,
+    cwcglBeginVideoCaptureNVCommand,
+    cwcglBindAttribLocationCommand,
+    cwcglBindAttribLocationARBCommand,
+    cwcglBindBufferCommand,
+    cwcglBindBufferARBCommand,
+    cwcglBindBufferBaseCommand,
+    cwcglBindBufferBaseEXTCommand,
+    cwcglBindBufferBaseNVCommand,
+    cwcglBindBufferOffsetEXTCommand,
+    cwcglBindBufferOffsetNVCommand,
+    cwcglBindBufferRangeCommand,
+    cwcglBindBufferRangeEXTCommand,
+    cwcglBindBufferRangeNVCommand,
+    cwcglBindBuffersBaseCommand,
+    cwcglBindBuffersRangeCommand,
+    cwcglBindFragDataLocationCommand,
+    cwcglBindFragDataLocationEXTCommand,
+    cwcglBindFragDataLocationIndexedCommand,
+    cwcglBindFragDataLocationIndexedEXTCommand,
+    cwcglBindFragmentShaderATICommand,
+    cwcglBindFramebufferCommand,
+    cwcglBindFramebufferEXTCommand,
+    cwcglBindFramebufferOESCommand,
+    cwcglBindImageTextureCommand,
+    cwcglBindImageTextureEXTCommand,
+    cwcglBindImageTexturesCommand,
+    cwcglBindLightParameterEXTCommand,
+    cwcglBindMaterialParameterEXTCommand,
+    cwcglBindMultiTextureEXTCommand,
+    cwcglBindParameterEXTCommand,
+    cwcglBindProgramARBCommand,
+    cwcglBindProgramNVCommand,
+    cwcglBindProgramPipelineCommand,
+    cwcglBindProgramPipelineEXTCommand,
+    cwcglBindRenderbufferCommand,
+    cwcglBindRenderbufferEXTCommand,
+    cwcglBindRenderbufferOESCommand,
+    cwcglBindSamplerCommand,
+    cwcglBindSamplersCommand,
+    cwcglBindShadingRateImageNVCommand,
+    cwcglBindTexGenParameterEXTCommand,
+    cwcglBindTextureCommand,
+    cwcglBindTextureEXTCommand,
+    cwcglBindTextureUnitCommand,
+    cwcglBindTextureUnitParameterEXTCommand,
+    cwcglBindTexturesCommand,
+    cwcglBindTransformFeedbackCommand,
+    cwcglBindTransformFeedbackNVCommand,
+    cwcglBindVertexArrayCommand,
+    cwcglBindVertexArrayAPPLECommand,
+    cwcglBindVertexArrayOESCommand,
+    cwcglBindVertexBufferCommand,
+    cwcglBindVertexBuffersCommand,
+    cwcglBindVertexShaderEXTCommand,
+    cwcglBindVideoCaptureStreamBufferNVCommand,
+    cwcglBindVideoCaptureStreamTextureNVCommand,
+    cwcglBinormal3bEXTCommand,
+    cwcglBinormal3bvEXTCommand,
+    cwcglBinormal3dEXTCommand,
+    cwcglBinormal3dvEXTCommand,
+    cwcglBinormal3fEXTCommand,
+    cwcglBinormal3fvEXTCommand,
+    cwcglBinormal3iEXTCommand,
+    cwcglBinormal3ivEXTCommand,
+    cwcglBinormal3sEXTCommand,
+    cwcglBinormal3svEXTCommand,
+    cwcglBinormalPointerEXTCommand,
+    cwcglBitmapCommand,
+    cwcglBitmapxOESCommand,
+    cwcglBlendBarrierCommand,
+    cwcglBlendBarrierKHRCommand,
+    cwcglBlendBarrierNVCommand,
+    cwcglBlendColorCommand,
+    cwcglBlendColorEXTCommand,
+    cwcglBlendColorxOESCommand,
+    cwcglBlendEquationCommand,
+    cwcglBlendEquationEXTCommand,
+    cwcglBlendEquationIndexedAMDCommand,
+    cwcglBlendEquationOESCommand,
+    cwcglBlendEquationSeparateCommand,
+    cwcglBlendEquationSeparateEXTCommand,
+    cwcglBlendEquationSeparateIndexedAMDCommand,
+    cwcglBlendEquationSeparateOESCommand,
+    cwcglBlendEquationSeparateiCommand,
+    cwcglBlendEquationSeparateiARBCommand,
+    cwcglBlendEquationSeparateiEXTCommand,
+    cwcglBlendEquationSeparateiOESCommand,
+    cwcglBlendEquationiCommand,
+    cwcglBlendEquationiARBCommand,
+    cwcglBlendEquationiEXTCommand,
+    cwcglBlendEquationiOESCommand,
+    cwcglBlendFuncCommand,
+    cwcglBlendFuncIndexedAMDCommand,
+    cwcglBlendFuncSeparateCommand,
+    cwcglBlendFuncSeparateEXTCommand,
+    cwcglBlendFuncSeparateINGRCommand,
+    cwcglBlendFuncSeparateIndexedAMDCommand,
+    cwcglBlendFuncSeparateOESCommand,
+    cwcglBlendFuncSeparateiCommand,
+    cwcglBlendFuncSeparateiARBCommand,
+    cwcglBlendFuncSeparateiEXTCommand,
+    cwcglBlendFuncSeparateiOESCommand,
+    cwcglBlendFunciCommand,
+    cwcglBlendFunciARBCommand,
+    cwcglBlendFunciEXTCommand,
+    cwcglBlendFunciOESCommand,
+    cwcglBlendParameteriNVCommand,
+    cwcglBlitFramebufferCommand,
+    cwcglBlitFramebufferANGLECommand,
+    cwcglBlitFramebufferEXTCommand,
+    cwcglBlitFramebufferLayerEXTCommand,
+    cwcglBlitFramebufferLayersEXTCommand,
+    cwcglBlitFramebufferNVCommand,
+    cwcglBlitNamedFramebufferCommand,
+    cwcglBufferAddressRangeNVCommand,
+    cwcglBufferAttachMemoryNVCommand,
+    cwcglBufferDataCommand,
+    cwcglBufferDataARBCommand,
+    cwcglBufferPageCommitmentARBCommand,
+    cwcglBufferPageCommitmentMemNVCommand,
+    cwcglBufferParameteriAPPLECommand,
+    cwcglBufferStorageCommand,
+    cwcglBufferStorageEXTCommand,
+    cwcglBufferStorageExternalEXTCommand,
+    cwcglBufferStorageMemEXTCommand,
+    cwcglBufferSubDataCommand,
+    cwcglBufferSubDataARBCommand,
+    cwcglCallCommandListNVCommand,
+    cwcglCallListCommand,
+    cwcglCallListsCommand,
+    cwcglCheckFramebufferStatusCommand,
+    cwcglCheckFramebufferStatusEXTCommand,
+    cwcglCheckFramebufferStatusOESCommand,
+    cwcglCheckNamedFramebufferStatusCommand,
+    cwcglCheckNamedFramebufferStatusEXTCommand,
+    cwcglClampColorCommand,
+    cwcglClampColorARBCommand,
+    cwcglClearCommand,
+    cwcglClearAccumCommand,
+    cwcglClearAccumxOESCommand,
+    cwcglClearBufferDataCommand,
+    cwcglClearBufferSubDataCommand,
+    cwcglClearBufferfiCommand,
+    cwcglClearBufferfvCommand,
+    cwcglClearBufferivCommand,
+    cwcglClearBufferuivCommand,
+    cwcglClearColorCommand,
+    cwcglClearColorIiEXTCommand,
+    cwcglClearColorIuiEXTCommand,
+    cwcglClearColorxCommand,
+    cwcglClearColorxOESCommand,
+    cwcglClearDepthCommand,
+    cwcglClearDepthdNVCommand,
+    cwcglClearDepthfCommand,
+    cwcglClearDepthfOESCommand,
+    cwcglClearDepthxCommand,
+    cwcglClearDepthxOESCommand,
+    cwcglClearIndexCommand,
+    cwcglClearNamedBufferDataCommand,
+    cwcglClearNamedBufferDataEXTCommand,
+    cwcglClearNamedBufferSubDataCommand,
+    cwcglClearNamedBufferSubDataEXTCommand,
+    cwcglClearNamedFramebufferfiCommand,
+    cwcglClearNamedFramebufferfvCommand,
+    cwcglClearNamedFramebufferivCommand,
+    cwcglClearNamedFramebufferuivCommand,
+    cwcglClearPixelLocalStorageuiEXTCommand,
+    cwcglClearStencilCommand,
+    cwcglClearTexImageCommand,
+    cwcglClearTexImageEXTCommand,
+    cwcglClearTexSubImageCommand,
+    cwcglClearTexSubImageEXTCommand,
+    cwcglClientActiveTextureCommand,
+    cwcglClientActiveTextureARBCommand,
+    cwcglClientActiveVertexStreamATICommand,
+    cwcglClientAttribDefaultEXTCommand,
+    cwcglClientWaitSemaphoreui64NVXCommand,
+    cwcglClientWaitSyncCommand,
+    cwcglClientWaitSyncAPPLECommand,
+    cwcglClipControlCommand,
+    cwcglClipControlEXTCommand,
+    cwcglClipPlaneCommand,
+    cwcglClipPlanefCommand,
+    cwcglClipPlanefIMGCommand,
+    cwcglClipPlanefOESCommand,
+    cwcglClipPlanexCommand,
+    cwcglClipPlanexIMGCommand,
+    cwcglClipPlanexOESCommand,
+    cwcglColor3bCommand,
+    cwcglColor3bvCommand,
+    cwcglColor3dCommand,
+    cwcglColor3dvCommand,
+    cwcglColor3fCommand,
+    cwcglColor3fVertex3fSUNCommand,
+    cwcglColor3fVertex3fvSUNCommand,
+    cwcglColor3fvCommand,
+    cwcglColor3hNVCommand,
+    cwcglColor3hvNVCommand,
+    cwcglColor3iCommand,
+    cwcglColor3ivCommand,
+    cwcglColor3sCommand,
+    cwcglColor3svCommand,
+    cwcglColor3ubCommand,
+    cwcglColor3ubvCommand,
+    cwcglColor3uiCommand,
+    cwcglColor3uivCommand,
+    cwcglColor3usCommand,
+    cwcglColor3usvCommand,
+    cwcglColor3xOESCommand,
+    cwcglColor3xvOESCommand,
+    cwcglColor4bCommand,
+    cwcglColor4bvCommand,
+    cwcglColor4dCommand,
+    cwcglColor4dvCommand,
+    cwcglColor4fCommand,
+    cwcglColor4fNormal3fVertex3fSUNCommand,
+    cwcglColor4fNormal3fVertex3fvSUNCommand,
+    cwcglColor4fvCommand,
+    cwcglColor4hNVCommand,
+    cwcglColor4hvNVCommand,
+    cwcglColor4iCommand,
+    cwcglColor4ivCommand,
+    cwcglColor4sCommand,
+    cwcglColor4svCommand,
+    cwcglColor4ubCommand,
+    cwcglColor4ubVertex2fSUNCommand,
+    cwcglColor4ubVertex2fvSUNCommand,
+    cwcglColor4ubVertex3fSUNCommand,
+    cwcglColor4ubVertex3fvSUNCommand,
+    cwcglColor4ubvCommand,
+    cwcglColor4uiCommand,
+    cwcglColor4uivCommand,
+    cwcglColor4usCommand,
+    cwcglColor4usvCommand,
+    cwcglColor4xCommand,
+    cwcglColor4xOESCommand,
+    cwcglColor4xvOESCommand,
+    cwcglColorFormatNVCommand,
+    cwcglColorFragmentOp1ATICommand,
+    cwcglColorFragmentOp2ATICommand,
+    cwcglColorFragmentOp3ATICommand,
+    cwcglColorMaskCommand,
+    cwcglColorMaskIndexedEXTCommand,
+    cwcglColorMaskiCommand,
+    cwcglColorMaskiEXTCommand,
+    cwcglColorMaskiOESCommand,
+    cwcglColorMaterialCommand,
+    cwcglColorP3uiCommand,
+    cwcglColorP3uivCommand,
+    cwcglColorP4uiCommand,
+    cwcglColorP4uivCommand,
+    cwcglColorPointerCommand,
+    cwcglColorPointerEXTCommand,
+    cwcglColorPointerListIBMCommand,
+    cwcglColorPointervINTELCommand,
+    cwcglColorSubTableCommand,
+    cwcglColorSubTableEXTCommand,
+    cwcglColorTableCommand,
+    cwcglColorTableEXTCommand,
+    cwcglColorTableParameterfvCommand,
+    cwcglColorTableParameterfvSGICommand,
+    cwcglColorTableParameterivCommand,
+    cwcglColorTableParameterivSGICommand,
+    cwcglColorTableSGICommand,
+    cwcglCombinerInputNVCommand,
+    cwcglCombinerOutputNVCommand,
+    cwcglCombinerParameterfNVCommand,
+    cwcglCombinerParameterfvNVCommand,
+    cwcglCombinerParameteriNVCommand,
+    cwcglCombinerParameterivNVCommand,
+    cwcglCombinerStageParameterfvNVCommand,
+    cwcglCommandListSegmentsNVCommand,
+    cwcglCompileCommandListNVCommand,
+    cwcglCompileShaderCommand,
+    cwcglCompileShaderARBCommand,
+    cwcglCompileShaderIncludeARBCommand,
+    cwcglCompressedMultiTexImage1DEXTCommand,
+    cwcglCompressedMultiTexImage2DEXTCommand,
+    cwcglCompressedMultiTexImage3DEXTCommand,
+    cwcglCompressedMultiTexSubImage1DEXTCommand,
+    cwcglCompressedMultiTexSubImage2DEXTCommand,
+    cwcglCompressedMultiTexSubImage3DEXTCommand,
+    cwcglCompressedTexImage1DCommand,
+    cwcglCompressedTexImage1DARBCommand,
+    cwcglCompressedTexImage2DCommand,
+    cwcglCompressedTexImage2DARBCommand,
+    cwcglCompressedTexImage3DCommand,
+    cwcglCompressedTexImage3DARBCommand,
+    cwcglCompressedTexImage3DOESCommand,
+    cwcglCompressedTexSubImage1DCommand,
+    cwcglCompressedTexSubImage1DARBCommand,
+    cwcglCompressedTexSubImage2DCommand,
+    cwcglCompressedTexSubImage2DARBCommand,
+    cwcglCompressedTexSubImage3DCommand,
+    cwcglCompressedTexSubImage3DARBCommand,
+    cwcglCompressedTexSubImage3DOESCommand,
+    cwcglCompressedTextureImage1DEXTCommand,
+    cwcglCompressedTextureImage2DEXTCommand,
+    cwcglCompressedTextureImage3DEXTCommand,
+    cwcglCompressedTextureSubImage1DCommand,
+    cwcglCompressedTextureSubImage1DEXTCommand,
+    cwcglCompressedTextureSubImage2DCommand,
+    cwcglCompressedTextureSubImage2DEXTCommand,
+    cwcglCompressedTextureSubImage3DCommand,
+    cwcglCompressedTextureSubImage3DEXTCommand,
+    cwcglConservativeRasterParameterfNVCommand,
+    cwcglConservativeRasterParameteriNVCommand,
+    cwcglConvolutionFilter1DCommand,
+    cwcglConvolutionFilter1DEXTCommand,
+    cwcglConvolutionFilter2DCommand,
+    cwcglConvolutionFilter2DEXTCommand,
+    cwcglConvolutionParameterfCommand,
+    cwcglConvolutionParameterfEXTCommand,
+    cwcglConvolutionParameterfvCommand,
+    cwcglConvolutionParameterfvEXTCommand,
+    cwcglConvolutionParameteriCommand,
+    cwcglConvolutionParameteriEXTCommand,
+    cwcglConvolutionParameterivCommand,
+    cwcglConvolutionParameterivEXTCommand,
+    cwcglConvolutionParameterxOESCommand,
+    cwcglConvolutionParameterxvOESCommand,
+    cwcglCopyBufferSubDataCommand,
+    cwcglCopyBufferSubDataNVCommand,
+    cwcglCopyColorSubTableCommand,
+    cwcglCopyColorSubTableEXTCommand,
+    cwcglCopyColorTableCommand,
+    cwcglCopyColorTableSGICommand,
+    cwcglCopyConvolutionFilter1DCommand,
+    cwcglCopyConvolutionFilter1DEXTCommand,
+    cwcglCopyConvolutionFilter2DCommand,
+    cwcglCopyConvolutionFilter2DEXTCommand,
+    cwcglCopyImageSubDataCommand,
+    cwcglCopyImageSubDataEXTCommand,
+    cwcglCopyImageSubDataNVCommand,
+    cwcglCopyImageSubDataOESCommand,
+    cwcglCopyMultiTexImage1DEXTCommand,
+    cwcglCopyMultiTexImage2DEXTCommand,
+    cwcglCopyMultiTexSubImage1DEXTCommand,
+    cwcglCopyMultiTexSubImage2DEXTCommand,
+    cwcglCopyMultiTexSubImage3DEXTCommand,
+    cwcglCopyNamedBufferSubDataCommand,
+    cwcglCopyPathNVCommand,
+    cwcglCopyPixelsCommand,
+    cwcglCopyTexImage1DCommand,
+    cwcglCopyTexImage1DEXTCommand,
+    cwcglCopyTexImage2DCommand,
+    cwcglCopyTexImage2DEXTCommand,
+    cwcglCopyTexSubImage1DCommand,
+    cwcglCopyTexSubImage1DEXTCommand,
+    cwcglCopyTexSubImage2DCommand,
+    cwcglCopyTexSubImage2DEXTCommand,
+    cwcglCopyTexSubImage3DCommand,
+    cwcglCopyTexSubImage3DEXTCommand,
+    cwcglCopyTexSubImage3DOESCommand,
+    cwcglCopyTextureImage1DEXTCommand,
+    cwcglCopyTextureImage2DEXTCommand,
+    cwcglCopyTextureLevelsAPPLECommand,
+    cwcglCopyTextureSubImage1DCommand,
+    cwcglCopyTextureSubImage1DEXTCommand,
+    cwcglCopyTextureSubImage2DCommand,
+    cwcglCopyTextureSubImage2DEXTCommand,
+    cwcglCopyTextureSubImage3DCommand,
+    cwcglCopyTextureSubImage3DEXTCommand,
+    cwcglCoverFillPathInstancedNVCommand,
+    cwcglCoverFillPathNVCommand,
+    cwcglCoverStrokePathInstancedNVCommand,
+    cwcglCoverStrokePathNVCommand,
+    cwcglCoverageMaskNVCommand,
+    cwcglCoverageModulationNVCommand,
+    cwcglCoverageModulationTableNVCommand,
+    cwcglCoverageOperationNVCommand,
+    cwcglCreateBuffersCommand,
+    cwcglCreateCommandListsNVCommand,
+    cwcglCreateFramebuffersCommand,
+    cwcglCreateMemoryObjectsEXTCommand,
+    cwcglCreatePerfQueryINTELCommand,
+    cwcglCreateProgramCommand,
+    cwcglCreateProgramObjectARBCommand,
+    cwcglCreateProgramPipelinesCommand,
+    cwcglCreateProgressFenceNVXCommand,
+    cwcglCreateQueriesCommand,
+    cwcglCreateRenderbuffersCommand,
+    cwcglCreateSamplersCommand,
+    cwcglCreateSemaphoresNVCommand,
+    cwcglCreateShaderCommand,
+    cwcglCreateShaderObjectARBCommand,
+    cwcglCreateShaderProgramEXTCommand,
+    cwcglCreateShaderProgramvCommand,
+    cwcglCreateShaderProgramvEXTCommand,
+    cwcglCreateStatesNVCommand,
+    cwcglCreateSyncFromCLeventARBCommand,
+    cwcglCreateTexturesCommand,
+    cwcglCreateTransformFeedbacksCommand,
+    cwcglCreateVertexArraysCommand,
+    cwcglCullFaceCommand,
+    cwcglCullParameterdvEXTCommand,
+    cwcglCullParameterfvEXTCommand,
+    cwcglCurrentPaletteMatrixARBCommand,
+    cwcglCurrentPaletteMatrixOESCommand,
+    cwcglDebugMessageCallbackCommand,
+    cwcglDebugMessageCallbackAMDCommand,
+    cwcglDebugMessageCallbackARBCommand,
+    cwcglDebugMessageCallbackKHRCommand,
+    cwcglDebugMessageControlCommand,
+    cwcglDebugMessageControlARBCommand,
+    cwcglDebugMessageControlKHRCommand,
+    cwcglDebugMessageEnableAMDCommand,
+    cwcglDebugMessageInsertCommand,
+    cwcglDebugMessageInsertAMDCommand,
+    cwcglDebugMessageInsertARBCommand,
+    cwcglDebugMessageInsertKHRCommand,
+    cwcglDeformSGIXCommand,
+    cwcglDeformationMap3dSGIXCommand,
+    cwcglDeformationMap3fSGIXCommand,
+    cwcglDeleteAsyncMarkersSGIXCommand,
+    cwcglDeleteBuffersCommand,
+    cwcglDeleteBuffersARBCommand,
+    cwcglDeleteCommandListsNVCommand,
+    cwcglDeleteFencesAPPLECommand,
+    cwcglDeleteFencesNVCommand,
+    cwcglDeleteFragmentShaderATICommand,
+    cwcglDeleteFramebuffersCommand,
+    cwcglDeleteFramebuffersEXTCommand,
+    cwcglDeleteFramebuffersOESCommand,
+    cwcglDeleteListsCommand,
+    cwcglDeleteMemoryObjectsEXTCommand,
+    cwcglDeleteNamedStringARBCommand,
+    cwcglDeleteNamesAMDCommand,
+    cwcglDeleteObjectARBCommand,
+    cwcglDeleteOcclusionQueriesNVCommand,
+    cwcglDeletePathsNVCommand,
+    cwcglDeletePerfMonitorsAMDCommand,
+    cwcglDeletePerfQueryINTELCommand,
+    cwcglDeleteProgramCommand,
+    cwcglDeleteProgramPipelinesCommand,
+    cwcglDeleteProgramPipelinesEXTCommand,
+    cwcglDeleteProgramsARBCommand,
+    cwcglDeleteProgramsNVCommand,
+    cwcglDeleteQueriesCommand,
+    cwcglDeleteQueriesARBCommand,
+    cwcglDeleteQueriesEXTCommand,
+    cwcglDeleteQueryResourceTagNVCommand,
+    cwcglDeleteRenderbuffersCommand,
+    cwcglDeleteRenderbuffersEXTCommand,
+    cwcglDeleteRenderbuffersOESCommand,
+    cwcglDeleteSamplersCommand,
+    cwcglDeleteSemaphoresEXTCommand,
+    cwcglDeleteShaderCommand,
+    cwcglDeleteStatesNVCommand,
+    cwcglDeleteSyncCommand,
+    cwcglDeleteSyncAPPLECommand,
+    cwcglDeleteTexturesCommand,
+    cwcglDeleteTexturesEXTCommand,
+    cwcglDeleteTransformFeedbacksCommand,
+    cwcglDeleteTransformFeedbacksNVCommand,
+    cwcglDeleteVertexArraysCommand,
+    cwcglDeleteVertexArraysAPPLECommand,
+    cwcglDeleteVertexArraysOESCommand,
+    cwcglDeleteVertexShaderEXTCommand,
+    cwcglDepthBoundsEXTCommand,
+    cwcglDepthBoundsdNVCommand,
+    cwcglDepthFuncCommand,
+    cwcglDepthMaskCommand,
+    cwcglDepthRangeCommand,
+    cwcglDepthRangeArraydvNVCommand,
+    cwcglDepthRangeArrayfvNVCommand,
+    cwcglDepthRangeArrayfvOESCommand,
+    cwcglDepthRangeArrayvCommand,
+    cwcglDepthRangeIndexedCommand,
+    cwcglDepthRangeIndexeddNVCommand,
+    cwcglDepthRangeIndexedfNVCommand,
+    cwcglDepthRangeIndexedfOESCommand,
+    cwcglDepthRangedNVCommand,
+    cwcglDepthRangefCommand,
+    cwcglDepthRangefOESCommand,
+    cwcglDepthRangexCommand,
+    cwcglDepthRangexOESCommand,
+    cwcglDetachObjectARBCommand,
+    cwcglDetachShaderCommand,
+    cwcglDetailTexFuncSGISCommand,
+    cwcglDisableCommand,
+    cwcglDisableClientStateCommand,
+    cwcglDisableClientStateIndexedEXTCommand,
+    cwcglDisableClientStateiEXTCommand,
+    cwcglDisableDriverControlQCOMCommand,
+    cwcglDisableIndexedEXTCommand,
+    cwcglDisableVariantClientStateEXTCommand,
+    cwcglDisableVertexArrayAttribCommand,
+    cwcglDisableVertexArrayAttribEXTCommand,
+    cwcglDisableVertexArrayEXTCommand,
+    cwcglDisableVertexAttribAPPLECommand,
+    cwcglDisableVertexAttribArrayCommand,
+    cwcglDisableVertexAttribArrayARBCommand,
+    cwcglDisableiCommand,
+    cwcglDisableiEXTCommand,
+    cwcglDisableiNVCommand,
+    cwcglDisableiOESCommand,
+    cwcglDiscardFramebufferEXTCommand,
+    cwcglDispatchComputeCommand,
+    cwcglDispatchComputeGroupSizeARBCommand,
+    cwcglDispatchComputeIndirectCommand,
+    cwcglDrawArraysCommand,
+    cwcglDrawArraysEXTCommand,
+    cwcglDrawArraysIndirectCommand,
+    cwcglDrawArraysInstancedCommand,
+    cwcglDrawArraysInstancedANGLECommand,
+    cwcglDrawArraysInstancedARBCommand,
+    cwcglDrawArraysInstancedBaseInstanceCommand,
+    cwcglDrawArraysInstancedBaseInstanceEXTCommand,
+    cwcglDrawArraysInstancedEXTCommand,
+    cwcglDrawArraysInstancedNVCommand,
+    cwcglDrawBufferCommand,
+    cwcglDrawBuffersCommand,
+    cwcglDrawBuffersARBCommand,
+    cwcglDrawBuffersATICommand,
+    cwcglDrawBuffersEXTCommand,
+    cwcglDrawBuffersIndexedEXTCommand,
+    cwcglDrawBuffersNVCommand,
+    cwcglDrawCommandsAddressNVCommand,
+    cwcglDrawCommandsNVCommand,
+    cwcglDrawCommandsStatesAddressNVCommand,
+    cwcglDrawCommandsStatesNVCommand,
+    cwcglDrawElementArrayAPPLECommand,
+    cwcglDrawElementArrayATICommand,
+    cwcglDrawElementsCommand,
+    cwcglDrawElementsBaseVertexCommand,
+    cwcglDrawElementsBaseVertexEXTCommand,
+    cwcglDrawElementsBaseVertexOESCommand,
+    cwcglDrawElementsIndirectCommand,
+    cwcglDrawElementsInstancedCommand,
+    cwcglDrawElementsInstancedANGLECommand,
+    cwcglDrawElementsInstancedARBCommand,
+    cwcglDrawElementsInstancedBaseInstanceCommand,
+    cwcglDrawElementsInstancedBaseInstanceEXTCommand,
+    cwcglDrawElementsInstancedBaseVertexCommand,
+    cwcglDrawElementsInstancedBaseVertexBaseInstanceCommand,
+    cwcglDrawElementsInstancedBaseVertexBaseInstanceEXTCommand,
+    cwcglDrawElementsInstancedBaseVertexEXTCommand,
+    cwcglDrawElementsInstancedBaseVertexOESCommand,
+    cwcglDrawElementsInstancedEXTCommand,
+    cwcglDrawElementsInstancedNVCommand,
+    cwcglDrawMeshArraysSUNCommand,
+    cwcglDrawMeshTasksNVCommand,
+    cwcglDrawMeshTasksIndirectNVCommand,
+    cwcglDrawPixelsCommand,
+    cwcglDrawRangeElementArrayAPPLECommand,
+    cwcglDrawRangeElementArrayATICommand,
+    cwcglDrawRangeElementsCommand,
+    cwcglDrawRangeElementsBaseVertexCommand,
+    cwcglDrawRangeElementsBaseVertexEXTCommand,
+    cwcglDrawRangeElementsBaseVertexOESCommand,
+    cwcglDrawRangeElementsEXTCommand,
+    cwcglDrawTexfOESCommand,
+    cwcglDrawTexfvOESCommand,
+    cwcglDrawTexiOESCommand,
+    cwcglDrawTexivOESCommand,
+    cwcglDrawTexsOESCommand,
+    cwcglDrawTexsvOESCommand,
+    cwcglDrawTextureNVCommand,
+    cwcglDrawTexxOESCommand,
+    cwcglDrawTexxvOESCommand,
+    cwcglDrawTransformFeedbackCommand,
+    cwcglDrawTransformFeedbackEXTCommand,
+    cwcglDrawTransformFeedbackInstancedCommand,
+    cwcglDrawTransformFeedbackInstancedEXTCommand,
+    cwcglDrawTransformFeedbackNVCommand,
+    cwcglDrawTransformFeedbackStreamCommand,
+    cwcglDrawTransformFeedbackStreamInstancedCommand,
+    cwcglEGLImageTargetRenderbufferStorageOESCommand,
+    cwcglEGLImageTargetTexStorageEXTCommand,
+    cwcglEGLImageTargetTexture2DOESCommand,
+    cwcglEGLImageTargetTextureStorageEXTCommand,
+    cwcglEdgeFlagCommand,
+    cwcglEdgeFlagFormatNVCommand,
+    cwcglEdgeFlagPointerCommand,
+    cwcglEdgeFlagPointerEXTCommand,
+    cwcglEdgeFlagPointerListIBMCommand,
+    cwcglEdgeFlagvCommand,
+    cwcglElementPointerAPPLECommand,
+    cwcglElementPointerATICommand,
+    cwcglEnableCommand,
+    cwcglEnableClientStateCommand,
+    cwcglEnableClientStateIndexedEXTCommand,
+    cwcglEnableClientStateiEXTCommand,
+    cwcglEnableDriverControlQCOMCommand,
+    cwcglEnableIndexedEXTCommand,
+    cwcglEnableVariantClientStateEXTCommand,
+    cwcglEnableVertexArrayAttribCommand,
+    cwcglEnableVertexArrayAttribEXTCommand,
+    cwcglEnableVertexArrayEXTCommand,
+    cwcglEnableVertexAttribAPPLECommand,
+    cwcglEnableVertexAttribArrayCommand,
+    cwcglEnableVertexAttribArrayARBCommand,
+    cwcglEnableiCommand,
+    cwcglEnableiEXTCommand,
+    cwcglEnableiNVCommand,
+    cwcglEnableiOESCommand,
+    cwcglEndCommand,
+    cwcglEndConditionalRenderCommand,
+    cwcglEndConditionalRenderNVCommand,
+    cwcglEndConditionalRenderNVXCommand,
+    cwcglEndFragmentShaderATICommand,
+    cwcglEndListCommand,
+    cwcglEndOcclusionQueryNVCommand,
+    cwcglEndPerfMonitorAMDCommand,
+    cwcglEndPerfQueryINTELCommand,
+    cwcglEndQueryCommand,
+    cwcglEndQueryARBCommand,
+    cwcglEndQueryEXTCommand,
+    cwcglEndQueryIndexedCommand,
+    cwcglEndTilingQCOMCommand,
+    cwcglEndTransformFeedbackCommand,
+    cwcglEndTransformFeedbackEXTCommand,
+    cwcglEndTransformFeedbackNVCommand,
+    cwcglEndVertexShaderEXTCommand,
+    cwcglEndVideoCaptureNVCommand,
+    cwcglEvalCoord1dCommand,
+    cwcglEvalCoord1dvCommand,
+    cwcglEvalCoord1fCommand,
+    cwcglEvalCoord1fvCommand,
+    cwcglEvalCoord1xOESCommand,
+    cwcglEvalCoord1xvOESCommand,
+    cwcglEvalCoord2dCommand,
+    cwcglEvalCoord2dvCommand,
+    cwcglEvalCoord2fCommand,
+    cwcglEvalCoord2fvCommand,
+    cwcglEvalCoord2xOESCommand,
+    cwcglEvalCoord2xvOESCommand,
+    cwcglEvalMapsNVCommand,
+    cwcglEvalMesh1Command,
+    cwcglEvalMesh2Command,
+    cwcglEvalPoint1Command,
+    cwcglEvalPoint2Command,
+    cwcglEvaluateDepthValuesARBCommand,
+    cwcglExecuteProgramNVCommand,
+    cwcglExtGetBufferPointervQCOMCommand,
+    cwcglExtGetBuffersQCOMCommand,
+    cwcglExtGetFramebuffersQCOMCommand,
+    cwcglExtGetProgramBinarySourceQCOMCommand,
+    cwcglExtGetProgramsQCOMCommand,
+    cwcglExtGetRenderbuffersQCOMCommand,
+    cwcglExtGetShadersQCOMCommand,
+    cwcglExtGetTexLevelParameterivQCOMCommand,
+    cwcglExtGetTexSubImageQCOMCommand,
+    cwcglExtGetTexturesQCOMCommand,
+    cwcglExtIsProgramBinaryQCOMCommand,
+    cwcglExtTexObjectStateOverrideiQCOMCommand,
+    cwcglExtractComponentEXTCommand,
+    cwcglFeedbackBufferCommand,
+    cwcglFeedbackBufferxOESCommand,
+    cwcglFenceSyncCommand,
+    cwcglFenceSyncAPPLECommand,
+    cwcglFinalCombinerInputNVCommand,
+    cwcglFinishCommand,
+    cwcglFinishAsyncSGIXCommand,
+    cwcglFinishFenceAPPLECommand,
+    cwcglFinishFenceNVCommand,
+    cwcglFinishObjectAPPLECommand,
+    cwcglFinishTextureSUNXCommand,
+    cwcglFlushCommand,
+    cwcglFlushMappedBufferRangeCommand,
+    cwcglFlushMappedBufferRangeAPPLECommand,
+    cwcglFlushMappedBufferRangeEXTCommand,
+    cwcglFlushMappedNamedBufferRangeCommand,
+    cwcglFlushMappedNamedBufferRangeEXTCommand,
+    cwcglFlushPixelDataRangeNVCommand,
+    cwcglFlushRasterSGIXCommand,
+    cwcglFlushStaticDataIBMCommand,
+    cwcglFlushVertexArrayRangeAPPLECommand,
+    cwcglFlushVertexArrayRangeNVCommand,
+    cwcglFogCoordFormatNVCommand,
+    cwcglFogCoordPointerCommand,
+    cwcglFogCoordPointerEXTCommand,
+    cwcglFogCoordPointerListIBMCommand,
+    cwcglFogCoorddCommand,
+    cwcglFogCoorddEXTCommand,
+    cwcglFogCoorddvCommand,
+    cwcglFogCoorddvEXTCommand,
+    cwcglFogCoordfCommand,
+    cwcglFogCoordfEXTCommand,
+    cwcglFogCoordfvCommand,
+    cwcglFogCoordfvEXTCommand,
+    cwcglFogCoordhNVCommand,
+    cwcglFogCoordhvNVCommand,
+    cwcglFogFuncSGISCommand,
+    cwcglFogfCommand,
+    cwcglFogfvCommand,
+    cwcglFogiCommand,
+    cwcglFogivCommand,
+    cwcglFogxCommand,
+    cwcglFogxOESCommand,
+    cwcglFogxvCommand,
+    cwcglFogxvOESCommand,
+    cwcglFragmentColorMaterialSGIXCommand,
+    cwcglFragmentCoverageColorNVCommand,
+    cwcglFragmentLightModelfSGIXCommand,
+    cwcglFragmentLightModelfvSGIXCommand,
+    cwcglFragmentLightModeliSGIXCommand,
+    cwcglFragmentLightModelivSGIXCommand,
+    cwcglFragmentLightfSGIXCommand,
+    cwcglFragmentLightfvSGIXCommand,
+    cwcglFragmentLightiSGIXCommand,
+    cwcglFragmentLightivSGIXCommand,
+    cwcglFragmentMaterialfSGIXCommand,
+    cwcglFragmentMaterialfvSGIXCommand,
+    cwcglFragmentMaterialiSGIXCommand,
+    cwcglFragmentMaterialivSGIXCommand,
+    cwcglFrameTerminatorGREMEDYCommand,
+    cwcglFrameZoomSGIXCommand,
+    cwcglFramebufferDrawBufferEXTCommand,
+    cwcglFramebufferDrawBuffersEXTCommand,
+    cwcglFramebufferFetchBarrierEXTCommand,
+    cwcglFramebufferFetchBarrierQCOMCommand,
+    cwcglFramebufferFoveationConfigQCOMCommand,
+    cwcglFramebufferFoveationParametersQCOMCommand,
+    cwcglFramebufferParameteriCommand,
+    cwcglFramebufferPixelLocalStorageSizeEXTCommand,
+    cwcglFramebufferReadBufferEXTCommand,
+    cwcglFramebufferRenderbufferCommand,
+    cwcglFramebufferRenderbufferEXTCommand,
+    cwcglFramebufferRenderbufferOESCommand,
+    cwcglFramebufferSampleLocationsfvARBCommand,
+    cwcglFramebufferSampleLocationsfvNVCommand,
+    cwcglFramebufferSamplePositionsfvAMDCommand,
+    cwcglFramebufferShadingRateEXTCommand,
+    cwcglFramebufferTextureCommand,
+    cwcglFramebufferTexture1DCommand,
+    cwcglFramebufferTexture1DEXTCommand,
+    cwcglFramebufferTexture2DCommand,
+    cwcglFramebufferTexture2DEXTCommand,
+    cwcglFramebufferTexture2DDownsampleIMGCommand,
+    cwcglFramebufferTexture2DMultisampleEXTCommand,
+    cwcglFramebufferTexture2DMultisampleIMGCommand,
+    cwcglFramebufferTexture2DOESCommand,
+    cwcglFramebufferTexture3DCommand,
+    cwcglFramebufferTexture3DEXTCommand,
+    cwcglFramebufferTexture3DOESCommand,
+    cwcglFramebufferTextureARBCommand,
+    cwcglFramebufferTextureEXTCommand,
+    cwcglFramebufferTextureFaceARBCommand,
+    cwcglFramebufferTextureFaceEXTCommand,
+    cwcglFramebufferTextureLayerCommand,
+    cwcglFramebufferTextureLayerARBCommand,
+    cwcglFramebufferTextureLayerEXTCommand,
+    cwcglFramebufferTextureLayerDownsampleIMGCommand,
+    cwcglFramebufferTextureMultisampleMultiviewOVRCommand,
+    cwcglFramebufferTextureMultiviewOVRCommand,
+    cwcglFramebufferTextureOESCommand,
+    cwcglFreeObjectBufferATICommand,
+    cwcglFrontFaceCommand,
+    cwcglFrustumCommand,
+    cwcglFrustumfCommand,
+    cwcglFrustumfOESCommand,
+    cwcglFrustumxCommand,
+    cwcglFrustumxOESCommand,
+    cwcglGenAsyncMarkersSGIXCommand,
+    cwcglGenBuffersCommand,
+    cwcglGenBuffersARBCommand,
+    cwcglGenFencesAPPLECommand,
+    cwcglGenFencesNVCommand,
+    cwcglGenFragmentShadersATICommand,
+    cwcglGenFramebuffersCommand,
+    cwcglGenFramebuffersEXTCommand,
+    cwcglGenFramebuffersOESCommand,
+    cwcglGenListsCommand,
+    cwcglGenNamesAMDCommand,
+    cwcglGenOcclusionQueriesNVCommand,
+    cwcglGenPathsNVCommand,
+    cwcglGenPerfMonitorsAMDCommand,
+    cwcglGenProgramPipelinesCommand,
+    cwcglGenProgramPipelinesEXTCommand,
+    cwcglGenProgramsARBCommand,
+    cwcglGenProgramsNVCommand,
+    cwcglGenQueriesCommand,
+    cwcglGenQueriesARBCommand,
+    cwcglGenQueriesEXTCommand,
+    cwcglGenQueryResourceTagNVCommand,
+    cwcglGenRenderbuffersCommand,
+    cwcglGenRenderbuffersEXTCommand,
+    cwcglGenRenderbuffersOESCommand,
+    cwcglGenSamplersCommand,
+    cwcglGenSemaphoresEXTCommand,
+    cwcglGenSymbolsEXTCommand,
+    cwcglGenTexturesCommand,
+    cwcglGenTexturesEXTCommand,
+    cwcglGenTransformFeedbacksCommand,
+    cwcglGenTransformFeedbacksNVCommand,
+    cwcglGenVertexArraysCommand,
+    cwcglGenVertexArraysAPPLECommand,
+    cwcglGenVertexArraysOESCommand,
+    cwcglGenVertexShadersEXTCommand,
+    cwcglGenerateMipmapCommand,
+    cwcglGenerateMipmapEXTCommand,
+    cwcglGenerateMipmapOESCommand,
+    cwcglGenerateMultiTexMipmapEXTCommand,
+    cwcglGenerateTextureMipmapCommand,
+    cwcglGenerateTextureMipmapEXTCommand,
+    cwcglGetActiveAtomicCounterBufferivCommand,
+    cwcglGetActiveAttribCommand,
+    cwcglGetActiveAttribARBCommand,
+    cwcglGetActiveSubroutineNameCommand,
+    cwcglGetActiveSubroutineUniformNameCommand,
+    cwcglGetActiveSubroutineUniformivCommand,
+    cwcglGetActiveUniformCommand,
+    cwcglGetActiveUniformARBCommand,
+    cwcglGetActiveUniformBlockNameCommand,
+    cwcglGetActiveUniformBlockivCommand,
+    cwcglGetActiveUniformNameCommand,
+    cwcglGetActiveUniformsivCommand,
+    cwcglGetActiveVaryingNVCommand,
+    cwcglGetArrayObjectfvATICommand,
+    cwcglGetArrayObjectivATICommand,
+    cwcglGetAttachedObjectsARBCommand,
+    cwcglGetAttachedShadersCommand,
+    cwcglGetAttribLocationCommand,
+    cwcglGetAttribLocationARBCommand,
+    cwcglGetBooleanIndexedvEXTCommand,
+    cwcglGetBooleani_vCommand,
+    cwcglGetBooleanvCommand,
+    cwcglGetBufferParameteri64vCommand,
+    cwcglGetBufferParameterivCommand,
+    cwcglGetBufferParameterivARBCommand,
+    cwcglGetBufferParameterui64vNVCommand,
+    cwcglGetBufferPointervCommand,
+    cwcglGetBufferPointervARBCommand,
+    cwcglGetBufferPointervOESCommand,
+    cwcglGetBufferSubDataCommand,
+    cwcglGetBufferSubDataARBCommand,
+    cwcglGetClipPlaneCommand,
+    cwcglGetClipPlanefCommand,
+    cwcglGetClipPlanefOESCommand,
+    cwcglGetClipPlanexCommand,
+    cwcglGetClipPlanexOESCommand,
+    cwcglGetColorTableCommand,
+    cwcglGetColorTableEXTCommand,
+    cwcglGetColorTableParameterfvCommand,
+    cwcglGetColorTableParameterfvEXTCommand,
+    cwcglGetColorTableParameterfvSGICommand,
+    cwcglGetColorTableParameterivCommand,
+    cwcglGetColorTableParameterivEXTCommand,
+    cwcglGetColorTableParameterivSGICommand,
+    cwcglGetColorTableSGICommand,
+    cwcglGetCombinerInputParameterfvNVCommand,
+    cwcglGetCombinerInputParameterivNVCommand,
+    cwcglGetCombinerOutputParameterfvNVCommand,
+    cwcglGetCombinerOutputParameterivNVCommand,
+    cwcglGetCombinerStageParameterfvNVCommand,
+    cwcglGetCommandHeaderNVCommand,
+    cwcglGetCompressedMultiTexImageEXTCommand,
+    cwcglGetCompressedTexImageCommand,
+    cwcglGetCompressedTexImageARBCommand,
+    cwcglGetCompressedTextureImageCommand,
+    cwcglGetCompressedTextureImageEXTCommand,
+    cwcglGetCompressedTextureSubImageCommand,
+    cwcglGetConvolutionFilterCommand,
+    cwcglGetConvolutionFilterEXTCommand,
+    cwcglGetConvolutionParameterfvCommand,
+    cwcglGetConvolutionParameterfvEXTCommand,
+    cwcglGetConvolutionParameterivCommand,
+    cwcglGetConvolutionParameterivEXTCommand,
+    cwcglGetConvolutionParameterxvOESCommand,
+    cwcglGetCoverageModulationTableNVCommand,
+    cwcglGetDebugMessageLogCommand,
+    cwcglGetDebugMessageLogAMDCommand,
+    cwcglGetDebugMessageLogARBCommand,
+    cwcglGetDebugMessageLogKHRCommand,
+    cwcglGetDetailTexFuncSGISCommand,
+    cwcglGetDoubleIndexedvEXTCommand,
+    cwcglGetDoublei_vCommand,
+    cwcglGetDoublei_vEXTCommand,
+    cwcglGetDoublevCommand,
+    cwcglGetDriverControlStringQCOMCommand,
+    cwcglGetDriverControlsQCOMCommand,
+    cwcglGetErrorCommand,
+    cwcglGetFenceivNVCommand,
+    cwcglGetFinalCombinerInputParameterfvNVCommand,
+    cwcglGetFinalCombinerInputParameterivNVCommand,
+    cwcglGetFirstPerfQueryIdINTELCommand,
+    cwcglGetFixedvCommand,
+    cwcglGetFixedvOESCommand,
+    cwcglGetFloatIndexedvEXTCommand,
+    cwcglGetFloati_vCommand,
+    cwcglGetFloati_vEXTCommand,
+    cwcglGetFloati_vNVCommand,
+    cwcglGetFloati_vOESCommand,
+    cwcglGetFloatvCommand,
+    cwcglGetFogFuncSGISCommand,
+    cwcglGetFragDataIndexCommand,
+    cwcglGetFragDataIndexEXTCommand,
+    cwcglGetFragDataLocationCommand,
+    cwcglGetFragDataLocationEXTCommand,
+    cwcglGetFragmentLightfvSGIXCommand,
+    cwcglGetFragmentLightivSGIXCommand,
+    cwcglGetFragmentMaterialfvSGIXCommand,
+    cwcglGetFragmentMaterialivSGIXCommand,
+    cwcglGetFragmentShadingRatesEXTCommand,
+    cwcglGetFramebufferAttachmentParameterivCommand,
+    cwcglGetFramebufferAttachmentParameterivEXTCommand,
+    cwcglGetFramebufferAttachmentParameterivOESCommand,
+    cwcglGetFramebufferParameterfvAMDCommand,
+    cwcglGetFramebufferParameterivCommand,
+    cwcglGetFramebufferParameterivEXTCommand,
+    cwcglGetFramebufferPixelLocalStorageSizeEXTCommand,
+    cwcglGetGraphicsResetStatusCommand,
+    cwcglGetGraphicsResetStatusARBCommand,
+    cwcglGetGraphicsResetStatusEXTCommand,
+    cwcglGetGraphicsResetStatusKHRCommand,
+    cwcglGetHandleARBCommand,
+    cwcglGetHistogramCommand,
+    cwcglGetHistogramEXTCommand,
+    cwcglGetHistogramParameterfvCommand,
+    cwcglGetHistogramParameterfvEXTCommand,
+    cwcglGetHistogramParameterivCommand,
+    cwcglGetHistogramParameterivEXTCommand,
+    cwcglGetHistogramParameterxvOESCommand,
+    cwcglGetImageHandleARBCommand,
+    cwcglGetImageHandleNVCommand,
+    cwcglGetImageTransformParameterfvHPCommand,
+    cwcglGetImageTransformParameterivHPCommand,
+    cwcglGetInfoLogARBCommand,
+    cwcglGetInstrumentsSGIXCommand,
+    cwcglGetInteger64i_vCommand,
+    cwcglGetInteger64vCommand,
+    cwcglGetInteger64vAPPLECommand,
+    cwcglGetInteger64vEXTCommand,
+    cwcglGetIntegerIndexedvEXTCommand,
+    cwcglGetIntegeri_vCommand,
+    cwcglGetIntegeri_vEXTCommand,
+    cwcglGetIntegerui64i_vNVCommand,
+    cwcglGetIntegerui64vNVCommand,
+    cwcglGetIntegervCommand,
+    cwcglGetInternalformatSampleivNVCommand,
+    cwcglGetInternalformati64vCommand,
+    cwcglGetInternalformativCommand,
+    cwcglGetInvariantBooleanvEXTCommand,
+    cwcglGetInvariantFloatvEXTCommand,
+    cwcglGetInvariantIntegervEXTCommand,
+    cwcglGetLightfvCommand,
+    cwcglGetLightivCommand,
+    cwcglGetLightxOESCommand,
+    cwcglGetLightxvCommand,
+    cwcglGetLightxvOESCommand,
+    cwcglGetListParameterfvSGIXCommand,
+    cwcglGetListParameterivSGIXCommand,
+    cwcglGetLocalConstantBooleanvEXTCommand,
+    cwcglGetLocalConstantFloatvEXTCommand,
+    cwcglGetLocalConstantIntegervEXTCommand,
+    cwcglGetMapAttribParameterfvNVCommand,
+    cwcglGetMapAttribParameterivNVCommand,
+    cwcglGetMapControlPointsNVCommand,
+    cwcglGetMapParameterfvNVCommand,
+    cwcglGetMapParameterivNVCommand,
+    cwcglGetMapdvCommand,
+    cwcglGetMapfvCommand,
+    cwcglGetMapivCommand,
+    cwcglGetMapxvOESCommand,
+    cwcglGetMaterialfvCommand,
+    cwcglGetMaterialivCommand,
+    cwcglGetMaterialxOESCommand,
+    cwcglGetMaterialxvCommand,
+    cwcglGetMaterialxvOESCommand,
+    cwcglGetMemoryObjectDetachedResourcesuivNVCommand,
+    cwcglGetMemoryObjectParameterivEXTCommand,
+    cwcglGetMinmaxCommand,
+    cwcglGetMinmaxEXTCommand,
+    cwcglGetMinmaxParameterfvCommand,
+    cwcglGetMinmaxParameterfvEXTCommand,
+    cwcglGetMinmaxParameterivCommand,
+    cwcglGetMinmaxParameterivEXTCommand,
+    cwcglGetMultiTexEnvfvEXTCommand,
+    cwcglGetMultiTexEnvivEXTCommand,
+    cwcglGetMultiTexGendvEXTCommand,
+    cwcglGetMultiTexGenfvEXTCommand,
+    cwcglGetMultiTexGenivEXTCommand,
+    cwcglGetMultiTexImageEXTCommand,
+    cwcglGetMultiTexLevelParameterfvEXTCommand,
+    cwcglGetMultiTexLevelParameterivEXTCommand,
+    cwcglGetMultiTexParameterIivEXTCommand,
+    cwcglGetMultiTexParameterIuivEXTCommand,
+    cwcglGetMultiTexParameterfvEXTCommand,
+    cwcglGetMultiTexParameterivEXTCommand,
+    cwcglGetMultisamplefvCommand,
+    cwcglGetMultisamplefvNVCommand,
+    cwcglGetNamedBufferParameteri64vCommand,
+    cwcglGetNamedBufferParameterivCommand,
+    cwcglGetNamedBufferParameterivEXTCommand,
+    cwcglGetNamedBufferParameterui64vNVCommand,
+    cwcglGetNamedBufferPointervCommand,
+    cwcglGetNamedBufferPointervEXTCommand,
+    cwcglGetNamedBufferSubDataCommand,
+    cwcglGetNamedBufferSubDataEXTCommand,
+    cwcglGetNamedFramebufferParameterfvAMDCommand,
+    cwcglGetNamedFramebufferAttachmentParameterivCommand,
+    cwcglGetNamedFramebufferAttachmentParameterivEXTCommand,
+    cwcglGetNamedFramebufferParameterivCommand,
+    cwcglGetNamedFramebufferParameterivEXTCommand,
+    cwcglGetNamedProgramLocalParameterIivEXTCommand,
+    cwcglGetNamedProgramLocalParameterIuivEXTCommand,
+    cwcglGetNamedProgramLocalParameterdvEXTCommand,
+    cwcglGetNamedProgramLocalParameterfvEXTCommand,
+    cwcglGetNamedProgramStringEXTCommand,
+    cwcglGetNamedProgramivEXTCommand,
+    cwcglGetNamedRenderbufferParameterivCommand,
+    cwcglGetNamedRenderbufferParameterivEXTCommand,
+    cwcglGetNamedStringARBCommand,
+    cwcglGetNamedStringivARBCommand,
+    cwcglGetNextPerfQueryIdINTELCommand,
+    cwcglGetObjectBufferfvATICommand,
+    cwcglGetObjectBufferivATICommand,
+    cwcglGetObjectLabelCommand,
+    cwcglGetObjectLabelEXTCommand,
+    cwcglGetObjectLabelKHRCommand,
+    cwcglGetObjectParameterfvARBCommand,
+    cwcglGetObjectParameterivAPPLECommand,
+    cwcglGetObjectParameterivARBCommand,
+    cwcglGetObjectPtrLabelCommand,
+    cwcglGetObjectPtrLabelKHRCommand,
+    cwcglGetOcclusionQueryivNVCommand,
+    cwcglGetOcclusionQueryuivNVCommand,
+    cwcglGetPathColorGenfvNVCommand,
+    cwcglGetPathColorGenivNVCommand,
+    cwcglGetPathCommandsNVCommand,
+    cwcglGetPathCoordsNVCommand,
+    cwcglGetPathDashArrayNVCommand,
+    cwcglGetPathLengthNVCommand,
+    cwcglGetPathMetricRangeNVCommand,
+    cwcglGetPathMetricsNVCommand,
+    cwcglGetPathParameterfvNVCommand,
+    cwcglGetPathParameterivNVCommand,
+    cwcglGetPathSpacingNVCommand,
+    cwcglGetPathTexGenfvNVCommand,
+    cwcglGetPathTexGenivNVCommand,
+    cwcglGetPerfCounterInfoINTELCommand,
+    cwcglGetPerfMonitorCounterDataAMDCommand,
+    cwcglGetPerfMonitorCounterInfoAMDCommand,
+    cwcglGetPerfMonitorCounterStringAMDCommand,
+    cwcglGetPerfMonitorCountersAMDCommand,
+    cwcglGetPerfMonitorGroupStringAMDCommand,
+    cwcglGetPerfMonitorGroupsAMDCommand,
+    cwcglGetPerfQueryDataINTELCommand,
+    cwcglGetPerfQueryIdByNameINTELCommand,
+    cwcglGetPerfQueryInfoINTELCommand,
+    cwcglGetPixelMapfvCommand,
+    cwcglGetPixelMapuivCommand,
+    cwcglGetPixelMapusvCommand,
+    cwcglGetPixelMapxvCommand,
+    cwcglGetPixelTexGenParameterfvSGISCommand,
+    cwcglGetPixelTexGenParameterivSGISCommand,
+    cwcglGetPixelTransformParameterfvEXTCommand,
+    cwcglGetPixelTransformParameterivEXTCommand,
+    cwcglGetPointerIndexedvEXTCommand,
+    cwcglGetPointeri_vEXTCommand,
+    cwcglGetPointervCommand,
+    cwcglGetPointervEXTCommand,
+    cwcglGetPointervKHRCommand,
+    cwcglGetPolygonStippleCommand,
+    cwcglGetProgramBinaryCommand,
+    cwcglGetProgramBinaryOESCommand,
+    cwcglGetProgramEnvParameterIivNVCommand,
+    cwcglGetProgramEnvParameterIuivNVCommand,
+    cwcglGetProgramEnvParameterdvARBCommand,
+    cwcglGetProgramEnvParameterfvARBCommand,
+    cwcglGetProgramInfoLogCommand,
+    cwcglGetProgramInterfaceivCommand,
+    cwcglGetProgramLocalParameterIivNVCommand,
+    cwcglGetProgramLocalParameterIuivNVCommand,
+    cwcglGetProgramLocalParameterdvARBCommand,
+    cwcglGetProgramLocalParameterfvARBCommand,
+    cwcglGetProgramNamedParameterdvNVCommand,
+    cwcglGetProgramNamedParameterfvNVCommand,
+    cwcglGetProgramParameterdvNVCommand,
+    cwcglGetProgramParameterfvNVCommand,
+    cwcglGetProgramPipelineInfoLogCommand,
+    cwcglGetProgramPipelineInfoLogEXTCommand,
+    cwcglGetProgramPipelineivCommand,
+    cwcglGetProgramPipelineivEXTCommand,
+    cwcglGetProgramResourceIndexCommand,
+    cwcglGetProgramResourceLocationCommand,
+    cwcglGetProgramResourceLocationIndexCommand,
+    cwcglGetProgramResourceLocationIndexEXTCommand,
+    cwcglGetProgramResourceNameCommand,
+    cwcglGetProgramResourcefvNVCommand,
+    cwcglGetProgramResourceivCommand,
+    cwcglGetProgramStageivCommand,
+    cwcglGetProgramStringARBCommand,
+    cwcglGetProgramStringNVCommand,
+    cwcglGetProgramSubroutineParameteruivNVCommand,
+    cwcglGetProgramivCommand,
+    cwcglGetProgramivARBCommand,
+    cwcglGetProgramivNVCommand,
+    cwcglGetQueryBufferObjecti64vCommand,
+    cwcglGetQueryBufferObjectivCommand,
+    cwcglGetQueryBufferObjectui64vCommand,
+    cwcglGetQueryBufferObjectuivCommand,
+    cwcglGetQueryIndexedivCommand,
+    cwcglGetQueryObjecti64vCommand,
+    cwcglGetQueryObjecti64vEXTCommand,
+    cwcglGetQueryObjectivCommand,
+    cwcglGetQueryObjectivARBCommand,
+    cwcglGetQueryObjectivEXTCommand,
+    cwcglGetQueryObjectui64vCommand,
+    cwcglGetQueryObjectui64vEXTCommand,
+    cwcglGetQueryObjectuivCommand,
+    cwcglGetQueryObjectuivARBCommand,
+    cwcglGetQueryObjectuivEXTCommand,
+    cwcglGetQueryivCommand,
+    cwcglGetQueryivARBCommand,
+    cwcglGetQueryivEXTCommand,
+    cwcglGetRenderbufferParameterivCommand,
+    cwcglGetRenderbufferParameterivEXTCommand,
+    cwcglGetRenderbufferParameterivOESCommand,
+    cwcglGetSamplerParameterIivCommand,
+    cwcglGetSamplerParameterIivEXTCommand,
+    cwcglGetSamplerParameterIivOESCommand,
+    cwcglGetSamplerParameterIuivCommand,
+    cwcglGetSamplerParameterIuivEXTCommand,
+    cwcglGetSamplerParameterIuivOESCommand,
+    cwcglGetSamplerParameterfvCommand,
+    cwcglGetSamplerParameterivCommand,
+    cwcglGetSemaphoreParameterivNVCommand,
+    cwcglGetSemaphoreParameterui64vEXTCommand,
+    cwcglGetSeparableFilterCommand,
+    cwcglGetSeparableFilterEXTCommand,
+    cwcglGetShaderInfoLogCommand,
+    cwcglGetShaderPrecisionFormatCommand,
+    cwcglGetShaderSourceCommand,
+    cwcglGetShaderSourceARBCommand,
+    cwcglGetShaderivCommand,
+    cwcglGetShadingRateImagePaletteNVCommand,
+    cwcglGetShadingRateSampleLocationivNVCommand,
+    cwcglGetSharpenTexFuncSGISCommand,
+    cwcglGetStageIndexNVCommand,
+    cwcCommand,
+    cwcglGetStringCommand,
+    cwcglGetStringiCommand,
+    cwcglGetSubroutineIndexCommand,
+    cwcglGetSubroutineUniformLocationCommand,
+    cwcglGetSyncivCommand,
+    cwcglGetSyncivAPPLECommand,
+    cwcglGetTexBumpParameterfvATICommand,
+    cwcglGetTexBumpParameterivATICommand,
+    cwcglGetTexEnvfvCommand,
+    cwcglGetTexEnvivCommand,
+    cwcglGetTexEnvxvCommand,
+    cwcglGetTexEnvxvOESCommand,
+    cwcglGetTexFilterFuncSGISCommand,
+    cwcglGetTexGendvCommand,
+    cwcglGetTexGenfvCommand,
+    cwcglGetTexGenfvOESCommand,
+    cwcglGetTexGenivCommand,
+    cwcglGetTexGenivOESCommand,
+    cwcglGetTexGenxvOESCommand,
+    cwcglGetTexImageCommand,
+    cwcglGetTexLevelParameterfvCommand,
+    cwcglGetTexLevelParameterivCommand,
+    cwcglGetTexLevelParameterxvOESCommand,
+    cwcglGetTexParameterIivCommand,
+    cwcglGetTexParameterIivEXTCommand,
+    cwcglGetTexParameterIivOESCommand,
+    cwcglGetTexParameterIuivCommand,
+    cwcglGetTexParameterIuivEXTCommand,
+    cwcglGetTexParameterIuivOESCommand,
+    cwcglGetTexParameterPointervAPPLECommand,
+    cwcglGetTexParameterfvCommand,
+    cwcglGetTexParameterivCommand,
+    cwcglGetTexParameterxvCommand,
+    cwcglGetTexParameterxvOESCommand,
+    cwcglGetTextureHandleARBCommand,
+    cwcglGetTextureHandleIMGCommand,
+    cwcglGetTextureHandleNVCommand,
+    cwcglGetTextureImageCommand,
+    cwcglGetTextureImageEXTCommand,
+    cwcglGetTextureLevelParameterfvCommand,
+    cwcglGetTextureLevelParameterfvEXTCommand,
+    cwcglGetTextureLevelParameterivCommand,
+    cwcglGetTextureLevelParameterivEXTCommand,
+    cwcglGetTextureParameterIivCommand,
+    cwcglGetTextureParameterIivEXTCommand,
+    cwcglGetTextureParameterIuivCommand,
+    cwcglGetTextureParameterIuivEXTCommand,
+    cwcglGetTextureParameterfvCommand,
+    cwcglGetTextureParameterfvEXTCommand,
+    cwcglGetTextureParameterivCommand,
+    cwcglGetTextureParameterivEXTCommand,
+    cwcglGetTextureSamplerHandleARBCommand,
+    cwcglGetTextureSamplerHandleIMGCommand,
+    cwcglGetTextureSamplerHandleNVCommand,
+    cwcglGetTextureSubImageCommand,
+    cwcglGetTrackMatrixivNVCommand,
+    cwcglGetTransformFeedbackVaryingCommand,
+    cwcglGetTransformFeedbackVaryingEXTCommand,
+    cwcglGetTransformFeedbackVaryingNVCommand,
+    cwcglGetTransformFeedbacki64_vCommand,
+    cwcglGetTransformFeedbacki_vCommand,
+    cwcglGetTransformFeedbackivCommand,
+    cwcglGetTranslatedShaderSourceANGLECommand,
+    cwcglGetUniformBlockIndexCommand,
+    cwcglGetUniformBufferSizeEXTCommand,
+    cwcglGetUniformIndicesCommand,
+    cwcglGetUniformLocationCommand,
+    cwcglGetUniformLocationARBCommand,
+    cwcglGetUniformOffsetEXTCommand,
+    cwcglGetUniformSubroutineuivCommand,
+    cwcglGetUniformdvCommand,
+    cwcglGetUniformfvCommand,
+    cwcglGetUniformfvARBCommand,
+    cwcglGetUniformi64vARBCommand,
+    cwcglGetUniformi64vNVCommand,
+    cwcglGetUniformivCommand,
+    cwcglGetUniformivARBCommand,
+    cwcglGetUniformui64vARBCommand,
+    cwcglGetUniformui64vNVCommand,
+    cwcglGetUniformuivCommand,
+    cwcglGetUniformuivEXTCommand,
+    cwcglGetUnsignedBytevEXTCommand,
+    cwcglGetUnsignedBytei_vEXTCommand,
+    cwcglGetVariantArrayObjectfvATICommand,
+    cwcglGetVariantArrayObjectivATICommand,
+    cwcglGetVariantBooleanvEXTCommand,
+    cwcglGetVariantFloatvEXTCommand,
+    cwcglGetVariantIntegervEXTCommand,
+    cwcglGetVariantPointervEXTCommand,
+    cwcglGetVaryingLocationNVCommand,
+    cwcglGetVertexArrayIndexed64ivCommand,
+    cwcglGetVertexArrayIndexedivCommand,
+    cwcglGetVertexArrayIntegeri_vEXTCommand,
+    cwcglGetVertexArrayIntegervEXTCommand,
+    cwcglGetVertexArrayPointeri_vEXTCommand,
+    cwcglGetVertexArrayPointervEXTCommand,
+    cwcglGetVertexArrayivCommand,
+    cwcglGetVertexAttribArrayObjectfvATICommand,
+    cwcglGetVertexAttribArrayObjectivATICommand,
+    cwcglGetVertexAttribIivCommand,
+    cwcglGetVertexAttribIivEXTCommand,
+    cwcglGetVertexAttribIuivCommand,
+    cwcglGetVertexAttribIuivEXTCommand,
+    cwcglGetVertexAttribLdvCommand,
+    cwcglGetVertexAttribLdvEXTCommand,
+    cwcglGetVertexAttribLi64vNVCommand,
+    cwcglGetVertexAttribLui64vARBCommand,
+    cwcglGetVertexAttribLui64vNVCommand,
+    cwcglGetVertexAttribPointervCommand,
+    cwcglGetVertexAttribPointervARBCommand,
+    cwcglGetVertexAttribPointervNVCommand,
+    cwcglGetVertexAttribdvCommand,
+    cwcglGetVertexAttribdvARBCommand,
+    cwcglGetVertexAttribdvNVCommand,
+    cwcglGetVertexAttribfvCommand,
+    cwcglGetVertexAttribfvARBCommand,
+    cwcglGetVertexAttribfvNVCommand,
+    cwcglGetVertexAttribivCommand,
+    cwcglGetVertexAttribivARBCommand,
+    cwcglGetVertexAttribivNVCommand,
+    cwcglGetVideoCaptureStreamdvNVCommand,
+    cwcglGetVideoCaptureStreamfvNVCommand,
+    cwcglGetVideoCaptureStreamivNVCommand,
+    cwcglGetVideoCaptureivNVCommand,
+    cwcglGetVideoi64vNVCommand,
+    cwcglGetVideoivNVCommand,
+    cwcglGetVideoui64vNVCommand,
+    cwcglGetVideouivNVCommand,
+    cwcglGetnColorTableCommand,
+    cwcglGetnColorTableARBCommand,
+    cwcglGetnCompressedTexImageCommand,
+    cwcglGetnCompressedTexImageARBCommand,
+    cwcglGetnConvolutionFilterCommand,
+    cwcglGetnConvolutionFilterARBCommand,
+    cwcglGetnHistogramCommand,
+    cwcglGetnHistogramARBCommand,
+    cwcglGetnMapdvCommand,
+    cwcglGetnMapdvARBCommand,
+    cwcglGetnMapfvCommand,
+    cwcglGetnMapfvARBCommand,
+    cwcglGetnMapivCommand,
+    cwcglGetnMapivARBCommand,
+    cwcglGetnMinmaxCommand,
+    cwcglGetnMinmaxARBCommand,
+    cwcglGetnPixelMapfvCommand,
+    cwcglGetnPixelMapfvARBCommand,
+    cwcglGetnPixelMapuivCommand,
+    cwcglGetnPixelMapuivARBCommand,
+    cwcglGetnPixelMapusvCommand,
+    cwcglGetnPixelMapusvARBCommand,
+    cwcglGetnPolygonStippleCommand,
+    cwcglGetnPolygonStippleARBCommand,
+    cwcglGetnSeparableFilterCommand,
+    cwcglGetnSeparableFilterARBCommand,
+    cwcglGetnTexImageCommand,
+    cwcglGetnTexImageARBCommand,
+    cwcglGetnUniformdvCommand,
+    cwcglGetnUniformdvARBCommand,
+    cwcglGetnUniformfvCommand,
+    cwcglGetnUniformfvARBCommand,
+    cwcglGetnUniformfvEXTCommand,
+    cwcglGetnUniformfvKHRCommand,
+    cwcglGetnUniformi64vARBCommand,
+    cwcglGetnUniformivCommand,
+    cwcglGetnUniformivARBCommand,
+    cwcglGetnUniformivEXTCommand,
+    cwcglGetnUniformivKHRCommand,
+    cwcglGetnUniformui64vARBCommand,
+    cwcglGetnUniformuivCommand,
+    cwcglGetnUniformuivARBCommand,
+    cwcglGetnUniformuivKHRCommand,
+    cwcglGlobalAlphaFactorbSUNCommand,
+    cwcglGlobalAlphaFactordSUNCommand,
+    cwcglGlobalAlphaFactorfSUNCommand,
+    cwcglGlobalAlphaFactoriSUNCommand,
+    cwcglGlobalAlphaFactorsSUNCommand,
+    cwcglGlobalAlphaFactorubSUNCommand,
+    cwcglGlobalAlphaFactoruiSUNCommand,
+    cwcglGlobalAlphaFactorusSUNCommand,
+    cwcglHintCommand,
+    cwcglHintPGICommand,
+    cwcglHistogramCommand,
+    cwcglHistogramEXTCommand,
+    cwcglIglooInterfaceSGIXCommand,
+    cwcglImageTransformParameterfHPCommand,
+    cwcglImageTransformParameterfvHPCommand,
+    cwcglImageTransformParameteriHPCommand,
+    cwcglImageTransformParameterivHPCommand,
+    cwcglImportMemoryFdEXTCommand,
+    cwcglImportMemoryWin32HandleEXTCommand,
+    cwcglImportMemoryWin32NameEXTCommand,
+    cwcglImportSemaphoreFdEXTCommand,
+    cwcglImportSemaphoreWin32HandleEXTCommand,
+    cwcglImportSemaphoreWin32NameEXTCommand,
+    cwcglImportSyncEXTCommand,
+    cwcglIndexFormatNVCommand,
+    cwcglIndexFuncEXTCommand,
+    cwcglIndexMaskCommand,
+    cwcglIndexMaterialEXTCommand,
+    cwcglIndexPointerCommand,
+    cwcglIndexPointerEXTCommand,
+    cwcglIndexPointerListIBMCommand,
+    cwcglIndexdCommand,
+    cwcglIndexdvCommand,
+    cwcglIndexfCommand,
+    cwcglIndexfvCommand,
+    cwcglIndexiCommand,
+    cwcglIndexivCommand,
+    cwcglIndexsCommand,
+    cwcglIndexsvCommand,
+    cwcglIndexubCommand,
+    cwcglIndexubvCommand,
+    cwcglIndexxOESCommand,
+    cwcglIndexxvOESCommand,
+    cwcglInitNamesCommand,
+    cwcglInsertComponentEXTCommand,
+    cwcglInsertEventMarkerEXTCommand,
+    cwcglInstrumentsBufferSGIXCommand,
+    cwcglInterleavedArraysCommand,
+    cwcglInterpolatePathsNVCommand,
+    cwcglInvalidateBufferDataCommand,
+    cwcglInvalidateBufferSubDataCommand,
+    cwcglInvalidateFramebufferCommand,
+    cwcglInvalidateNamedFramebufferDataCommand,
+    cwcglInvalidateNamedFramebufferSubDataCommand,
+    cwcglInvalidateSubFramebufferCommand,
+    cwcglInvalidateTexImageCommand,
+    cwcglInvalidateTexSubImageCommand,
+    cwcglIsAsyncMarkerSGIXCommand,
+    cwcglIsBufferCommand,
+    cwcglIsBufferARBCommand,
+    cwcglIsBufferResidentNVCommand,
+    cwcglIsCommandListNVCommand,
+    cwcglIsEnabledCommand,
+    cwcglIsEnabledIndexedEXTCommand,
+    cwcglIsEnablediCommand,
+    cwcglIsEnablediEXTCommand,
+    cwcglIsEnablediNVCommand,
+    cwcglIsEnablediOESCommand,
+    cwcglIsFenceAPPLECommand,
+    cwcglIsFenceNVCommand,
+    cwcglIsFramebufferCommand,
+    cwcglIsFramebufferEXTCommand,
+    cwcglIsFramebufferOESCommand,
+    cwcglIsImageHandleResidentARBCommand,
+    cwcglIsImageHandleResidentNVCommand,
+    cwcglIsListCommand,
+    cwcglIsMemoryObjectEXTCommand,
+    cwcglIsNameAMDCommand,
+    cwcglIsNamedBufferResidentNVCommand,
+    cwcglIsNamedStringARBCommand,
+    cwcglIsObjectBufferATICommand,
+    cwcglIsOcclusionQueryNVCommand,
+    cwcglIsPathNVCommand,
+    cwcglIsPointInFillPathNVCommand,
+    cwcglIsPointInStrokePathNVCommand,
+    cwcglIsProgramCommand,
+    cwcglIsProgramARBCommand,
+    cwcglIsProgramNVCommand,
+    cwcglIsProgramPipelineCommand,
+    cwcglIsProgramPipelineEXTCommand,
+    cwcglIsQueryCommand,
+    cwcglIsQueryARBCommand,
+    cwcglIsQueryEXTCommand,
+    cwcglIsRenderbufferCommand,
+    cwcglIsRenderbufferEXTCommand,
+    cwcglIsRenderbufferOESCommand,
+    cwcglIsSemaphoreEXTCommand,
+    cwcglIsSamplerCommand,
+    cwcglIsShaderCommand,
+    cwcglIsStateNVCommand,
+    cwcglIsSyncCommand,
+    cwcglIsSyncAPPLECommand,
+    cwcglIsTextureCommand,
+    cwcglIsTextureEXTCommand,
+    cwcglIsTextureHandleResidentARBCommand,
+    cwcglIsTextureHandleResidentNVCommand,
+    cwcglIsTransformFeedbackCommand,
+    cwcglIsTransformFeedbackNVCommand,
+    cwcglIsVariantEnabledEXTCommand,
+    cwcglIsVertexArrayCommand,
+    cwcglIsVertexArrayAPPLECommand,
+    cwcglIsVertexArrayOESCommand,
+    cwcglIsVertexAttribEnabledAPPLECommand,
+    cwcglLGPUCopyImageSubDataNVXCommand,
+    cwcglLGPUInterlockNVXCommand,
+    cwcglLGPUNamedBufferSubDataNVXCommand,
+    cwcglLabelObjectEXTCommand,
+    cwcglLightEnviSGIXCommand,
+    cwcglLightModelfCommand,
+    cwcglLightModelfvCommand,
+    cwcglLightModeliCommand,
+    cwcglLightModelivCommand,
+    cwcglLightModelxCommand,
+    cwcglLightModelxOESCommand,
+    cwcglLightModelxvCommand,
+    cwcglLightModelxvOESCommand,
+    cwcglLightfCommand,
+    cwcglLightfvCommand,
+    cwcglLightiCommand,
+    cwcglLightivCommand,
+    cwcglLightxCommand,
+    cwcglLightxOESCommand,
+    cwcglLightxvCommand,
+    cwcglLightxvOESCommand,
+    cwcglLineStippleCommand,
+    cwcglLineWidthCommand,
+    cwcglLineWidthxCommand,
+    cwcglLineWidthxOESCommand,
+    cwcglLinkProgramCommand,
+    cwcglLinkProgramARBCommand,
+    cwcglListBaseCommand,
+    cwcglListDrawCommandsStatesClientNVCommand,
+    cwcglListParameterfSGIXCommand,
+    cwcglListParameterfvSGIXCommand,
+    cwcglListParameteriSGIXCommand,
+    cwcglListParameterivSGIXCommand,
+    cwcglLoadIdentityCommand,
+    cwcglLoadIdentityDeformationMapSGIXCommand,
+    cwcglLoadMatrixdCommand,
+    cwcglLoadMatrixfCommand,
+    cwcglLoadMatrixxCommand,
+    cwcglLoadMatrixxOESCommand,
+    cwcglLoadNameCommand,
+    cwcglLoadPaletteFromModelViewMatrixOESCommand,
+    cwcglLoadProgramNVCommand,
+    cwcglLoadTransposeMatrixdCommand,
+    cwcglLoadTransposeMatrixdARBCommand,
+    cwcglLoadTransposeMatrixfCommand,
+    cwcglLoadTransposeMatrixfARBCommand,
+    cwcglLoadTransposeMatrixxOESCommand,
+    cwcglLockArraysEXTCommand,
+    cwcglLogicOpCommand,
+    cwcglMakeBufferNonResidentNVCommand,
+    cwcglMakeBufferResidentNVCommand,
+    cwcglMakeImageHandleNonResidentARBCommand,
+    cwcglMakeImageHandleNonResidentNVCommand,
+    cwcglMakeImageHandleResidentARBCommand,
+    cwcglMakeImageHandleResidentNVCommand,
+    cwcglMakeNamedBufferNonResidentNVCommand,
+    cwcglMakeNamedBufferResidentNVCommand,
+    cwcglMakeTextureHandleNonResidentARBCommand,
+    cwcglMakeTextureHandleNonResidentNVCommand,
+    cwcglMakeTextureHandleResidentARBCommand,
+    cwcglMakeTextureHandleResidentNVCommand,
+    cwcglMap1dCommand,
+    cwcglMap1fCommand,
+    cwcglMap1xOESCommand,
+    cwcglMap2dCommand,
+    cwcglMap2fCommand,
+    cwcglMap2xOESCommand,
+    cwcglMapBufferCommand,
+    cwcglMapBufferARBCommand,
+    cwcglMapBufferOESCommand,
+    cwcglMapBufferRangeCommand,
+    cwcglMapBufferRangeEXTCommand,
+    cwcglMapControlPointsNVCommand,
+    cwcglMapGrid1dCommand,
+    cwcglMapGrid1fCommand,
+    cwcglMapGrid1xOESCommand,
+    cwcglMapGrid2dCommand,
+    cwcglMapGrid2fCommand,
+    cwcglMapGrid2xOESCommand,
+    cwcglMapNamedBufferCommand,
+    cwcglMapNamedBufferEXTCommand,
+    cwcglMapNamedBufferRangeCommand,
+    cwcglMapNamedBufferRangeEXTCommand,
+    cwcglMapObjectBufferATICommand,
+    cwcglMapParameterfvNVCommand,
+    cwcglMapParameterivNVCommand,
+    cwcglMapTexture2DINTELCommand,
+    cwcglMapVertexAttrib1dAPPLECommand,
+    cwcglMapVertexAttrib1fAPPLECommand,
+    cwcglMapVertexAttrib2dAPPLECommand,
+    cwcglMapVertexAttrib2fAPPLECommand,
+    cwcglMaterialfCommand,
+    cwcglMaterialfvCommand,
+    cwcglMaterialiCommand,
+    cwcglMaterialivCommand,
+    cwcglMaterialxCommand,
+    cwcglMaterialxOESCommand,
+    cwcglMaterialxvCommand,
+    cwcglMaterialxvOESCommand,
+    cwcglMatrixFrustumEXTCommand,
+    cwcglMatrixIndexPointerARBCommand,
+    cwcglMatrixIndexPointerOESCommand,
+    cwcglMatrixIndexubvARBCommand,
+    cwcglMatrixIndexuivARBCommand,
+    cwcglMatrixIndexusvARBCommand,
+    cwcglMatrixLoad3x2fNVCommand,
+    cwcglMatrixLoad3x3fNVCommand,
+    cwcglMatrixLoadIdentityEXTCommand,
+    cwcglMatrixLoadTranspose3x3fNVCommand,
+    cwcglMatrixLoadTransposedEXTCommand,
+    cwcglMatrixLoadTransposefEXTCommand,
+    cwcglMatrixLoaddEXTCommand,
+    cwcglMatrixLoadfEXTCommand,
+    cwcglMatrixModeCommand,
+    cwcglMatrixMult3x2fNVCommand,
+    cwcglMatrixMult3x3fNVCommand,
+    cwcglMatrixMultTranspose3x3fNVCommand,
+    cwcglMatrixMultTransposedEXTCommand,
+    cwcglMatrixMultTransposefEXTCommand,
+    cwcglMatrixMultdEXTCommand,
+    cwcglMatrixMultfEXTCommand,
+    cwcglMatrixOrthoEXTCommand,
+    cwcglMatrixPopEXTCommand,
+    cwcglMatrixPushEXTCommand,
+    cwcglMatrixRotatedEXTCommand,
+    cwcglMatrixRotatefEXTCommand,
+    cwcglMatrixScaledEXTCommand,
+    cwcglMatrixScalefEXTCommand,
+    cwcglMatrixTranslatedEXTCommand,
+    cwcglMatrixTranslatefEXTCommand,
+    cwcglMaxShaderCompilerThreadsKHRCommand,
+    cwcglMaxShaderCompilerThreadsARBCommand,
+    cwcglMemoryBarrierCommand,
+    cwcglMemoryBarrierByRegionCommand,
+    cwcglMemoryBarrierEXTCommand,
+    cwcglMemoryObjectParameterivEXTCommand,
+    cwcglMinSampleShadingCommand,
+    cwcglMinSampleShadingARBCommand,
+    cwcglMinSampleShadingOESCommand,
+    cwcglMinmaxCommand,
+    cwcglMinmaxEXTCommand,
+    cwcglMultMatrixdCommand,
+    cwcglMultMatrixfCommand,
+    cwcglMultMatrixxCommand,
+    cwcglMultMatrixxOESCommand,
+    cwcglMultTransposeMatrixdCommand,
+    cwcglMultTransposeMatrixdARBCommand,
+    cwcglMultTransposeMatrixfCommand,
+    cwcglMultTransposeMatrixfARBCommand,
+    cwcglMultTransposeMatrixxOESCommand,
+    cwcglMultiDrawArraysCommand,
+    cwcglMultiDrawArraysEXTCommand,
+    cwcglMultiDrawArraysIndirectCommand,
+    cwcglMultiDrawArraysIndirectAMDCommand,
+    cwcglMultiDrawArraysIndirectBindlessCountNVCommand,
+    cwcglMultiDrawArraysIndirectBindlessNVCommand,
+    cwcglMultiDrawArraysIndirectCountCommand,
+    cwcglMultiDrawArraysIndirectCountARBCommand,
+    cwcglMultiDrawArraysIndirectEXTCommand,
+    cwcglMultiDrawElementArrayAPPLECommand,
+    cwcglMultiDrawElementsCommand,
+    cwcglMultiDrawElementsBaseVertexCommand,
+    cwcglMultiDrawElementsBaseVertexEXTCommand,
+    cwcglMultiDrawElementsEXTCommand,
+    cwcglMultiDrawElementsIndirectCommand,
+    cwcglMultiDrawElementsIndirectAMDCommand,
+    cwcglMultiDrawElementsIndirectBindlessCountNVCommand,
+    cwcglMultiDrawElementsIndirectBindlessNVCommand,
+    cwcglMultiDrawElementsIndirectCountCommand,
+    cwcglMultiDrawElementsIndirectCountARBCommand,
+    cwcglMultiDrawElementsIndirectEXTCommand,
+    cwcglMultiDrawMeshTasksIndirectNVCommand,
+    cwcglMultiDrawMeshTasksIndirectCountNVCommand,
+    cwcglMultiDrawRangeElementArrayAPPLECommand,
+    cwcglMultiModeDrawArraysIBMCommand,
+    cwcglMultiModeDrawElementsIBMCommand,
+    cwcglMultiTexBufferEXTCommand,
+    cwcglMultiTexCoord1bOESCommand,
+    cwcglMultiTexCoord1bvOESCommand,
+    cwcglMultiTexCoord1dCommand,
+    cwcglMultiTexCoord1dARBCommand,
+    cwcglMultiTexCoord1dvCommand,
+    cwcglMultiTexCoord1dvARBCommand,
+    cwcglMultiTexCoord1fCommand,
+    cwcglMultiTexCoord1fARBCommand,
+    cwcglMultiTexCoord1fvCommand,
+    cwcglMultiTexCoord1fvARBCommand,
+    cwcglMultiTexCoord1hNVCommand,
+    cwcglMultiTexCoord1hvNVCommand,
+    cwcglMultiTexCoord1iCommand,
+    cwcglMultiTexCoord1iARBCommand,
+    cwcglMultiTexCoord1ivCommand,
+    cwcglMultiTexCoord1ivARBCommand,
+    cwcglMultiTexCoord1sCommand,
+    cwcglMultiTexCoord1sARBCommand,
+    cwcglMultiTexCoord1svCommand,
+    cwcglMultiTexCoord1svARBCommand,
+    cwcglMultiTexCoord1xOESCommand,
+    cwcglMultiTexCoord1xvOESCommand,
+    cwcglMultiTexCoord2bOESCommand,
+    cwcglMultiTexCoord2bvOESCommand,
+    cwcglMultiTexCoord2dCommand,
+    cwcglMultiTexCoord2dARBCommand,
+    cwcglMultiTexCoord2dvCommand,
+    cwcglMultiTexCoord2dvARBCommand,
+    cwcglMultiTexCoord2fCommand,
+    cwcglMultiTexCoord2fARBCommand,
+    cwcglMultiTexCoord2fvCommand,
+    cwcglMultiTexCoord2fvARBCommand,
+    cwcglMultiTexCoord2hNVCommand,
+    cwcglMultiTexCoord2hvNVCommand,
+    cwcglMultiTexCoord2iCommand,
+    cwcglMultiTexCoord2iARBCommand,
+    cwcglMultiTexCoord2ivCommand,
+    cwcglMultiTexCoord2ivARBCommand,
+    cwcglMultiTexCoord2sCommand,
+    cwcglMultiTexCoord2sARBCommand,
+    cwcglMultiTexCoord2svCommand,
+    cwcglMultiTexCoord2svARBCommand,
+    cwcglMultiTexCoord2xOESCommand,
+    cwcglMultiTexCoord2xvOESCommand,
+    cwcglMultiTexCoord3bOESCommand,
+    cwcglMultiTexCoord3bvOESCommand,
+    cwcglMultiTexCoord3dCommand,
+    cwcglMultiTexCoord3dARBCommand,
+    cwcglMultiTexCoord3dvCommand,
+    cwcglMultiTexCoord3dvARBCommand,
+    cwcglMultiTexCoord3fCommand,
+    cwcglMultiTexCoord3fARBCommand,
+    cwcglMultiTexCoord3fvCommand,
+    cwcglMultiTexCoord3fvARBCommand,
+    cwcglMultiTexCoord3hNVCommand,
+    cwcglMultiTexCoord3hvNVCommand,
+    cwcglMultiTexCoord3iCommand,
+    cwcglMultiTexCoord3iARBCommand,
+    cwcglMultiTexCoord3ivCommand,
+    cwcglMultiTexCoord3ivARBCommand,
+    cwcglMultiTexCoord3sCommand,
+    cwcglMultiTexCoord3sARBCommand,
+    cwcglMultiTexCoord3svCommand,
+    cwcglMultiTexCoord3svARBCommand,
+    cwcglMultiTexCoord3xOESCommand,
+    cwcglMultiTexCoord3xvOESCommand,
+    cwcglMultiTexCoord4bOESCommand,
+    cwcglMultiTexCoord4bvOESCommand,
+    cwcglMultiTexCoord4dCommand,
+    cwcglMultiTexCoord4dARBCommand,
+    cwcglMultiTexCoord4dvCommand,
+    cwcglMultiTexCoord4dvARBCommand,
+    cwcglMultiTexCoord4fCommand,
+    cwcglMultiTexCoord4fARBCommand,
+    cwcglMultiTexCoord4fvCommand,
+    cwcglMultiTexCoord4fvARBCommand,
+    cwcglMultiTexCoord4hNVCommand,
+    cwcglMultiTexCoord4hvNVCommand,
+    cwcglMultiTexCoord4iCommand,
+    cwcglMultiTexCoord4iARBCommand,
+    cwcglMultiTexCoord4ivCommand,
+    cwcglMultiTexCoord4ivARBCommand,
+    cwcglMultiTexCoord4sCommand,
+    cwcglMultiTexCoord4sARBCommand,
+    cwcglMultiTexCoord4svCommand,
+    cwcglMultiTexCoord4svARBCommand,
+    cwcglMultiTexCoord4xCommand,
+    cwcglMultiTexCoord4xOESCommand,
+    cwcglMultiTexCoord4xvOESCommand,
+    cwcglMultiTexCoordP1uiCommand,
+    cwcglMultiTexCoordP1uivCommand,
+    cwcglMultiTexCoordP2uiCommand,
+    cwcglMultiTexCoordP2uivCommand,
+    cwcglMultiTexCoordP3uiCommand,
+    cwcglMultiTexCoordP3uivCommand,
+    cwcglMultiTexCoordP4uiCommand,
+    cwcglMultiTexCoordP4uivCommand,
+    cwcglMultiTexCoordPointerEXTCommand,
+    cwcglMultiTexEnvfEXTCommand,
+    cwcglMultiTexEnvfvEXTCommand,
+    cwcglMultiTexEnviEXTCommand,
+    cwcglMultiTexEnvivEXTCommand,
+    cwcglMultiTexGendEXTCommand,
+    cwcglMultiTexGendvEXTCommand,
+    cwcglMultiTexGenfEXTCommand,
+    cwcglMultiTexGenfvEXTCommand,
+    cwcglMultiTexGeniEXTCommand,
+    cwcglMultiTexGenivEXTCommand,
+    cwcglMultiTexImage1DEXTCommand,
+    cwcglMultiTexImage2DEXTCommand,
+    cwcglMultiTexImage3DEXTCommand,
+    cwcglMultiTexParameterIivEXTCommand,
+    cwcglMultiTexParameterIuivEXTCommand,
+    cwcglMultiTexParameterfEXTCommand,
+    cwcglMultiTexParameterfvEXTCommand,
+    cwcglMultiTexParameteriEXTCommand,
+    cwcglMultiTexParameterivEXTCommand,
+    cwcglMultiTexRenderbufferEXTCommand,
+    cwcglMultiTexSubImage1DEXTCommand,
+    cwcglMultiTexSubImage2DEXTCommand,
+    cwcglMultiTexSubImage3DEXTCommand,
+    cwcglMulticastBarrierNVCommand,
+    cwcglMulticastBlitFramebufferNVCommand,
+    cwcglMulticastBufferSubDataNVCommand,
+    cwcglMulticastCopyBufferSubDataNVCommand,
+    cwcglMulticastCopyImageSubDataNVCommand,
+    cwcglMulticastFramebufferSampleLocationsfvNVCommand,
+    cwcglMulticastGetQueryObjecti64vNVCommand,
+    cwcglMulticastGetQueryObjectivNVCommand,
+    cwcglMulticastGetQueryObjectui64vNVCommand,
+    cwcglMulticastGetQueryObjectuivNVCommand,
+    cwcglMulticastScissorArrayvNVXCommand,
+    cwcglMulticastViewportArrayvNVXCommand,
+    cwcglMulticastViewportPositionWScaleNVXCommand,
+    cwcglMulticastWaitSyncNVCommand,
+    cwcglNamedBufferAttachMemoryNVCommand,
+    cwcglNamedBufferDataCommand,
+    cwcglNamedBufferDataEXTCommand,
+    cwcglNamedBufferPageCommitmentARBCommand,
+    cwcglNamedBufferPageCommitmentEXTCommand,
+    cwcglNamedBufferPageCommitmentMemNVCommand,
+    cwcglNamedBufferStorageCommand,
+    cwcglNamedBufferStorageExternalEXTCommand,
+    cwcglNamedBufferStorageEXTCommand,
+    cwcglNamedBufferStorageMemEXTCommand,
+    cwcglNamedBufferSubDataCommand,
+    cwcglNamedBufferSubDataEXTCommand,
+    cwcglNamedCopyBufferSubDataEXTCommand,
+    cwcglNamedFramebufferDrawBufferCommand,
+    cwcglNamedFramebufferDrawBuffersCommand,
+    cwcglNamedFramebufferParameteriCommand,
+    cwcglNamedFramebufferParameteriEXTCommand,
+    cwcglNamedFramebufferReadBufferCommand,
+    cwcglNamedFramebufferRenderbufferCommand,
+    cwcglNamedFramebufferRenderbufferEXTCommand,
+    cwcglNamedFramebufferSampleLocationsfvARBCommand,
+    cwcglNamedFramebufferSampleLocationsfvNVCommand,
+    cwcglNamedFramebufferTextureCommand,
+    cwcglNamedFramebufferSamplePositionsfvAMDCommand,
+    cwcglNamedFramebufferTexture1DEXTCommand,
+    cwcglNamedFramebufferTexture2DEXTCommand,
+    cwcglNamedFramebufferTexture3DEXTCommand,
+    cwcglNamedFramebufferTextureEXTCommand,
+    cwcglNamedFramebufferTextureFaceEXTCommand,
+    cwcglNamedFramebufferTextureLayerCommand,
+    cwcglNamedFramebufferTextureLayerEXTCommand,
+    cwcglNamedProgramLocalParameter4dEXTCommand,
+    cwcglNamedProgramLocalParameter4dvEXTCommand,
+    cwcglNamedProgramLocalParameter4fEXTCommand,
+    cwcglNamedProgramLocalParameter4fvEXTCommand,
+    cwcglNamedProgramLocalParameterI4iEXTCommand,
+    cwcglNamedProgramLocalParameterI4ivEXTCommand,
+    cwcglNamedProgramLocalParameterI4uiEXTCommand,
+    cwcglNamedProgramLocalParameterI4uivEXTCommand,
+    cwcglNamedProgramLocalParameters4fvEXTCommand,
+    cwcglNamedProgramLocalParametersI4ivEXTCommand,
+    cwcglNamedProgramLocalParametersI4uivEXTCommand,
+    cwcglNamedProgramStringEXTCommand,
+    cwcglNamedRenderbufferStorageCommand,
+    cwcglNamedRenderbufferStorageEXTCommand,
+    cwcglNamedRenderbufferStorageMultisampleCommand,
+    cwcglNamedRenderbufferStorageMultisampleAdvancedAMDCommand,
+    cwcglNamedRenderbufferStorageMultisampleCoverageEXTCommand,
+    cwcglNamedRenderbufferStorageMultisampleEXTCommand,
+    cwcglNamedStringARBCommand,
+    cwcglNewListCommand,
+    cwcglNewObjectBufferATICommand,
+    cwcglNormal3bCommand,
+    cwcglNormal3bvCommand,
+    cwcglNormal3dCommand,
+    cwcglNormal3dvCommand,
+    cwcglNormal3fCommand,
+    cwcglNormal3fVertex3fSUNCommand,
+    cwcglNormal3fVertex3fvSUNCommand,
+    cwcglNormal3fvCommand,
+    cwcglNormal3hNVCommand,
+    cwcglNormal3hvNVCommand,
+    cwcglNormal3iCommand,
+    cwcglNormal3ivCommand,
+    cwcglNormal3sCommand,
+    cwcglNormal3svCommand,
+    cwcglNormal3xCommand,
+    cwcglNormal3xOESCommand,
+    cwcglNormal3xvOESCommand,
+    cwcglNormalFormatNVCommand,
+    cwcglNormalP3uiCommand,
+    cwcglNormalP3uivCommand,
+    cwcglNormalPointerCommand,
+    cwcglNormalPointerEXTCommand,
+    cwcglNormalPointerListIBMCommand,
+    cwcglNormalPointervINTELCommand,
+    cwcglNormalStream3bATICommand,
+    cwcglNormalStream3bvATICommand,
+    cwcglNormalStream3dATICommand,
+    cwcglNormalStream3dvATICommand,
+    cwcglNormalStream3fATICommand,
+    cwcglNormalStream3fvATICommand,
+    cwcglNormalStream3iATICommand,
+    cwcglNormalStream3ivATICommand,
+    cwcglNormalStream3sATICommand,
+    cwcglNormalStream3svATICommand,
+    cwcglObjectLabelCommand,
+    cwcglObjectLabelKHRCommand,
+    cwcglObjectPtrLabelCommand,
+    cwcglObjectPtrLabelKHRCommand,
+    cwcglObjectPurgeableAPPLECommand,
+    cwcglObjectUnpurgeableAPPLECommand,
+    cwcglOrthoCommand,
+    cwcglOrthofCommand,
+    cwcglOrthofOESCommand,
+    cwcglOrthoxCommand,
+    cwcglOrthoxOESCommand,
+    cwcglPNTrianglesfATICommand,
+    cwcglPNTrianglesiATICommand,
+    cwcglPassTexCoordATICommand,
+    cwcglPassThroughCommand,
+    cwcglPassThroughxOESCommand,
+    cwcglPatchParameterfvCommand,
+    cwcglPatchParameteriCommand,
+    cwcglPatchParameteriEXTCommand,
+    cwcglPatchParameteriOESCommand,
+    cwcglPathColorGenNVCommand,
+    cwcglPathCommandsNVCommand,
+    cwcglPathCoordsNVCommand,
+    cwcglPathCoverDepthFuncNVCommand,
+    cwcglPathDashArrayNVCommand,
+    cwcglPathFogGenNVCommand,
+    cwcglPathGlyphIndexArrayNVCommand,
+    cwcglPathGlyphIndexRangeNVCommand,
+    cwcglPathGlyphRangeNVCommand,
+    cwcglPathGlyphsNVCommand,
+    cwcglPathMemoryGlyphIndexArrayNVCommand,
+    cwcglPathParameterfNVCommand,
+    cwcglPathParameterfvNVCommand,
+    cwcglPathParameteriNVCommand,
+    cwcglPathParameterivNVCommand,
+    cwcglPathStencilDepthOffsetNVCommand,
+    cwcglPathStencilFuncNVCommand,
+    cwcglPathStringNVCommand,
+    cwcglPathSubCommandsNVCommand,
+    cwcglPathSubCoordsNVCommand,
+    cwcglPathTexGenNVCommand,
+    cwcglPauseTransformFeedbackCommand,
+    cwcglPauseTransformFeedbackNVCommand,
+    cwcglPixelDataRangeNVCommand,
+    cwcglPixelMapfvCommand,
+    cwcglPixelMapuivCommand,
+    cwcglPixelMapusvCommand,
+    cwcglPixelMapxCommand,
+    cwcglPixelStorefCommand,
+    cwcglPixelStoreiCommand,
+    cwcglPixelStorexCommand,
+    cwcglPixelTexGenParameterfSGISCommand,
+    cwcglPixelTexGenParameterfvSGISCommand,
+    cwcglPixelTexGenParameteriSGISCommand,
+    cwcglPixelTexGenParameterivSGISCommand,
+    cwcglPixelTexGenSGIXCommand,
+    cwcglPixelTransferfCommand,
+    cwcglPixelTransferiCommand,
+    cwcglPixelTransferxOESCommand,
+    cwcglPixelTransformParameterfEXTCommand,
+    cwcglPixelTransformParameterfvEXTCommand,
+    cwcglPixelTransformParameteriEXTCommand,
+    cwcglPixelTransformParameterivEXTCommand,
+    cwcglPixelZoomCommand,
+    cwcglPixelZoomxOESCommand,
+    cwcglPointAlongPathNVCommand,
+    cwcglPointParameterfCommand,
+    cwcglPointParameterfARBCommand,
+    cwcglPointParameterfEXTCommand,
+    cwcglPointParameterfSGISCommand,
+    cwcglPointParameterfvCommand,
+    cwcglPointParameterfvARBCommand,
+    cwcglPointParameterfvEXTCommand,
+    cwcglPointParameterfvSGISCommand,
+    cwcglPointParameteriCommand,
+    cwcglPointParameteriNVCommand,
+    cwcglPointParameterivCommand,
+    cwcglPointParameterivNVCommand,
+    cwcglPointParameterxCommand,
+    cwcglPointParameterxOESCommand,
+    cwcglPointParameterxvCommand,
+    cwcglPointParameterxvOESCommand,
+    cwcglPointSizeCommand,
+    cwcglPointSizePointerOESCommand,
+    cwcglPointSizexCommand,
+    cwcglPointSizexOESCommand,
+    cwcglPollAsyncSGIXCommand,
+    cwcglPollInstrumentsSGIXCommand,
+    cwcglPolygonModeCommand,
+    cwcglPolygonModeNVCommand,
+    cwcglPolygonOffsetCommand,
+    cwcglPolygonOffsetClampCommand,
+    cwcglPolygonOffsetClampEXTCommand,
+    cwcglPolygonOffsetEXTCommand,
+    cwcglPolygonOffsetxCommand,
+    cwcglPolygonOffsetxOESCommand,
+    cwcglPolygonStippleCommand,
+    cwcglPopAttribCommand,
+    cwcglPopClientAttribCommand,
+    cwcglPopDebugGroupCommand,
+    cwcglPopDebugGroupKHRCommand,
+    cwcglPopGroupMarkerEXTCommand,
+    cwcglPopMatrixCommand,
+    cwcglPopNameCommand,
+    cwcglPresentFrameDualFillNVCommand,
+    cwcglPresentFrameKeyedNVCommand,
+    cwcglPrimitiveBoundingBoxCommand,
+    cwcglPrimitiveBoundingBoxARBCommand,
+    cwcglPrimitiveBoundingBoxEXTCommand,
+    cwcglPrimitiveBoundingBoxOESCommand,
+    cwcglPrimitiveRestartIndexCommand,
+    cwcglPrimitiveRestartIndexNVCommand,
+    cwcglPrimitiveRestartNVCommand,
+    cwcglPrioritizeTexturesCommand,
+    cwcglPrioritizeTexturesEXTCommand,
+    cwcglPrioritizeTexturesxOESCommand,
+    cwcglProgramBinaryCommand,
+    cwcglProgramBinaryOESCommand,
+    cwcglProgramBufferParametersIivNVCommand,
+    cwcglProgramBufferParametersIuivNVCommand,
+    cwcglProgramBufferParametersfvNVCommand,
+    cwcglProgramEnvParameter4dARBCommand,
+    cwcglProgramEnvParameter4dvARBCommand,
+    cwcglProgramEnvParameter4fARBCommand,
+    cwcglProgramEnvParameter4fvARBCommand,
+    cwcglProgramEnvParameterI4iNVCommand,
+    cwcglProgramEnvParameterI4ivNVCommand,
+    cwcglProgramEnvParameterI4uiNVCommand,
+    cwcglProgramEnvParameterI4uivNVCommand,
+    cwcglProgramEnvParameters4fvEXTCommand,
+    cwcglProgramEnvParametersI4ivNVCommand,
+    cwcglProgramEnvParametersI4uivNVCommand,
+    cwcglProgramLocalParameter4dARBCommand,
+    cwcglProgramLocalParameter4dvARBCommand,
+    cwcglProgramLocalParameter4fARBCommand,
+    cwcglProgramLocalParameter4fvARBCommand,
+    cwcglProgramLocalParameterI4iNVCommand,
+    cwcglProgramLocalParameterI4ivNVCommand,
+    cwcglProgramLocalParameterI4uiNVCommand,
+    cwcglProgramLocalParameterI4uivNVCommand,
+    cwcglProgramLocalParameters4fvEXTCommand,
+    cwcglProgramLocalParametersI4ivNVCommand,
+    cwcglProgramLocalParametersI4uivNVCommand,
+    cwcglProgramNamedParameter4dNVCommand,
+    cwcglProgramNamedParameter4dvNVCommand,
+    cwcglProgramNamedParameter4fNVCommand,
+    cwcglProgramNamedParameter4fvNVCommand,
+    cwcglProgramParameter4dNVCommand,
+    cwcglProgramParameter4dvNVCommand,
+    cwcglProgramParameter4fNVCommand,
+    cwcglProgramParameter4fvNVCommand,
+    cwcglProgramParameteriCommand,
+    cwcglProgramParameteriARBCommand,
+    cwcglProgramParameteriEXTCommand,
+    cwcglProgramParameters4dvNVCommand,
+    cwcglProgramParameters4fvNVCommand,
+    cwcglProgramPathFragmentInputGenNVCommand,
+    cwcglProgramStringARBCommand,
+    cwcglProgramSubroutineParametersuivNVCommand,
+    cwcglProgramUniform1dCommand,
+    cwcglProgramUniform1dEXTCommand,
+    cwcglProgramUniform1dvCommand,
+    cwcglProgramUniform1dvEXTCommand,
+    cwcglProgramUniform1fCommand,
+    cwcglProgramUniform1fEXTCommand,
+    cwcglProgramUniform1fvCommand,
+    cwcglProgramUniform1fvEXTCommand,
+    cwcglProgramUniform1iCommand,
+    cwcglProgramUniform1i64ARBCommand,
+    cwcglProgramUniform1i64NVCommand,
+    cwcglProgramUniform1i64vARBCommand,
+    cwcglProgramUniform1i64vNVCommand,
+    cwcglProgramUniform1iEXTCommand,
+    cwcglProgramUniform1ivCommand,
+    cwcglProgramUniform1ivEXTCommand,
+    cwcglProgramUniform1uiCommand,
+    cwcglProgramUniform1ui64ARBCommand,
+    cwcglProgramUniform1ui64NVCommand,
+    cwcglProgramUniform1ui64vARBCommand,
+    cwcglProgramUniform1ui64vNVCommand,
+    cwcglProgramUniform1uiEXTCommand,
+    cwcglProgramUniform1uivCommand,
+    cwcglProgramUniform1uivEXTCommand,
+    cwcglProgramUniform2dCommand,
+    cwcglProgramUniform2dEXTCommand,
+    cwcglProgramUniform2dvCommand,
+    cwcglProgramUniform2dvEXTCommand,
+    cwcglProgramUniform2fCommand,
+    cwcglProgramUniform2fEXTCommand,
+    cwcglProgramUniform2fvCommand,
+    cwcglProgramUniform2fvEXTCommand,
+    cwcglProgramUniform2iCommand,
+    cwcglProgramUniform2i64ARBCommand,
+    cwcglProgramUniform2i64NVCommand,
+    cwcglProgramUniform2i64vARBCommand,
+    cwcglProgramUniform2i64vNVCommand,
+    cwcglProgramUniform2iEXTCommand,
+    cwcglProgramUniform2ivCommand,
+    cwcglProgramUniform2ivEXTCommand,
+    cwcglProgramUniform2uiCommand,
+    cwcglProgramUniform2ui64ARBCommand,
+    cwcglProgramUniform2ui64NVCommand,
+    cwcglProgramUniform2ui64vARBCommand,
+    cwcglProgramUniform2ui64vNVCommand,
+    cwcglProgramUniform2uiEXTCommand,
+    cwcglProgramUniform2uivCommand,
+    cwcglProgramUniform2uivEXTCommand,
+    cwcglProgramUniform3dCommand,
+    cwcglProgramUniform3dEXTCommand,
+    cwcglProgramUniform3dvCommand,
+    cwcglProgramUniform3dvEXTCommand,
+    cwcglProgramUniform3fCommand,
+    cwcglProgramUniform3fEXTCommand,
+    cwcglProgramUniform3fvCommand,
+    cwcglProgramUniform3fvEXTCommand,
+    cwcglProgramUniform3iCommand,
+    cwcglProgramUniform3i64ARBCommand,
+    cwcglProgramUniform3i64NVCommand,
+    cwcglProgramUniform3i64vARBCommand,
+    cwcglProgramUniform3i64vNVCommand,
+    cwcglProgramUniform3iEXTCommand,
+    cwcglProgramUniform3ivCommand,
+    cwcglProgramUniform3ivEXTCommand,
+    cwcglProgramUniform3uiCommand,
+    cwcglProgramUniform3ui64ARBCommand,
+    cwcglProgramUniform3ui64NVCommand,
+    cwcglProgramUniform3ui64vARBCommand,
+    cwcglProgramUniform3ui64vNVCommand,
+    cwcglProgramUniform3uiEXTCommand,
+    cwcglProgramUniform3uivCommand,
+    cwcglProgramUniform3uivEXTCommand,
+    cwcglProgramUniform4dCommand,
+    cwcglProgramUniform4dEXTCommand,
+    cwcglProgramUniform4dvCommand,
+    cwcglProgramUniform4dvEXTCommand,
+    cwcglProgramUniform4fCommand,
+    cwcglProgramUniform4fEXTCommand,
+    cwcglProgramUniform4fvCommand,
+    cwcglProgramUniform4fvEXTCommand,
+    cwcglProgramUniform4iCommand,
+    cwcglProgramUniform4i64ARBCommand,
+    cwcglProgramUniform4i64NVCommand,
+    cwcglProgramUniform4i64vARBCommand,
+    cwcglProgramUniform4i64vNVCommand,
+    cwcglProgramUniform4iEXTCommand,
+    cwcglProgramUniform4ivCommand,
+    cwcglProgramUniform4ivEXTCommand,
+    cwcglProgramUniform4uiCommand,
+    cwcglProgramUniform4ui64ARBCommand,
+    cwcglProgramUniform4ui64NVCommand,
+    cwcglProgramUniform4ui64vARBCommand,
+    cwcglProgramUniform4ui64vNVCommand,
+    cwcglProgramUniform4uiEXTCommand,
+    cwcglProgramUniform4uivCommand,
+    cwcglProgramUniform4uivEXTCommand,
+    cwcglProgramUniformHandleui64ARBCommand,
+    cwcglProgramUniformHandleui64IMGCommand,
+    cwcglProgramUniformHandleui64NVCommand,
+    cwcglProgramUniformHandleui64vARBCommand,
+    cwcglProgramUniformHandleui64vIMGCommand,
+    cwcglProgramUniformHandleui64vNVCommand,
+    cwcglProgramUniformMatrix2dvCommand,
+    cwcglProgramUniformMatrix2dvEXTCommand,
+    cwcglProgramUniformMatrix2fvCommand,
+    cwcglProgramUniformMatrix2fvEXTCommand,
+    cwcglProgramUniformMatrix2x3dvCommand,
+    cwcglProgramUniformMatrix2x3dvEXTCommand,
+    cwcglProgramUniformMatrix2x3fvCommand,
+    cwcglProgramUniformMatrix2x3fvEXTCommand,
+    cwcglProgramUniformMatrix2x4dvCommand,
+    cwcglProgramUniformMatrix2x4dvEXTCommand,
+    cwcglProgramUniformMatrix2x4fvCommand,
+    cwcglProgramUniformMatrix2x4fvEXTCommand,
+    cwcglProgramUniformMatrix3dvCommand,
+    cwcglProgramUniformMatrix3dvEXTCommand,
+    cwcglProgramUniformMatrix3fvCommand,
+    cwcglProgramUniformMatrix3fvEXTCommand,
+    cwcglProgramUniformMatrix3x2dvCommand,
+    cwcglProgramUniformMatrix3x2dvEXTCommand,
+    cwcglProgramUniformMatrix3x2fvCommand,
+    cwcglProgramUniformMatrix3x2fvEXTCommand,
+    cwcglProgramUniformMatrix3x4dvCommand,
+    cwcglProgramUniformMatrix3x4dvEXTCommand,
+    cwcglProgramUniformMatrix3x4fvCommand,
+    cwcglProgramUniformMatrix3x4fvEXTCommand,
+    cwcglProgramUniformMatrix4dvCommand,
+    cwcglProgramUniformMatrix4dvEXTCommand,
+    cwcglProgramUniformMatrix4fvCommand,
+    cwcglProgramUniformMatrix4fvEXTCommand,
+    cwcglProgramUniformMatrix4x2dvCommand,
+    cwcglProgramUniformMatrix4x2dvEXTCommand,
+    cwcglProgramUniformMatrix4x2fvCommand,
+    cwcglProgramUniformMatrix4x2fvEXTCommand,
+    cwcglProgramUniformMatrix4x3dvCommand,
+    cwcglProgramUniformMatrix4x3dvEXTCommand,
+    cwcglProgramUniformMatrix4x3fvCommand,
+    cwcglProgramUniformMatrix4x3fvEXTCommand,
+    cwcglProgramUniformui64NVCommand,
+    cwcglProgramUniformui64vNVCommand,
+    cwcglProgramVertexLimitNVCommand,
+    cwcglProvokingVertexCommand,
+    cwcglProvokingVertexEXTCommand,
+    cwcglPushAttribCommand,
+    cwcglPushClientAttribCommand,
+    cwcglPushClientAttribDefaultEXTCommand,
+    cwcglPushDebugGroupCommand,
+    cwcglPushDebugGroupKHRCommand,
+    cwcglPushGroupMarkerEXTCommand,
+    cwcglPushMatrixCommand,
+    cwcglPushNameCommand,
+    cwcglQueryCounterCommand,
+    cwcglQueryCounterEXTCommand,
+    cwcglQueryMatrixxOESCommand,
+    cwcglQueryObjectParameteruiAMDCommand,
+    cwcglQueryResourceNVCommand,
+    cwcglQueryResourceTagNVCommand,
+    cwcglRasterPos2dCommand,
+    cwcglRasterPos2dvCommand,
+    cwcglRasterPos2fCommand,
+    cwcglRasterPos2fvCommand,
+    cwcglRasterPos2iCommand,
+    cwcglRasterPos2ivCommand,
+    cwcglRasterPos2sCommand,
+    cwcglRasterPos2svCommand,
+    cwcglRasterPos2xOESCommand,
+    cwcglRasterPos2xvOESCommand,
+    cwcglRasterPos3dCommand,
+    cwcglRasterPos3dvCommand,
+    cwcglRasterPos3fCommand,
+    cwcglRasterPos3fvCommand,
+    cwcglRasterPos3iCommand,
+    cwcglRasterPos3ivCommand,
+    cwcglRasterPos3sCommand,
+    cwcglRasterPos3svCommand,
+    cwcglRasterPos3xOESCommand,
+    cwcglRasterPos3xvOESCommand,
+    cwcglRasterPos4dCommand,
+    cwcglRasterPos4dvCommand,
+    cwcglRasterPos4fCommand,
+    cwcglRasterPos4fvCommand,
+    cwcglRasterPos4iCommand,
+    cwcglRasterPos4ivCommand,
+    cwcglRasterPos4sCommand,
+    cwcglRasterPos4svCommand,
+    cwcglRasterPos4xOESCommand,
+    cwcglRasterPos4xvOESCommand,
+    cwcglRasterSamplesEXTCommand,
+    cwcglReadBufferCommand,
+    cwcglReadBufferIndexedEXTCommand,
+    cwcglReadBufferNVCommand,
+    cwcglReadInstrumentsSGIXCommand,
+    cwcglReadPixelsCommand,
+    cwcglReadnPixelsCommand,
+    cwcglReadnPixelsARBCommand,
+    cwcglReadnPixelsEXTCommand,
+    cwcglReadnPixelsKHRCommand,
+    cwcglReleaseKeyedMutexWin32EXTCommand,
+    cwcglRectdCommand,
+    cwcglRectdvCommand,
+    cwcglRectfCommand,
+    cwcglRectfvCommand,
+    cwcglRectiCommand,
+    cwcglRectivCommand,
+    cwcglRectsCommand,
+    cwcglRectsvCommand,
+    cwcglRectxOESCommand,
+    cwcglRectxvOESCommand,
+    cwcglReferencePlaneSGIXCommand,
+    cwcglReleaseShaderCompilerCommand,
+    cwcglRenderGpuMaskNVCommand,
+    cwcglRenderModeCommand,
+    cwcglRenderbufferStorageCommand,
+    cwcglRenderbufferStorageEXTCommand,
+    cwcglRenderbufferStorageMultisampleCommand,
+    cwcglRenderbufferStorageMultisampleANGLECommand,
+    cwcglRenderbufferStorageMultisampleAPPLECommand,
+    cwcglRenderbufferStorageMultisampleAdvancedAMDCommand,
+    cwcglRenderbufferStorageMultisampleCoverageNVCommand,
+    cwcglRenderbufferStorageMultisampleEXTCommand,
+    cwcglRenderbufferStorageMultisampleIMGCommand,
+    cwcglRenderbufferStorageMultisampleNVCommand,
+    cwcglRenderbufferStorageOESCommand,
+    cwcglReplacementCodePointerSUNCommand,
+    cwcglReplacementCodeubSUNCommand,
+    cwcglReplacementCodeubvSUNCommand,
+    cwcglReplacementCodeuiColor3fVertex3fSUNCommand,
+    cwcglReplacementCodeuiColor3fVertex3fvSUNCommand,
+    cwcglReplacementCodeuiColor4fNormal3fVertex3fSUNCommand,
+    cwcglReplacementCodeuiColor4fNormal3fVertex3fvSUNCommand,
+    cwcglReplacementCodeuiColor4ubVertex3fSUNCommand,
+    cwcglReplacementCodeuiColor4ubVertex3fvSUNCommand,
+    cwcglReplacementCodeuiNormal3fVertex3fSUNCommand,
+    cwcglReplacementCodeuiNormal3fVertex3fvSUNCommand,
+    cwcglReplacementCodeuiSUNCommand,
+    cwcglReplacementCodeuiTexCoord2fColor4fNormal3fVertex3fSUNCommand,
+    cwcglReplacementCodeuiTexCoord2fColor4fNormal3fVertex3fvSUNCommand,
+    cwcglReplacementCodeuiTexCoord2fNormal3fVertex3fSUNCommand,
+    cwcglReplacementCodeuiTexCoord2fNormal3fVertex3fvSUNCommand,
+    cwcglReplacementCodeuiTexCoord2fVertex3fSUNCommand,
+    cwcglReplacementCodeuiTexCoord2fVertex3fvSUNCommand,
+    cwcglReplacementCodeuiVertex3fSUNCommand,
+    cwcglReplacementCodeuiVertex3fvSUNCommand,
+    cwcglReplacementCodeuivSUNCommand,
+    cwcglReplacementCodeusSUNCommand,
+    cwcglReplacementCodeusvSUNCommand,
+    cwcglRequestResidentProgramsNVCommand,
+    cwcglResetHistogramCommand,
+    cwcglResetHistogramEXTCommand,
+    cwcglResetMemoryObjectParameterNVCommand,
+    cwcglResetMinmaxCommand,
+    cwcglResetMinmaxEXTCommand,
+    cwcglResizeBuffersMESACommand,
+    cwcglResolveDepthValuesNVCommand,
+    cwcglResolveMultisampleFramebufferAPPLECommand,
+    cwcglResumeTransformFeedbackCommand,
+    cwcglResumeTransformFeedbackNVCommand,
+    cwcglRotatedCommand,
+    cwcglRotatefCommand,
+    cwcglRotatexCommand,
+    cwcglRotatexOESCommand,
+    cwcglSampleCoverageCommand,
+    cwcglSampleCoverageARBCommand,
+    cwcglSampleCoveragexCommand,
+    cwcglSampleCoveragexOESCommand,
+    cwcglSampleMapATICommand,
+    cwcglSampleMaskEXTCommand,
+    cwcglSampleMaskIndexedNVCommand,
+    cwcglSampleMaskSGISCommand,
+    cwcglSampleMaskiCommand,
+    cwcglSamplePatternEXTCommand,
+    cwcglSamplePatternSGISCommand,
+    cwcglSamplerParameterIivCommand,
+    cwcglSamplerParameterIivEXTCommand,
+    cwcglSamplerParameterIivOESCommand,
+    cwcglSamplerParameterIuivCommand,
+    cwcglSamplerParameterIuivEXTCommand,
+    cwcglSamplerParameterIuivOESCommand,
+    cwcglSamplerParameterfCommand,
+    cwcglSamplerParameterfvCommand,
+    cwcglSamplerParameteriCommand,
+    cwcglSamplerParameterivCommand,
+    cwcglScaledCommand,
+    cwcglScalefCommand,
+    cwcglScalexCommand,
+    cwcglScalexOESCommand,
+    cwcglScissorCommand,
+    cwcglScissorArrayvCommand,
+    cwcglScissorArrayvNVCommand,
+    cwcglScissorArrayvOESCommand,
+    cwcglScissorExclusiveArrayvNVCommand,
+    cwcglScissorExclusiveNVCommand,
+    cwcglScissorIndexedCommand,
+    cwcglScissorIndexedNVCommand,
+    cwcglScissorIndexedOESCommand,
+    cwcglScissorIndexedvCommand,
+    cwcglScissorIndexedvNVCommand,
+    cwcglScissorIndexedvOESCommand,
+    cwcglSecondaryColor3bCommand,
+    cwcglSecondaryColor3bEXTCommand,
+    cwcglSecondaryColor3bvCommand,
+    cwcglSecondaryColor3bvEXTCommand,
+    cwcglSecondaryColor3dCommand,
+    cwcglSecondaryColor3dEXTCommand,
+    cwcglSecondaryColor3dvCommand,
+    cwcglSecondaryColor3dvEXTCommand,
+    cwcglSecondaryColor3fCommand,
+    cwcglSecondaryColor3fEXTCommand,
+    cwcglSecondaryColor3fvCommand,
+    cwcglSecondaryColor3fvEXTCommand,
+    cwcglSecondaryColor3hNVCommand,
+    cwcglSecondaryColor3hvNVCommand,
+    cwcglSecondaryColor3iCommand,
+    cwcglSecondaryColor3iEXTCommand,
+    cwcglSecondaryColor3ivCommand,
+    cwcglSecondaryColor3ivEXTCommand,
+    cwcglSecondaryColor3sCommand,
+    cwcglSecondaryColor3sEXTCommand,
+    cwcglSecondaryColor3svCommand,
+    cwcglSecondaryColor3svEXTCommand,
+    cwcglSecondaryColor3ubCommand,
+    cwcglSecondaryColor3ubEXTCommand,
+    cwcglSecondaryColor3ubvCommand,
+    cwcglSecondaryColor3ubvEXTCommand,
+    cwcglSecondaryColor3uiCommand,
+    cwcglSecondaryColor3uiEXTCommand,
+    cwcglSecondaryColor3uivCommand,
+    cwcglSecondaryColor3uivEXTCommand,
+    cwcglSecondaryColor3usCommand,
+    cwcglSecondaryColor3usEXTCommand,
+    cwcglSecondaryColor3usvCommand,
+    cwcglSecondaryColor3usvEXTCommand,
+    cwcglSecondaryColorFormatNVCommand,
+    cwcglSecondaryColorP3uiCommand,
+    cwcglSecondaryColorP3uivCommand,
+    cwcglSecondaryColorPointerCommand,
+    cwcglSecondaryColorPointerEXTCommand,
+    cwcglSecondaryColorPointerListIBMCommand,
+    cwcglSelectBufferCommand,
+    cwcglSelectPerfMonitorCountersAMDCommand,
+    cwcglSemaphoreParameterivNVCommand,
+    cwcglSemaphoreParameterui64vEXTCommand,
+    cwcglSeparableFilter2DCommand,
+    cwcglSeparableFilter2DEXTCommand,
+    cwcglSetFenceAPPLECommand,
+    cwcglSetFenceNVCommand,
+    cwcglSetFragmentShaderConstantATICommand,
+    cwcglSetInvariantEXTCommand,
+    cwcglSetLocalConstantEXTCommand,
+    cwcglSetMultisamplefvAMDCommand,
+    cwcglShadeModelCommand,
+    cwcglShaderBinaryCommand,
+    cwcglShaderOp1EXTCommand,
+    cwcglShaderOp2EXTCommand,
+    cwcglShaderOp3EXTCommand,
+    cwcglShaderSourceCommand,
+    cwcglShaderSourceARBCommand,
+    cwcglShaderStorageBlockBindingCommand,
+    cwcglShadingRateEXTCommand,
+    cwcglShadingRateCombinerOpsEXTCommand,
+    cwcglShadingRateImageBarrierNVCommand,
+    cwcglShadingRateQCOMCommand,
+    cwcglShadingRateImagePaletteNVCommand,
+    cwcglShadingRateSampleOrderNVCommand,
+    cwcglShadingRateSampleOrderCustomNVCommand,
+    cwcglSharpenTexFuncSGISCommand,
+    cwcglSignalSemaphoreEXTCommand,
+    cwcglSignalSemaphoreui64NVXCommand,
+    cwcglSpecializeShaderCommand,
+    cwcglSpecializeShaderARBCommand,
+    cwcglSpriteParameterfSGIXCommand,
+    cwcglSpriteParameterfvSGIXCommand,
+    cwcglSpriteParameteriSGIXCommand,
+    cwcglSpriteParameterivSGIXCommand,
+    cwcglStartInstrumentsSGIXCommand,
+    cwcglStartTilingQCOMCommand,
+    cwcglStateCaptureNVCommand,
+    cwcglStencilClearTagEXTCommand,
+    cwcglStencilFillPathInstancedNVCommand,
+    cwcglStencilFillPathNVCommand,
+    cwcglStencilFuncCommand,
+    cwcglStencilFuncSeparateCommand,
+    cwcglStencilFuncSeparateATICommand,
+    cwcglStencilMaskCommand,
+    cwcglStencilMaskSeparateCommand,
+    cwcglStencilOpCommand,
+    cwcglStencilOpSeparateCommand,
+    cwcglStencilOpSeparateATICommand,
+    cwcglStencilOpValueAMDCommand,
+    cwcglStencilStrokePathInstancedNVCommand,
+    cwcglStencilStrokePathNVCommand,
+    cwcglStencilThenCoverFillPathInstancedNVCommand,
+    cwcglStencilThenCoverFillPathNVCommand,
+    cwcglStencilThenCoverStrokePathInstancedNVCommand,
+    cwcglStencilThenCoverStrokePathNVCommand,
+    cwcglStopInstrumentsSGIXCommand,
+    cwcglStringMarkerGREMEDYCommand,
+    cwcglSubpixelPrecisionBiasNVCommand,
+    cwcglSwizzleEXTCommand,
+    cwcglSyncTextureINTELCommand,
+    cwcglTagSampleBufferSGIXCommand,
+    cwcglTangent3bEXTCommand,
+    cwcglTangent3bvEXTCommand,
+    cwcglTangent3dEXTCommand,
+    cwcglTangent3dvEXTCommand,
+    cwcglTangent3fEXTCommand,
+    cwcglTangent3fvEXTCommand,
+    cwcglTangent3iEXTCommand,
+    cwcglTangent3ivEXTCommand,
+    cwcglTangent3sEXTCommand,
+    cwcglTangent3svEXTCommand,
+    cwcglTangentPointerEXTCommand,
+    cwcglTbufferMask3DFXCommand,
+    cwcglTessellationFactorAMDCommand,
+    cwcglTessellationModeAMDCommand,
+    cwcglTestFenceAPPLECommand,
+    cwcglTestFenceNVCommand,
+    cwcglTestObjectAPPLECommand,
+    cwcglTexAttachMemoryNVCommand,
+    cwcglTexBufferCommand,
+    cwcglTexBufferARBCommand,
+    cwcglTexBufferEXTCommand,
+    cwcglTexBufferOESCommand,
+    cwcglTexBufferRangeCommand,
+    cwcglTexBufferRangeEXTCommand,
+    cwcglTexBufferRangeOESCommand,
+    cwcglTexBumpParameterfvATICommand,
+    cwcglTexBumpParameterivATICommand,
+    cwcglTexCoord1bOESCommand,
+    cwcglTexCoord1bvOESCommand,
+    cwcglTexCoord1dCommand,
+    cwcglTexCoord1dvCommand,
+    cwcglTexCoord1fCommand,
+    cwcglTexCoord1fvCommand,
+    cwcglTexCoord1hNVCommand,
+    cwcglTexCoord1hvNVCommand,
+    cwcglTexCoord1iCommand,
+    cwcglTexCoord1ivCommand,
+    cwcglTexCoord1sCommand,
+    cwcglTexCoord1svCommand,
+    cwcglTexCoord1xOESCommand,
+    cwcglTexCoord1xvOESCommand,
+    cwcglTexCoord2bOESCommand,
+    cwcglTexCoord2bvOESCommand,
+    cwcglTexCoord2dCommand,
+    cwcglTexCoord2dvCommand,
+    cwcglTexCoord2fCommand,
+    cwcglTexCoord2fColor3fVertex3fSUNCommand,
+    cwcglTexCoord2fColor3fVertex3fvSUNCommand,
+    cwcglTexCoord2fColor4fNormal3fVertex3fSUNCommand,
+    cwcglTexCoord2fColor4fNormal3fVertex3fvSUNCommand,
+    cwcglTexCoord2fColor4ubVertex3fSUNCommand,
+    cwcglTexCoord2fColor4ubVertex3fvSUNCommand,
+    cwcglTexCoord2fNormal3fVertex3fSUNCommand,
+    cwcglTexCoord2fNormal3fVertex3fvSUNCommand,
+    cwcglTexCoord2fVertex3fSUNCommand,
+    cwcglTexCoord2fVertex3fvSUNCommand,
+    cwcglTexCoord2fvCommand,
+    cwcglTexCoord2hNVCommand,
+    cwcglTexCoord2hvNVCommand,
+    cwcglTexCoord2iCommand,
+    cwcglTexCoord2ivCommand,
+    cwcglTexCoord2sCommand,
+    cwcglTexCoord2svCommand,
+    cwcglTexCoord2xOESCommand,
+    cwcglTexCoord2xvOESCommand,
+    cwcglTexCoord3bOESCommand,
+    cwcglTexCoord3bvOESCommand,
+    cwcglTexCoord3dCommand,
+    cwcglTexCoord3dvCommand,
+    cwcglTexCoord3fCommand,
+    cwcglTexCoord3fvCommand,
+    cwcglTexCoord3hNVCommand,
+    cwcglTexCoord3hvNVCommand,
+    cwcglTexCoord3iCommand,
+    cwcglTexCoord3ivCommand,
+    cwcglTexCoord3sCommand,
+    cwcglTexCoord3svCommand,
+    cwcglTexCoord3xOESCommand,
+    cwcglTexCoord3xvOESCommand,
+    cwcglTexCoord4bOESCommand,
+    cwcglTexCoord4bvOESCommand,
+    cwcglTexCoord4dCommand,
+    cwcglTexCoord4dvCommand,
+    cwcglTexCoord4fCommand,
+    cwcglTexCoord4fColor4fNormal3fVertex4fSUNCommand,
+    cwcglTexCoord4fColor4fNormal3fVertex4fvSUNCommand,
+    cwcglTexCoord4fVertex4fSUNCommand,
+    cwcglTexCoord4fVertex4fvSUNCommand,
+    cwcglTexCoord4fvCommand,
+    cwcglTexCoord4hNVCommand,
+    cwcglTexCoord4hvNVCommand,
+    cwcglTexCoord4iCommand,
+    cwcglTexCoord4ivCommand,
+    cwcglTexCoord4sCommand,
+    cwcglTexCoord4svCommand,
+    cwcglTexCoord4xOESCommand,
+    cwcglTexCoord4xvOESCommand,
+    cwcglTexCoordFormatNVCommand,
+    cwcglTexCoordP1uiCommand,
+    cwcglTexCoordP1uivCommand,
+    cwcglTexCoordP2uiCommand,
+    cwcglTexCoordP2uivCommand,
+    cwcglTexCoordP3uiCommand,
+    cwcglTexCoordP3uivCommand,
+    cwcglTexCoordP4uiCommand,
+    cwcglTexCoordP4uivCommand,
+    cwcglTexCoordPointerCommand,
+    cwcglTexCoordPointerEXTCommand,
+    cwcglTexCoordPointerListIBMCommand,
+    cwcglTexCoordPointervINTELCommand,
+    cwcglTexEnvfCommand,
+    cwcglTexEnvfvCommand,
+    cwcglTexEnviCommand,
+    cwcglTexEnvivCommand,
+    cwcglTexEnvxCommand,
+    cwcglTexEnvxOESCommand,
+    cwcglTexEnvxvCommand,
+    cwcglTexEnvxvOESCommand,
+    cwcglTexEstimateMotionQCOMCommand,
+    cwcglTexEstimateMotionRegionsQCOMCommand,
+    cwcglExtrapolateTex2DQCOMCommand,
+    cwcglTexFilterFuncSGISCommand,
+    cwcglTexGendCommand,
+    cwcglTexGendvCommand,
+    cwcglTexGenfCommand,
+    cwcglTexGenfOESCommand,
+    cwcglTexGenfvCommand,
+    cwcglTexGenfvOESCommand,
+    cwcglTexGeniCommand,
+    cwcglTexGeniOESCommand,
+    cwcglTexGenivCommand,
+    cwcglTexGenivOESCommand,
+    cwcglTexGenxOESCommand,
+    cwcglTexGenxvOESCommand,
+    cwcglTexImage1DCommand,
+    cwcglTexImage2DCommand,
+    cwcglTexImage2DMultisampleCommand,
+    cwcglTexImage2DMultisampleCoverageNVCommand,
+    cwcglTexImage3DCommand,
+    cwcglTexImage3DEXTCommand,
+    cwcglTexImage3DMultisampleCommand,
+    cwcglTexImage3DMultisampleCoverageNVCommand,
+    cwcglTexImage3DOESCommand,
+    cwcglTexImage4DSGISCommand,
+    cwcglTexPageCommitmentARBCommand,
+    cwcglTexPageCommitmentEXTCommand,
+    cwcglTexPageCommitmentMemNVCommand,
+    cwcglTexParameterIivCommand,
+    cwcglTexParameterIivEXTCommand,
+    cwcglTexParameterIivOESCommand,
+    cwcglTexParameterIuivCommand,
+    cwcglTexParameterIuivEXTCommand,
+    cwcglTexParameterIuivOESCommand,
+    cwcglTexParameterfCommand,
+    cwcglTexParameterfvCommand,
+    cwcglTexParameteriCommand,
+    cwcglTexParameterivCommand,
+    cwcglTexParameterxCommand,
+    cwcglTexParameterxOESCommand,
+    cwcglTexParameterxvCommand,
+    cwcglTexParameterxvOESCommand,
+    cwcglTexRenderbufferNVCommand,
+    cwcglTexStorage1DCommand,
+    cwcglTexStorage1DEXTCommand,
+    cwcglTexStorage2DCommand,
+    cwcglTexStorage2DEXTCommand,
+    cwcglTexStorage2DMultisampleCommand,
+    cwcglTexStorage3DCommand,
+    cwcglTexStorage3DEXTCommand,
+    cwcglTexStorage3DMultisampleCommand,
+    cwcglTexStorage3DMultisampleOESCommand,
+    cwcglTexStorageAttribs2DEXTCommand,
+    cwcglTexStorageAttribs3DEXTCommand,
+    cwcglTexStorageMem1DEXTCommand,
+    cwcglTexStorageMem2DEXTCommand,
+    cwcglTexStorageMem2DMultisampleEXTCommand,
+    cwcglTexStorageMem3DEXTCommand,
+    cwcglTexStorageMem3DMultisampleEXTCommand,
+    cwcglTexStorageSparseAMDCommand,
+    cwcglTexSubImage1DCommand,
+    cwcglTexSubImage1DEXTCommand,
+    cwcglTexSubImage2DCommand,
+    cwcglTexSubImage2DEXTCommand,
+    cwcglTexSubImage3DCommand,
+    cwcglTexSubImage3DEXTCommand,
+    cwcglTexSubImage3DOESCommand,
+    cwcglTexSubImage4DSGISCommand,
+    cwcglTextureAttachMemoryNVCommand,
+    cwcglTextureBarrierCommand,
+    cwcglTextureBarrierNVCommand,
+    cwcglTextureBufferCommand,
+    cwcglTextureBufferEXTCommand,
+    cwcglTextureBufferRangeCommand,
+    cwcglTextureBufferRangeEXTCommand,
+    cwcglTextureColorMaskSGISCommand,
+    cwcglTextureFoveationParametersQCOMCommand,
+    cwcglTextureImage1DEXTCommand,
+    cwcglTextureImage2DEXTCommand,
+    cwcglTextureImage2DMultisampleCoverageNVCommand,
+    cwcglTextureImage2DMultisampleNVCommand,
+    cwcglTextureImage3DEXTCommand,
+    cwcglTextureImage3DMultisampleCoverageNVCommand,
+    cwcglTextureImage3DMultisampleNVCommand,
+    cwcglTextureLightEXTCommand,
+    cwcglTextureMaterialEXTCommand,
+    cwcglTextureNormalEXTCommand,
+    cwcglTexturePageCommitmentEXTCommand,
+    cwcglTexturePageCommitmentMemNVCommand,
+    cwcglTextureParameterIivCommand,
+    cwcglTextureParameterIivEXTCommand,
+    cwcglTextureParameterIuivCommand,
+    cwcglTextureParameterIuivEXTCommand,
+    cwcglTextureParameterfCommand,
+    cwcglTextureParameterfEXTCommand,
+    cwcglTextureParameterfvCommand,
+    cwcglTextureParameterfvEXTCommand,
+    cwcglTextureParameteriCommand,
+    cwcglTextureParameteriEXTCommand,
+    cwcglTextureParameterivCommand,
+    cwcglTextureParameterivEXTCommand,
+    cwcglTextureRangeAPPLECommand,
+    cwcglTextureRenderbufferEXTCommand,
+    cwcglTextureStorage1DCommand,
+    cwcglTextureStorage1DEXTCommand,
+    cwcglTextureStorage2DCommand,
+    cwcglTextureStorage2DEXTCommand,
+    cwcglTextureStorage2DMultisampleCommand,
+    cwcglTextureStorage2DMultisampleEXTCommand,
+    cwcglTextureStorage3DCommand,
+    cwcglTextureStorage3DEXTCommand,
+    cwcglTextureStorage3DMultisampleCommand,
+    cwcglTextureStorage3DMultisampleEXTCommand,
+    cwcglTextureStorageMem1DEXTCommand,
+    cwcglTextureStorageMem2DEXTCommand,
+    cwcglTextureStorageMem2DMultisampleEXTCommand,
+    cwcglTextureStorageMem3DEXTCommand,
+    cwcglTextureStorageMem3DMultisampleEXTCommand,
+    cwcglTextureStorageSparseAMDCommand,
+    cwcglTextureSubImage1DCommand,
+    cwcglTextureSubImage1DEXTCommand,
+    cwcglTextureSubImage2DCommand,
+    cwcglTextureSubImage2DEXTCommand,
+    cwcglTextureSubImage3DCommand,
+    cwcglTextureSubImage3DEXTCommand,
+    cwcglTextureViewCommand,
+    cwcglTextureViewEXTCommand,
+    cwcglTextureViewOESCommand,
+    cwcglTrackMatrixNVCommand,
+    cwcglTransformFeedbackAttribsNVCommand,
+    cwcglTransformFeedbackBufferBaseCommand,
+    cwcglTransformFeedbackBufferRangeCommand,
+    cwcglTransformFeedbackStreamAttribsNVCommand,
+    cwcglTransformFeedbackVaryingsCommand,
+    cwcglTransformFeedbackVaryingsEXTCommand,
+    cwcglTransformFeedbackVaryingsNVCommand,
+    cwcglTransformPathNVCommand,
+    cwcglTranslatedCommand,
+    cwcglTranslatefCommand,
+    cwcglTranslatexCommand,
+    cwcglTranslatexOESCommand,
+    cwcglUniform1dCommand,
+    cwcglUniform1dvCommand,
+    cwcglUniform1fCommand,
+    cwcglUniform1fARBCommand,
+    cwcglUniform1fvCommand,
+    cwcglUniform1fvARBCommand,
+    cwcglUniform1iCommand,
+    cwcglUniform1i64ARBCommand,
+    cwcglUniform1i64NVCommand,
+    cwcglUniform1i64vARBCommand,
+    cwcglUniform1i64vNVCommand,
+    cwcglUniform1iARBCommand,
+    cwcglUniform1ivCommand,
+    cwcglUniform1ivARBCommand,
+    cwcglUniform1uiCommand,
+    cwcglUniform1ui64ARBCommand,
+    cwcglUniform1ui64NVCommand,
+    cwcglUniform1ui64vARBCommand,
+    cwcglUniform1ui64vNVCommand,
+    cwcglUniform1uiEXTCommand,
+    cwcglUniform1uivCommand,
+    cwcglUniform1uivEXTCommand,
+    cwcglUniform2dCommand,
+    cwcglUniform2dvCommand,
+    cwcglUniform2fCommand,
+    cwcglUniform2fARBCommand,
+    cwcglUniform2fvCommand,
+    cwcglUniform2fvARBCommand,
+    cwcglUniform2iCommand,
+    cwcglUniform2i64ARBCommand,
+    cwcglUniform2i64NVCommand,
+    cwcglUniform2i64vARBCommand,
+    cwcglUniform2i64vNVCommand,
+    cwcglUniform2iARBCommand,
+    cwcglUniform2ivCommand,
+    cwcglUniform2ivARBCommand,
+    cwcglUniform2uiCommand,
+    cwcglUniform2ui64ARBCommand,
+    cwcglUniform2ui64NVCommand,
+    cwcglUniform2ui64vARBCommand,
+    cwcglUniform2ui64vNVCommand,
+    cwcglUniform2uiEXTCommand,
+    cwcglUniform2uivCommand,
+    cwcglUniform2uivEXTCommand,
+    cwcglUniform3dCommand,
+    cwcglUniform3dvCommand,
+    cwcglUniform3fCommand,
+    cwcglUniform3fARBCommand,
+    cwcglUniform3fvCommand,
+    cwcglUniform3fvARBCommand,
+    cwcglUniform3iCommand,
+    cwcglUniform3i64ARBCommand,
+    cwcglUniform3i64NVCommand,
+    cwcglUniform3i64vARBCommand,
+    cwcglUniform3i64vNVCommand,
+    cwcglUniform3iARBCommand,
+    cwcglUniform3ivCommand,
+    cwcglUniform3ivARBCommand,
+    cwcglUniform3uiCommand,
+    cwcglUniform3ui64ARBCommand,
+    cwcglUniform3ui64NVCommand,
+    cwcglUniform3ui64vARBCommand,
+    cwcglUniform3ui64vNVCommand,
+    cwcglUniform3uiEXTCommand,
+    cwcglUniform3uivCommand,
+    cwcglUniform3uivEXTCommand,
+    cwcglUniform4dCommand,
+    cwcglUniform4dvCommand,
+    cwcglUniform4fCommand,
+    cwcglUniform4fARBCommand,
+    cwcglUniform4fvCommand,
+    cwcglUniform4fvARBCommand,
+    cwcglUniform4iCommand,
+    cwcglUniform4i64ARBCommand,
+    cwcglUniform4i64NVCommand,
+    cwcglUniform4i64vARBCommand,
+    cwcglUniform4i64vNVCommand,
+    cwcglUniform4iARBCommand,
+    cwcglUniform4ivCommand,
+    cwcglUniform4ivARBCommand,
+    cwcglUniform4uiCommand,
+    cwcglUniform4ui64ARBCommand,
+    cwcglUniform4ui64NVCommand,
+    cwcglUniform4ui64vARBCommand,
+    cwcglUniform4ui64vNVCommand,
+    cwcglUniform4uiEXTCommand,
+    cwcglUniform4uivCommand,
+    cwcglUniform4uivEXTCommand,
+    cwcglUniformBlockBindingCommand,
+    cwcglUniformBufferEXTCommand,
+    cwcglUniformHandleui64ARBCommand,
+    cwcglUniformHandleui64IMGCommand,
+    cwcglUniformHandleui64NVCommand,
+    cwcglUniformHandleui64vARBCommand,
+    cwcglUniformHandleui64vIMGCommand,
+    cwcglUniformHandleui64vNVCommand,
+    cwcglUniformMatrix2dvCommand,
+    cwcglUniformMatrix2fvCommand,
+    cwcglUniformMatrix2fvARBCommand,
+    cwcglUniformMatrix2x3dvCommand,
+    cwcglUniformMatrix2x3fvCommand,
+    cwcglUniformMatrix2x3fvNVCommand,
+    cwcglUniformMatrix2x4dvCommand,
+    cwcglUniformMatrix2x4fvCommand,
+    cwcglUniformMatrix2x4fvNVCommand,
+    cwcglUniformMatrix3dvCommand,
+    cwcglUniformMatrix3fvCommand,
+    cwcglUniformMatrix3fvARBCommand,
+    cwcglUniformMatrix3x2dvCommand,
+    cwcglUniformMatrix3x2fvCommand,
+    cwcglUniformMatrix3x2fvNVCommand,
+    cwcglUniformMatrix3x4dvCommand,
+    cwcglUniformMatrix3x4fvCommand,
+    cwcglUniformMatrix3x4fvNVCommand,
+    cwcglUniformMatrix4dvCommand,
+    cwcglUniformMatrix4fvCommand,
+    cwcglUniformMatrix4fvARBCommand,
+    cwcglUniformMatrix4x2dvCommand,
+    cwcglUniformMatrix4x2fvCommand,
+    cwcglUniformMatrix4x2fvNVCommand,
+    cwcglUniformMatrix4x3dvCommand,
+    cwcglUniformMatrix4x3fvCommand,
+    cwcglUniformMatrix4x3fvNVCommand,
+    cwcglUniformSubroutinesuivCommand,
+    cwcglUniformui64NVCommand,
+    cwcglUniformui64vNVCommand,
+    cwcglUnlockArraysEXTCommand,
+    cwcglUnmapBufferCommand,
+    cwcglUnmapBufferARBCommand,
+    cwcglUnmapBufferOESCommand,
+    cwcglUnmapNamedBufferCommand,
+    cwcglUnmapNamedBufferEXTCommand,
+    cwcglUnmapObjectBufferATICommand,
+    cwcglUnmapTexture2DINTELCommand,
+    cwcglUpdateObjectBufferATICommand,
+    cwcglUploadGpuMaskNVXCommand,
+    cwcglUseProgramCommand,
+    cwcglUseProgramObjectARBCommand,
+    cwcglUseProgramStagesCommand,
+    cwcglUseProgramStagesEXTCommand,
+    cwcglUseShaderProgramEXTCommand,
+    cwcglVDPAUFiniNVCommand,
+    cwcglVDPAUGetSurfaceivNVCommand,
+    cwcglVDPAUInitNVCommand,
+    cwcglVDPAUIsSurfaceNVCommand,
+    cwcglVDPAUMapSurfacesNVCommand,
+    cwcglVDPAURegisterOutputSurfaceNVCommand,
+    cwcglVDPAURegisterVideoSurfaceNVCommand,
+    cwcglVDPAURegisterVideoSurfaceWithPictureStructureNVCommand,
+    cwcglVDPAUSurfaceAccessNVCommand,
+    cwcglVDPAUUnmapSurfacesNVCommand,
+    cwcglVDPAUUnregisterSurfaceNVCommand,
+    cwcglValidateProgramCommand,
+    cwcglValidateProgramARBCommand,
+    cwcglValidateProgramPipelineCommand,
+    cwcglValidateProgramPipelineEXTCommand,
+    cwcglVariantArrayObjectATICommand,
+    cwcglVariantPointerEXTCommand,
+    cwcglVariantbvEXTCommand,
+    cwcglVariantdvEXTCommand,
+    cwcglVariantfvEXTCommand,
+    cwcglVariantivEXTCommand,
+    cwcglVariantsvEXTCommand,
+    cwcglVariantubvEXTCommand,
+    cwcglVariantuivEXTCommand,
+    cwcglVariantusvEXTCommand,
+    cwcglVertex2bOESCommand,
+    cwcglVertex2bvOESCommand,
+    cwcglVertex2dCommand,
+    cwcglVertex2dvCommand,
+    cwcglVertex2fCommand,
+    cwcglVertex2fvCommand,
+    cwcglVertex2hNVCommand,
+    cwcglVertex2hvNVCommand,
+    cwcglVertex2iCommand,
+    cwcglVertex2ivCommand,
+    cwcglVertex2sCommand,
+    cwcglVertex2svCommand,
+    cwcglVertex2xOESCommand,
+    cwcglVertex2xvOESCommand,
+    cwcglVertex3bOESCommand,
+    cwcglVertex3bvOESCommand,
+    cwcglVertex3dCommand,
+    cwcglVertex3dvCommand,
+    cwcglVertex3fCommand,
+    cwcglVertex3fvCommand,
+    cwcglVertex3hNVCommand,
+    cwcglVertex3hvNVCommand,
+    cwcglVertex3iCommand,
+    cwcglVertex3ivCommand,
+    cwcglVertex3sCommand,
+    cwcglVertex3svCommand,
+    cwcglVertex3xOESCommand,
+    cwcglVertex3xvOESCommand,
+    cwcglVertex4bOESCommand,
+    cwcglVertex4bvOESCommand,
+    cwcglVertex4dCommand,
+    cwcglVertex4dvCommand,
+    cwcglVertex4fCommand,
+    cwcglVertex4fvCommand,
+    cwcglVertex4hNVCommand,
+    cwcglVertex4hvNVCommand,
+    cwcglVertex4iCommand,
+    cwcglVertex4ivCommand,
+    cwcglVertex4sCommand,
+    cwcglVertex4svCommand,
+    cwcglVertex4xOESCommand,
+    cwcglVertex4xvOESCommand,
+    cwcglVertexArrayAttribBindingCommand,
+    cwcglVertexArrayAttribFormatCommand,
+    cwcglVertexArrayAttribIFormatCommand,
+    cwcglVertexArrayAttribLFormatCommand,
+    cwcglVertexArrayBindVertexBufferEXTCommand,
+    cwcglVertexArrayBindingDivisorCommand,
+    cwcglVertexArrayColorOffsetEXTCommand,
+    cwcglVertexArrayEdgeFlagOffsetEXTCommand,
+    cwcglVertexArrayElementBufferCommand,
+    cwcglVertexArrayFogCoordOffsetEXTCommand,
+    cwcglVertexArrayIndexOffsetEXTCommand,
+    cwcglVertexArrayMultiTexCoordOffsetEXTCommand,
+    cwcglVertexArrayNormalOffsetEXTCommand,
+    cwcglVertexArrayParameteriAPPLECommand,
+    cwcglVertexArrayRangeAPPLECommand,
+    cwcglVertexArrayRangeNVCommand,
+    cwcglVertexArraySecondaryColorOffsetEXTCommand,
+    cwcglVertexArrayTexCoordOffsetEXTCommand,
+    cwcglVertexArrayVertexAttribBindingEXTCommand,
+    cwcglVertexArrayVertexAttribDivisorEXTCommand,
+    cwcglVertexArrayVertexAttribFormatEXTCommand,
+    cwcglVertexArrayVertexAttribIFormatEXTCommand,
+    cwcglVertexArrayVertexAttribIOffsetEXTCommand,
+    cwcglVertexArrayVertexAttribLFormatEXTCommand,
+    cwcglVertexArrayVertexAttribLOffsetEXTCommand,
+    cwcglVertexArrayVertexAttribOffsetEXTCommand,
+    cwcglVertexArrayVertexBindingDivisorEXTCommand,
+    cwcglVertexArrayVertexBufferCommand,
+    cwcglVertexArrayVertexBuffersCommand,
+    cwcglVertexArrayVertexOffsetEXTCommand,
+    cwcglVertexAttrib1dCommand,
+    cwcglVertexAttrib1dARBCommand,
+    cwcglVertexAttrib1dNVCommand,
+    cwcglVertexAttrib1dvCommand,
+    cwcglVertexAttrib1dvARBCommand,
+    cwcglVertexAttrib1dvNVCommand,
+    cwcglVertexAttrib1fCommand,
+    cwcglVertexAttrib1fARBCommand,
+    cwcglVertexAttrib1fNVCommand,
+    cwcglVertexAttrib1fvCommand,
+    cwcglVertexAttrib1fvARBCommand,
+    cwcglVertexAttrib1fvNVCommand,
+    cwcglVertexAttrib1hNVCommand,
+    cwcglVertexAttrib1hvNVCommand,
+    cwcglVertexAttrib1sCommand,
+    cwcglVertexAttrib1sARBCommand,
+    cwcglVertexAttrib1sNVCommand,
+    cwcglVertexAttrib1svCommand,
+    cwcglVertexAttrib1svARBCommand,
+    cwcglVertexAttrib1svNVCommand,
+    cwcglVertexAttrib2dCommand,
+    cwcglVertexAttrib2dARBCommand,
+    cwcglVertexAttrib2dNVCommand,
+    cwcglVertexAttrib2dvCommand,
+    cwcglVertexAttrib2dvARBCommand,
+    cwcglVertexAttrib2dvNVCommand,
+    cwcglVertexAttrib2fCommand,
+    cwcglVertexAttrib2fARBCommand,
+    cwcglVertexAttrib2fNVCommand,
+    cwcglVertexAttrib2fvCommand,
+    cwcglVertexAttrib2fvARBCommand,
+    cwcglVertexAttrib2fvNVCommand,
+    cwcglVertexAttrib2hNVCommand,
+    cwcglVertexAttrib2hvNVCommand,
+    cwcglVertexAttrib2sCommand,
+    cwcglVertexAttrib2sARBCommand,
+    cwcglVertexAttrib2sNVCommand,
+    cwcglVertexAttrib2svCommand,
+    cwcglVertexAttrib2svARBCommand,
+    cwcglVertexAttrib2svNVCommand,
+    cwcglVertexAttrib3dCommand,
+    cwcglVertexAttrib3dARBCommand,
+    cwcglVertexAttrib3dNVCommand,
+    cwcglVertexAttrib3dvCommand,
+    cwcglVertexAttrib3dvARBCommand,
+    cwcglVertexAttrib3dvNVCommand,
+    cwcglVertexAttrib3fCommand,
+    cwcglVertexAttrib3fARBCommand,
+    cwcglVertexAttrib3fNVCommand,
+    cwcglVertexAttrib3fvCommand,
+    cwcglVertexAttrib3fvARBCommand,
+    cwcglVertexAttrib3fvNVCommand,
+    cwcglVertexAttrib3hNVCommand,
+    cwcglVertexAttrib3hvNVCommand,
+    cwcglVertexAttrib3sCommand,
+    cwcglVertexAttrib3sARBCommand,
+    cwcglVertexAttrib3sNVCommand,
+    cwcglVertexAttrib3svCommand,
+    cwcglVertexAttrib3svARBCommand,
+    cwcglVertexAttrib3svNVCommand,
+    cwcglVertexAttrib4NbvCommand,
+    cwcglVertexAttrib4NbvARBCommand,
+    cwcglVertexAttrib4NivCommand,
+    cwcglVertexAttrib4NivARBCommand,
+    cwcglVertexAttrib4NsvCommand,
+    cwcglVertexAttrib4NsvARBCommand,
+    cwcglVertexAttrib4NubCommand,
+    cwcglVertexAttrib4NubARBCommand,
+    cwcglVertexAttrib4NubvCommand,
+    cwcglVertexAttrib4NubvARBCommand,
+    cwcglVertexAttrib4NuivCommand,
+    cwcglVertexAttrib4NuivARBCommand,
+    cwcglVertexAttrib4NusvCommand,
+    cwcglVertexAttrib4NusvARBCommand,
+    cwcglVertexAttrib4bvCommand,
+    cwcglVertexAttrib4bvARBCommand,
+    cwcglVertexAttrib4dCommand,
+    cwcglVertexAttrib4dARBCommand,
+    cwcglVertexAttrib4dNVCommand,
+    cwcglVertexAttrib4dvCommand,
+    cwcglVertexAttrib4dvARBCommand,
+    cwcglVertexAttrib4dvNVCommand,
+    cwcglVertexAttrib4fCommand,
+    cwcglVertexAttrib4fARBCommand,
+    cwcglVertexAttrib4fNVCommand,
+    cwcglVertexAttrib4fvCommand,
+    cwcglVertexAttrib4fvARBCommand,
+    cwcglVertexAttrib4fvNVCommand,
+    cwcglVertexAttrib4hNVCommand,
+    cwcglVertexAttrib4hvNVCommand,
+    cwcglVertexAttrib4ivCommand,
+    cwcglVertexAttrib4ivARBCommand,
+    cwcglVertexAttrib4sCommand,
+    cwcglVertexAttrib4sARBCommand,
+    cwcglVertexAttrib4sNVCommand,
+    cwcglVertexAttrib4svCommand,
+    cwcglVertexAttrib4svARBCommand,
+    cwcglVertexAttrib4svNVCommand,
+    cwcglVertexAttrib4ubNVCommand,
+    cwcglVertexAttrib4ubvCommand,
+    cwcglVertexAttrib4ubvARBCommand,
+    cwcglVertexAttrib4ubvNVCommand,
+    cwcglVertexAttrib4uivCommand,
+    cwcglVertexAttrib4uivARBCommand,
+    cwcglVertexAttrib4usvCommand,
+    cwcglVertexAttrib4usvARBCommand,
+    cwcglVertexAttribArrayObjectATICommand,
+    cwcglVertexAttribBindingCommand,
+    cwcglVertexAttribDivisorCommand,
+    cwcglVertexAttribDivisorANGLECommand,
+    cwcglVertexAttribDivisorARBCommand,
+    cwcglVertexAttribDivisorEXTCommand,
+    cwcglVertexAttribDivisorNVCommand,
+    cwcglVertexAttribFormatCommand,
+    cwcglVertexAttribFormatNVCommand,
+    cwcglVertexAttribI1iCommand,
+    cwcglVertexAttribI1iEXTCommand,
+    cwcglVertexAttribI1ivCommand,
+    cwcglVertexAttribI1ivEXTCommand,
+    cwcglVertexAttribI1uiCommand,
+    cwcglVertexAttribI1uiEXTCommand,
+    cwcglVertexAttribI1uivCommand,
+    cwcglVertexAttribI1uivEXTCommand,
+    cwcglVertexAttribI2iCommand,
+    cwcglVertexAttribI2iEXTCommand,
+    cwcglVertexAttribI2ivCommand,
+    cwcglVertexAttribI2ivEXTCommand,
+    cwcglVertexAttribI2uiCommand,
+    cwcglVertexAttribI2uiEXTCommand,
+    cwcglVertexAttribI2uivCommand,
+    cwcglVertexAttribI2uivEXTCommand,
+    cwcglVertexAttribI3iCommand,
+    cwcglVertexAttribI3iEXTCommand,
+    cwcglVertexAttribI3ivCommand,
+    cwcglVertexAttribI3ivEXTCommand,
+    cwcglVertexAttribI3uiCommand,
+    cwcglVertexAttribI3uiEXTCommand,
+    cwcglVertexAttribI3uivCommand,
+    cwcglVertexAttribI3uivEXTCommand,
+    cwcglVertexAttribI4bvCommand,
+    cwcglVertexAttribI4bvEXTCommand,
+    cwcglVertexAttribI4iCommand,
+    cwcglVertexAttribI4iEXTCommand,
+    cwcglVertexAttribI4ivCommand,
+    cwcglVertexAttribI4ivEXTCommand,
+    cwcglVertexAttribI4svCommand,
+    cwcglVertexAttribI4svEXTCommand,
+    cwcglVertexAttribI4ubvCommand,
+    cwcglVertexAttribI4ubvEXTCommand,
+    cwcglVertexAttribI4uiCommand,
+    cwcglVertexAttribI4uiEXTCommand,
+    cwcglVertexAttribI4uivCommand,
+    cwcglVertexAttribI4uivEXTCommand,
+    cwcglVertexAttribI4usvCommand,
+    cwcglVertexAttribI4usvEXTCommand,
+    cwcglVertexAttribIFormatCommand,
+    cwcglVertexAttribIFormatNVCommand,
+    cwcglVertexAttribIPointerCommand,
+    cwcglVertexAttribIPointerEXTCommand,
+    cwcglVertexAttribL1dCommand,
+    cwcglVertexAttribL1dEXTCommand,
+    cwcglVertexAttribL1dvCommand,
+    cwcglVertexAttribL1dvEXTCommand,
+    cwcglVertexAttribL1i64NVCommand,
+    cwcglVertexAttribL1i64vNVCommand,
+    cwcglVertexAttribL1ui64ARBCommand,
+    cwcglVertexAttribL1ui64NVCommand,
+    cwcglVertexAttribL1ui64vARBCommand,
+    cwcglVertexAttribL1ui64vNVCommand,
+    cwcglVertexAttribL2dCommand,
+    cwcglVertexAttribL2dEXTCommand,
+    cwcglVertexAttribL2dvCommand,
+    cwcglVertexAttribL2dvEXTCommand,
+    cwcglVertexAttribL2i64NVCommand,
+    cwcglVertexAttribL2i64vNVCommand,
+    cwcglVertexAttribL2ui64NVCommand,
+    cwcglVertexAttribL2ui64vNVCommand,
+    cwcglVertexAttribL3dCommand,
+    cwcglVertexAttribL3dEXTCommand,
+    cwcglVertexAttribL3dvCommand,
+    cwcglVertexAttribL3dvEXTCommand,
+    cwcglVertexAttribL3i64NVCommand,
+    cwcglVertexAttribL3i64vNVCommand,
+    cwcglVertexAttribL3ui64NVCommand,
+    cwcglVertexAttribL3ui64vNVCommand,
+    cwcglVertexAttribL4dCommand,
+    cwcglVertexAttribL4dEXTCommand,
+    cwcglVertexAttribL4dvCommand,
+    cwcglVertexAttribL4dvEXTCommand,
+    cwcglVertexAttribL4i64NVCommand,
+    cwcglVertexAttribL4i64vNVCommand,
+    cwcglVertexAttribL4ui64NVCommand,
+    cwcglVertexAttribL4ui64vNVCommand,
+    cwcglVertexAttribLFormatCommand,
+    cwcglVertexAttribLFormatNVCommand,
+    cwcglVertexAttribLPointerCommand,
+    cwcglVertexAttribLPointerEXTCommand,
+    cwcglVertexAttribP1uiCommand,
+    cwcglVertexAttribP1uivCommand,
+    cwcglVertexAttribP2uiCommand,
+    cwcglVertexAttribP2uivCommand,
+    cwcglVertexAttribP3uiCommand,
+    cwcglVertexAttribP3uivCommand,
+    cwcglVertexAttribP4uiCommand,
+    cwcglVertexAttribP4uivCommand,
+    cwcglVertexAttribParameteriAMDCommand,
+    cwcglVertexAttribPointerCommand,
+    cwcglVertexAttribPointerARBCommand,
+    cwcglVertexAttribPointerNVCommand,
+    cwcglVertexAttribs1dvNVCommand,
+    cwcglVertexAttribs1fvNVCommand,
+    cwcglVertexAttribs1hvNVCommand,
+    cwcglVertexAttribs1svNVCommand,
+    cwcglVertexAttribs2dvNVCommand,
+    cwcglVertexAttribs2fvNVCommand,
+    cwcglVertexAttribs2hvNVCommand,
+    cwcglVertexAttribs2svNVCommand,
+    cwcglVertexAttribs3dvNVCommand,
+    cwcglVertexAttribs3fvNVCommand,
+    cwcglVertexAttribs3hvNVCommand,
+    cwcglVertexAttribs3svNVCommand,
+    cwcglVertexAttribs4dvNVCommand,
+    cwcglVertexAttribs4fvNVCommand,
+    cwcglVertexAttribs4hvNVCommand,
+    cwcglVertexAttribs4svNVCommand,
+    cwcglVertexAttribs4ubvNVCommand,
+    cwcglVertexBindingDivisorCommand,
+    cwcglVertexBlendARBCommand,
+    cwcglVertexBlendEnvfATICommand,
+    cwcglVertexBlendEnviATICommand,
+    cwcglVertexFormatNVCommand,
+    cwcglVertexP2uiCommand,
+    cwcglVertexP2uivCommand,
+    cwcglVertexP3uiCommand,
+    cwcglVertexP3uivCommand,
+    cwcglVertexP4uiCommand,
+    cwcglVertexP4uivCommand,
+    cwcglVertexPointerCommand,
+    cwcglVertexPointerEXTCommand,
+    cwcglVertexPointerListIBMCommand,
+    cwcglVertexPointervINTELCommand,
+    cwcglVertexStream1dATICommand,
+    cwcglVertexStream1dvATICommand,
+    cwcglVertexStream1fATICommand,
+    cwcglVertexStream1fvATICommand,
+    cwcglVertexStream1iATICommand,
+    cwcglVertexStream1ivATICommand,
+    cwcglVertexStream1sATICommand,
+    cwcglVertexStream1svATICommand,
+    cwcglVertexStream2dATICommand,
+    cwcglVertexStream2dvATICommand,
+    cwcglVertexStream2fATICommand,
+    cwcglVertexStream2fvATICommand,
+    cwcglVertexStream2iATICommand,
+    cwcglVertexStream2ivATICommand,
+    cwcglVertexStream2sATICommand,
+    cwcglVertexStream2svATICommand,
+    cwcglVertexStream3dATICommand,
+    cwcglVertexStream3dvATICommand,
+    cwcglVertexStream3fATICommand,
+    cwcglVertexStream3fvATICommand,
+    cwcglVertexStream3iATICommand,
+    cwcglVertexStream3ivATICommand,
+    cwcglVertexStream3sATICommand,
+    cwcglVertexStream3svATICommand,
+    cwcglVertexStream4dATICommand,
+    cwcglVertexStream4dvATICommand,
+    cwcglVertexStream4fATICommand,
+    cwcglVertexStream4fvATICommand,
+    cwcglVertexStream4iATICommand,
+    cwcglVertexStream4ivATICommand,
+    cwcglVertexStream4sATICommand,
+    cwcglVertexStream4svATICommand,
+    cwcglVertexWeightPointerEXTCommand,
+    cwcglVertexWeightfEXTCommand,
+    cwcglVertexWeightfvEXTCommand,
+    cwcglVertexWeighthNVCommand,
+    cwcglVertexWeighthvNVCommand,
+    cwcglVideoCaptureNVCommand,
+    cwcglVideoCaptureStreamParameterdvNVCommand,
+    cwcglVideoCaptureStreamParameterfvNVCommand,
+    cwcglVideoCaptureStreamParameterivNVCommand,
+    cwcglViewportCommand,
+    cwcglViewportArrayvCommand,
+    cwcglViewportArrayvNVCommand,
+    cwcglViewportArrayvOESCommand,
+    cwcglViewportIndexedfCommand,
+    cwcglViewportIndexedfOESCommand,
+    cwcglViewportIndexedfNVCommand,
+    cwcglViewportIndexedfvCommand,
+    cwcglViewportIndexedfvOESCommand,
+    cwcglViewportIndexedfvNVCommand,
+    cwcglViewportPositionWScaleNVCommand,
+    cwcglViewportSwizzleNVCommand,
+    cwcglWaitSemaphoreEXTCommand,
+    cwcglWaitSemaphoreui64NVXCommand,
+    cwcglWaitSyncCommand,
+    cwcglWaitSyncAPPLECommand,
+    cwcglWeightPathsNVCommand,
+    cwcglWeightPointerARBCommand,
+    cwcglWeightPointerOESCommand,
+    cwcglWeightbvARBCommand,
+    cwcglWeightdvARBCommand,
+    cwcglWeightfvARBCommand,
+    cwcglWeightivARBCommand,
+    cwcglWeightsvARBCommand,
+    cwcglWeightubvARBCommand,
+    cwcglWeightuivARBCommand,
+    cwcglWeightusvARBCommand,
+    cwcglWindowPos2dCommand,
+    cwcglWindowPos2dARBCommand,
+    cwcglWindowPos2dMESACommand,
+    cwcglWindowPos2dvCommand,
+    cwcglWindowPos2dvARBCommand,
+    cwcglWindowPos2dvMESACommand,
+    cwcglWindowPos2fCommand,
+    cwcglWindowPos2fARBCommand,
+    cwcglWindowPos2fMESACommand,
+    cwcglWindowPos2fvCommand,
+    cwcglWindowPos2fvARBCommand,
+    cwcglWindowPos2fvMESACommand,
+    cwcglWindowPos2iCommand,
+    cwcglWindowPos2iARBCommand,
+    cwcglWindowPos2iMESACommand,
+    cwcglWindowPos2ivCommand,
+    cwcglWindowPos2ivARBCommand,
+    cwcglWindowPos2ivMESACommand,
+    cwcglWindowPos2sCommand,
+    cwcglWindowPos2sARBCommand,
+    cwcglWindowPos2sMESACommand,
+    cwcglWindowPos2svCommand,
+    cwcglWindowPos2svARBCommand,
+    cwcglWindowPos2svMESACommand,
+    cwcglWindowPos3dCommand,
+    cwcglWindowPos3dARBCommand,
+    cwcglWindowPos3dMESACommand,
+    cwcglWindowPos3dvCommand,
+    cwcglWindowPos3dvARBCommand,
+    cwcglWindowPos3dvMESACommand,
+    cwcglWindowPos3fCommand,
+    cwcglWindowPos3fARBCommand,
+    cwcglWindowPos3fMESACommand,
+    cwcglWindowPos3fvCommand,
+    cwcglWindowPos3fvARBCommand,
+    cwcglWindowPos3fvMESACommand,
+    cwcglWindowPos3iCommand,
+    cwcglWindowPos3iARBCommand,
+    cwcglWindowPos3iMESACommand,
+    cwcglWindowPos3ivCommand,
+    cwcglWindowPos3ivARBCommand,
+    cwcglWindowPos3ivMESACommand,
+    cwcglWindowPos3sCommand,
+    cwcglWindowPos3sARBCommand,
+    cwcglWindowPos3sMESACommand,
+    cwcglWindowPos3svCommand,
+    cwcglWindowPos3svARBCommand,
+    cwcglWindowPos3svMESACommand,
+    cwcglWindowPos4dMESACommand,
+    cwcglWindowPos4dvMESACommand,
+    cwcglWindowPos4fMESACommand,
+    cwcglWindowPos4fvMESACommand,
+    cwcglWindowPos4iMESACommand,
+    cwcglWindowPos4ivMESACommand,
+    cwcglWindowPos4sMESACommand,
+    cwcglWindowPos4svMESACommand,
+    cwcglWindowRectanglesEXTCommand,
+    cwcglWriteMaskEXTCommand,
+    cwcglDrawVkImageNVCommand,
+    cwcglGetVkProcAddrNVCommand,
+    cwcglWaitVkSemaphoreNVCommand,
+    cwcglSignalVkSemaphoreNVCommand,
+    cwcglSignalVkFenceNVCommand,
+    cwcglFramebufferParameteriMESACommand,
+    cwcglGetFramebufferParameterivMESACommand,
+} GLcommandType;
+
+typedef struct GLcommand {
+    GLcommandType type;
+    void *data;
+    struct GLcommand *next, *prev;
+} GLcommand;
+
+typedef struct {
+    GLcommand *front, *back;
+} GLcontext;
+
+#if CWCGL_VERSION >= GL_VERSION_1_0
+EXPORT void cwcglCullFace(GLcontext *context, GLenum mode);
+EXPORT void cwcglFrontFace(GLcontext *context, GLenum mode);
+EXPORT void cwcglHint(GLcontext *context, GLenum target, GLenum mode);
+EXPORT void cwcglLineWidth(GLcontext *context, GLfloat width);
+EXPORT void cwcglPointSize(GLcontext *context, GLfloat size);
+EXPORT void cwcglPolygonMode(GLcontext *context, GLenum face, GLenum mode);
+EXPORT void cwcglScissor(GLcontext *context, GLint x, GLint y, GLsizei width, GLsizei height);
+EXPORT void cwcglTexParameterf(GLcontext *context, GLenum target, GLenum pname, GLfloat param);
+EXPORT void cwcglTexParameterfv(GLcontext *context, GLenum target, GLenum pname, const GLfloat * params);
+EXPORT void cwcglTexParameteri(GLcontext *context, GLenum target, GLenum pname, GLint param);
+EXPORT void cwcglTexParameteriv(GLcontext *context, GLenum target, GLenum pname, const GLint * params);
+EXPORT void cwcglTexImage1D(GLcontext *context, GLenum target, GLint level, GLint internalformat, GLsizei width, GLint border, GLenum format, GLenum type, const void * pixels);
+EXPORT void cwcglTexImage2D(GLcontext *context, GLenum target, GLint level, GLint internalformat, GLsizei width, GLsizei height, GLint border, GLenum format, GLenum type, const void * pixels);
+EXPORT void cwcglDrawBuffer(GLcontext *context, GLenum buf);
+EXPORT void cwcglClear(GLcontext *context, GLbitfield mask);
+EXPORT void cwcglClearColor(GLcontext *context, GLfloat red, GLfloat green, GLfloat blue, GLfloat alpha);
+EXPORT void cwcglClearStencil(GLcontext *context, GLint s);
+EXPORT void cwcglClearDepth(GLcontext *context, GLdouble depth);
+EXPORT void cwcglStencilMask(GLcontext *context, GLuint mask);
+EXPORT void cwcglColorMask(GLcontext *context, GLboolean red, GLboolean green, GLboolean blue, GLboolean alpha);
+EXPORT void cwcglDepthMask(GLcontext *context, GLboolean flag);
+EXPORT void cwcglDisable(GLcontext *context, GLenum cap);
+EXPORT void cwcglEnable(GLcontext *context, GLenum cap);
+EXPORT void cwcglFinish(GLcontext *context);
+EXPORT void cwcglFlush(GLcontext *context);
 EXPORT void cwcglBlendFunc(GLcontext *context, GLenum sfactor, GLenum dfactor);
-EXPORT void cwcglBlendFuncIndexedAMD(GLcontext *context, GLuint buf, GLenum src, GLenum dst);
-EXPORT void cwcglBlendFuncSeparate(GLcontext *context, GLenum sfactorRGB, GLenum dfactorRGB, GLenum sfactorAlpha, GLenum dfactorAlpha);
-EXPORT void cwcglBlendFuncSeparateEXT(GLcontext *context, GLenum sfactorRGB, GLenum dfactorRGB, GLenum sfactorAlpha, GLenum dfactorAlpha);
-EXPORT void cwcglBlendFuncSeparateINGR(GLcontext *context, GLenum sfactorRGB, GLenum dfactorRGB, GLenum sfactorAlpha, GLenum dfactorAlpha);
-EXPORT void cwcglBlendFuncSeparateIndexedAMD(GLcontext *context, GLuint buf, GLenum srcRGB, GLenum dstRGB, GLenum srcAlpha, GLenum dstAlpha);
-EXPORT void cwcglBlendFuncSeparateOES(GLcontext *context, GLenum srcRGB, GLenum dstRGB, GLenum srcAlpha, GLenum dstAlpha);
-EXPORT void cwcglBlendFuncSeparatei(GLcontext *context, GLuint buf, GLenum srcRGB, GLenum dstRGB, GLenum srcAlpha, GLenum dstAlpha);
-EXPORT void cwcglBlendFuncSeparateiARB(GLcontext *context, GLuint buf, GLenum srcRGB, GLenum dstRGB, GLenum srcAlpha, GLenum dstAlpha);
-EXPORT void cwcglBlendFuncSeparateiEXT(GLcontext *context, GLuint buf, GLenum srcRGB, GLenum dstRGB, GLenum srcAlpha, GLenum dstAlpha);
-EXPORT void cwcglBlendFuncSeparateiOES(GLcontext *context, GLuint buf, GLenum srcRGB, GLenum dstRGB, GLenum srcAlpha, GLenum dstAlpha);
-EXPORT void cwcglBlendFunci(GLcontext *context, GLuint buf, GLenum src, GLenum dst);
-EXPORT void cwcglBlendFunciARB(GLcontext *context, GLuint buf, GLenum src, GLenum dst);
-EXPORT void cwcglBlendFunciEXT(GLcontext *context, GLuint buf, GLenum src, GLenum dst);
-EXPORT void cwcglBlendFunciOES(GLcontext *context, GLuint buf, GLenum src, GLenum dst);
-EXPORT void cwcglBlendParameteriNV(GLcontext *context, GLenum pname, GLint value);
-EXPORT void cwcglBlitFramebuffer(GLcontext *context, GLint srcX0, GLint srcY0, GLint srcX1, GLint srcY1, GLint dstX0, GLint dstY0, GLint dstX1, GLint dstY1, GLbitfield mask, GLenum filter);
-EXPORT void cwcglBlitFramebufferANGLE(GLcontext *context, GLint srcX0, GLint srcY0, GLint srcX1, GLint srcY1, GLint dstX0, GLint dstY0, GLint dstX1, GLint dstY1, GLbitfield mask, GLenum filter);
-EXPORT void cwcglBlitFramebufferEXT(GLcontext *context, GLint srcX0, GLint srcY0, GLint srcX1, GLint srcY1, GLint dstX0, GLint dstY0, GLint dstX1, GLint dstY1, GLbitfield mask, GLenum filter);
-EXPORT void cwcglBlitFramebufferNV(GLcontext *context, GLint srcX0, GLint srcY0, GLint srcX1, GLint srcY1, GLint dstX0, GLint dstY0, GLint dstX1, GLint dstY1, GLbitfield mask, GLenum filter);
-EXPORT void cwcglBlitNamedFramebuffer(GLcontext *context, GLuint readFramebuffer, GLuint drawFramebuffer, GLint srcX0, GLint srcY0, GLint srcX1, GLint srcY1, GLint dstX0, GLint dstY0, GLint dstX1, GLint dstY1, GLbitfield mask, GLenum filter);
-EXPORT void cwcglBufferAddressRangeNV(GLcontext *context, GLenum pname, GLuint index, GLuint64EXT address, GLsizeiptr length);
-EXPORT void cwcglBufferData(GLcontext *context, GLenum target, GLsizeiptr size, const void * data, GLenum usage);
-EXPORT void cwcglBufferDataARB(GLcontext *context, GLenum target, GLsizeiptrARB size, const void * data, GLenum usage);
-EXPORT void cwcglBufferPageCommitmentARB(GLcontext *context, GLenum target, GLintptr offset, GLsizeiptr size, GLboolean commit);
-EXPORT void cwcglBufferParameteriAPPLE(GLcontext *context, GLenum target, GLenum pname, GLint param);
-EXPORT void cwcglBufferStorage(GLcontext *context, GLenum target, GLsizeiptr size, const void * data, GLbitfield flags);
-EXPORT void cwcglBufferStorageEXT(GLcontext *context, GLenum target, GLsizeiptr size, const void * data, GLbitfield flags);
-EXPORT void cwcglBufferSubData(GLcontext *context, GLenum target, GLintptr offset, GLsizeiptr size, const void * data);
-EXPORT void cwcglBufferSubDataARB(GLcontext *context, GLenum target, GLintptrARB offset, GLsizeiptrARB size, const void * data);
-EXPORT void cwcglCallCommandListNV(GLcontext *context, GLuint list);
+EXPORT void cwcglLogicOp(GLcontext *context, GLenum opcode);
+EXPORT void cwcglStencilFunc(GLcontext *context, GLenum func, GLint ref, GLuint mask);
+EXPORT void cwcglStencilOp(GLcontext *context, GLenum fail, GLenum zfail, GLenum zpass);
+EXPORT void cwcglDepthFunc(GLcontext *context, GLenum func);
+EXPORT void cwcglPixelStoref(GLcontext *context, GLenum pname, GLfloat param);
+EXPORT void cwcglPixelStorei(GLcontext *context, GLenum pname, GLint param);
+EXPORT void cwcglReadBuffer(GLcontext *context, GLenum src);
+EXPORT void cwcglReadPixels(GLcontext *context, GLint x, GLint y, GLsizei width, GLsizei height, GLenum format, GLenum type, void * pixels);
+EXPORT void cwcglGetBooleanv(GLcontext *context, GLenum pname, GLboolean * data);
+EXPORT void cwcglGetDoublev(GLcontext *context, GLenum pname, GLdouble * data);
+EXPORT void cwcglGetError(GLcontext *context, GLenum* return_value);
+EXPORT void cwcglGetFloatv(GLcontext *context, GLenum pname, GLfloat * data);
+EXPORT void cwcglGetIntegerv(GLcontext *context, GLenum pname, GLint * data);
+EXPORT void cwcglGetString(GLcontext *context, GLenum name, const GLubyte ** return_value);
+EXPORT void cwcglGetTexImage(GLcontext *context, GLenum target, GLint level, GLenum format, GLenum type, void * pixels);
+EXPORT void cwcglGetTexParameterfv(GLcontext *context, GLenum target, GLenum pname, GLfloat * params);
+EXPORT void cwcglGetTexParameteriv(GLcontext *context, GLenum target, GLenum pname, GLint * params);
+EXPORT void cwcglGetTexLevelParameterfv(GLcontext *context, GLenum target, GLint level, GLenum pname, GLfloat * params);
+EXPORT void cwcglGetTexLevelParameteriv(GLcontext *context, GLenum target, GLint level, GLenum pname, GLint * params);
+EXPORT void cwcglIsEnabled(GLcontext *context, GLenum cap, GLboolean* return_value);
+EXPORT void cwcglDepthRange(GLcontext *context, GLdouble n, GLdouble f);
+EXPORT void cwcglViewport(GLcontext *context, GLint x, GLint y, GLsizei width, GLsizei height);
+EXPORT void cwcglNewList(GLcontext *context, GLuint list, GLenum mode);
+EXPORT void cwcglEndList(GLcontext *context);
 EXPORT void cwcglCallList(GLcontext *context, GLuint list);
 EXPORT void cwcglCallLists(GLcontext *context, GLsizei n, GLenum type, const void * lists);
-EXPORT void cwcglCheckFramebufferStatus(GLcontext *context, GLenum target, GLenum* return_value);
-EXPORT void cwcglCheckFramebufferStatusEXT(GLcontext *context, GLenum target, GLenum* return_value);
-EXPORT void cwcglCheckFramebufferStatusOES(GLcontext *context, GLenum target, GLenum* return_value);
-EXPORT void cwcglCheckNamedFramebufferStatus(GLcontext *context, GLuint framebuffer, GLenum target, GLenum* return_value);
-EXPORT void cwcglCheckNamedFramebufferStatusEXT(GLcontext *context, GLuint framebuffer, GLenum target, GLenum* return_value);
-EXPORT void cwcglClampColor(GLcontext *context, GLenum target, GLenum clamp);
-EXPORT void cwcglClampColorARB(GLcontext *context, GLenum target, GLenum clamp);
-EXPORT void cwcglClear(GLcontext *context, GLbitfield mask);
-EXPORT void cwcglClearAccum(GLcontext *context, GLfloat red, GLfloat green, GLfloat blue, GLfloat alpha);
-EXPORT void cwcglClearAccumxOES(GLcontext *context, GLfixed red, GLfixed green, GLfixed blue, GLfixed alpha);
-EXPORT void cwcglClearBufferData(GLcontext *context, GLenum target, GLenum internalformat, GLenum format, GLenum type, const void * data);
-EXPORT void cwcglClearBufferSubData(GLcontext *context, GLenum target, GLenum internalformat, GLintptr offset, GLsizeiptr size, GLenum format, GLenum type, const void * data);
-EXPORT void cwcglClearBufferfi(GLcontext *context, GLenum buffer, GLint drawbuffer, GLfloat depth, GLint stencil);
-EXPORT void cwcglClearBufferfv(GLcontext *context, GLenum buffer, GLint drawbuffer, const GLfloat * value);
-EXPORT void cwcglClearBufferiv(GLcontext *context, GLenum buffer, GLint drawbuffer, const GLint * value);
-EXPORT void cwcglClearBufferuiv(GLcontext *context, GLenum buffer, GLint drawbuffer, const GLuint * value);
-EXPORT void cwcglClearColor(GLcontext *context, GLfloat red, GLfloat green, GLfloat blue, GLfloat alpha);
-EXPORT void cwcglClearColorIiEXT(GLcontext *context, GLint red, GLint green, GLint blue, GLint alpha);
-EXPORT void cwcglClearColorIuiEXT(GLcontext *context, GLuint red, GLuint green, GLuint blue, GLuint alpha);
-EXPORT void cwcglClearColorx(GLcontext *context, GLfixed red, GLfixed green, GLfixed blue, GLfixed alpha);
-EXPORT void cwcglClearColorxOES(GLcontext *context, GLfixed red, GLfixed green, GLfixed blue, GLfixed alpha);
-EXPORT void cwcglClearDepth(GLcontext *context, GLdouble depth);
-EXPORT void cwcglClearDepthdNV(GLcontext *context, GLdouble depth);
-EXPORT void cwcglClearDepthf(GLcontext *context, GLfloat d);
-EXPORT void cwcglClearDepthfOES(GLcontext *context, GLclampf depth);
-EXPORT void cwcglClearDepthx(GLcontext *context, GLfixed depth);
-EXPORT void cwcglClearDepthxOES(GLcontext *context, GLfixed depth);
-EXPORT void cwcglClearIndex(GLcontext *context, GLfloat c);
-EXPORT void cwcglClearNamedBufferData(GLcontext *context, GLuint buffer, GLenum internalformat, GLenum format, GLenum type, const void * data);
-EXPORT void cwcglClearNamedBufferDataEXT(GLcontext *context, GLuint buffer, GLenum internalformat, GLenum format, GLenum type, const void * data);
-EXPORT void cwcglClearNamedBufferSubData(GLcontext *context, GLuint buffer, GLenum internalformat, GLintptr offset, GLsizeiptr size, GLenum format, GLenum type, const void * data);
-EXPORT void cwcglClearNamedBufferSubDataEXT(GLcontext *context, GLuint buffer, GLenum internalformat, GLsizeiptr offset, GLsizeiptr size, GLenum format, GLenum type, const void * data);
-EXPORT void cwcglClearNamedFramebufferfi(GLcontext *context, GLuint framebuffer, GLenum buffer, GLint drawbuffer, GLfloat depth, GLint stencil);
-EXPORT void cwcglClearNamedFramebufferfv(GLcontext *context, GLuint framebuffer, GLenum buffer, GLint drawbuffer, const GLfloat * value);
-EXPORT void cwcglClearNamedFramebufferiv(GLcontext *context, GLuint framebuffer, GLenum buffer, GLint drawbuffer, const GLint * value);
-EXPORT void cwcglClearNamedFramebufferuiv(GLcontext *context, GLuint framebuffer, GLenum buffer, GLint drawbuffer, const GLuint * value);
-EXPORT void cwcglClearPixelLocalStorageuiEXT(GLcontext *context, GLsizei offset, GLsizei n, const GLuint * values);
-EXPORT void cwcglClearStencil(GLcontext *context, GLint s);
-EXPORT void cwcglClearTexImage(GLcontext *context, GLuint texture, GLint level, GLenum format, GLenum type, const void * data);
-EXPORT void cwcglClearTexImageEXT(GLcontext *context, GLuint texture, GLint level, GLenum format, GLenum type, const void * data);
-EXPORT void cwcglClearTexSubImage(GLcontext *context, GLuint texture, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLenum format, GLenum type, const void * data);
-EXPORT void cwcglClearTexSubImageEXT(GLcontext *context, GLuint texture, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLenum format, GLenum type, const void * data);
-EXPORT void cwcglClientActiveTexture(GLcontext *context, GLenum texture);
-EXPORT void cwcglClientActiveTextureARB(GLcontext *context, GLenum texture);
-EXPORT void cwcglClientActiveVertexStreamATI(GLcontext *context, GLenum stream);
-EXPORT void cwcglClientAttribDefaultEXT(GLcontext *context, GLbitfield mask);
-EXPORT void cwcglClientWaitSync(GLcontext *context, GLsync sync, GLbitfield flags, GLuint64 timeout, GLenum* return_value);
-EXPORT void cwcglClientWaitSyncAPPLE(GLcontext *context, GLsync sync, GLbitfield flags, GLuint64 timeout, GLenum* return_value);
-EXPORT void cwcglClipControl(GLcontext *context, GLenum origin, GLenum depth);
-EXPORT void cwcglClipPlane(GLcontext *context, GLenum plane, const GLdouble * equation);
-EXPORT void cwcglClipPlanef(GLcontext *context, GLenum p, const GLfloat * eqn);
-EXPORT void cwcglClipPlanefIMG(GLcontext *context, GLenum p, const GLfloat * eqn);
-EXPORT void cwcglClipPlanefOES(GLcontext *context, GLenum plane, const GLfloat * equation);
-EXPORT void cwcglClipPlanex(GLcontext *context, GLenum plane, const GLfixed * equation);
-EXPORT void cwcglClipPlanexIMG(GLcontext *context, GLenum p, const GLfixed * eqn);
-EXPORT void cwcglClipPlanexOES(GLcontext *context, GLenum plane, const GLfixed * equation);
+EXPORT void cwcglDeleteLists(GLcontext *context, GLuint list, GLsizei range);
+EXPORT void cwcglGenLists(GLcontext *context, GLsizei range, GLuint* return_value);
+EXPORT void cwcglListBase(GLcontext *context, GLuint base);
+EXPORT void cwcglBegin(GLcontext *context, GLenum mode);
+EXPORT void cwcglBitmap(GLcontext *context, GLsizei width, GLsizei height, GLfloat xorig, GLfloat yorig, GLfloat xmove, GLfloat ymove, const GLubyte * bitmap);
 EXPORT void cwcglColor3b(GLcontext *context, GLbyte red, GLbyte green, GLbyte blue);
 EXPORT void cwcglColor3bv(GLcontext *context, const GLbyte * v);
 EXPORT void cwcglColor3d(GLcontext *context, GLdouble red, GLdouble green, GLdouble blue);
 EXPORT void cwcglColor3dv(GLcontext *context, const GLdouble * v);
 EXPORT void cwcglColor3f(GLcontext *context, GLfloat red, GLfloat green, GLfloat blue);
-EXPORT void cwcglColor3fVertex3fSUN(GLcontext *context, GLfloat r, GLfloat g, GLfloat b, GLfloat x, GLfloat y, GLfloat z);
-EXPORT void cwcglColor3fVertex3fvSUN(GLcontext *context, const GLfloat * c, const GLfloat * v);
 EXPORT void cwcglColor3fv(GLcontext *context, const GLfloat * v);
-EXPORT void cwcglColor3hNV(GLcontext *context, GLhalfNV red, GLhalfNV green, GLhalfNV blue);
-EXPORT void cwcglColor3hvNV(GLcontext *context, const GLhalfNV * v);
 EXPORT void cwcglColor3i(GLcontext *context, GLint red, GLint green, GLint blue);
 EXPORT void cwcglColor3iv(GLcontext *context, const GLint * v);
 EXPORT void cwcglColor3s(GLcontext *context, GLshort red, GLshort green, GLshort blue);
@@ -4587,1097 +7784,25 @@ EXPORT void cwcglColor3ui(GLcontext *context, GLuint red, GLuint green, GLuint b
 EXPORT void cwcglColor3uiv(GLcontext *context, const GLuint * v);
 EXPORT void cwcglColor3us(GLcontext *context, GLushort red, GLushort green, GLushort blue);
 EXPORT void cwcglColor3usv(GLcontext *context, const GLushort * v);
-EXPORT void cwcglColor3xOES(GLcontext *context, GLfixed red, GLfixed green, GLfixed blue);
-EXPORT void cwcglColor3xvOES(GLcontext *context, const GLfixed * components);
 EXPORT void cwcglColor4b(GLcontext *context, GLbyte red, GLbyte green, GLbyte blue, GLbyte alpha);
 EXPORT void cwcglColor4bv(GLcontext *context, const GLbyte * v);
 EXPORT void cwcglColor4d(GLcontext *context, GLdouble red, GLdouble green, GLdouble blue, GLdouble alpha);
 EXPORT void cwcglColor4dv(GLcontext *context, const GLdouble * v);
 EXPORT void cwcglColor4f(GLcontext *context, GLfloat red, GLfloat green, GLfloat blue, GLfloat alpha);
-EXPORT void cwcglColor4fNormal3fVertex3fSUN(GLcontext *context, GLfloat r, GLfloat g, GLfloat b, GLfloat a, GLfloat nx, GLfloat ny, GLfloat nz, GLfloat x, GLfloat y, GLfloat z);
-EXPORT void cwcglColor4fNormal3fVertex3fvSUN(GLcontext *context, const GLfloat * c, const GLfloat * n, const GLfloat * v);
 EXPORT void cwcglColor4fv(GLcontext *context, const GLfloat * v);
-EXPORT void cwcglColor4hNV(GLcontext *context, GLhalfNV red, GLhalfNV green, GLhalfNV blue, GLhalfNV alpha);
-EXPORT void cwcglColor4hvNV(GLcontext *context, const GLhalfNV * v);
 EXPORT void cwcglColor4i(GLcontext *context, GLint red, GLint green, GLint blue, GLint alpha);
 EXPORT void cwcglColor4iv(GLcontext *context, const GLint * v);
 EXPORT void cwcglColor4s(GLcontext *context, GLshort red, GLshort green, GLshort blue, GLshort alpha);
 EXPORT void cwcglColor4sv(GLcontext *context, const GLshort * v);
 EXPORT void cwcglColor4ub(GLcontext *context, GLubyte red, GLubyte green, GLubyte blue, GLubyte alpha);
-EXPORT void cwcglColor4ubVertex2fSUN(GLcontext *context, GLubyte r, GLubyte g, GLubyte b, GLubyte a, GLfloat x, GLfloat y);
-EXPORT void cwcglColor4ubVertex2fvSUN(GLcontext *context, const GLubyte * c, const GLfloat * v);
-EXPORT void cwcglColor4ubVertex3fSUN(GLcontext *context, GLubyte r, GLubyte g, GLubyte b, GLubyte a, GLfloat x, GLfloat y, GLfloat z);
-EXPORT void cwcglColor4ubVertex3fvSUN(GLcontext *context, const GLubyte * c, const GLfloat * v);
 EXPORT void cwcglColor4ubv(GLcontext *context, const GLubyte * v);
 EXPORT void cwcglColor4ui(GLcontext *context, GLuint red, GLuint green, GLuint blue, GLuint alpha);
 EXPORT void cwcglColor4uiv(GLcontext *context, const GLuint * v);
 EXPORT void cwcglColor4us(GLcontext *context, GLushort red, GLushort green, GLushort blue, GLushort alpha);
 EXPORT void cwcglColor4usv(GLcontext *context, const GLushort * v);
-EXPORT void cwcglColor4x(GLcontext *context, GLfixed red, GLfixed green, GLfixed blue, GLfixed alpha);
-EXPORT void cwcglColor4xOES(GLcontext *context, GLfixed red, GLfixed green, GLfixed blue, GLfixed alpha);
-EXPORT void cwcglColor4xvOES(GLcontext *context, const GLfixed * components);
-EXPORT void cwcglColorFormatNV(GLcontext *context, GLint size, GLenum type, GLsizei stride);
-EXPORT void cwcglColorFragmentOp1ATI(GLcontext *context, GLenum op, GLuint dst, GLuint dstMask, GLuint dstMod, GLuint arg1, GLuint arg1Rep, GLuint arg1Mod);
-EXPORT void cwcglColorFragmentOp2ATI(GLcontext *context, GLenum op, GLuint dst, GLuint dstMask, GLuint dstMod, GLuint arg1, GLuint arg1Rep, GLuint arg1Mod, GLuint arg2, GLuint arg2Rep, GLuint arg2Mod);
-EXPORT void cwcglColorFragmentOp3ATI(GLcontext *context, GLenum op, GLuint dst, GLuint dstMask, GLuint dstMod, GLuint arg1, GLuint arg1Rep, GLuint arg1Mod, GLuint arg2, GLuint arg2Rep, GLuint arg2Mod, GLuint arg3, GLuint arg3Rep, GLuint arg3Mod);
-EXPORT void cwcglColorMask(GLcontext *context, GLboolean red, GLboolean green, GLboolean blue, GLboolean alpha);
-EXPORT void cwcglColorMaskIndexedEXT(GLcontext *context, GLuint index, GLboolean r, GLboolean g, GLboolean b, GLboolean a);
-EXPORT void cwcglColorMaski(GLcontext *context, GLuint index, GLboolean r, GLboolean g, GLboolean b, GLboolean a);
-EXPORT void cwcglColorMaskiEXT(GLcontext *context, GLuint index, GLboolean r, GLboolean g, GLboolean b, GLboolean a);
-EXPORT void cwcglColorMaskiOES(GLcontext *context, GLuint index, GLboolean r, GLboolean g, GLboolean b, GLboolean a);
-EXPORT void cwcglColorMaterial(GLcontext *context, GLenum face, GLenum mode);
-EXPORT void cwcglColorP3ui(GLcontext *context, GLenum type, GLuint color);
-EXPORT void cwcglColorP3uiv(GLcontext *context, GLenum type, const GLuint * color);
-EXPORT void cwcglColorP4ui(GLcontext *context, GLenum type, GLuint color);
-EXPORT void cwcglColorP4uiv(GLcontext *context, GLenum type, const GLuint * color);
-EXPORT void cwcglColorPointer(GLcontext *context, GLint size, GLenum type, GLsizei stride, const void * pointer);
-EXPORT void cwcglColorPointerEXT(GLcontext *context, GLint size, GLenum type, GLsizei stride, GLsizei count, const void * pointer);
-EXPORT void cwcglColorPointerListIBM(GLcontext *context, GLint size, GLenum type, GLint stride, const void ** pointer, GLint ptrstride);
-EXPORT void cwcglColorPointervINTEL(GLcontext *context, GLint size, GLenum type, const void ** pointer);
-EXPORT void cwcglColorSubTable(GLcontext *context, GLenum target, GLsizei start, GLsizei count, GLenum format, GLenum type, const void * data);
-EXPORT void cwcglColorSubTableEXT(GLcontext *context, GLenum target, GLsizei start, GLsizei count, GLenum format, GLenum type, const void * data);
-EXPORT void cwcglColorTable(GLcontext *context, GLenum target, GLenum internalformat, GLsizei width, GLenum format, GLenum type, const void * table);
-EXPORT void cwcglColorTableEXT(GLcontext *context, GLenum target, GLenum internalFormat, GLsizei width, GLenum format, GLenum type, const void * table);
-EXPORT void cwcglColorTableParameterfv(GLcontext *context, GLenum target, GLenum pname, const GLfloat * params);
-EXPORT void cwcglColorTableParameterfvSGI(GLcontext *context, GLenum target, GLenum pname, const GLfloat * params);
-EXPORT void cwcglColorTableParameteriv(GLcontext *context, GLenum target, GLenum pname, const GLint * params);
-EXPORT void cwcglColorTableParameterivSGI(GLcontext *context, GLenum target, GLenum pname, const GLint * params);
-EXPORT void cwcglColorTableSGI(GLcontext *context, GLenum target, GLenum internalformat, GLsizei width, GLenum format, GLenum type, const void * table);
-EXPORT void cwcglCombinerInputNV(GLcontext *context, GLenum stage, GLenum portion, GLenum variable, GLenum input, GLenum mapping, GLenum componentUsage);
-EXPORT void cwcglCombinerOutputNV(GLcontext *context, GLenum stage, GLenum portion, GLenum abOutput, GLenum cdOutput, GLenum sumOutput, GLenum scale, GLenum bias, GLboolean abDotProduct, GLboolean cdDotProduct, GLboolean muxSum);
-EXPORT void cwcglCombinerParameterfNV(GLcontext *context, GLenum pname, GLfloat param);
-EXPORT void cwcglCombinerParameterfvNV(GLcontext *context, GLenum pname, const GLfloat * params);
-EXPORT void cwcglCombinerParameteriNV(GLcontext *context, GLenum pname, GLint param);
-EXPORT void cwcglCombinerParameterivNV(GLcontext *context, GLenum pname, const GLint * params);
-EXPORT void cwcglCombinerStageParameterfvNV(GLcontext *context, GLenum stage, GLenum pname, const GLfloat * params);
-EXPORT void cwcglCommandListSegmentsNV(GLcontext *context, GLuint list, GLuint segments);
-EXPORT void cwcglCompileCommandListNV(GLcontext *context, GLuint list);
-EXPORT void cwcglCompileShader(GLcontext *context, GLuint shader);
-EXPORT void cwcglCompileShaderARB(GLcontext *context, GLhandleARB shaderObj);
-EXPORT void cwcglCompileShaderIncludeARB(GLcontext *context, GLuint shader, GLsizei count, const GLchar *const* path, const GLint * length);
-EXPORT void cwcglCompressedMultiTexImage1DEXT(GLcontext *context, GLenum texunit, GLenum target, GLint level, GLenum internalformat, GLsizei width, GLint border, GLsizei imageSize, const void * bits);
-EXPORT void cwcglCompressedMultiTexImage2DEXT(GLcontext *context, GLenum texunit, GLenum target, GLint level, GLenum internalformat, GLsizei width, GLsizei height, GLint border, GLsizei imageSize, const void * bits);
-EXPORT void cwcglCompressedMultiTexImage3DEXT(GLcontext *context, GLenum texunit, GLenum target, GLint level, GLenum internalformat, GLsizei width, GLsizei height, GLsizei depth, GLint border, GLsizei imageSize, const void * bits);
-EXPORT void cwcglCompressedMultiTexSubImage1DEXT(GLcontext *context, GLenum texunit, GLenum target, GLint level, GLint xoffset, GLsizei width, GLenum format, GLsizei imageSize, const void * bits);
-EXPORT void cwcglCompressedMultiTexSubImage2DEXT(GLcontext *context, GLenum texunit, GLenum target, GLint level, GLint xoffset, GLint yoffset, GLsizei width, GLsizei height, GLenum format, GLsizei imageSize, const void * bits);
-EXPORT void cwcglCompressedMultiTexSubImage3DEXT(GLcontext *context, GLenum texunit, GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLenum format, GLsizei imageSize, const void * bits);
-EXPORT void cwcglCompressedTexImage1D(GLcontext *context, GLenum target, GLint level, GLenum internalformat, GLsizei width, GLint border, GLsizei imageSize, const void * data);
-EXPORT void cwcglCompressedTexImage1DARB(GLcontext *context, GLenum target, GLint level, GLenum internalformat, GLsizei width, GLint border, GLsizei imageSize, const void * data);
-EXPORT void cwcglCompressedTexImage2D(GLcontext *context, GLenum target, GLint level, GLenum internalformat, GLsizei width, GLsizei height, GLint border, GLsizei imageSize, const void * data);
-EXPORT void cwcglCompressedTexImage2DARB(GLcontext *context, GLenum target, GLint level, GLenum internalformat, GLsizei width, GLsizei height, GLint border, GLsizei imageSize, const void * data);
-EXPORT void cwcglCompressedTexImage3D(GLcontext *context, GLenum target, GLint level, GLenum internalformat, GLsizei width, GLsizei height, GLsizei depth, GLint border, GLsizei imageSize, const void * data);
-EXPORT void cwcglCompressedTexImage3DARB(GLcontext *context, GLenum target, GLint level, GLenum internalformat, GLsizei width, GLsizei height, GLsizei depth, GLint border, GLsizei imageSize, const void * data);
-EXPORT void cwcglCompressedTexImage3DOES(GLcontext *context, GLenum target, GLint level, GLenum internalformat, GLsizei width, GLsizei height, GLsizei depth, GLint border, GLsizei imageSize, const void * data);
-EXPORT void cwcglCompressedTexSubImage1D(GLcontext *context, GLenum target, GLint level, GLint xoffset, GLsizei width, GLenum format, GLsizei imageSize, const void * data);
-EXPORT void cwcglCompressedTexSubImage1DARB(GLcontext *context, GLenum target, GLint level, GLint xoffset, GLsizei width, GLenum format, GLsizei imageSize, const void * data);
-EXPORT void cwcglCompressedTexSubImage2D(GLcontext *context, GLenum target, GLint level, GLint xoffset, GLint yoffset, GLsizei width, GLsizei height, GLenum format, GLsizei imageSize, const void * data);
-EXPORT void cwcglCompressedTexSubImage2DARB(GLcontext *context, GLenum target, GLint level, GLint xoffset, GLint yoffset, GLsizei width, GLsizei height, GLenum format, GLsizei imageSize, const void * data);
-EXPORT void cwcglCompressedTexSubImage3D(GLcontext *context, GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLenum format, GLsizei imageSize, const void * data);
-EXPORT void cwcglCompressedTexSubImage3DARB(GLcontext *context, GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLenum format, GLsizei imageSize, const void * data);
-EXPORT void cwcglCompressedTexSubImage3DOES(GLcontext *context, GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLenum format, GLsizei imageSize, const void * data);
-EXPORT void cwcglCompressedTextureImage1DEXT(GLcontext *context, GLuint texture, GLenum target, GLint level, GLenum internalformat, GLsizei width, GLint border, GLsizei imageSize, const void * bits);
-EXPORT void cwcglCompressedTextureImage2DEXT(GLcontext *context, GLuint texture, GLenum target, GLint level, GLenum internalformat, GLsizei width, GLsizei height, GLint border, GLsizei imageSize, const void * bits);
-EXPORT void cwcglCompressedTextureImage3DEXT(GLcontext *context, GLuint texture, GLenum target, GLint level, GLenum internalformat, GLsizei width, GLsizei height, GLsizei depth, GLint border, GLsizei imageSize, const void * bits);
-EXPORT void cwcglCompressedTextureSubImage1D(GLcontext *context, GLuint texture, GLint level, GLint xoffset, GLsizei width, GLenum format, GLsizei imageSize, const void * data);
-EXPORT void cwcglCompressedTextureSubImage1DEXT(GLcontext *context, GLuint texture, GLenum target, GLint level, GLint xoffset, GLsizei width, GLenum format, GLsizei imageSize, const void * bits);
-EXPORT void cwcglCompressedTextureSubImage2D(GLcontext *context, GLuint texture, GLint level, GLint xoffset, GLint yoffset, GLsizei width, GLsizei height, GLenum format, GLsizei imageSize, const void * data);
-EXPORT void cwcglCompressedTextureSubImage2DEXT(GLcontext *context, GLuint texture, GLenum target, GLint level, GLint xoffset, GLint yoffset, GLsizei width, GLsizei height, GLenum format, GLsizei imageSize, const void * bits);
-EXPORT void cwcglCompressedTextureSubImage3D(GLcontext *context, GLuint texture, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLenum format, GLsizei imageSize, const void * data);
-EXPORT void cwcglCompressedTextureSubImage3DEXT(GLcontext *context, GLuint texture, GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLenum format, GLsizei imageSize, const void * bits);
-EXPORT void cwcglConservativeRasterParameterfNV(GLcontext *context, GLenum pname, GLfloat value);
-EXPORT void cwcglConservativeRasterParameteriNV(GLcontext *context, GLenum pname, GLint param);
-EXPORT void cwcglConvolutionFilter1D(GLcontext *context, GLenum target, GLenum internalformat, GLsizei width, GLenum format, GLenum type, const void * image);
-EXPORT void cwcglConvolutionFilter1DEXT(GLcontext *context, GLenum target, GLenum internalformat, GLsizei width, GLenum format, GLenum type, const void * image);
-EXPORT void cwcglConvolutionFilter2D(GLcontext *context, GLenum target, GLenum internalformat, GLsizei width, GLsizei height, GLenum format, GLenum type, const void * image);
-EXPORT void cwcglConvolutionFilter2DEXT(GLcontext *context, GLenum target, GLenum internalformat, GLsizei width, GLsizei height, GLenum format, GLenum type, const void * image);
-EXPORT void cwcglConvolutionParameterf(GLcontext *context, GLenum target, GLenum pname, GLfloat params);
-EXPORT void cwcglConvolutionParameterfEXT(GLcontext *context, GLenum target, GLenum pname, GLfloat params);
-EXPORT void cwcglConvolutionParameterfv(GLcontext *context, GLenum target, GLenum pname, const GLfloat * params);
-EXPORT void cwcglConvolutionParameterfvEXT(GLcontext *context, GLenum target, GLenum pname, const GLfloat * params);
-EXPORT void cwcglConvolutionParameteri(GLcontext *context, GLenum target, GLenum pname, GLint params);
-EXPORT void cwcglConvolutionParameteriEXT(GLcontext *context, GLenum target, GLenum pname, GLint params);
-EXPORT void cwcglConvolutionParameteriv(GLcontext *context, GLenum target, GLenum pname, const GLint * params);
-EXPORT void cwcglConvolutionParameterivEXT(GLcontext *context, GLenum target, GLenum pname, const GLint * params);
-EXPORT void cwcglConvolutionParameterxOES(GLcontext *context, GLenum target, GLenum pname, GLfixed param);
-EXPORT void cwcglConvolutionParameterxvOES(GLcontext *context, GLenum target, GLenum pname, const GLfixed * params);
-EXPORT void cwcglCopyBufferSubData(GLcontext *context, GLenum readTarget, GLenum writeTarget, GLintptr readOffset, GLintptr writeOffset, GLsizeiptr size);
-EXPORT void cwcglCopyBufferSubDataNV(GLcontext *context, GLenum readTarget, GLenum writeTarget, GLintptr readOffset, GLintptr writeOffset, GLsizeiptr size);
-EXPORT void cwcglCopyColorSubTable(GLcontext *context, GLenum target, GLsizei start, GLint x, GLint y, GLsizei width);
-EXPORT void cwcglCopyColorSubTableEXT(GLcontext *context, GLenum target, GLsizei start, GLint x, GLint y, GLsizei width);
-EXPORT void cwcglCopyColorTable(GLcontext *context, GLenum target, GLenum internalformat, GLint x, GLint y, GLsizei width);
-EXPORT void cwcglCopyColorTableSGI(GLcontext *context, GLenum target, GLenum internalformat, GLint x, GLint y, GLsizei width);
-EXPORT void cwcglCopyConvolutionFilter1D(GLcontext *context, GLenum target, GLenum internalformat, GLint x, GLint y, GLsizei width);
-EXPORT void cwcglCopyConvolutionFilter1DEXT(GLcontext *context, GLenum target, GLenum internalformat, GLint x, GLint y, GLsizei width);
-EXPORT void cwcglCopyConvolutionFilter2D(GLcontext *context, GLenum target, GLenum internalformat, GLint x, GLint y, GLsizei width, GLsizei height);
-EXPORT void cwcglCopyConvolutionFilter2DEXT(GLcontext *context, GLenum target, GLenum internalformat, GLint x, GLint y, GLsizei width, GLsizei height);
-EXPORT void cwcglCopyImageSubData(GLcontext *context, GLuint srcName, GLenum srcTarget, GLint srcLevel, GLint srcX, GLint srcY, GLint srcZ, GLuint dstName, GLenum dstTarget, GLint dstLevel, GLint dstX, GLint dstY, GLint dstZ, GLsizei srcWidth, GLsizei srcHeight, GLsizei srcDepth);
-EXPORT void cwcglCopyImageSubDataEXT(GLcontext *context, GLuint srcName, GLenum srcTarget, GLint srcLevel, GLint srcX, GLint srcY, GLint srcZ, GLuint dstName, GLenum dstTarget, GLint dstLevel, GLint dstX, GLint dstY, GLint dstZ, GLsizei srcWidth, GLsizei srcHeight, GLsizei srcDepth);
-EXPORT void cwcglCopyImageSubDataNV(GLcontext *context, GLuint srcName, GLenum srcTarget, GLint srcLevel, GLint srcX, GLint srcY, GLint srcZ, GLuint dstName, GLenum dstTarget, GLint dstLevel, GLint dstX, GLint dstY, GLint dstZ, GLsizei width, GLsizei height, GLsizei depth);
-EXPORT void cwcglCopyImageSubDataOES(GLcontext *context, GLuint srcName, GLenum srcTarget, GLint srcLevel, GLint srcX, GLint srcY, GLint srcZ, GLuint dstName, GLenum dstTarget, GLint dstLevel, GLint dstX, GLint dstY, GLint dstZ, GLsizei srcWidth, GLsizei srcHeight, GLsizei srcDepth);
-EXPORT void cwcglCopyMultiTexImage1DEXT(GLcontext *context, GLenum texunit, GLenum target, GLint level, GLenum internalformat, GLint x, GLint y, GLsizei width, GLint border);
-EXPORT void cwcglCopyMultiTexImage2DEXT(GLcontext *context, GLenum texunit, GLenum target, GLint level, GLenum internalformat, GLint x, GLint y, GLsizei width, GLsizei height, GLint border);
-EXPORT void cwcglCopyMultiTexSubImage1DEXT(GLcontext *context, GLenum texunit, GLenum target, GLint level, GLint xoffset, GLint x, GLint y, GLsizei width);
-EXPORT void cwcglCopyMultiTexSubImage2DEXT(GLcontext *context, GLenum texunit, GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint x, GLint y, GLsizei width, GLsizei height);
-EXPORT void cwcglCopyMultiTexSubImage3DEXT(GLcontext *context, GLenum texunit, GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLint x, GLint y, GLsizei width, GLsizei height);
-EXPORT void cwcglCopyNamedBufferSubData(GLcontext *context, GLuint readBuffer, GLuint writeBuffer, GLintptr readOffset, GLintptr writeOffset, GLsizeiptr size);
-EXPORT void cwcglCopyPathNV(GLcontext *context, GLuint resultPath, GLuint srcPath);
-EXPORT void cwcglCopyPixels(GLcontext *context, GLint x, GLint y, GLsizei width, GLsizei height, GLenum type);
-EXPORT void cwcglCopyTexImage1D(GLcontext *context, GLenum target, GLint level, GLenum internalformat, GLint x, GLint y, GLsizei width, GLint border);
-EXPORT void cwcglCopyTexImage1DEXT(GLcontext *context, GLenum target, GLint level, GLenum internalformat, GLint x, GLint y, GLsizei width, GLint border);
-EXPORT void cwcglCopyTexImage2D(GLcontext *context, GLenum target, GLint level, GLenum internalformat, GLint x, GLint y, GLsizei width, GLsizei height, GLint border);
-EXPORT void cwcglCopyTexImage2DEXT(GLcontext *context, GLenum target, GLint level, GLenum internalformat, GLint x, GLint y, GLsizei width, GLsizei height, GLint border);
-EXPORT void cwcglCopyTexSubImage1D(GLcontext *context, GLenum target, GLint level, GLint xoffset, GLint x, GLint y, GLsizei width);
-EXPORT void cwcglCopyTexSubImage1DEXT(GLcontext *context, GLenum target, GLint level, GLint xoffset, GLint x, GLint y, GLsizei width);
-EXPORT void cwcglCopyTexSubImage2D(GLcontext *context, GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint x, GLint y, GLsizei width, GLsizei height);
-EXPORT void cwcglCopyTexSubImage2DEXT(GLcontext *context, GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint x, GLint y, GLsizei width, GLsizei height);
-EXPORT void cwcglCopyTexSubImage3D(GLcontext *context, GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLint x, GLint y, GLsizei width, GLsizei height);
-EXPORT void cwcglCopyTexSubImage3DEXT(GLcontext *context, GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLint x, GLint y, GLsizei width, GLsizei height);
-EXPORT void cwcglCopyTexSubImage3DOES(GLcontext *context, GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLint x, GLint y, GLsizei width, GLsizei height);
-EXPORT void cwcglCopyTextureImage1DEXT(GLcontext *context, GLuint texture, GLenum target, GLint level, GLenum internalformat, GLint x, GLint y, GLsizei width, GLint border);
-EXPORT void cwcglCopyTextureImage2DEXT(GLcontext *context, GLuint texture, GLenum target, GLint level, GLenum internalformat, GLint x, GLint y, GLsizei width, GLsizei height, GLint border);
-EXPORT void cwcglCopyTextureLevelsAPPLE(GLcontext *context, GLuint destinationTexture, GLuint sourceTexture, GLint sourceBaseLevel, GLsizei sourceLevelCount);
-EXPORT void cwcglCopyTextureSubImage1D(GLcontext *context, GLuint texture, GLint level, GLint xoffset, GLint x, GLint y, GLsizei width);
-EXPORT void cwcglCopyTextureSubImage1DEXT(GLcontext *context, GLuint texture, GLenum target, GLint level, GLint xoffset, GLint x, GLint y, GLsizei width);
-EXPORT void cwcglCopyTextureSubImage2D(GLcontext *context, GLuint texture, GLint level, GLint xoffset, GLint yoffset, GLint x, GLint y, GLsizei width, GLsizei height);
-EXPORT void cwcglCopyTextureSubImage2DEXT(GLcontext *context, GLuint texture, GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint x, GLint y, GLsizei width, GLsizei height);
-EXPORT void cwcglCopyTextureSubImage3D(GLcontext *context, GLuint texture, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLint x, GLint y, GLsizei width, GLsizei height);
-EXPORT void cwcglCopyTextureSubImage3DEXT(GLcontext *context, GLuint texture, GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLint x, GLint y, GLsizei width, GLsizei height);
-EXPORT void cwcglCoverFillPathInstancedNV(GLcontext *context, GLsizei numPaths, GLenum pathNameType, const void * paths, GLuint pathBase, GLenum coverMode, GLenum transformType, const GLfloat * transformValues);
-EXPORT void cwcglCoverFillPathNV(GLcontext *context, GLuint path, GLenum coverMode);
-EXPORT void cwcglCoverStrokePathInstancedNV(GLcontext *context, GLsizei numPaths, GLenum pathNameType, const void * paths, GLuint pathBase, GLenum coverMode, GLenum transformType, const GLfloat * transformValues);
-EXPORT void cwcglCoverStrokePathNV(GLcontext *context, GLuint path, GLenum coverMode);
-EXPORT void cwcglCoverageMaskNV(GLcontext *context, GLboolean mask);
-EXPORT void cwcglCoverageModulationNV(GLcontext *context, GLenum components);
-EXPORT void cwcglCoverageModulationTableNV(GLcontext *context, GLsizei n, const GLfloat * v);
-EXPORT void cwcglCoverageOperationNV(GLcontext *context, GLenum operation);
-EXPORT void cwcglCreateBuffers(GLcontext *context, GLsizei n, GLuint * buffers);
-EXPORT void cwcglCreateCommandListsNV(GLcontext *context, GLsizei n, GLuint * lists);
-EXPORT void cwcglCreateFramebuffers(GLcontext *context, GLsizei n, GLuint * framebuffers);
-EXPORT void cwcglCreatePerfQueryINTEL(GLcontext *context, GLuint queryId, GLuint * queryHandle);
-EXPORT void cwcglCreateProgram(GLcontext *context, GLuint* return_value);
-EXPORT void cwcglCreateProgramObjectARB(GLcontext *context, GLhandleARB* return_value);
-EXPORT void cwcglCreateProgramPipelines(GLcontext *context, GLsizei n, GLuint * pipelines);
-EXPORT void cwcglCreateQueries(GLcontext *context, GLenum target, GLsizei n, GLuint * ids);
-EXPORT void cwcglCreateRenderbuffers(GLcontext *context, GLsizei n, GLuint * renderbuffers);
-EXPORT void cwcglCreateSamplers(GLcontext *context, GLsizei n, GLuint * samplers);
-EXPORT void cwcglCreateShader(GLcontext *context, GLenum type, GLuint* return_value);
-EXPORT void cwcglCreateShaderObjectARB(GLcontext *context, GLenum shaderType, GLhandleARB* return_value);
-EXPORT void cwcglCreateShaderProgramEXT(GLcontext *context, GLenum type, const GLchar * string, GLuint* return_value);
-EXPORT void cwcglCreateShaderProgramv(GLcontext *context, GLenum type, GLsizei count, const GLchar *const* strings, GLuint* return_value);
-EXPORT void cwcglCreateShaderProgramvEXT(GLcontext *context, GLenum type, GLsizei count, const GLchar ** strings, GLuint* return_value);
-EXPORT void cwcglCreateStatesNV(GLcontext *context, GLsizei n, GLuint * states);
-EXPORT void cwcglCreateSyncFromCLeventARB(GLcontext *context, struct _cl_context * context, struct _cl_event * event, GLbitfield flags, GLsync* return_value);
-EXPORT void cwcglCreateTextures(GLcontext *context, GLenum target, GLsizei n, GLuint * textures);
-EXPORT void cwcglCreateTransformFeedbacks(GLcontext *context, GLsizei n, GLuint * ids);
-EXPORT void cwcglCreateVertexArrays(GLcontext *context, GLsizei n, GLuint * arrays);
-EXPORT void cwcglCullFace(GLcontext *context, GLenum mode);
-EXPORT void cwcglCullParameterdvEXT(GLcontext *context, GLenum pname, GLdouble * params);
-EXPORT void cwcglCullParameterfvEXT(GLcontext *context, GLenum pname, GLfloat * params);
-EXPORT void cwcglCurrentPaletteMatrixARB(GLcontext *context, GLint index);
-EXPORT void cwcglCurrentPaletteMatrixOES(GLcontext *context, GLuint matrixpaletteindex);
-EXPORT void cwcglDebugMessageCallback(GLcontext *context, GLDEBUGPROC callback, const void * userParam);
-EXPORT void cwcglDebugMessageCallbackAMD(GLcontext *context, GLDEBUGPROCAMD callback, void * userParam);
-EXPORT void cwcglDebugMessageCallbackARB(GLcontext *context, GLDEBUGPROCARB callback, const void * userParam);
-EXPORT void cwcglDebugMessageCallbackKHR(GLcontext *context, GLDEBUGPROCKHR callback, const void * userParam);
-EXPORT void cwcglDebugMessageControl(GLcontext *context, GLenum source, GLenum type, GLenum severity, GLsizei count, const GLuint * ids, GLboolean enabled);
-EXPORT void cwcglDebugMessageControlARB(GLcontext *context, GLenum source, GLenum type, GLenum severity, GLsizei count, const GLuint * ids, GLboolean enabled);
-EXPORT void cwcglDebugMessageControlKHR(GLcontext *context, GLenum source, GLenum type, GLenum severity, GLsizei count, const GLuint * ids, GLboolean enabled);
-EXPORT void cwcglDebugMessageEnableAMD(GLcontext *context, GLenum category, GLenum severity, GLsizei count, const GLuint * ids, GLboolean enabled);
-EXPORT void cwcglDebugMessageInsert(GLcontext *context, GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar * buf);
-EXPORT void cwcglDebugMessageInsertAMD(GLcontext *context, GLenum category, GLenum severity, GLuint id, GLsizei length, const GLchar * buf);
-EXPORT void cwcglDebugMessageInsertARB(GLcontext *context, GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar * buf);
-EXPORT void cwcglDebugMessageInsertKHR(GLcontext *context, GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar * buf);
-EXPORT void cwcglDeformSGIX(GLcontext *context, GLbitfield mask);
-EXPORT void cwcglDeformationMap3dSGIX(GLcontext *context, GLenum target, GLdouble u1, GLdouble u2, GLint ustride, GLint uorder, GLdouble v1, GLdouble v2, GLint vstride, GLint vorder, GLdouble w1, GLdouble w2, GLint wstride, GLint worder, const GLdouble * points);
-EXPORT void cwcglDeformationMap3fSGIX(GLcontext *context, GLenum target, GLfloat u1, GLfloat u2, GLint ustride, GLint uorder, GLfloat v1, GLfloat v2, GLint vstride, GLint vorder, GLfloat w1, GLfloat w2, GLint wstride, GLint worder, const GLfloat * points);
-EXPORT void cwcglDeleteAsyncMarkersSGIX(GLcontext *context, GLuint marker, GLsizei range);
-EXPORT void cwcglDeleteBuffers(GLcontext *context, GLsizei n, const GLuint * buffers);
-EXPORT void cwcglDeleteBuffersARB(GLcontext *context, GLsizei n, const GLuint * buffers);
-EXPORT void cwcglDeleteCommandListsNV(GLcontext *context, GLsizei n, const GLuint * lists);
-EXPORT void cwcglDeleteFencesAPPLE(GLcontext *context, GLsizei n, const GLuint * fences);
-EXPORT void cwcglDeleteFencesNV(GLcontext *context, GLsizei n, const GLuint * fences);
-EXPORT void cwcglDeleteFragmentShaderATI(GLcontext *context, GLuint id);
-EXPORT void cwcglDeleteFramebuffers(GLcontext *context, GLsizei n, const GLuint * framebuffers);
-EXPORT void cwcglDeleteFramebuffersEXT(GLcontext *context, GLsizei n, const GLuint * framebuffers);
-EXPORT void cwcglDeleteFramebuffersOES(GLcontext *context, GLsizei n, const GLuint * framebuffers);
-EXPORT void cwcglDeleteLists(GLcontext *context, GLuint list, GLsizei range);
-EXPORT void cwcglDeleteNamedStringARB(GLcontext *context, GLint namelen, const GLchar * name);
-EXPORT void cwcglDeleteNamesAMD(GLcontext *context, GLenum identifier, GLuint num, const GLuint * names);
-EXPORT void cwcglDeleteObjectARB(GLcontext *context, GLhandleARB obj);
-EXPORT void cwcglDeleteOcclusionQueriesNV(GLcontext *context, GLsizei n, const GLuint * ids);
-EXPORT void cwcglDeletePathsNV(GLcontext *context, GLuint path, GLsizei range);
-EXPORT void cwcglDeletePerfMonitorsAMD(GLcontext *context, GLsizei n, GLuint * monitors);
-EXPORT void cwcglDeletePerfQueryINTEL(GLcontext *context, GLuint queryHandle);
-EXPORT void cwcglDeleteProgram(GLcontext *context, GLuint program);
-EXPORT void cwcglDeleteProgramPipelines(GLcontext *context, GLsizei n, const GLuint * pipelines);
-EXPORT void cwcglDeleteProgramPipelinesEXT(GLcontext *context, GLsizei n, const GLuint * pipelines);
-EXPORT void cwcglDeleteProgramsARB(GLcontext *context, GLsizei n, const GLuint * programs);
-EXPORT void cwcglDeleteProgramsNV(GLcontext *context, GLsizei n, const GLuint * programs);
-EXPORT void cwcglDeleteQueries(GLcontext *context, GLsizei n, const GLuint * ids);
-EXPORT void cwcglDeleteQueriesARB(GLcontext *context, GLsizei n, const GLuint * ids);
-EXPORT void cwcglDeleteQueriesEXT(GLcontext *context, GLsizei n, const GLuint * ids);
-EXPORT void cwcglDeleteRenderbuffers(GLcontext *context, GLsizei n, const GLuint * renderbuffers);
-EXPORT void cwcglDeleteRenderbuffersEXT(GLcontext *context, GLsizei n, const GLuint * renderbuffers);
-EXPORT void cwcglDeleteRenderbuffersOES(GLcontext *context, GLsizei n, const GLuint * renderbuffers);
-EXPORT void cwcglDeleteSamplers(GLcontext *context, GLsizei count, const GLuint * samplers);
-EXPORT void cwcglDeleteShader(GLcontext *context, GLuint shader);
-EXPORT void cwcglDeleteStatesNV(GLcontext *context, GLsizei n, const GLuint * states);
-EXPORT void cwcglDeleteSync(GLcontext *context, GLsync sync);
-EXPORT void cwcglDeleteSyncAPPLE(GLcontext *context, GLsync sync);
-EXPORT void cwcglDeleteTextures(GLcontext *context, GLsizei n, const GLuint * textures);
-EXPORT void cwcglDeleteTexturesEXT(GLcontext *context, GLsizei n, const GLuint * textures);
-EXPORT void cwcglDeleteTransformFeedbacks(GLcontext *context, GLsizei n, const GLuint * ids);
-EXPORT void cwcglDeleteTransformFeedbacksNV(GLcontext *context, GLsizei n, const GLuint * ids);
-EXPORT void cwcglDeleteVertexArrays(GLcontext *context, GLsizei n, const GLuint * arrays);
-EXPORT void cwcglDeleteVertexArraysAPPLE(GLcontext *context, GLsizei n, const GLuint * arrays);
-EXPORT void cwcglDeleteVertexArraysOES(GLcontext *context, GLsizei n, const GLuint * arrays);
-EXPORT void cwcglDeleteVertexShaderEXT(GLcontext *context, GLuint id);
-EXPORT void cwcglDepthBoundsEXT(GLcontext *context, GLclampd zmin, GLclampd zmax);
-EXPORT void cwcglDepthBoundsdNV(GLcontext *context, GLdouble zmin, GLdouble zmax);
-EXPORT void cwcglDepthFunc(GLcontext *context, GLenum func);
-EXPORT void cwcglDepthMask(GLcontext *context, GLboolean flag);
-EXPORT void cwcglDepthRange(GLcontext *context, GLdouble near, GLdouble far);
-EXPORT void cwcglDepthRangeArrayfvNV(GLcontext *context, GLuint first, GLsizei count, const GLfloat * v);
-EXPORT void cwcglDepthRangeArrayfvOES(GLcontext *context, GLuint first, GLsizei count, const GLfloat * v);
-EXPORT void cwcglDepthRangeArrayv(GLcontext *context, GLuint first, GLsizei count, const GLdouble * v);
-EXPORT void cwcglDepthRangeIndexed(GLcontext *context, GLuint index, GLdouble n, GLdouble f);
-EXPORT void cwcglDepthRangeIndexedfNV(GLcontext *context, GLuint index, GLfloat n, GLfloat f);
-EXPORT void cwcglDepthRangeIndexedfOES(GLcontext *context, GLuint index, GLfloat n, GLfloat f);
-EXPORT void cwcglDepthRangedNV(GLcontext *context, GLdouble zNear, GLdouble zFar);
-EXPORT void cwcglDepthRangef(GLcontext *context, GLfloat n, GLfloat f);
-EXPORT void cwcglDepthRangefOES(GLcontext *context, GLclampf n, GLclampf f);
-EXPORT void cwcglDepthRangex(GLcontext *context, GLfixed n, GLfixed f);
-EXPORT void cwcglDepthRangexOES(GLcontext *context, GLfixed n, GLfixed f);
-EXPORT void cwcglDetachObjectARB(GLcontext *context, GLhandleARB containerObj, GLhandleARB attachedObj);
-EXPORT void cwcglDetachShader(GLcontext *context, GLuint program, GLuint shader);
-EXPORT void cwcglDetailTexFuncSGIS(GLcontext *context, GLenum target, GLsizei n, const GLfloat * points);
-EXPORT void cwcglDisable(GLcontext *context, GLenum cap);
-EXPORT void cwcglDisableClientState(GLcontext *context, GLenum array);
-EXPORT void cwcglDisableClientStateIndexedEXT(GLcontext *context, GLenum array, GLuint index);
-EXPORT void cwcglDisableClientStateiEXT(GLcontext *context, GLenum array, GLuint index);
-EXPORT void cwcglDisableDriverControlQCOM(GLcontext *context, GLuint driverControl);
-EXPORT void cwcglDisableIndexedEXT(GLcontext *context, GLenum target, GLuint index);
-EXPORT void cwcglDisableVariantClientStateEXT(GLcontext *context, GLuint id);
-EXPORT void cwcglDisableVertexArrayAttrib(GLcontext *context, GLuint vaobj, GLuint index);
-EXPORT void cwcglDisableVertexArrayAttribEXT(GLcontext *context, GLuint vaobj, GLuint index);
-EXPORT void cwcglDisableVertexArrayEXT(GLcontext *context, GLuint vaobj, GLenum array);
-EXPORT void cwcglDisableVertexAttribAPPLE(GLcontext *context, GLuint index, GLenum pname);
-EXPORT void cwcglDisableVertexAttribArray(GLcontext *context, GLuint index);
-EXPORT void cwcglDisableVertexAttribArrayARB(GLcontext *context, GLuint index);
-EXPORT void cwcglDisablei(GLcontext *context, GLenum target, GLuint index);
-EXPORT void cwcglDisableiEXT(GLcontext *context, GLenum target, GLuint index);
-EXPORT void cwcglDisableiNV(GLcontext *context, GLenum target, GLuint index);
-EXPORT void cwcglDisableiOES(GLcontext *context, GLenum target, GLuint index);
-EXPORT void cwcglDiscardFramebufferEXT(GLcontext *context, GLenum target, GLsizei numAttachments, const GLenum * attachments);
-EXPORT void cwcglDispatchCompute(GLcontext *context, GLuint num_groups_x, GLuint num_groups_y, GLuint num_groups_z);
-EXPORT void cwcglDispatchComputeGroupSizeARB(GLcontext *context, GLuint num_groups_x, GLuint num_groups_y, GLuint num_groups_z, GLuint group_size_x, GLuint group_size_y, GLuint group_size_z);
-EXPORT void cwcglDispatchComputeIndirect(GLcontext *context, GLintptr indirect);
-EXPORT void cwcglDrawArrays(GLcontext *context, GLenum mode, GLint first, GLsizei count);
-EXPORT void cwcglDrawArraysEXT(GLcontext *context, GLenum mode, GLint first, GLsizei count);
-EXPORT void cwcglDrawArraysIndirect(GLcontext *context, GLenum mode, const void * indirect);
-EXPORT void cwcglDrawArraysInstanced(GLcontext *context, GLenum mode, GLint first, GLsizei count, GLsizei instancecount);
-EXPORT void cwcglDrawArraysInstancedANGLE(GLcontext *context, GLenum mode, GLint first, GLsizei count, GLsizei primcount);
-EXPORT void cwcglDrawArraysInstancedARB(GLcontext *context, GLenum mode, GLint first, GLsizei count, GLsizei primcount);
-EXPORT void cwcglDrawArraysInstancedBaseInstance(GLcontext *context, GLenum mode, GLint first, GLsizei count, GLsizei instancecount, GLuint baseinstance);
-EXPORT void cwcglDrawArraysInstancedBaseInstanceEXT(GLcontext *context, GLenum mode, GLint first, GLsizei count, GLsizei instancecount, GLuint baseinstance);
-EXPORT void cwcglDrawArraysInstancedEXT(GLcontext *context, GLenum mode, GLint start, GLsizei count, GLsizei primcount);
-EXPORT void cwcglDrawArraysInstancedNV(GLcontext *context, GLenum mode, GLint first, GLsizei count, GLsizei primcount);
-EXPORT void cwcglDrawBuffer(GLcontext *context, GLenum buf);
-EXPORT void cwcglDrawBuffers(GLcontext *context, GLsizei n, const GLenum * bufs);
-EXPORT void cwcglDrawBuffersARB(GLcontext *context, GLsizei n, const GLenum * bufs);
-EXPORT void cwcglDrawBuffersATI(GLcontext *context, GLsizei n, const GLenum * bufs);
-EXPORT void cwcglDrawBuffersEXT(GLcontext *context, GLsizei n, const GLenum * bufs);
-EXPORT void cwcglDrawBuffersIndexedEXT(GLcontext *context, GLint n, const GLenum * location, const GLint * indices);
-EXPORT void cwcglDrawBuffersNV(GLcontext *context, GLsizei n, const GLenum * bufs);
-EXPORT void cwcglDrawCommandsAddressNV(GLcontext *context, GLenum primitiveMode, const GLuint64 * indirects, const GLsizei * sizes, GLuint count);
-EXPORT void cwcglDrawCommandsNV(GLcontext *context, GLenum primitiveMode, GLuint buffer, const GLintptr * indirects, const GLsizei * sizes, GLuint count);
-EXPORT void cwcglDrawCommandsStatesAddressNV(GLcontext *context, const GLuint64 * indirects, const GLsizei * sizes, const GLuint * states, const GLuint * fbos, GLuint count);
-EXPORT void cwcglDrawCommandsStatesNV(GLcontext *context, GLuint buffer, const GLintptr * indirects, const GLsizei * sizes, const GLuint * states, const GLuint * fbos, GLuint count);
-EXPORT void cwcglDrawElementArrayAPPLE(GLcontext *context, GLenum mode, GLint first, GLsizei count);
-EXPORT void cwcglDrawElementArrayATI(GLcontext *context, GLenum mode, GLsizei count);
-EXPORT void cwcglDrawElements(GLcontext *context, GLenum mode, GLsizei count, GLenum type, const void * indices);
-EXPORT void cwcglDrawElementsBaseVertex(GLcontext *context, GLenum mode, GLsizei count, GLenum type, const void * indices, GLint basevertex);
-EXPORT void cwcglDrawElementsBaseVertexEXT(GLcontext *context, GLenum mode, GLsizei count, GLenum type, const void * indices, GLint basevertex);
-EXPORT void cwcglDrawElementsBaseVertexOES(GLcontext *context, GLenum mode, GLsizei count, GLenum type, const void * indices, GLint basevertex);
-EXPORT void cwcglDrawElementsIndirect(GLcontext *context, GLenum mode, GLenum type, const void * indirect);
-EXPORT void cwcglDrawElementsInstanced(GLcontext *context, GLenum mode, GLsizei count, GLenum type, const void * indices, GLsizei instancecount);
-EXPORT void cwcglDrawElementsInstancedANGLE(GLcontext *context, GLenum mode, GLsizei count, GLenum type, const void * indices, GLsizei primcount);
-EXPORT void cwcglDrawElementsInstancedARB(GLcontext *context, GLenum mode, GLsizei count, GLenum type, const void * indices, GLsizei primcount);
-EXPORT void cwcglDrawElementsInstancedBaseInstance(GLcontext *context, GLenum mode, GLsizei count, GLenum type, const void * indices, GLsizei instancecount, GLuint baseinstance);
-EXPORT void cwcglDrawElementsInstancedBaseInstanceEXT(GLcontext *context, GLenum mode, GLsizei count, GLenum type, const void * indices, GLsizei instancecount, GLuint baseinstance);
-EXPORT void cwcglDrawElementsInstancedBaseVertex(GLcontext *context, GLenum mode, GLsizei count, GLenum type, const void * indices, GLsizei instancecount, GLint basevertex);
-EXPORT void cwcglDrawElementsInstancedBaseVertexBaseInstance(GLcontext *context, GLenum mode, GLsizei count, GLenum type, const void * indices, GLsizei instancecount, GLint basevertex, GLuint baseinstance);
-EXPORT void cwcglDrawElementsInstancedBaseVertexBaseInstanceEXT(GLcontext *context, GLenum mode, GLsizei count, GLenum type, const void * indices, GLsizei instancecount, GLint basevertex, GLuint baseinstance);
-EXPORT void cwcglDrawElementsInstancedBaseVertexEXT(GLcontext *context, GLenum mode, GLsizei count, GLenum type, const void * indices, GLsizei instancecount, GLint basevertex);
-EXPORT void cwcglDrawElementsInstancedBaseVertexOES(GLcontext *context, GLenum mode, GLsizei count, GLenum type, const void * indices, GLsizei instancecount, GLint basevertex);
-EXPORT void cwcglDrawElementsInstancedEXT(GLcontext *context, GLenum mode, GLsizei count, GLenum type, const void * indices, GLsizei primcount);
-EXPORT void cwcglDrawElementsInstancedNV(GLcontext *context, GLenum mode, GLsizei count, GLenum type, const void * indices, GLsizei primcount);
-EXPORT void cwcglDrawMeshArraysSUN(GLcontext *context, GLenum mode, GLint first, GLsizei count, GLsizei width);
-EXPORT void cwcglDrawPixels(GLcontext *context, GLsizei width, GLsizei height, GLenum format, GLenum type, const void * pixels);
-EXPORT void cwcglDrawRangeElementArrayAPPLE(GLcontext *context, GLenum mode, GLuint start, GLuint end, GLint first, GLsizei count);
-EXPORT void cwcglDrawRangeElementArrayATI(GLcontext *context, GLenum mode, GLuint start, GLuint end, GLsizei count);
-EXPORT void cwcglDrawRangeElements(GLcontext *context, GLenum mode, GLuint start, GLuint end, GLsizei count, GLenum type, const void * indices);
-EXPORT void cwcglDrawRangeElementsBaseVertex(GLcontext *context, GLenum mode, GLuint start, GLuint end, GLsizei count, GLenum type, const void * indices, GLint basevertex);
-EXPORT void cwcglDrawRangeElementsBaseVertexEXT(GLcontext *context, GLenum mode, GLuint start, GLuint end, GLsizei count, GLenum type, const void * indices, GLint basevertex);
-EXPORT void cwcglDrawRangeElementsBaseVertexOES(GLcontext *context, GLenum mode, GLuint start, GLuint end, GLsizei count, GLenum type, const void * indices, GLint basevertex);
-EXPORT void cwcglDrawRangeElementsEXT(GLcontext *context, GLenum mode, GLuint start, GLuint end, GLsizei count, GLenum type, const void * indices);
-EXPORT void cwcglDrawTexfOES(GLcontext *context, GLfloat x, GLfloat y, GLfloat z, GLfloat width, GLfloat height);
-EXPORT void cwcglDrawTexfvOES(GLcontext *context, const GLfloat * coords);
-EXPORT void cwcglDrawTexiOES(GLcontext *context, GLint x, GLint y, GLint z, GLint width, GLint height);
-EXPORT void cwcglDrawTexivOES(GLcontext *context, const GLint * coords);
-EXPORT void cwcglDrawTexsOES(GLcontext *context, GLshort x, GLshort y, GLshort z, GLshort width, GLshort height);
-EXPORT void cwcglDrawTexsvOES(GLcontext *context, const GLshort * coords);
-EXPORT void cwcglDrawTextureNV(GLcontext *context, GLuint texture, GLuint sampler, GLfloat x0, GLfloat y0, GLfloat x1, GLfloat y1, GLfloat z, GLfloat s0, GLfloat t0, GLfloat s1, GLfloat t1);
-EXPORT void cwcglDrawTexxOES(GLcontext *context, GLfixed x, GLfixed y, GLfixed z, GLfixed width, GLfixed height);
-EXPORT void cwcglDrawTexxvOES(GLcontext *context, const GLfixed * coords);
-EXPORT void cwcglDrawTransformFeedback(GLcontext *context, GLenum mode, GLuint id);
-EXPORT void cwcglDrawTransformFeedbackEXT(GLcontext *context, GLenum mode, GLuint id);
-EXPORT void cwcglDrawTransformFeedbackInstanced(GLcontext *context, GLenum mode, GLuint id, GLsizei instancecount);
-EXPORT void cwcglDrawTransformFeedbackInstancedEXT(GLcontext *context, GLenum mode, GLuint id, GLsizei instancecount);
-EXPORT void cwcglDrawTransformFeedbackNV(GLcontext *context, GLenum mode, GLuint id);
-EXPORT void cwcglDrawTransformFeedbackStream(GLcontext *context, GLenum mode, GLuint id, GLuint stream);
-EXPORT void cwcglDrawTransformFeedbackStreamInstanced(GLcontext *context, GLenum mode, GLuint id, GLuint stream, GLsizei instancecount);
-EXPORT void cwcglEGLImageTargetRenderbufferStorageOES(GLcontext *context, GLenum target, GLeglImageOES image);
-EXPORT void cwcglEGLImageTargetTexture2DOES(GLcontext *context, GLenum target, GLeglImageOES image);
 EXPORT void cwcglEdgeFlag(GLcontext *context, GLboolean flag);
-EXPORT void cwcglEdgeFlagFormatNV(GLcontext *context, GLsizei stride);
-EXPORT void cwcglEdgeFlagPointer(GLcontext *context, GLsizei stride, const void * pointer);
-EXPORT void cwcglEdgeFlagPointerEXT(GLcontext *context, GLsizei stride, GLsizei count, const GLboolean * pointer);
-EXPORT void cwcglEdgeFlagPointerListIBM(GLcontext *context, GLint stride, const GLboolean ** pointer, GLint ptrstride);
 EXPORT void cwcglEdgeFlagv(GLcontext *context, const GLboolean * flag);
-EXPORT void cwcglElementPointerAPPLE(GLcontext *context, GLenum type, const void * pointer);
-EXPORT void cwcglElementPointerATI(GLcontext *context, GLenum type, const void * pointer);
-EXPORT void cwcglEnable(GLcontext *context, GLenum cap);
-EXPORT void cwcglEnableClientState(GLcontext *context, GLenum array);
-EXPORT void cwcglEnableClientStateIndexedEXT(GLcontext *context, GLenum array, GLuint index);
-EXPORT void cwcglEnableClientStateiEXT(GLcontext *context, GLenum array, GLuint index);
-EXPORT void cwcglEnableDriverControlQCOM(GLcontext *context, GLuint driverControl);
-EXPORT void cwcglEnableIndexedEXT(GLcontext *context, GLenum target, GLuint index);
-EXPORT void cwcglEnableVariantClientStateEXT(GLcontext *context, GLuint id);
-EXPORT void cwcglEnableVertexArrayAttrib(GLcontext *context, GLuint vaobj, GLuint index);
-EXPORT void cwcglEnableVertexArrayAttribEXT(GLcontext *context, GLuint vaobj, GLuint index);
-EXPORT void cwcglEnableVertexArrayEXT(GLcontext *context, GLuint vaobj, GLenum array);
-EXPORT void cwcglEnableVertexAttribAPPLE(GLcontext *context, GLuint index, GLenum pname);
-EXPORT void cwcglEnableVertexAttribArray(GLcontext *context, GLuint index);
-EXPORT void cwcglEnableVertexAttribArrayARB(GLcontext *context, GLuint index);
-EXPORT void cwcglEnablei(GLcontext *context, GLenum target, GLuint index);
-EXPORT void cwcglEnableiEXT(GLcontext *context, GLenum target, GLuint index);
-EXPORT void cwcglEnableiNV(GLcontext *context, GLenum target, GLuint index);
-EXPORT void cwcglEnableiOES(GLcontext *context, GLenum target, GLuint index);
 EXPORT void cwcglEnd(GLcontext *context);
-EXPORT void cwcglEndConditionalRender(GLcontext *context);
-EXPORT void cwcglEndConditionalRenderNV(GLcontext *context);
-EXPORT void cwcglEndConditionalRenderNVX(GLcontext *context);
-EXPORT void cwcglEndFragmentShaderATI(GLcontext *context);
-EXPORT void cwcglEndList(GLcontext *context);
-EXPORT void cwcglEndOcclusionQueryNV(GLcontext *context);
-EXPORT void cwcglEndPerfMonitorAMD(GLcontext *context, GLuint monitor);
-EXPORT void cwcglEndPerfQueryINTEL(GLcontext *context, GLuint queryHandle);
-EXPORT void cwcglEndQuery(GLcontext *context, GLenum target);
-EXPORT void cwcglEndQueryARB(GLcontext *context, GLenum target);
-EXPORT void cwcglEndQueryEXT(GLcontext *context, GLenum target);
-EXPORT void cwcglEndQueryIndexed(GLcontext *context, GLenum target, GLuint index);
-EXPORT void cwcglEndTilingQCOM(GLcontext *context, GLbitfield preserveMask);
-EXPORT void cwcglEndTransformFeedback(GLcontext *context);
-EXPORT void cwcglEndTransformFeedbackEXT(GLcontext *context);
-EXPORT void cwcglEndTransformFeedbackNV(GLcontext *context);
-EXPORT void cwcglEndVertexShaderEXT(GLcontext *context);
-EXPORT void cwcglEndVideoCaptureNV(GLcontext *context, GLuint video_capture_slot);
-EXPORT void cwcglEvalCoord1d(GLcontext *context, GLdouble u);
-EXPORT void cwcglEvalCoord1dv(GLcontext *context, const GLdouble * u);
-EXPORT void cwcglEvalCoord1f(GLcontext *context, GLfloat u);
-EXPORT void cwcglEvalCoord1fv(GLcontext *context, const GLfloat * u);
-EXPORT void cwcglEvalCoord1xOES(GLcontext *context, GLfixed u);
-EXPORT void cwcglEvalCoord1xvOES(GLcontext *context, const GLfixed * coords);
-EXPORT void cwcglEvalCoord2d(GLcontext *context, GLdouble u, GLdouble v);
-EXPORT void cwcglEvalCoord2dv(GLcontext *context, const GLdouble * u);
-EXPORT void cwcglEvalCoord2f(GLcontext *context, GLfloat u, GLfloat v);
-EXPORT void cwcglEvalCoord2fv(GLcontext *context, const GLfloat * u);
-EXPORT void cwcglEvalCoord2xOES(GLcontext *context, GLfixed u, GLfixed v);
-EXPORT void cwcglEvalCoord2xvOES(GLcontext *context, const GLfixed * coords);
-EXPORT void cwcglEvalMapsNV(GLcontext *context, GLenum target, GLenum mode);
-EXPORT void cwcglEvalMesh1(GLcontext *context, GLenum mode, GLint i1, GLint i2);
-EXPORT void cwcglEvalMesh2(GLcontext *context, GLenum mode, GLint i1, GLint i2, GLint j1, GLint j2);
-EXPORT void cwcglEvalPoint1(GLcontext *context, GLint i);
-EXPORT void cwcglEvalPoint2(GLcontext *context, GLint i, GLint j);
-EXPORT void cwcglEvaluateDepthValuesARB(GLcontext *context);
-EXPORT void cwcglExecuteProgramNV(GLcontext *context, GLenum target, GLuint id, const GLfloat * params);
-EXPORT void cwcglExtGetBufferPointervQCOM(GLcontext *context, GLenum target, void ** params);
-EXPORT void cwcglExtGetBuffersQCOM(GLcontext *context, GLuint * buffers, GLint maxBuffers, GLint * numBuffers);
-EXPORT void cwcglExtGetFramebuffersQCOM(GLcontext *context, GLuint * framebuffers, GLint maxFramebuffers, GLint * numFramebuffers);
-EXPORT void cwcglExtGetProgramBinarySourceQCOM(GLcontext *context, GLuint program, GLenum shadertype, GLchar * source, GLint * length);
-EXPORT void cwcglExtGetProgramsQCOM(GLcontext *context, GLuint * programs, GLint maxPrograms, GLint * numPrograms);
-EXPORT void cwcglExtGetRenderbuffersQCOM(GLcontext *context, GLuint * renderbuffers, GLint maxRenderbuffers, GLint * numRenderbuffers);
-EXPORT void cwcglExtGetShadersQCOM(GLcontext *context, GLuint * shaders, GLint maxShaders, GLint * numShaders);
-EXPORT void cwcglExtGetTexLevelParameterivQCOM(GLcontext *context, GLuint texture, GLenum face, GLint level, GLenum pname, GLint * params);
-EXPORT void cwcglExtGetTexSubImageQCOM(GLcontext *context, GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLenum format, GLenum type, void * texels);
-EXPORT void cwcglExtGetTexturesQCOM(GLcontext *context, GLuint * textures, GLint maxTextures, GLint * numTextures);
-EXPORT void cwcglExtIsProgramBinaryQCOM(GLcontext *context, GLuint program, GLboolean* return_value);
-EXPORT void cwcglExtTexObjectStateOverrideiQCOM(GLcontext *context, GLenum target, GLenum pname, GLint param);
-EXPORT void cwcglExtractComponentEXT(GLcontext *context, GLuint res, GLuint src, GLuint num);
-EXPORT void cwcglFeedbackBuffer(GLcontext *context, GLsizei size, GLenum type, GLfloat * buffer);
-EXPORT void cwcglFeedbackBufferxOES(GLcontext *context, GLsizei n, GLenum type, const GLfixed * buffer);
-EXPORT void cwcglFenceSync(GLcontext *context, GLenum condition, GLbitfield flags, GLsync* return_value);
-EXPORT void cwcglFenceSyncAPPLE(GLcontext *context, GLenum condition, GLbitfield flags, GLsync* return_value);
-EXPORT void cwcglFinalCombinerInputNV(GLcontext *context, GLenum variable, GLenum input, GLenum mapping, GLenum componentUsage);
-EXPORT void cwcglFinish(GLcontext *context);
-EXPORT void cwcglFinishAsyncSGIX(GLcontext *context, GLuint * markerp, GLint* return_value);
-EXPORT void cwcglFinishFenceAPPLE(GLcontext *context, GLuint fence);
-EXPORT void cwcglFinishFenceNV(GLcontext *context, GLuint fence);
-EXPORT void cwcglFinishObjectAPPLE(GLcontext *context, GLenum object, GLint name);
-EXPORT void cwcglFinishTextureSUNX(GLcontext *context);
-EXPORT void cwcglFlush(GLcontext *context);
-EXPORT void cwcglFlushMappedBufferRange(GLcontext *context, GLenum target, GLintptr offset, GLsizeiptr length);
-EXPORT void cwcglFlushMappedBufferRangeAPPLE(GLcontext *context, GLenum target, GLintptr offset, GLsizeiptr size);
-EXPORT void cwcglFlushMappedBufferRangeEXT(GLcontext *context, GLenum target, GLintptr offset, GLsizeiptr length);
-EXPORT void cwcglFlushMappedNamedBufferRange(GLcontext *context, GLuint buffer, GLintptr offset, GLsizeiptr length);
-EXPORT void cwcglFlushMappedNamedBufferRangeEXT(GLcontext *context, GLuint buffer, GLintptr offset, GLsizeiptr length);
-EXPORT void cwcglFlushPixelDataRangeNV(GLcontext *context, GLenum target);
-EXPORT void cwcglFlushRasterSGIX(GLcontext *context);
-EXPORT void cwcglFlushStaticDataIBM(GLcontext *context, GLenum target);
-EXPORT void cwcglFlushVertexArrayRangeAPPLE(GLcontext *context, GLsizei length, void * pointer);
-EXPORT void cwcglFlushVertexArrayRangeNV(GLcontext *context);
-EXPORT void cwcglFogCoordFormatNV(GLcontext *context, GLenum type, GLsizei stride);
-EXPORT void cwcglFogCoordPointer(GLcontext *context, GLenum type, GLsizei stride, const void * pointer);
-EXPORT void cwcglFogCoordPointerEXT(GLcontext *context, GLenum type, GLsizei stride, const void * pointer);
-EXPORT void cwcglFogCoordPointerListIBM(GLcontext *context, GLenum type, GLint stride, const void ** pointer, GLint ptrstride);
-EXPORT void cwcglFogCoordd(GLcontext *context, GLdouble coord);
-EXPORT void cwcglFogCoorddEXT(GLcontext *context, GLdouble coord);
-EXPORT void cwcglFogCoorddv(GLcontext *context, const GLdouble * coord);
-EXPORT void cwcglFogCoorddvEXT(GLcontext *context, const GLdouble * coord);
-EXPORT void cwcglFogCoordf(GLcontext *context, GLfloat coord);
-EXPORT void cwcglFogCoordfEXT(GLcontext *context, GLfloat coord);
-EXPORT void cwcglFogCoordfv(GLcontext *context, const GLfloat * coord);
-EXPORT void cwcglFogCoordfvEXT(GLcontext *context, const GLfloat * coord);
-EXPORT void cwcglFogCoordhNV(GLcontext *context, GLhalfNV fog);
-EXPORT void cwcglFogCoordhvNV(GLcontext *context, const GLhalfNV * fog);
-EXPORT void cwcglFogFuncSGIS(GLcontext *context, GLsizei n, const GLfloat * points);
-EXPORT void cwcglFogf(GLcontext *context, GLenum pname, GLfloat param);
-EXPORT void cwcglFogfv(GLcontext *context, GLenum pname, const GLfloat * params);
-EXPORT void cwcglFogi(GLcontext *context, GLenum pname, GLint param);
-EXPORT void cwcglFogiv(GLcontext *context, GLenum pname, const GLint * params);
-EXPORT void cwcglFogx(GLcontext *context, GLenum pname, GLfixed param);
-EXPORT void cwcglFogxOES(GLcontext *context, GLenum pname, GLfixed param);
-EXPORT void cwcglFogxv(GLcontext *context, GLenum pname, const GLfixed * param);
-EXPORT void cwcglFogxvOES(GLcontext *context, GLenum pname, const GLfixed * param);
-EXPORT void cwcglFragmentColorMaterialSGIX(GLcontext *context, GLenum face, GLenum mode);
-EXPORT void cwcglFragmentCoverageColorNV(GLcontext *context, GLuint color);
-EXPORT void cwcglFragmentLightModelfSGIX(GLcontext *context, GLenum pname, GLfloat param);
-EXPORT void cwcglFragmentLightModelfvSGIX(GLcontext *context, GLenum pname, const GLfloat * params);
-EXPORT void cwcglFragmentLightModeliSGIX(GLcontext *context, GLenum pname, GLint param);
-EXPORT void cwcglFragmentLightModelivSGIX(GLcontext *context, GLenum pname, const GLint * params);
-EXPORT void cwcglFragmentLightfSGIX(GLcontext *context, GLenum light, GLenum pname, GLfloat param);
-EXPORT void cwcglFragmentLightfvSGIX(GLcontext *context, GLenum light, GLenum pname, const GLfloat * params);
-EXPORT void cwcglFragmentLightiSGIX(GLcontext *context, GLenum light, GLenum pname, GLint param);
-EXPORT void cwcglFragmentLightivSGIX(GLcontext *context, GLenum light, GLenum pname, const GLint * params);
-EXPORT void cwcglFragmentMaterialfSGIX(GLcontext *context, GLenum face, GLenum pname, GLfloat param);
-EXPORT void cwcglFragmentMaterialfvSGIX(GLcontext *context, GLenum face, GLenum pname, const GLfloat * params);
-EXPORT void cwcglFragmentMaterialiSGIX(GLcontext *context, GLenum face, GLenum pname, GLint param);
-EXPORT void cwcglFragmentMaterialivSGIX(GLcontext *context, GLenum face, GLenum pname, const GLint * params);
-EXPORT void cwcglFrameTerminatorGREMEDY(GLcontext *context);
-EXPORT void cwcglFrameZoomSGIX(GLcontext *context, GLint factor);
-EXPORT void cwcglFramebufferDrawBufferEXT(GLcontext *context, GLuint framebuffer, GLenum mode);
-EXPORT void cwcglFramebufferDrawBuffersEXT(GLcontext *context, GLuint framebuffer, GLsizei n, const GLenum * bufs);
-EXPORT void cwcglFramebufferParameteri(GLcontext *context, GLenum target, GLenum pname, GLint param);
-EXPORT void cwcglFramebufferPixelLocalStorageSizeEXT(GLcontext *context, GLuint target, GLsizei size);
-EXPORT void cwcglFramebufferReadBufferEXT(GLcontext *context, GLuint framebuffer, GLenum mode);
-EXPORT void cwcglFramebufferRenderbuffer(GLcontext *context, GLenum target, GLenum attachment, GLenum renderbuffertarget, GLuint renderbuffer);
-EXPORT void cwcglFramebufferRenderbufferEXT(GLcontext *context, GLenum target, GLenum attachment, GLenum renderbuffertarget, GLuint renderbuffer);
-EXPORT void cwcglFramebufferRenderbufferOES(GLcontext *context, GLenum target, GLenum attachment, GLenum renderbuffertarget, GLuint renderbuffer);
-EXPORT void cwcglFramebufferSampleLocationsfvARB(GLcontext *context, GLenum target, GLuint start, GLsizei count, const GLfloat * v);
-EXPORT void cwcglFramebufferSampleLocationsfvNV(GLcontext *context, GLenum target, GLuint start, GLsizei count, const GLfloat * v);
-EXPORT void cwcglFramebufferSamplePositionsfvAMD(GLcontext *context, GLenum target, GLuint numsamples, GLuint pixelindex, const GLfloat * values);
-EXPORT void cwcglFramebufferTexture(GLcontext *context, GLenum target, GLenum attachment, GLuint texture, GLint level);
-EXPORT void cwcglFramebufferTexture1D(GLcontext *context, GLenum target, GLenum attachment, GLenum textarget, GLuint texture, GLint level);
-EXPORT void cwcglFramebufferTexture1DEXT(GLcontext *context, GLenum target, GLenum attachment, GLenum textarget, GLuint texture, GLint level);
-EXPORT void cwcglFramebufferTexture2D(GLcontext *context, GLenum target, GLenum attachment, GLenum textarget, GLuint texture, GLint level);
-EXPORT void cwcglFramebufferTexture2DEXT(GLcontext *context, GLenum target, GLenum attachment, GLenum textarget, GLuint texture, GLint level);
-EXPORT void cwcglFramebufferTexture2DDownsampleIMG(GLcontext *context, GLenum target, GLenum attachment, GLenum textarget, GLuint texture, GLint level, GLint xscale, GLint yscale);
-EXPORT void cwcglFramebufferTexture2DMultisampleEXT(GLcontext *context, GLenum target, GLenum attachment, GLenum textarget, GLuint texture, GLint level, GLsizei samples);
-EXPORT void cwcglFramebufferTexture2DMultisampleIMG(GLcontext *context, GLenum target, GLenum attachment, GLenum textarget, GLuint texture, GLint level, GLsizei samples);
-EXPORT void cwcglFramebufferTexture2DOES(GLcontext *context, GLenum target, GLenum attachment, GLenum textarget, GLuint texture, GLint level);
-EXPORT void cwcglFramebufferTexture3D(GLcontext *context, GLenum target, GLenum attachment, GLenum textarget, GLuint texture, GLint level, GLint zoffset);
-EXPORT void cwcglFramebufferTexture3DEXT(GLcontext *context, GLenum target, GLenum attachment, GLenum textarget, GLuint texture, GLint level, GLint zoffset);
-EXPORT void cwcglFramebufferTexture3DOES(GLcontext *context, GLenum target, GLenum attachment, GLenum textarget, GLuint texture, GLint level, GLint zoffset);
-EXPORT void cwcglFramebufferTextureARB(GLcontext *context, GLenum target, GLenum attachment, GLuint texture, GLint level);
-EXPORT void cwcglFramebufferTextureEXT(GLcontext *context, GLenum target, GLenum attachment, GLuint texture, GLint level);
-EXPORT void cwcglFramebufferTextureFaceARB(GLcontext *context, GLenum target, GLenum attachment, GLuint texture, GLint level, GLenum face);
-EXPORT void cwcglFramebufferTextureFaceEXT(GLcontext *context, GLenum target, GLenum attachment, GLuint texture, GLint level, GLenum face);
-EXPORT void cwcglFramebufferTextureLayer(GLcontext *context, GLenum target, GLenum attachment, GLuint texture, GLint level, GLint layer);
-EXPORT void cwcglFramebufferTextureLayerARB(GLcontext *context, GLenum target, GLenum attachment, GLuint texture, GLint level, GLint layer);
-EXPORT void cwcglFramebufferTextureLayerEXT(GLcontext *context, GLenum target, GLenum attachment, GLuint texture, GLint level, GLint layer);
-EXPORT void cwcglFramebufferTextureLayerDownsampleIMG(GLcontext *context, GLenum target, GLenum attachment, GLuint texture, GLint level, GLint layer, GLint xscale, GLint yscale);
-EXPORT void cwcglFramebufferTextureMultisampleMultiviewOVR(GLcontext *context, GLenum target, GLenum attachment, GLuint texture, GLint level, GLsizei samples, GLint baseViewIndex, GLsizei numViews);
-EXPORT void cwcglFramebufferTextureMultiviewOVR(GLcontext *context, GLenum target, GLenum attachment, GLuint texture, GLint level, GLint baseViewIndex, GLsizei numViews);
-EXPORT void cwcglFramebufferTextureOES(GLcontext *context, GLenum target, GLenum attachment, GLuint texture, GLint level);
-EXPORT void cwcglFreeObjectBufferATI(GLcontext *context, GLuint buffer);
-EXPORT void cwcglFrontFace(GLcontext *context, GLenum mode);
-EXPORT void cwcglFrustum(GLcontext *context, GLdouble left, GLdouble right, GLdouble bottom, GLdouble top, GLdouble zNear, GLdouble zFar);
-EXPORT void cwcglFrustumf(GLcontext *context, GLfloat l, GLfloat r, GLfloat b, GLfloat t, GLfloat n, GLfloat f);
-EXPORT void cwcglFrustumfOES(GLcontext *context, GLfloat l, GLfloat r, GLfloat b, GLfloat t, GLfloat n, GLfloat f);
-EXPORT void cwcglFrustumx(GLcontext *context, GLfixed l, GLfixed r, GLfixed b, GLfixed t, GLfixed n, GLfixed f);
-EXPORT void cwcglFrustumxOES(GLcontext *context, GLfixed l, GLfixed r, GLfixed b, GLfixed t, GLfixed n, GLfixed f);
-EXPORT void cwcglGenAsyncMarkersSGIX(GLcontext *context, GLsizei range, GLuint* return_value);
-EXPORT void cwcglGenBuffers(GLcontext *context, GLsizei n, GLuint * buffers);
-EXPORT void cwcglGenBuffersARB(GLcontext *context, GLsizei n, GLuint * buffers);
-EXPORT void cwcglGenFencesAPPLE(GLcontext *context, GLsizei n, GLuint * fences);
-EXPORT void cwcglGenFencesNV(GLcontext *context, GLsizei n, GLuint * fences);
-EXPORT void cwcglGenFragmentShadersATI(GLcontext *context, GLuint range, GLuint* return_value);
-EXPORT void cwcglGenFramebuffers(GLcontext *context, GLsizei n, GLuint * framebuffers);
-EXPORT void cwcglGenFramebuffersEXT(GLcontext *context, GLsizei n, GLuint * framebuffers);
-EXPORT void cwcglGenFramebuffersOES(GLcontext *context, GLsizei n, GLuint * framebuffers);
-EXPORT void cwcglGenLists(GLcontext *context, GLsizei range, GLuint* return_value);
-EXPORT void cwcglGenNamesAMD(GLcontext *context, GLenum identifier, GLuint num, GLuint * names);
-EXPORT void cwcglGenOcclusionQueriesNV(GLcontext *context, GLsizei n, GLuint * ids);
-EXPORT void cwcglGenPathsNV(GLcontext *context, GLsizei range, GLuint* return_value);
-EXPORT void cwcglGenPerfMonitorsAMD(GLcontext *context, GLsizei n, GLuint * monitors);
-EXPORT void cwcglGenProgramPipelines(GLcontext *context, GLsizei n, GLuint * pipelines);
-EXPORT void cwcglGenProgramPipelinesEXT(GLcontext *context, GLsizei n, GLuint * pipelines);
-EXPORT void cwcglGenProgramsARB(GLcontext *context, GLsizei n, GLuint * programs);
-EXPORT void cwcglGenProgramsNV(GLcontext *context, GLsizei n, GLuint * programs);
-EXPORT void cwcglGenQueries(GLcontext *context, GLsizei n, GLuint * ids);
-EXPORT void cwcglGenQueriesARB(GLcontext *context, GLsizei n, GLuint * ids);
-EXPORT void cwcglGenQueriesEXT(GLcontext *context, GLsizei n, GLuint * ids);
-EXPORT void cwcglGenRenderbuffers(GLcontext *context, GLsizei n, GLuint * renderbuffers);
-EXPORT void cwcglGenRenderbuffersEXT(GLcontext *context, GLsizei n, GLuint * renderbuffers);
-EXPORT void cwcglGenRenderbuffersOES(GLcontext *context, GLsizei n, GLuint * renderbuffers);
-EXPORT void cwcglGenSamplers(GLcontext *context, GLsizei count, GLuint * samplers);
-EXPORT void cwcglGenSymbolsEXT(GLcontext *context, GLenum datatype, GLenum storagetype, GLenum range, GLuint components, GLuint* return_value);
-EXPORT void cwcglGenTextures(GLcontext *context, GLsizei n, GLuint * textures);
-EXPORT void cwcglGenTexturesEXT(GLcontext *context, GLsizei n, GLuint * textures);
-EXPORT void cwcglGenTransformFeedbacks(GLcontext *context, GLsizei n, GLuint * ids);
-EXPORT void cwcglGenTransformFeedbacksNV(GLcontext *context, GLsizei n, GLuint * ids);
-EXPORT void cwcglGenVertexArrays(GLcontext *context, GLsizei n, GLuint * arrays);
-EXPORT void cwcglGenVertexArraysAPPLE(GLcontext *context, GLsizei n, GLuint * arrays);
-EXPORT void cwcglGenVertexArraysOES(GLcontext *context, GLsizei n, GLuint * arrays);
-EXPORT void cwcglGenVertexShadersEXT(GLcontext *context, GLuint range, GLuint* return_value);
-EXPORT void cwcglGenerateMipmap(GLcontext *context, GLenum target);
-EXPORT void cwcglGenerateMipmapEXT(GLcontext *context, GLenum target);
-EXPORT void cwcglGenerateMipmapOES(GLcontext *context, GLenum target);
-EXPORT void cwcglGenerateMultiTexMipmapEXT(GLcontext *context, GLenum texunit, GLenum target);
-EXPORT void cwcglGenerateTextureMipmap(GLcontext *context, GLuint texture);
-EXPORT void cwcglGenerateTextureMipmapEXT(GLcontext *context, GLuint texture, GLenum target);
-EXPORT void cwcglGetActiveAtomicCounterBufferiv(GLcontext *context, GLuint program, GLuint bufferIndex, GLenum pname, GLint * params);
-EXPORT void cwcglGetActiveAttrib(GLcontext *context, GLuint program, GLuint index, GLsizei bufSize, GLsizei * length, GLint * size, GLenum * type, GLchar * name);
-EXPORT void cwcglGetActiveAttribARB(GLcontext *context, GLhandleARB programObj, GLuint index, GLsizei maxLength, GLsizei * length, GLint * size, GLenum * type, GLcharARB * name);
-EXPORT void cwcglGetActiveSubroutineName(GLcontext *context, GLuint program, GLenum shadertype, GLuint index, GLsizei bufsize, GLsizei * length, GLchar * name);
-EXPORT void cwcglGetActiveSubroutineUniformName(GLcontext *context, GLuint program, GLenum shadertype, GLuint index, GLsizei bufsize, GLsizei * length, GLchar * name);
-EXPORT void cwcglGetActiveSubroutineUniformiv(GLcontext *context, GLuint program, GLenum shadertype, GLuint index, GLenum pname, GLint * values);
-EXPORT void cwcglGetActiveUniform(GLcontext *context, GLuint program, GLuint index, GLsizei bufSize, GLsizei * length, GLint * size, GLenum * type, GLchar * name);
-EXPORT void cwcglGetActiveUniformARB(GLcontext *context, GLhandleARB programObj, GLuint index, GLsizei maxLength, GLsizei * length, GLint * size, GLenum * type, GLcharARB * name);
-EXPORT void cwcglGetActiveUniformBlockName(GLcontext *context, GLuint program, GLuint uniformBlockIndex, GLsizei bufSize, GLsizei * length, GLchar * uniformBlockName);
-EXPORT void cwcglGetActiveUniformBlockiv(GLcontext *context, GLuint program, GLuint uniformBlockIndex, GLenum pname, GLint * params);
-EXPORT void cwcglGetActiveUniformName(GLcontext *context, GLuint program, GLuint uniformIndex, GLsizei bufSize, GLsizei * length, GLchar * uniformName);
-EXPORT void cwcglGetActiveUniformsiv(GLcontext *context, GLuint program, GLsizei uniformCount, const GLuint * uniformIndices, GLenum pname, GLint * params);
-EXPORT void cwcglGetActiveVaryingNV(GLcontext *context, GLuint program, GLuint index, GLsizei bufSize, GLsizei * length, GLsizei * size, GLenum * type, GLchar * name);
-EXPORT void cwcglGetArrayObjectfvATI(GLcontext *context, GLenum array, GLenum pname, GLfloat * params);
-EXPORT void cwcglGetArrayObjectivATI(GLcontext *context, GLenum array, GLenum pname, GLint * params);
-EXPORT void cwcglGetAttachedObjectsARB(GLcontext *context, GLhandleARB containerObj, GLsizei maxCount, GLsizei * count, GLhandleARB * obj);
-EXPORT void cwcglGetAttachedShaders(GLcontext *context, GLuint program, GLsizei maxCount, GLsizei * count, GLuint * shaders);
-EXPORT void cwcglGetAttribLocation(GLcontext *context, GLuint program, const GLchar * name, GLint* return_value);
-EXPORT void cwcglGetAttribLocationARB(GLcontext *context, GLhandleARB programObj, const GLcharARB * name, GLint* return_value);
-EXPORT void cwcglGetBooleanIndexedvEXT(GLcontext *context, GLenum target, GLuint index, GLboolean * data);
-EXPORT void cwcglGetBooleani_v(GLcontext *context, GLenum target, GLuint index, GLboolean * data);
-EXPORT void cwcglGetBooleanv(GLcontext *context, GLenum pname, GLboolean * data);
-EXPORT void cwcglGetBufferParameteri64v(GLcontext *context, GLenum target, GLenum pname, GLint64 * params);
-EXPORT void cwcglGetBufferParameteriv(GLcontext *context, GLenum target, GLenum pname, GLint * params);
-EXPORT void cwcglGetBufferParameterivARB(GLcontext *context, GLenum target, GLenum pname, GLint * params);
-EXPORT void cwcglGetBufferParameterui64vNV(GLcontext *context, GLenum target, GLenum pname, GLuint64EXT * params);
-EXPORT void cwcglGetBufferPointerv(GLcontext *context, GLenum target, GLenum pname, void ** params);
-EXPORT void cwcglGetBufferPointervARB(GLcontext *context, GLenum target, GLenum pname, void ** params);
-EXPORT void cwcglGetBufferPointervOES(GLcontext *context, GLenum target, GLenum pname, void ** params);
-EXPORT void cwcglGetBufferSubData(GLcontext *context, GLenum target, GLintptr offset, GLsizeiptr size, void * data);
-EXPORT void cwcglGetBufferSubDataARB(GLcontext *context, GLenum target, GLintptrARB offset, GLsizeiptrARB size, void * data);
-EXPORT void cwcglGetClipPlane(GLcontext *context, GLenum plane, GLdouble * equation);
-EXPORT void cwcglGetClipPlanef(GLcontext *context, GLenum plane, GLfloat * equation);
-EXPORT void cwcglGetClipPlanefOES(GLcontext *context, GLenum plane, GLfloat * equation);
-EXPORT void cwcglGetClipPlanex(GLcontext *context, GLenum plane, GLfixed * equation);
-EXPORT void cwcglGetClipPlanexOES(GLcontext *context, GLenum plane, GLfixed * equation);
-EXPORT void cwcglGetColorTable(GLcontext *context, GLenum target, GLenum format, GLenum type, void * table);
-EXPORT void cwcglGetColorTableEXT(GLcontext *context, GLenum target, GLenum format, GLenum type, void * data);
-EXPORT void cwcglGetColorTableParameterfv(GLcontext *context, GLenum target, GLenum pname, GLfloat * params);
-EXPORT void cwcglGetColorTableParameterfvEXT(GLcontext *context, GLenum target, GLenum pname, GLfloat * params);
-EXPORT void cwcglGetColorTableParameterfvSGI(GLcontext *context, GLenum target, GLenum pname, GLfloat * params);
-EXPORT void cwcglGetColorTableParameteriv(GLcontext *context, GLenum target, GLenum pname, GLint * params);
-EXPORT void cwcglGetColorTableParameterivEXT(GLcontext *context, GLenum target, GLenum pname, GLint * params);
-EXPORT void cwcglGetColorTableParameterivSGI(GLcontext *context, GLenum target, GLenum pname, GLint * params);
-EXPORT void cwcglGetColorTableSGI(GLcontext *context, GLenum target, GLenum format, GLenum type, void * table);
-EXPORT void cwcglGetCombinerInputParameterfvNV(GLcontext *context, GLenum stage, GLenum portion, GLenum variable, GLenum pname, GLfloat * params);
-EXPORT void cwcglGetCombinerInputParameterivNV(GLcontext *context, GLenum stage, GLenum portion, GLenum variable, GLenum pname, GLint * params);
-EXPORT void cwcglGetCombinerOutputParameterfvNV(GLcontext *context, GLenum stage, GLenum portion, GLenum pname, GLfloat * params);
-EXPORT void cwcglGetCombinerOutputParameterivNV(GLcontext *context, GLenum stage, GLenum portion, GLenum pname, GLint * params);
-EXPORT void cwcglGetCombinerStageParameterfvNV(GLcontext *context, GLenum stage, GLenum pname, GLfloat * params);
-EXPORT void cwcglGetCommandHeaderNV(GLcontext *context, GLenum tokenID, GLuint size, GLuint* return_value);
-EXPORT void cwcglGetCompressedMultiTexImageEXT(GLcontext *context, GLenum texunit, GLenum target, GLint lod, void * img);
-EXPORT void cwcglGetCompressedTexImage(GLcontext *context, GLenum target, GLint level, void * img);
-EXPORT void cwcglGetCompressedTexImageARB(GLcontext *context, GLenum target, GLint level, void * img);
-EXPORT void cwcglGetCompressedTextureImage(GLcontext *context, GLuint texture, GLint level, GLsizei bufSize, void * pixels);
-EXPORT void cwcglGetCompressedTextureImageEXT(GLcontext *context, GLuint texture, GLenum target, GLint lod, void * img);
-EXPORT void cwcglGetCompressedTextureSubImage(GLcontext *context, GLuint texture, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLsizei bufSize, void * pixels);
-EXPORT void cwcglGetConvolutionFilter(GLcontext *context, GLenum target, GLenum format, GLenum type, void * image);
-EXPORT void cwcglGetConvolutionFilterEXT(GLcontext *context, GLenum target, GLenum format, GLenum type, void * image);
-EXPORT void cwcglGetConvolutionParameterfv(GLcontext *context, GLenum target, GLenum pname, GLfloat * params);
-EXPORT void cwcglGetConvolutionParameterfvEXT(GLcontext *context, GLenum target, GLenum pname, GLfloat * params);
-EXPORT void cwcglGetConvolutionParameteriv(GLcontext *context, GLenum target, GLenum pname, GLint * params);
-EXPORT void cwcglGetConvolutionParameterivEXT(GLcontext *context, GLenum target, GLenum pname, GLint * params);
-EXPORT void cwcglGetConvolutionParameterxvOES(GLcontext *context, GLenum target, GLenum pname, GLfixed * params);
-EXPORT void cwcglGetCoverageModulationTableNV(GLcontext *context, GLsizei bufsize, GLfloat * v);
-EXPORT void cwcglGetDebugMessageLog(GLcontext *context, GLuint count, GLsizei bufSize, GLenum * sources, GLenum * types, GLuint * ids, GLenum * severities, GLsizei * lengths, GLchar * messageLog, GLuint* return_value);
-EXPORT void cwcglGetDebugMessageLogAMD(GLcontext *context, GLuint count, GLsizei bufsize, GLenum * categories, GLuint * severities, GLuint * ids, GLsizei * lengths, GLchar * message, GLuint* return_value);
-EXPORT void cwcglGetDebugMessageLogARB(GLcontext *context, GLuint count, GLsizei bufSize, GLenum * sources, GLenum * types, GLuint * ids, GLenum * severities, GLsizei * lengths, GLchar * messageLog, GLuint* return_value);
-EXPORT void cwcglGetDebugMessageLogKHR(GLcontext *context, GLuint count, GLsizei bufSize, GLenum * sources, GLenum * types, GLuint * ids, GLenum * severities, GLsizei * lengths, GLchar * messageLog, GLuint* return_value);
-EXPORT void cwcglGetDetailTexFuncSGIS(GLcontext *context, GLenum target, GLfloat * points);
-EXPORT void cwcglGetDoubleIndexedvEXT(GLcontext *context, GLenum target, GLuint index, GLdouble * data);
-EXPORT void cwcglGetDoublei_v(GLcontext *context, GLenum target, GLuint index, GLdouble * data);
-EXPORT void cwcglGetDoublei_vEXT(GLcontext *context, GLenum pname, GLuint index, GLdouble * params);
-EXPORT void cwcglGetDoublev(GLcontext *context, GLenum pname, GLdouble * data);
-EXPORT void cwcglGetDriverControlStringQCOM(GLcontext *context, GLuint driverControl, GLsizei bufSize, GLsizei * length, GLchar * driverControlString);
-EXPORT void cwcglGetDriverControlsQCOM(GLcontext *context, GLint * num, GLsizei size, GLuint * driverControls);
-EXPORT void cwcglGetError(GLcontext *context, GLenum* return_value);
-EXPORT void cwcglGetFenceivNV(GLcontext *context, GLuint fence, GLenum pname, GLint * params);
-EXPORT void cwcglGetFinalCombinerInputParameterfvNV(GLcontext *context, GLenum variable, GLenum pname, GLfloat * params);
-EXPORT void cwcglGetFinalCombinerInputParameterivNV(GLcontext *context, GLenum variable, GLenum pname, GLint * params);
-EXPORT void cwcglGetFirstPerfQueryIdINTEL(GLcontext *context, GLuint * queryId);
-EXPORT void cwcglGetFixedv(GLcontext *context, GLenum pname, GLfixed * params);
-EXPORT void cwcglGetFixedvOES(GLcontext *context, GLenum pname, GLfixed * params);
-EXPORT void cwcglGetFloatIndexedvEXT(GLcontext *context, GLenum target, GLuint index, GLfloat * data);
-EXPORT void cwcglGetFloati_v(GLcontext *context, GLenum target, GLuint index, GLfloat * data);
-EXPORT void cwcglGetFloati_vEXT(GLcontext *context, GLenum pname, GLuint index, GLfloat * params);
-EXPORT void cwcglGetFloati_vNV(GLcontext *context, GLenum target, GLuint index, GLfloat * data);
-EXPORT void cwcglGetFloati_vOES(GLcontext *context, GLenum target, GLuint index, GLfloat * data);
-EXPORT void cwcglGetFloatv(GLcontext *context, GLenum pname, GLfloat * data);
-EXPORT void cwcglGetFogFuncSGIS(GLcontext *context, GLfloat * points);
-EXPORT void cwcglGetFragDataIndex(GLcontext *context, GLuint program, const GLchar * name, GLint* return_value);
-EXPORT void cwcglGetFragDataIndexEXT(GLcontext *context, GLuint program, const GLchar * name, GLint* return_value);
-EXPORT void cwcglGetFragDataLocation(GLcontext *context, GLuint program, const GLchar * name, GLint* return_value);
-EXPORT void cwcglGetFragDataLocationEXT(GLcontext *context, GLuint program, const GLchar * name, GLint* return_value);
-EXPORT void cwcglGetFragmentLightfvSGIX(GLcontext *context, GLenum light, GLenum pname, GLfloat * params);
-EXPORT void cwcglGetFragmentLightivSGIX(GLcontext *context, GLenum light, GLenum pname, GLint * params);
-EXPORT void cwcglGetFragmentMaterialfvSGIX(GLcontext *context, GLenum face, GLenum pname, GLfloat * params);
-EXPORT void cwcglGetFragmentMaterialivSGIX(GLcontext *context, GLenum face, GLenum pname, GLint * params);
-EXPORT void cwcglGetFramebufferAttachmentParameteriv(GLcontext *context, GLenum target, GLenum attachment, GLenum pname, GLint * params);
-EXPORT void cwcglGetFramebufferAttachmentParameterivEXT(GLcontext *context, GLenum target, GLenum attachment, GLenum pname, GLint * params);
-EXPORT void cwcglGetFramebufferAttachmentParameterivOES(GLcontext *context, GLenum target, GLenum attachment, GLenum pname, GLint * params);
-EXPORT void cwcglGetFramebufferParameterfvAMD(GLcontext *context, GLenum target, GLenum pname, GLuint numsamples, GLuint pixelindex, GLsizei size, GLfloat * values);
-EXPORT void cwcglGetFramebufferParameteriv(GLcontext *context, GLenum target, GLenum pname, GLint * params);
-EXPORT void cwcglGetFramebufferParameterivEXT(GLcontext *context, GLuint framebuffer, GLenum pname, GLint * params);
-EXPORT void cwcglGetFramebufferPixelLocalStorageSizeEXT(GLcontext *context, GLuint target, GLsizei* return_value);
-EXPORT void cwcglGetGraphicsResetStatus(GLcontext *context, GLenum* return_value);
-EXPORT void cwcglGetGraphicsResetStatusARB(GLcontext *context, GLenum* return_value);
-EXPORT void cwcglGetGraphicsResetStatusEXT(GLcontext *context, GLenum* return_value);
-EXPORT void cwcglGetGraphicsResetStatusKHR(GLcontext *context, GLenum* return_value);
-EXPORT void cwcglGetHandleARB(GLcontext *context, GLenum pname, GLhandleARB* return_value);
-EXPORT void cwcglGetHistogram(GLcontext *context, GLenum target, GLboolean reset, GLenum format, GLenum type, void * values);
-EXPORT void cwcglGetHistogramEXT(GLcontext *context, GLenum target, GLboolean reset, GLenum format, GLenum type, void * values);
-EXPORT void cwcglGetHistogramParameterfv(GLcontext *context, GLenum target, GLenum pname, GLfloat * params);
-EXPORT void cwcglGetHistogramParameterfvEXT(GLcontext *context, GLenum target, GLenum pname, GLfloat * params);
-EXPORT void cwcglGetHistogramParameteriv(GLcontext *context, GLenum target, GLenum pname, GLint * params);
-EXPORT void cwcglGetHistogramParameterivEXT(GLcontext *context, GLenum target, GLenum pname, GLint * params);
-EXPORT void cwcglGetHistogramParameterxvOES(GLcontext *context, GLenum target, GLenum pname, GLfixed * params);
-EXPORT void cwcglGetImageHandleARB(GLcontext *context, GLuint texture, GLint level, GLboolean layered, GLint layer, GLenum format, GLuint64* return_value);
-EXPORT void cwcglGetImageHandleNV(GLcontext *context, GLuint texture, GLint level, GLboolean layered, GLint layer, GLenum format, GLuint64* return_value);
-EXPORT void cwcglGetImageTransformParameterfvHP(GLcontext *context, GLenum target, GLenum pname, GLfloat * params);
-EXPORT void cwcglGetImageTransformParameterivHP(GLcontext *context, GLenum target, GLenum pname, GLint * params);
-EXPORT void cwcglGetInfoLogARB(GLcontext *context, GLhandleARB obj, GLsizei maxLength, GLsizei * length, GLcharARB * infoLog);
-EXPORT void cwcglGetInstrumentsSGIX(GLcontext *context, GLint* return_value);
-EXPORT void cwcglGetInteger64i_v(GLcontext *context, GLenum target, GLuint index, GLint64 * data);
-EXPORT void cwcglGetInteger64v(GLcontext *context, GLenum pname, GLint64 * data);
-EXPORT void cwcglGetInteger64vAPPLE(GLcontext *context, GLenum pname, GLint64 * params);
-EXPORT void cwcglGetIntegerIndexedvEXT(GLcontext *context, GLenum target, GLuint index, GLint * data);
-EXPORT void cwcglGetIntegeri_v(GLcontext *context, GLenum target, GLuint index, GLint * data);
-EXPORT void cwcglGetIntegeri_vEXT(GLcontext *context, GLenum target, GLuint index, GLint * data);
-EXPORT void cwcglGetIntegerui64i_vNV(GLcontext *context, GLenum value, GLuint index, GLuint64EXT * result);
-EXPORT void cwcglGetIntegerui64vNV(GLcontext *context, GLenum value, GLuint64EXT * result);
-EXPORT void cwcglGetIntegerv(GLcontext *context, GLenum pname, GLint * data);
-EXPORT void cwcglGetInternalformatSampleivNV(GLcontext *context, GLenum target, GLenum internalformat, GLsizei samples, GLenum pname, GLsizei bufSize, GLint * params);
-EXPORT void cwcglGetInternalformati64v(GLcontext *context, GLenum target, GLenum internalformat, GLenum pname, GLsizei bufSize, GLint64 * params);
-EXPORT void cwcglGetInternalformativ(GLcontext *context, GLenum target, GLenum internalformat, GLenum pname, GLsizei bufSize, GLint * params);
-EXPORT void cwcglGetInvariantBooleanvEXT(GLcontext *context, GLuint id, GLenum value, GLboolean * data);
-EXPORT void cwcglGetInvariantFloatvEXT(GLcontext *context, GLuint id, GLenum value, GLfloat * data);
-EXPORT void cwcglGetInvariantIntegervEXT(GLcontext *context, GLuint id, GLenum value, GLint * data);
-EXPORT void cwcglGetLightfv(GLcontext *context, GLenum light, GLenum pname, GLfloat * params);
-EXPORT void cwcglGetLightiv(GLcontext *context, GLenum light, GLenum pname, GLint * params);
-EXPORT void cwcglGetLightxOES(GLcontext *context, GLenum light, GLenum pname, GLfixed * params);
-EXPORT void cwcglGetLightxv(GLcontext *context, GLenum light, GLenum pname, GLfixed * params);
-EXPORT void cwcglGetLightxvOES(GLcontext *context, GLenum light, GLenum pname, GLfixed * params);
-EXPORT void cwcglGetListParameterfvSGIX(GLcontext *context, GLuint list, GLenum pname, GLfloat * params);
-EXPORT void cwcglGetListParameterivSGIX(GLcontext *context, GLuint list, GLenum pname, GLint * params);
-EXPORT void cwcglGetLocalConstantBooleanvEXT(GLcontext *context, GLuint id, GLenum value, GLboolean * data);
-EXPORT void cwcglGetLocalConstantFloatvEXT(GLcontext *context, GLuint id, GLenum value, GLfloat * data);
-EXPORT void cwcglGetLocalConstantIntegervEXT(GLcontext *context, GLuint id, GLenum value, GLint * data);
-EXPORT void cwcglGetMapAttribParameterfvNV(GLcontext *context, GLenum target, GLuint index, GLenum pname, GLfloat * params);
-EXPORT void cwcglGetMapAttribParameterivNV(GLcontext *context, GLenum target, GLuint index, GLenum pname, GLint * params);
-EXPORT void cwcglGetMapControlPointsNV(GLcontext *context, GLenum target, GLuint index, GLenum type, GLsizei ustride, GLsizei vstride, GLboolean packed, void * points);
-EXPORT void cwcglGetMapParameterfvNV(GLcontext *context, GLenum target, GLenum pname, GLfloat * params);
-EXPORT void cwcglGetMapParameterivNV(GLcontext *context, GLenum target, GLenum pname, GLint * params);
-EXPORT void cwcglGetMapdv(GLcontext *context, GLenum target, GLenum query, GLdouble * v);
-EXPORT void cwcglGetMapfv(GLcontext *context, GLenum target, GLenum query, GLfloat * v);
-EXPORT void cwcglGetMapiv(GLcontext *context, GLenum target, GLenum query, GLint * v);
-EXPORT void cwcglGetMapxvOES(GLcontext *context, GLenum target, GLenum query, GLfixed * v);
-EXPORT void cwcglGetMaterialfv(GLcontext *context, GLenum face, GLenum pname, GLfloat * params);
-EXPORT void cwcglGetMaterialiv(GLcontext *context, GLenum face, GLenum pname, GLint * params);
-EXPORT void cwcglGetMaterialxOES(GLcontext *context, GLenum face, GLenum pname, GLfixed param);
-EXPORT void cwcglGetMaterialxv(GLcontext *context, GLenum face, GLenum pname, GLfixed * params);
-EXPORT void cwcglGetMaterialxvOES(GLcontext *context, GLenum face, GLenum pname, GLfixed * params);
-EXPORT void cwcglGetMinmax(GLcontext *context, GLenum target, GLboolean reset, GLenum format, GLenum type, void * values);
-EXPORT void cwcglGetMinmaxEXT(GLcontext *context, GLenum target, GLboolean reset, GLenum format, GLenum type, void * values);
-EXPORT void cwcglGetMinmaxParameterfv(GLcontext *context, GLenum target, GLenum pname, GLfloat * params);
-EXPORT void cwcglGetMinmaxParameterfvEXT(GLcontext *context, GLenum target, GLenum pname, GLfloat * params);
-EXPORT void cwcglGetMinmaxParameteriv(GLcontext *context, GLenum target, GLenum pname, GLint * params);
-EXPORT void cwcglGetMinmaxParameterivEXT(GLcontext *context, GLenum target, GLenum pname, GLint * params);
-EXPORT void cwcglGetMultiTexEnvfvEXT(GLcontext *context, GLenum texunit, GLenum target, GLenum pname, GLfloat * params);
-EXPORT void cwcglGetMultiTexEnvivEXT(GLcontext *context, GLenum texunit, GLenum target, GLenum pname, GLint * params);
-EXPORT void cwcglGetMultiTexGendvEXT(GLcontext *context, GLenum texunit, GLenum coord, GLenum pname, GLdouble * params);
-EXPORT void cwcglGetMultiTexGenfvEXT(GLcontext *context, GLenum texunit, GLenum coord, GLenum pname, GLfloat * params);
-EXPORT void cwcglGetMultiTexGenivEXT(GLcontext *context, GLenum texunit, GLenum coord, GLenum pname, GLint * params);
-EXPORT void cwcglGetMultiTexImageEXT(GLcontext *context, GLenum texunit, GLenum target, GLint level, GLenum format, GLenum type, void * pixels);
-EXPORT void cwcglGetMultiTexLevelParameterfvEXT(GLcontext *context, GLenum texunit, GLenum target, GLint level, GLenum pname, GLfloat * params);
-EXPORT void cwcglGetMultiTexLevelParameterivEXT(GLcontext *context, GLenum texunit, GLenum target, GLint level, GLenum pname, GLint * params);
-EXPORT void cwcglGetMultiTexParameterIivEXT(GLcontext *context, GLenum texunit, GLenum target, GLenum pname, GLint * params);
-EXPORT void cwcglGetMultiTexParameterIuivEXT(GLcontext *context, GLenum texunit, GLenum target, GLenum pname, GLuint * params);
-EXPORT void cwcglGetMultiTexParameterfvEXT(GLcontext *context, GLenum texunit, GLenum target, GLenum pname, GLfloat * params);
-EXPORT void cwcglGetMultiTexParameterivEXT(GLcontext *context, GLenum texunit, GLenum target, GLenum pname, GLint * params);
-EXPORT void cwcglGetMultisamplefv(GLcontext *context, GLenum pname, GLuint index, GLfloat * val);
-EXPORT void cwcglGetMultisamplefvNV(GLcontext *context, GLenum pname, GLuint index, GLfloat * val);
-EXPORT void cwcglGetNamedBufferParameteri64v(GLcontext *context, GLuint buffer, GLenum pname, GLint64 * params);
-EXPORT void cwcglGetNamedBufferParameteriv(GLcontext *context, GLuint buffer, GLenum pname, GLint * params);
-EXPORT void cwcglGetNamedBufferParameterivEXT(GLcontext *context, GLuint buffer, GLenum pname, GLint * params);
-EXPORT void cwcglGetNamedBufferParameterui64vNV(GLcontext *context, GLuint buffer, GLenum pname, GLuint64EXT * params);
-EXPORT void cwcglGetNamedBufferPointerv(GLcontext *context, GLuint buffer, GLenum pname, void ** params);
-EXPORT void cwcglGetNamedBufferPointervEXT(GLcontext *context, GLuint buffer, GLenum pname, void ** params);
-EXPORT void cwcglGetNamedBufferSubData(GLcontext *context, GLuint buffer, GLintptr offset, GLsizeiptr size, void * data);
-EXPORT void cwcglGetNamedBufferSubDataEXT(GLcontext *context, GLuint buffer, GLintptr offset, GLsizeiptr size, void * data);
-EXPORT void cwcglGetNamedFramebufferParameterfvAMD(GLcontext *context, GLenum framebuffer, GLenum pname, GLuint numsamples, GLuint pixelindex, GLsizei size, GLfloat * values);
-EXPORT void cwcglGetNamedFramebufferAttachmentParameteriv(GLcontext *context, GLuint framebuffer, GLenum attachment, GLenum pname, GLint * params);
-EXPORT void cwcglGetNamedFramebufferAttachmentParameterivEXT(GLcontext *context, GLuint framebuffer, GLenum attachment, GLenum pname, GLint * params);
-EXPORT void cwcglGetNamedFramebufferParameteriv(GLcontext *context, GLuint framebuffer, GLenum pname, GLint * param);
-EXPORT void cwcglGetNamedFramebufferParameterivEXT(GLcontext *context, GLuint framebuffer, GLenum pname, GLint * params);
-EXPORT void cwcglGetNamedProgramLocalParameterIivEXT(GLcontext *context, GLuint program, GLenum target, GLuint index, GLint * params);
-EXPORT void cwcglGetNamedProgramLocalParameterIuivEXT(GLcontext *context, GLuint program, GLenum target, GLuint index, GLuint * params);
-EXPORT void cwcglGetNamedProgramLocalParameterdvEXT(GLcontext *context, GLuint program, GLenum target, GLuint index, GLdouble * params);
-EXPORT void cwcglGetNamedProgramLocalParameterfvEXT(GLcontext *context, GLuint program, GLenum target, GLuint index, GLfloat * params);
-EXPORT void cwcglGetNamedProgramStringEXT(GLcontext *context, GLuint program, GLenum target, GLenum pname, void * string);
-EXPORT void cwcglGetNamedProgramivEXT(GLcontext *context, GLuint program, GLenum target, GLenum pname, GLint * params);
-EXPORT void cwcglGetNamedRenderbufferParameteriv(GLcontext *context, GLuint renderbuffer, GLenum pname, GLint * params);
-EXPORT void cwcglGetNamedRenderbufferParameterivEXT(GLcontext *context, GLuint renderbuffer, GLenum pname, GLint * params);
-EXPORT void cwcglGetNamedStringARB(GLcontext *context, GLint namelen, const GLchar * name, GLsizei bufSize, GLint * stringlen, GLchar * string);
-EXPORT void cwcglGetNamedStringivARB(GLcontext *context, GLint namelen, const GLchar * name, GLenum pname, GLint * params);
-EXPORT void cwcglGetNextPerfQueryIdINTEL(GLcontext *context, GLuint queryId, GLuint * nextQueryId);
-EXPORT void cwcglGetObjectBufferfvATI(GLcontext *context, GLuint buffer, GLenum pname, GLfloat * params);
-EXPORT void cwcglGetObjectBufferivATI(GLcontext *context, GLuint buffer, GLenum pname, GLint * params);
-EXPORT void cwcglGetObjectLabel(GLcontext *context, GLenum identifier, GLuint name, GLsizei bufSize, GLsizei * length, GLchar * label);
-EXPORT void cwcglGetObjectLabelEXT(GLcontext *context, GLenum type, GLuint object, GLsizei bufSize, GLsizei * length, GLchar * label);
-EXPORT void cwcglGetObjectLabelKHR(GLcontext *context, GLenum identifier, GLuint name, GLsizei bufSize, GLsizei * length, GLchar * label);
-EXPORT void cwcglGetObjectParameterfvARB(GLcontext *context, GLhandleARB obj, GLenum pname, GLfloat * params);
-EXPORT void cwcglGetObjectParameterivAPPLE(GLcontext *context, GLenum objectType, GLuint name, GLenum pname, GLint * params);
-EXPORT void cwcglGetObjectParameterivARB(GLcontext *context, GLhandleARB obj, GLenum pname, GLint * params);
-EXPORT void cwcglGetObjectPtrLabel(GLcontext *context, const void * ptr, GLsizei bufSize, GLsizei * length, GLchar * label);
-EXPORT void cwcglGetObjectPtrLabelKHR(GLcontext *context, const void * ptr, GLsizei bufSize, GLsizei * length, GLchar * label);
-EXPORT void cwcglGetOcclusionQueryivNV(GLcontext *context, GLuint id, GLenum pname, GLint * params);
-EXPORT void cwcglGetOcclusionQueryuivNV(GLcontext *context, GLuint id, GLenum pname, GLuint * params);
-EXPORT void cwcglGetPathColorGenfvNV(GLcontext *context, GLenum color, GLenum pname, GLfloat * value);
-EXPORT void cwcglGetPathColorGenivNV(GLcontext *context, GLenum color, GLenum pname, GLint * value);
-EXPORT void cwcglGetPathCommandsNV(GLcontext *context, GLuint path, GLubyte * commands);
-EXPORT void cwcglGetPathCoordsNV(GLcontext *context, GLuint path, GLfloat * coords);
-EXPORT void cwcglGetPathDashArrayNV(GLcontext *context, GLuint path, GLfloat * dashArray);
-EXPORT void cwcglGetPathLengthNV(GLcontext *context, GLuint path, GLsizei startSegment, GLsizei numSegments, GLfloat* return_value);
-EXPORT void cwcglGetPathMetricRangeNV(GLcontext *context, GLbitfield metricQueryMask, GLuint firstPathName, GLsizei numPaths, GLsizei stride, GLfloat * metrics);
-EXPORT void cwcglGetPathMetricsNV(GLcontext *context, GLbitfield metricQueryMask, GLsizei numPaths, GLenum pathNameType, const void * paths, GLuint pathBase, GLsizei stride, GLfloat * metrics);
-EXPORT void cwcglGetPathParameterfvNV(GLcontext *context, GLuint path, GLenum pname, GLfloat * value);
-EXPORT void cwcglGetPathParameterivNV(GLcontext *context, GLuint path, GLenum pname, GLint * value);
-EXPORT void cwcglGetPathSpacingNV(GLcontext *context, GLenum pathListMode, GLsizei numPaths, GLenum pathNameType, const void * paths, GLuint pathBase, GLfloat advanceScale, GLfloat kerningScale, GLenum transformType, GLfloat * returnedSpacing);
-EXPORT void cwcglGetPathTexGenfvNV(GLcontext *context, GLenum texCoordSet, GLenum pname, GLfloat * value);
-EXPORT void cwcglGetPathTexGenivNV(GLcontext *context, GLenum texCoordSet, GLenum pname, GLint * value);
-EXPORT void cwcglGetPerfCounterInfoINTEL(GLcontext *context, GLuint queryId, GLuint counterId, GLuint counterNameLength, GLchar * counterName, GLuint counterDescLength, GLchar * counterDesc, GLuint * counterOffset, GLuint * counterDataSize, GLuint * counterTypeEnum, GLuint * counterDataTypeEnum, GLuint64 * rawCounterMaxValue);
-EXPORT void cwcglGetPerfMonitorCounterDataAMD(GLcontext *context, GLuint monitor, GLenum pname, GLsizei dataSize, GLuint * data, GLint * bytesWritten);
-EXPORT void cwcglGetPerfMonitorCounterInfoAMD(GLcontext *context, GLuint group, GLuint counter, GLenum pname, void * data);
-EXPORT void cwcglGetPerfMonitorCounterStringAMD(GLcontext *context, GLuint group, GLuint counter, GLsizei bufSize, GLsizei * length, GLchar * counterString);
-EXPORT void cwcglGetPerfMonitorCountersAMD(GLcontext *context, GLuint group, GLint * numCounters, GLint * maxActiveCounters, GLsizei counterSize, GLuint * counters);
-EXPORT void cwcglGetPerfMonitorGroupStringAMD(GLcontext *context, GLuint group, GLsizei bufSize, GLsizei * length, GLchar * groupString);
-EXPORT void cwcglGetPerfMonitorGroupsAMD(GLcontext *context, GLint * numGroups, GLsizei groupsSize, GLuint * groups);
-EXPORT void cwcglGetPerfQueryDataINTEL(GLcontext *context, GLuint queryHandle, GLuint flags, GLsizei dataSize, GLvoid * data, GLuint * bytesWritten);
-EXPORT void cwcglGetPerfQueryIdByNameINTEL(GLcontext *context, GLchar * queryName, GLuint * queryId);
-EXPORT void cwcglGetPerfQueryInfoINTEL(GLcontext *context, GLuint queryId, GLuint queryNameLength, GLchar * queryName, GLuint * dataSize, GLuint * noCounters, GLuint * noInstances, GLuint * capsMask);
-EXPORT void cwcglGetPixelMapfv(GLcontext *context, GLenum map, GLfloat * values);
-EXPORT void cwcglGetPixelMapuiv(GLcontext *context, GLenum map, GLuint * values);
-EXPORT void cwcglGetPixelMapusv(GLcontext *context, GLenum map, GLushort * values);
-EXPORT void cwcglGetPixelMapxv(GLcontext *context, GLenum map, GLint size, GLfixed * values);
-EXPORT void cwcglGetPixelTexGenParameterfvSGIS(GLcontext *context, GLenum pname, GLfloat * params);
-EXPORT void cwcglGetPixelTexGenParameterivSGIS(GLcontext *context, GLenum pname, GLint * params);
-EXPORT void cwcglGetPixelTransformParameterfvEXT(GLcontext *context, GLenum target, GLenum pname, GLfloat * params);
-EXPORT void cwcglGetPixelTransformParameterivEXT(GLcontext *context, GLenum target, GLenum pname, GLint * params);
-EXPORT void cwcglGetPointerIndexedvEXT(GLcontext *context, GLenum target, GLuint index, void ** data);
-EXPORT void cwcglGetPointeri_vEXT(GLcontext *context, GLenum pname, GLuint index, void ** params);
-EXPORT void cwcglGetPointerv(GLcontext *context, GLenum pname, void ** params);
-EXPORT void cwcglGetPointervEXT(GLcontext *context, GLenum pname, void ** params);
-EXPORT void cwcglGetPointervKHR(GLcontext *context, GLenum pname, void ** params);
-EXPORT void cwcglGetPolygonStipple(GLcontext *context, GLubyte * mask);
-EXPORT void cwcglGetProgramBinary(GLcontext *context, GLuint program, GLsizei bufSize, GLsizei * length, GLenum * binaryFormat, void * binary);
-EXPORT void cwcglGetProgramBinaryOES(GLcontext *context, GLuint program, GLsizei bufSize, GLsizei * length, GLenum * binaryFormat, void * binary);
-EXPORT void cwcglGetProgramEnvParameterIivNV(GLcontext *context, GLenum target, GLuint index, GLint * params);
-EXPORT void cwcglGetProgramEnvParameterIuivNV(GLcontext *context, GLenum target, GLuint index, GLuint * params);
-EXPORT void cwcglGetProgramEnvParameterdvARB(GLcontext *context, GLenum target, GLuint index, GLdouble * params);
-EXPORT void cwcglGetProgramEnvParameterfvARB(GLcontext *context, GLenum target, GLuint index, GLfloat * params);
-EXPORT void cwcglGetProgramInfoLog(GLcontext *context, GLuint program, GLsizei bufSize, GLsizei * length, GLchar * infoLog);
-EXPORT void cwcglGetProgramInterfaceiv(GLcontext *context, GLuint program, GLenum programInterface, GLenum pname, GLint * params);
-EXPORT void cwcglGetProgramLocalParameterIivNV(GLcontext *context, GLenum target, GLuint index, GLint * params);
-EXPORT void cwcglGetProgramLocalParameterIuivNV(GLcontext *context, GLenum target, GLuint index, GLuint * params);
-EXPORT void cwcglGetProgramLocalParameterdvARB(GLcontext *context, GLenum target, GLuint index, GLdouble * params);
-EXPORT void cwcglGetProgramLocalParameterfvARB(GLcontext *context, GLenum target, GLuint index, GLfloat * params);
-EXPORT void cwcglGetProgramNamedParameterdvNV(GLcontext *context, GLuint id, GLsizei len, const GLubyte * name, GLdouble * params);
-EXPORT void cwcglGetProgramNamedParameterfvNV(GLcontext *context, GLuint id, GLsizei len, const GLubyte * name, GLfloat * params);
-EXPORT void cwcglGetProgramParameterdvNV(GLcontext *context, GLenum target, GLuint index, GLenum pname, GLdouble * params);
-EXPORT void cwcglGetProgramParameterfvNV(GLcontext *context, GLenum target, GLuint index, GLenum pname, GLfloat * params);
-EXPORT void cwcglGetProgramPipelineInfoLog(GLcontext *context, GLuint pipeline, GLsizei bufSize, GLsizei * length, GLchar * infoLog);
-EXPORT void cwcglGetProgramPipelineInfoLogEXT(GLcontext *context, GLuint pipeline, GLsizei bufSize, GLsizei * length, GLchar * infoLog);
-EXPORT void cwcglGetProgramPipelineiv(GLcontext *context, GLuint pipeline, GLenum pname, GLint * params);
-EXPORT void cwcglGetProgramPipelineivEXT(GLcontext *context, GLuint pipeline, GLenum pname, GLint * params);
-EXPORT void cwcglGetProgramResourceIndex(GLcontext *context, GLuint program, GLenum programInterface, const GLchar * name, GLuint* return_value);
-EXPORT void cwcglGetProgramResourceLocation(GLcontext *context, GLuint program, GLenum programInterface, const GLchar * name, GLint* return_value);
-EXPORT void cwcglGetProgramResourceLocationIndex(GLcontext *context, GLuint program, GLenum programInterface, const GLchar * name, GLint* return_value);
-EXPORT void cwcglGetProgramResourceLocationIndexEXT(GLcontext *context, GLuint program, GLenum programInterface, const GLchar * name, GLint* return_value);
-EXPORT void cwcglGetProgramResourceName(GLcontext *context, GLuint program, GLenum programInterface, GLuint index, GLsizei bufSize, GLsizei * length, GLchar * name);
-EXPORT void cwcglGetProgramResourcefvNV(GLcontext *context, GLuint program, GLenum programInterface, GLuint index, GLsizei propCount, const GLenum * props, GLsizei bufSize, GLsizei * length, GLfloat * params);
-EXPORT void cwcglGetProgramResourceiv(GLcontext *context, GLuint program, GLenum programInterface, GLuint index, GLsizei propCount, const GLenum * props, GLsizei bufSize, GLsizei * length, GLint * params);
-EXPORT void cwcglGetProgramStageiv(GLcontext *context, GLuint program, GLenum shadertype, GLenum pname, GLint * values);
-EXPORT void cwcglGetProgramStringARB(GLcontext *context, GLenum target, GLenum pname, void * string);
-EXPORT void cwcglGetProgramStringNV(GLcontext *context, GLuint id, GLenum pname, GLubyte * program);
-EXPORT void cwcglGetProgramSubroutineParameteruivNV(GLcontext *context, GLenum target, GLuint index, GLuint * param);
-EXPORT void cwcglGetProgramiv(GLcontext *context, GLuint program, GLenum pname, GLint * params);
-EXPORT void cwcglGetProgramivARB(GLcontext *context, GLenum target, GLenum pname, GLint * params);
-EXPORT void cwcglGetProgramivNV(GLcontext *context, GLuint id, GLenum pname, GLint * params);
-EXPORT void cwcglGetQueryBufferObjecti64v(GLcontext *context, GLuint id, GLuint buffer, GLenum pname, GLintptr offset);
-EXPORT void cwcglGetQueryBufferObjectiv(GLcontext *context, GLuint id, GLuint buffer, GLenum pname, GLintptr offset);
-EXPORT void cwcglGetQueryBufferObjectui64v(GLcontext *context, GLuint id, GLuint buffer, GLenum pname, GLintptr offset);
-EXPORT void cwcglGetQueryBufferObjectuiv(GLcontext *context, GLuint id, GLuint buffer, GLenum pname, GLintptr offset);
-EXPORT void cwcglGetQueryIndexediv(GLcontext *context, GLenum target, GLuint index, GLenum pname, GLint * params);
-EXPORT void cwcglGetQueryObjecti64v(GLcontext *context, GLuint id, GLenum pname, GLint64 * params);
-EXPORT void cwcglGetQueryObjecti64vEXT(GLcontext *context, GLuint id, GLenum pname, GLint64 * params);
-EXPORT void cwcglGetQueryObjectiv(GLcontext *context, GLuint id, GLenum pname, GLint * params);
-EXPORT void cwcglGetQueryObjectivARB(GLcontext *context, GLuint id, GLenum pname, GLint * params);
-EXPORT void cwcglGetQueryObjectivEXT(GLcontext *context, GLuint id, GLenum pname, GLint * params);
-EXPORT void cwcglGetQueryObjectui64v(GLcontext *context, GLuint id, GLenum pname, GLuint64 * params);
-EXPORT void cwcglGetQueryObjectui64vEXT(GLcontext *context, GLuint id, GLenum pname, GLuint64 * params);
-EXPORT void cwcglGetQueryObjectuiv(GLcontext *context, GLuint id, GLenum pname, GLuint * params);
-EXPORT void cwcglGetQueryObjectuivARB(GLcontext *context, GLuint id, GLenum pname, GLuint * params);
-EXPORT void cwcglGetQueryObjectuivEXT(GLcontext *context, GLuint id, GLenum pname, GLuint * params);
-EXPORT void cwcglGetQueryiv(GLcontext *context, GLenum target, GLenum pname, GLint * params);
-EXPORT void cwcglGetQueryivARB(GLcontext *context, GLenum target, GLenum pname, GLint * params);
-EXPORT void cwcglGetQueryivEXT(GLcontext *context, GLenum target, GLenum pname, GLint * params);
-EXPORT void cwcglGetRenderbufferParameteriv(GLcontext *context, GLenum target, GLenum pname, GLint * params);
-EXPORT void cwcglGetRenderbufferParameterivEXT(GLcontext *context, GLenum target, GLenum pname, GLint * params);
-EXPORT void cwcglGetRenderbufferParameterivOES(GLcontext *context, GLenum target, GLenum pname, GLint * params);
-EXPORT void cwcglGetSamplerParameterIiv(GLcontext *context, GLuint sampler, GLenum pname, GLint * params);
-EXPORT void cwcglGetSamplerParameterIivEXT(GLcontext *context, GLuint sampler, GLenum pname, GLint * params);
-EXPORT void cwcglGetSamplerParameterIivOES(GLcontext *context, GLuint sampler, GLenum pname, GLint * params);
-EXPORT void cwcglGetSamplerParameterIuiv(GLcontext *context, GLuint sampler, GLenum pname, GLuint * params);
-EXPORT void cwcglGetSamplerParameterIuivEXT(GLcontext *context, GLuint sampler, GLenum pname, GLuint * params);
-EXPORT void cwcglGetSamplerParameterIuivOES(GLcontext *context, GLuint sampler, GLenum pname, GLuint * params);
-EXPORT void cwcglGetSamplerParameterfv(GLcontext *context, GLuint sampler, GLenum pname, GLfloat * params);
-EXPORT void cwcglGetSamplerParameteriv(GLcontext *context, GLuint sampler, GLenum pname, GLint * params);
-EXPORT void cwcglGetSeparableFilter(GLcontext *context, GLenum target, GLenum format, GLenum type, void * row, void * column, void * span);
-EXPORT void cwcglGetSeparableFilterEXT(GLcontext *context, GLenum target, GLenum format, GLenum type, void * row, void * column, void * span);
-EXPORT void cwcglGetShaderInfoLog(GLcontext *context, GLuint shader, GLsizei bufSize, GLsizei * length, GLchar * infoLog);
-EXPORT void cwcglGetShaderPrecisionFormat(GLcontext *context, GLenum shadertype, GLenum precisiontype, GLint * range, GLint * precision);
-EXPORT void cwcglGetShaderSource(GLcontext *context, GLuint shader, GLsizei bufSize, GLsizei * length, GLchar * source);
-EXPORT void cwcglGetShaderSourceARB(GLcontext *context, GLhandleARB obj, GLsizei maxLength, GLsizei * length, GLcharARB * source);
-EXPORT void cwcglGetShaderiv(GLcontext *context, GLuint shader, GLenum pname, GLint * params);
-EXPORT void cwcglGetSharpenTexFuncSGIS(GLcontext *context, GLenum target, GLfloat * points);
-EXPORT void cwcglGetStageIndexNV(GLcontext *context, GLenum shadertype, GLushort* return_value);
-EXPORT void cwcglGetString(GLcontext *context, GLenum name, const GLubyte ** return_value);
-EXPORT void cwcglGetStringi(GLcontext *context, GLenum name, GLuint index, const GLubyte ** return_value);
-EXPORT void cwcglGetSubroutineIndex(GLcontext *context, GLuint program, GLenum shadertype, const GLchar * name, GLuint* return_value);
-EXPORT void cwcglGetSubroutineUniformLocation(GLcontext *context, GLuint program, GLenum shadertype, const GLchar * name, GLint* return_value);
-EXPORT void cwcglGetSynciv(GLcontext *context, GLsync sync, GLenum pname, GLsizei bufSize, GLsizei * length, GLint * values);
-EXPORT void cwcglGetSyncivAPPLE(GLcontext *context, GLsync sync, GLenum pname, GLsizei bufSize, GLsizei * length, GLint * values);
-EXPORT void cwcglGetTexBumpParameterfvATI(GLcontext *context, GLenum pname, GLfloat * param);
-EXPORT void cwcglGetTexBumpParameterivATI(GLcontext *context, GLenum pname, GLint * param);
-EXPORT void cwcglGetTexEnvfv(GLcontext *context, GLenum target, GLenum pname, GLfloat * params);
-EXPORT void cwcglGetTexEnviv(GLcontext *context, GLenum target, GLenum pname, GLint * params);
-EXPORT void cwcglGetTexEnvxv(GLcontext *context, GLenum target, GLenum pname, GLfixed * params);
-EXPORT void cwcglGetTexEnvxvOES(GLcontext *context, GLenum target, GLenum pname, GLfixed * params);
-EXPORT void cwcglGetTexFilterFuncSGIS(GLcontext *context, GLenum target, GLenum filter, GLfloat * weights);
-EXPORT void cwcglGetTexGendv(GLcontext *context, GLenum coord, GLenum pname, GLdouble * params);
-EXPORT void cwcglGetTexGenfv(GLcontext *context, GLenum coord, GLenum pname, GLfloat * params);
-EXPORT void cwcglGetTexGenfvOES(GLcontext *context, GLenum coord, GLenum pname, GLfloat * params);
-EXPORT void cwcglGetTexGeniv(GLcontext *context, GLenum coord, GLenum pname, GLint * params);
-EXPORT void cwcglGetTexGenivOES(GLcontext *context, GLenum coord, GLenum pname, GLint * params);
-EXPORT void cwcglGetTexGenxvOES(GLcontext *context, GLenum coord, GLenum pname, GLfixed * params);
-EXPORT void cwcglGetTexImage(GLcontext *context, GLenum target, GLint level, GLenum format, GLenum type, void * pixels);
-EXPORT void cwcglGetTexLevelParameterfv(GLcontext *context, GLenum target, GLint level, GLenum pname, GLfloat * params);
-EXPORT void cwcglGetTexLevelParameteriv(GLcontext *context, GLenum target, GLint level, GLenum pname, GLint * params);
-EXPORT void cwcglGetTexLevelParameterxvOES(GLcontext *context, GLenum target, GLint level, GLenum pname, GLfixed * params);
-EXPORT void cwcglGetTexParameterIiv(GLcontext *context, GLenum target, GLenum pname, GLint * params);
-EXPORT void cwcglGetTexParameterIivEXT(GLcontext *context, GLenum target, GLenum pname, GLint * params);
-EXPORT void cwcglGetTexParameterIivOES(GLcontext *context, GLenum target, GLenum pname, GLint * params);
-EXPORT void cwcglGetTexParameterIuiv(GLcontext *context, GLenum target, GLenum pname, GLuint * params);
-EXPORT void cwcglGetTexParameterIuivEXT(GLcontext *context, GLenum target, GLenum pname, GLuint * params);
-EXPORT void cwcglGetTexParameterIuivOES(GLcontext *context, GLenum target, GLenum pname, GLuint * params);
-EXPORT void cwcglGetTexParameterPointervAPPLE(GLcontext *context, GLenum target, GLenum pname, void ** params);
-EXPORT void cwcglGetTexParameterfv(GLcontext *context, GLenum target, GLenum pname, GLfloat * params);
-EXPORT void cwcglGetTexParameteriv(GLcontext *context, GLenum target, GLenum pname, GLint * params);
-EXPORT void cwcglGetTexParameterxv(GLcontext *context, GLenum target, GLenum pname, GLfixed * params);
-EXPORT void cwcglGetTexParameterxvOES(GLcontext *context, GLenum target, GLenum pname, GLfixed * params);
-EXPORT void cwcglGetTextureHandleARB(GLcontext *context, GLuint texture, GLuint64* return_value);
-EXPORT void cwcglGetTextureHandleIMG(GLcontext *context, GLuint texture, GLuint64* return_value);
-EXPORT void cwcglGetTextureHandleNV(GLcontext *context, GLuint texture, GLuint64* return_value);
-EXPORT void cwcglGetTextureImage(GLcontext *context, GLuint texture, GLint level, GLenum format, GLenum type, GLsizei bufSize, void * pixels);
-EXPORT void cwcglGetTextureImageEXT(GLcontext *context, GLuint texture, GLenum target, GLint level, GLenum format, GLenum type, void * pixels);
-EXPORT void cwcglGetTextureLevelParameterfv(GLcontext *context, GLuint texture, GLint level, GLenum pname, GLfloat * params);
-EXPORT void cwcglGetTextureLevelParameterfvEXT(GLcontext *context, GLuint texture, GLenum target, GLint level, GLenum pname, GLfloat * params);
-EXPORT void cwcglGetTextureLevelParameteriv(GLcontext *context, GLuint texture, GLint level, GLenum pname, GLint * params);
-EXPORT void cwcglGetTextureLevelParameterivEXT(GLcontext *context, GLuint texture, GLenum target, GLint level, GLenum pname, GLint * params);
-EXPORT void cwcglGetTextureParameterIiv(GLcontext *context, GLuint texture, GLenum pname, GLint * params);
-EXPORT void cwcglGetTextureParameterIivEXT(GLcontext *context, GLuint texture, GLenum target, GLenum pname, GLint * params);
-EXPORT void cwcglGetTextureParameterIuiv(GLcontext *context, GLuint texture, GLenum pname, GLuint * params);
-EXPORT void cwcglGetTextureParameterIuivEXT(GLcontext *context, GLuint texture, GLenum target, GLenum pname, GLuint * params);
-EXPORT void cwcglGetTextureParameterfv(GLcontext *context, GLuint texture, GLenum pname, GLfloat * params);
-EXPORT void cwcglGetTextureParameterfvEXT(GLcontext *context, GLuint texture, GLenum target, GLenum pname, GLfloat * params);
-EXPORT void cwcglGetTextureParameteriv(GLcontext *context, GLuint texture, GLenum pname, GLint * params);
-EXPORT void cwcglGetTextureParameterivEXT(GLcontext *context, GLuint texture, GLenum target, GLenum pname, GLint * params);
-EXPORT void cwcglGetTextureSamplerHandleARB(GLcontext *context, GLuint texture, GLuint sampler, GLuint64* return_value);
-EXPORT void cwcglGetTextureSamplerHandleIMG(GLcontext *context, GLuint texture, GLuint sampler, GLuint64* return_value);
-EXPORT void cwcglGetTextureSamplerHandleNV(GLcontext *context, GLuint texture, GLuint sampler, GLuint64* return_value);
-EXPORT void cwcglGetTextureSubImage(GLcontext *context, GLuint texture, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLenum format, GLenum type, GLsizei bufSize, void * pixels);
-EXPORT void cwcglGetTrackMatrixivNV(GLcontext *context, GLenum target, GLuint address, GLenum pname, GLint * params);
-EXPORT void cwcglGetTransformFeedbackVarying(GLcontext *context, GLuint program, GLuint index, GLsizei bufSize, GLsizei * length, GLsizei * size, GLenum * type, GLchar * name);
-EXPORT void cwcglGetTransformFeedbackVaryingEXT(GLcontext *context, GLuint program, GLuint index, GLsizei bufSize, GLsizei * length, GLsizei * size, GLenum * type, GLchar * name);
-EXPORT void cwcglGetTransformFeedbackVaryingNV(GLcontext *context, GLuint program, GLuint index, GLint * location);
-EXPORT void cwcglGetTransformFeedbacki64_v(GLcontext *context, GLuint xfb, GLenum pname, GLuint index, GLint64 * param);
-EXPORT void cwcglGetTransformFeedbacki_v(GLcontext *context, GLuint xfb, GLenum pname, GLuint index, GLint * param);
-EXPORT void cwcglGetTransformFeedbackiv(GLcontext *context, GLuint xfb, GLenum pname, GLint * param);
-EXPORT void cwcglGetTranslatedShaderSourceANGLE(GLcontext *context, GLuint shader, GLsizei bufsize, GLsizei * length, GLchar * source);
-EXPORT void cwcglGetUniformBlockIndex(GLcontext *context, GLuint program, const GLchar * uniformBlockName, GLuint* return_value);
-EXPORT void cwcglGetUniformBufferSizeEXT(GLcontext *context, GLuint program, GLint location, GLint* return_value);
-EXPORT void cwcglGetUniformIndices(GLcontext *context, GLuint program, GLsizei uniformCount, const GLchar *const* uniformNames, GLuint * uniformIndices);
-EXPORT void cwcglGetUniformLocation(GLcontext *context, GLuint program, const GLchar * name, GLint* return_value);
-EXPORT void cwcglGetUniformLocationARB(GLcontext *context, GLhandleARB programObj, const GLcharARB * name, GLint* return_value);
-EXPORT void cwcglGetUniformOffsetEXT(GLcontext *context, GLuint program, GLint location, GLintptr* return_value);
-EXPORT void cwcglGetUniformSubroutineuiv(GLcontext *context, GLenum shadertype, GLint location, GLuint * params);
-EXPORT void cwcglGetUniformdv(GLcontext *context, GLuint program, GLint location, GLdouble * params);
-EXPORT void cwcglGetUniformfv(GLcontext *context, GLuint program, GLint location, GLfloat * params);
-EXPORT void cwcglGetUniformfvARB(GLcontext *context, GLhandleARB programObj, GLint location, GLfloat * params);
-EXPORT void cwcglGetUniformi64vARB(GLcontext *context, GLuint program, GLint location, GLint64 * params);
-EXPORT void cwcglGetUniformi64vNV(GLcontext *context, GLuint program, GLint location, GLint64EXT * params);
-EXPORT void cwcglGetUniformiv(GLcontext *context, GLuint program, GLint location, GLint * params);
-EXPORT void cwcglGetUniformivARB(GLcontext *context, GLhandleARB programObj, GLint location, GLint * params);
-EXPORT void cwcglGetUniformui64vARB(GLcontext *context, GLuint program, GLint location, GLuint64 * params);
-EXPORT void cwcglGetUniformui64vNV(GLcontext *context, GLuint program, GLint location, GLuint64EXT * params);
-EXPORT void cwcglGetUniformuiv(GLcontext *context, GLuint program, GLint location, GLuint * params);
-EXPORT void cwcglGetUniformuivEXT(GLcontext *context, GLuint program, GLint location, GLuint * params);
-EXPORT void cwcglGetVariantArrayObjectfvATI(GLcontext *context, GLuint id, GLenum pname, GLfloat * params);
-EXPORT void cwcglGetVariantArrayObjectivATI(GLcontext *context, GLuint id, GLenum pname, GLint * params);
-EXPORT void cwcglGetVariantBooleanvEXT(GLcontext *context, GLuint id, GLenum value, GLboolean * data);
-EXPORT void cwcglGetVariantFloatvEXT(GLcontext *context, GLuint id, GLenum value, GLfloat * data);
-EXPORT void cwcglGetVariantIntegervEXT(GLcontext *context, GLuint id, GLenum value, GLint * data);
-EXPORT void cwcglGetVariantPointervEXT(GLcontext *context, GLuint id, GLenum value, void ** data);
-EXPORT void cwcglGetVaryingLocationNV(GLcontext *context, GLuint program, const GLchar * name, GLint* return_value);
-EXPORT void cwcglGetVertexArrayIndexed64iv(GLcontext *context, GLuint vaobj, GLuint index, GLenum pname, GLint64 * param);
-EXPORT void cwcglGetVertexArrayIndexediv(GLcontext *context, GLuint vaobj, GLuint index, GLenum pname, GLint * param);
-EXPORT void cwcglGetVertexArrayIntegeri_vEXT(GLcontext *context, GLuint vaobj, GLuint index, GLenum pname, GLint * param);
-EXPORT void cwcglGetVertexArrayIntegervEXT(GLcontext *context, GLuint vaobj, GLenum pname, GLint * param);
-EXPORT void cwcglGetVertexArrayPointeri_vEXT(GLcontext *context, GLuint vaobj, GLuint index, GLenum pname, void ** param);
-EXPORT void cwcglGetVertexArrayPointervEXT(GLcontext *context, GLuint vaobj, GLenum pname, void ** param);
-EXPORT void cwcglGetVertexArrayiv(GLcontext *context, GLuint vaobj, GLenum pname, GLint * param);
-EXPORT void cwcglGetVertexAttribArrayObjectfvATI(GLcontext *context, GLuint index, GLenum pname, GLfloat * params);
-EXPORT void cwcglGetVertexAttribArrayObjectivATI(GLcontext *context, GLuint index, GLenum pname, GLint * params);
-EXPORT void cwcglGetVertexAttribIiv(GLcontext *context, GLuint index, GLenum pname, GLint * params);
-EXPORT void cwcglGetVertexAttribIivEXT(GLcontext *context, GLuint index, GLenum pname, GLint * params);
-EXPORT void cwcglGetVertexAttribIuiv(GLcontext *context, GLuint index, GLenum pname, GLuint * params);
-EXPORT void cwcglGetVertexAttribIuivEXT(GLcontext *context, GLuint index, GLenum pname, GLuint * params);
-EXPORT void cwcglGetVertexAttribLdv(GLcontext *context, GLuint index, GLenum pname, GLdouble * params);
-EXPORT void cwcglGetVertexAttribLdvEXT(GLcontext *context, GLuint index, GLenum pname, GLdouble * params);
-EXPORT void cwcglGetVertexAttribLi64vNV(GLcontext *context, GLuint index, GLenum pname, GLint64EXT * params);
-EXPORT void cwcglGetVertexAttribLui64vARB(GLcontext *context, GLuint index, GLenum pname, GLuint64EXT * params);
-EXPORT void cwcglGetVertexAttribLui64vNV(GLcontext *context, GLuint index, GLenum pname, GLuint64EXT * params);
-EXPORT void cwcglGetVertexAttribPointerv(GLcontext *context, GLuint index, GLenum pname, void ** pointer);
-EXPORT void cwcglGetVertexAttribPointervARB(GLcontext *context, GLuint index, GLenum pname, void ** pointer);
-EXPORT void cwcglGetVertexAttribPointervNV(GLcontext *context, GLuint index, GLenum pname, void ** pointer);
-EXPORT void cwcglGetVertexAttribdv(GLcontext *context, GLuint index, GLenum pname, GLdouble * params);
-EXPORT void cwcglGetVertexAttribdvARB(GLcontext *context, GLuint index, GLenum pname, GLdouble * params);
-EXPORT void cwcglGetVertexAttribdvNV(GLcontext *context, GLuint index, GLenum pname, GLdouble * params);
-EXPORT void cwcglGetVertexAttribfv(GLcontext *context, GLuint index, GLenum pname, GLfloat * params);
-EXPORT void cwcglGetVertexAttribfvARB(GLcontext *context, GLuint index, GLenum pname, GLfloat * params);
-EXPORT void cwcglGetVertexAttribfvNV(GLcontext *context, GLuint index, GLenum pname, GLfloat * params);
-EXPORT void cwcglGetVertexAttribiv(GLcontext *context, GLuint index, GLenum pname, GLint * params);
-EXPORT void cwcglGetVertexAttribivARB(GLcontext *context, GLuint index, GLenum pname, GLint * params);
-EXPORT void cwcglGetVertexAttribivNV(GLcontext *context, GLuint index, GLenum pname, GLint * params);
-EXPORT void cwcglGetVideoCaptureStreamdvNV(GLcontext *context, GLuint video_capture_slot, GLuint stream, GLenum pname, GLdouble * params);
-EXPORT void cwcglGetVideoCaptureStreamfvNV(GLcontext *context, GLuint video_capture_slot, GLuint stream, GLenum pname, GLfloat * params);
-EXPORT void cwcglGetVideoCaptureStreamivNV(GLcontext *context, GLuint video_capture_slot, GLuint stream, GLenum pname, GLint * params);
-EXPORT void cwcglGetVideoCaptureivNV(GLcontext *context, GLuint video_capture_slot, GLenum pname, GLint * params);
-EXPORT void cwcglGetVideoi64vNV(GLcontext *context, GLuint video_slot, GLenum pname, GLint64EXT * params);
-EXPORT void cwcglGetVideoivNV(GLcontext *context, GLuint video_slot, GLenum pname, GLint * params);
-EXPORT void cwcglGetVideoui64vNV(GLcontext *context, GLuint video_slot, GLenum pname, GLuint64EXT * params);
-EXPORT void cwcglGetVideouivNV(GLcontext *context, GLuint video_slot, GLenum pname, GLuint * params);
-EXPORT void cwcglGetnColorTable(GLcontext *context, GLenum target, GLenum format, GLenum type, GLsizei bufSize, void * table);
-EXPORT void cwcglGetnColorTableARB(GLcontext *context, GLenum target, GLenum format, GLenum type, GLsizei bufSize, void * table);
-EXPORT void cwcglGetnCompressedTexImage(GLcontext *context, GLenum target, GLint lod, GLsizei bufSize, void * pixels);
-EXPORT void cwcglGetnCompressedTexImageARB(GLcontext *context, GLenum target, GLint lod, GLsizei bufSize, void * img);
-EXPORT void cwcglGetnConvolutionFilter(GLcontext *context, GLenum target, GLenum format, GLenum type, GLsizei bufSize, void * image);
-EXPORT void cwcglGetnConvolutionFilterARB(GLcontext *context, GLenum target, GLenum format, GLenum type, GLsizei bufSize, void * image);
-EXPORT void cwcglGetnHistogram(GLcontext *context, GLenum target, GLboolean reset, GLenum format, GLenum type, GLsizei bufSize, void * values);
-EXPORT void cwcglGetnHistogramARB(GLcontext *context, GLenum target, GLboolean reset, GLenum format, GLenum type, GLsizei bufSize, void * values);
-EXPORT void cwcglGetnMapdv(GLcontext *context, GLenum target, GLenum query, GLsizei bufSize, GLdouble * v);
-EXPORT void cwcglGetnMapdvARB(GLcontext *context, GLenum target, GLenum query, GLsizei bufSize, GLdouble * v);
-EXPORT void cwcglGetnMapfv(GLcontext *context, GLenum target, GLenum query, GLsizei bufSize, GLfloat * v);
-EXPORT void cwcglGetnMapfvARB(GLcontext *context, GLenum target, GLenum query, GLsizei bufSize, GLfloat * v);
-EXPORT void cwcglGetnMapiv(GLcontext *context, GLenum target, GLenum query, GLsizei bufSize, GLint * v);
-EXPORT void cwcglGetnMapivARB(GLcontext *context, GLenum target, GLenum query, GLsizei bufSize, GLint * v);
-EXPORT void cwcglGetnMinmax(GLcontext *context, GLenum target, GLboolean reset, GLenum format, GLenum type, GLsizei bufSize, void * values);
-EXPORT void cwcglGetnMinmaxARB(GLcontext *context, GLenum target, GLboolean reset, GLenum format, GLenum type, GLsizei bufSize, void * values);
-EXPORT void cwcglGetnPixelMapfv(GLcontext *context, GLenum map, GLsizei bufSize, GLfloat * values);
-EXPORT void cwcglGetnPixelMapfvARB(GLcontext *context, GLenum map, GLsizei bufSize, GLfloat * values);
-EXPORT void cwcglGetnPixelMapuiv(GLcontext *context, GLenum map, GLsizei bufSize, GLuint * values);
-EXPORT void cwcglGetnPixelMapuivARB(GLcontext *context, GLenum map, GLsizei bufSize, GLuint * values);
-EXPORT void cwcglGetnPixelMapusv(GLcontext *context, GLenum map, GLsizei bufSize, GLushort * values);
-EXPORT void cwcglGetnPixelMapusvARB(GLcontext *context, GLenum map, GLsizei bufSize, GLushort * values);
-EXPORT void cwcglGetnPolygonStipple(GLcontext *context, GLsizei bufSize, GLubyte * pattern);
-EXPORT void cwcglGetnPolygonStippleARB(GLcontext *context, GLsizei bufSize, GLubyte * pattern);
-EXPORT void cwcglGetnSeparableFilter(GLcontext *context, GLenum target, GLenum format, GLenum type, GLsizei rowBufSize, void * row, GLsizei columnBufSize, void * column, void * span);
-EXPORT void cwcglGetnSeparableFilterARB(GLcontext *context, GLenum target, GLenum format, GLenum type, GLsizei rowBufSize, void * row, GLsizei columnBufSize, void * column, void * span);
-EXPORT void cwcglGetnTexImage(GLcontext *context, GLenum target, GLint level, GLenum format, GLenum type, GLsizei bufSize, void * pixels);
-EXPORT void cwcglGetnTexImageARB(GLcontext *context, GLenum target, GLint level, GLenum format, GLenum type, GLsizei bufSize, void * img);
-EXPORT void cwcglGetnUniformdv(GLcontext *context, GLuint program, GLint location, GLsizei bufSize, GLdouble * params);
-EXPORT void cwcglGetnUniformdvARB(GLcontext *context, GLuint program, GLint location, GLsizei bufSize, GLdouble * params);
-EXPORT void cwcglGetnUniformfv(GLcontext *context, GLuint program, GLint location, GLsizei bufSize, GLfloat * params);
-EXPORT void cwcglGetnUniformfvARB(GLcontext *context, GLuint program, GLint location, GLsizei bufSize, GLfloat * params);
-EXPORT void cwcglGetnUniformfvEXT(GLcontext *context, GLuint program, GLint location, GLsizei bufSize, GLfloat * params);
-EXPORT void cwcglGetnUniformfvKHR(GLcontext *context, GLuint program, GLint location, GLsizei bufSize, GLfloat * params);
-EXPORT void cwcglGetnUniformi64vARB(GLcontext *context, GLuint program, GLint location, GLsizei bufSize, GLint64 * params);
-EXPORT void cwcglGetnUniformiv(GLcontext *context, GLuint program, GLint location, GLsizei bufSize, GLint * params);
-EXPORT void cwcglGetnUniformivARB(GLcontext *context, GLuint program, GLint location, GLsizei bufSize, GLint * params);
-EXPORT void cwcglGetnUniformivEXT(GLcontext *context, GLuint program, GLint location, GLsizei bufSize, GLint * params);
-EXPORT void cwcglGetnUniformivKHR(GLcontext *context, GLuint program, GLint location, GLsizei bufSize, GLint * params);
-EXPORT void cwcglGetnUniformui64vARB(GLcontext *context, GLuint program, GLint location, GLsizei bufSize, GLuint64 * params);
-EXPORT void cwcglGetnUniformuiv(GLcontext *context, GLuint program, GLint location, GLsizei bufSize, GLuint * params);
-EXPORT void cwcglGetnUniformuivARB(GLcontext *context, GLuint program, GLint location, GLsizei bufSize, GLuint * params);
-EXPORT void cwcglGetnUniformuivKHR(GLcontext *context, GLuint program, GLint location, GLsizei bufSize, GLuint * params);
-EXPORT void cwcglGlobalAlphaFactorbSUN(GLcontext *context, GLbyte factor);
-EXPORT void cwcglGlobalAlphaFactordSUN(GLcontext *context, GLdouble factor);
-EXPORT void cwcglGlobalAlphaFactorfSUN(GLcontext *context, GLfloat factor);
-EXPORT void cwcglGlobalAlphaFactoriSUN(GLcontext *context, GLint factor);
-EXPORT void cwcglGlobalAlphaFactorsSUN(GLcontext *context, GLshort factor);
-EXPORT void cwcglGlobalAlphaFactorubSUN(GLcontext *context, GLubyte factor);
-EXPORT void cwcglGlobalAlphaFactoruiSUN(GLcontext *context, GLuint factor);
-EXPORT void cwcglGlobalAlphaFactorusSUN(GLcontext *context, GLushort factor);
-EXPORT void cwcglHint(GLcontext *context, GLenum target, GLenum mode);
-EXPORT void cwcglHintPGI(GLcontext *context, GLenum target, GLint mode);
-EXPORT void cwcglHistogram(GLcontext *context, GLenum target, GLsizei width, GLenum internalformat, GLboolean sink);
-EXPORT void cwcglHistogramEXT(GLcontext *context, GLenum target, GLsizei width, GLenum internalformat, GLboolean sink);
-EXPORT void cwcglIglooInterfaceSGIX(GLcontext *context, GLenum pname, const void * params);
-EXPORT void cwcglImageTransformParameterfHP(GLcontext *context, GLenum target, GLenum pname, GLfloat param);
-EXPORT void cwcglImageTransformParameterfvHP(GLcontext *context, GLenum target, GLenum pname, const GLfloat * params);
-EXPORT void cwcglImageTransformParameteriHP(GLcontext *context, GLenum target, GLenum pname, GLint param);
-EXPORT void cwcglImageTransformParameterivHP(GLcontext *context, GLenum target, GLenum pname, const GLint * params);
-EXPORT void cwcglImportSyncEXT(GLcontext *context, GLenum external_sync_type, GLintptr external_sync, GLbitfield flags, GLsync* return_value);
-EXPORT void cwcglIndexFormatNV(GLcontext *context, GLenum type, GLsizei stride);
-EXPORT void cwcglIndexFuncEXT(GLcontext *context, GLenum func, GLclampf ref);
-EXPORT void cwcglIndexMask(GLcontext *context, GLuint mask);
-EXPORT void cwcglIndexMaterialEXT(GLcontext *context, GLenum face, GLenum mode);
-EXPORT void cwcglIndexPointer(GLcontext *context, GLenum type, GLsizei stride, const void * pointer);
-EXPORT void cwcglIndexPointerEXT(GLcontext *context, GLenum type, GLsizei stride, GLsizei count, const void * pointer);
-EXPORT void cwcglIndexPointerListIBM(GLcontext *context, GLenum type, GLint stride, const void ** pointer, GLint ptrstride);
 EXPORT void cwcglIndexd(GLcontext *context, GLdouble c);
 EXPORT void cwcglIndexdv(GLcontext *context, const GLdouble * c);
 EXPORT void cwcglIndexf(GLcontext *context, GLfloat c);
@@ -5686,762 +7811,16 @@ EXPORT void cwcglIndexi(GLcontext *context, GLint c);
 EXPORT void cwcglIndexiv(GLcontext *context, const GLint * c);
 EXPORT void cwcglIndexs(GLcontext *context, GLshort c);
 EXPORT void cwcglIndexsv(GLcontext *context, const GLshort * c);
-EXPORT void cwcglIndexub(GLcontext *context, GLubyte c);
-EXPORT void cwcglIndexubv(GLcontext *context, const GLubyte * c);
-EXPORT void cwcglIndexxOES(GLcontext *context, GLfixed component);
-EXPORT void cwcglIndexxvOES(GLcontext *context, const GLfixed * component);
-EXPORT void cwcglInitNames(GLcontext *context);
-EXPORT void cwcglInsertComponentEXT(GLcontext *context, GLuint res, GLuint src, GLuint num);
-EXPORT void cwcglInsertEventMarkerEXT(GLcontext *context, GLsizei length, const GLchar * marker);
-EXPORT void cwcglInstrumentsBufferSGIX(GLcontext *context, GLsizei size, GLint * buffer);
-EXPORT void cwcglInterleavedArrays(GLcontext *context, GLenum format, GLsizei stride, const void * pointer);
-EXPORT void cwcglInterpolatePathsNV(GLcontext *context, GLuint resultPath, GLuint pathA, GLuint pathB, GLfloat weight);
-EXPORT void cwcglInvalidateBufferData(GLcontext *context, GLuint buffer);
-EXPORT void cwcglInvalidateBufferSubData(GLcontext *context, GLuint buffer, GLintptr offset, GLsizeiptr length);
-EXPORT void cwcglInvalidateFramebuffer(GLcontext *context, GLenum target, GLsizei numAttachments, const GLenum * attachments);
-EXPORT void cwcglInvalidateNamedFramebufferData(GLcontext *context, GLuint framebuffer, GLsizei numAttachments, const GLenum * attachments);
-EXPORT void cwcglInvalidateNamedFramebufferSubData(GLcontext *context, GLuint framebuffer, GLsizei numAttachments, const GLenum * attachments, GLint x, GLint y, GLsizei width, GLsizei height);
-EXPORT void cwcglInvalidateSubFramebuffer(GLcontext *context, GLenum target, GLsizei numAttachments, const GLenum * attachments, GLint x, GLint y, GLsizei width, GLsizei height);
-EXPORT void cwcglInvalidateTexImage(GLcontext *context, GLuint texture, GLint level);
-EXPORT void cwcglInvalidateTexSubImage(GLcontext *context, GLuint texture, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth);
-EXPORT void cwcglIsAsyncMarkerSGIX(GLcontext *context, GLuint marker, GLboolean* return_value);
-EXPORT void cwcglIsBuffer(GLcontext *context, GLuint buffer, GLboolean* return_value);
-EXPORT void cwcglIsBufferARB(GLcontext *context, GLuint buffer, GLboolean* return_value);
-EXPORT void cwcglIsBufferResidentNV(GLcontext *context, GLenum target, GLboolean* return_value);
-EXPORT void cwcglIsCommandListNV(GLcontext *context, GLuint list, GLboolean* return_value);
-EXPORT void cwcglIsEnabled(GLcontext *context, GLenum cap, GLboolean* return_value);
-EXPORT void cwcglIsEnabledIndexedEXT(GLcontext *context, GLenum target, GLuint index, GLboolean* return_value);
-EXPORT void cwcglIsEnabledi(GLcontext *context, GLenum target, GLuint index, GLboolean* return_value);
-EXPORT void cwcglIsEnablediEXT(GLcontext *context, GLenum target, GLuint index, GLboolean* return_value);
-EXPORT void cwcglIsEnablediNV(GLcontext *context, GLenum target, GLuint index, GLboolean* return_value);
-EXPORT void cwcglIsEnablediOES(GLcontext *context, GLenum target, GLuint index, GLboolean* return_value);
-EXPORT void cwcglIsFenceAPPLE(GLcontext *context, GLuint fence, GLboolean* return_value);
-EXPORT void cwcglIsFenceNV(GLcontext *context, GLuint fence, GLboolean* return_value);
-EXPORT void cwcglIsFramebuffer(GLcontext *context, GLuint framebuffer, GLboolean* return_value);
-EXPORT void cwcglIsFramebufferEXT(GLcontext *context, GLuint framebuffer, GLboolean* return_value);
-EXPORT void cwcglIsFramebufferOES(GLcontext *context, GLuint framebuffer, GLboolean* return_value);
-EXPORT void cwcglIsImageHandleResidentARB(GLcontext *context, GLuint64 handle, GLboolean* return_value);
-EXPORT void cwcglIsImageHandleResidentNV(GLcontext *context, GLuint64 handle, GLboolean* return_value);
-EXPORT void cwcglIsList(GLcontext *context, GLuint list, GLboolean* return_value);
-EXPORT void cwcglIsNameAMD(GLcontext *context, GLenum identifier, GLuint name, GLboolean* return_value);
-EXPORT void cwcglIsNamedBufferResidentNV(GLcontext *context, GLuint buffer, GLboolean* return_value);
-EXPORT void cwcglIsNamedStringARB(GLcontext *context, GLint namelen, const GLchar * name, GLboolean* return_value);
-EXPORT void cwcglIsObjectBufferATI(GLcontext *context, GLuint buffer, GLboolean* return_value);
-EXPORT void cwcglIsOcclusionQueryNV(GLcontext *context, GLuint id, GLboolean* return_value);
-EXPORT void cwcglIsPathNV(GLcontext *context, GLuint path, GLboolean* return_value);
-EXPORT void cwcglIsPointInFillPathNV(GLcontext *context, GLuint path, GLuint mask, GLfloat x, GLfloat y, GLboolean* return_value);
-EXPORT void cwcglIsPointInStrokePathNV(GLcontext *context, GLuint path, GLfloat x, GLfloat y, GLboolean* return_value);
-EXPORT void cwcglIsProgram(GLcontext *context, GLuint program, GLboolean* return_value);
-EXPORT void cwcglIsProgramARB(GLcontext *context, GLuint program, GLboolean* return_value);
-EXPORT void cwcglIsProgramNV(GLcontext *context, GLuint id, GLboolean* return_value);
-EXPORT void cwcglIsProgramPipeline(GLcontext *context, GLuint pipeline, GLboolean* return_value);
-EXPORT void cwcglIsProgramPipelineEXT(GLcontext *context, GLuint pipeline, GLboolean* return_value);
-EXPORT void cwcglIsQuery(GLcontext *context, GLuint id, GLboolean* return_value);
-EXPORT void cwcglIsQueryARB(GLcontext *context, GLuint id, GLboolean* return_value);
-EXPORT void cwcglIsQueryEXT(GLcontext *context, GLuint id, GLboolean* return_value);
-EXPORT void cwcglIsRenderbuffer(GLcontext *context, GLuint renderbuffer, GLboolean* return_value);
-EXPORT void cwcglIsRenderbufferEXT(GLcontext *context, GLuint renderbuffer, GLboolean* return_value);
-EXPORT void cwcglIsRenderbufferOES(GLcontext *context, GLuint renderbuffer, GLboolean* return_value);
-EXPORT void cwcglIsSampler(GLcontext *context, GLuint sampler, GLboolean* return_value);
-EXPORT void cwcglIsShader(GLcontext *context, GLuint shader, GLboolean* return_value);
-EXPORT void cwcglIsStateNV(GLcontext *context, GLuint state, GLboolean* return_value);
-EXPORT void cwcglIsSync(GLcontext *context, GLsync sync, GLboolean* return_value);
-EXPORT void cwcglIsSyncAPPLE(GLcontext *context, GLsync sync, GLboolean* return_value);
-EXPORT void cwcglIsTexture(GLcontext *context, GLuint texture, GLboolean* return_value);
-EXPORT void cwcglIsTextureEXT(GLcontext *context, GLuint texture, GLboolean* return_value);
-EXPORT void cwcglIsTextureHandleResidentARB(GLcontext *context, GLuint64 handle, GLboolean* return_value);
-EXPORT void cwcglIsTextureHandleResidentNV(GLcontext *context, GLuint64 handle, GLboolean* return_value);
-EXPORT void cwcglIsTransformFeedback(GLcontext *context, GLuint id, GLboolean* return_value);
-EXPORT void cwcglIsTransformFeedbackNV(GLcontext *context, GLuint id, GLboolean* return_value);
-EXPORT void cwcglIsVariantEnabledEXT(GLcontext *context, GLuint id, GLenum cap, GLboolean* return_value);
-EXPORT void cwcglIsVertexArray(GLcontext *context, GLuint array, GLboolean* return_value);
-EXPORT void cwcglIsVertexArrayAPPLE(GLcontext *context, GLuint array, GLboolean* return_value);
-EXPORT void cwcglIsVertexArrayOES(GLcontext *context, GLuint array, GLboolean* return_value);
-EXPORT void cwcglIsVertexAttribEnabledAPPLE(GLcontext *context, GLuint index, GLenum pname, GLboolean* return_value);
-EXPORT void cwcglLabelObjectEXT(GLcontext *context, GLenum type, GLuint object, GLsizei length, const GLchar * label);
-EXPORT void cwcglLightEnviSGIX(GLcontext *context, GLenum pname, GLint param);
-EXPORT void cwcglLightModelf(GLcontext *context, GLenum pname, GLfloat param);
-EXPORT void cwcglLightModelfv(GLcontext *context, GLenum pname, const GLfloat * params);
-EXPORT void cwcglLightModeli(GLcontext *context, GLenum pname, GLint param);
-EXPORT void cwcglLightModeliv(GLcontext *context, GLenum pname, const GLint * params);
-EXPORT void cwcglLightModelx(GLcontext *context, GLenum pname, GLfixed param);
-EXPORT void cwcglLightModelxOES(GLcontext *context, GLenum pname, GLfixed param);
-EXPORT void cwcglLightModelxv(GLcontext *context, GLenum pname, const GLfixed * param);
-EXPORT void cwcglLightModelxvOES(GLcontext *context, GLenum pname, const GLfixed * param);
-EXPORT void cwcglLightf(GLcontext *context, GLenum light, GLenum pname, GLfloat param);
-EXPORT void cwcglLightfv(GLcontext *context, GLenum light, GLenum pname, const GLfloat * params);
-EXPORT void cwcglLighti(GLcontext *context, GLenum light, GLenum pname, GLint param);
-EXPORT void cwcglLightiv(GLcontext *context, GLenum light, GLenum pname, const GLint * params);
-EXPORT void cwcglLightx(GLcontext *context, GLenum light, GLenum pname, GLfixed param);
-EXPORT void cwcglLightxOES(GLcontext *context, GLenum light, GLenum pname, GLfixed param);
-EXPORT void cwcglLightxv(GLcontext *context, GLenum light, GLenum pname, const GLfixed * params);
-EXPORT void cwcglLightxvOES(GLcontext *context, GLenum light, GLenum pname, const GLfixed * params);
-EXPORT void cwcglLineStipple(GLcontext *context, GLint factor, GLushort pattern);
-EXPORT void cwcglLineWidth(GLcontext *context, GLfloat width);
-EXPORT void cwcglLineWidthx(GLcontext *context, GLfixed width);
-EXPORT void cwcglLineWidthxOES(GLcontext *context, GLfixed width);
-EXPORT void cwcglLinkProgram(GLcontext *context, GLuint program);
-EXPORT void cwcglLinkProgramARB(GLcontext *context, GLhandleARB programObj);
-EXPORT void cwcglListBase(GLcontext *context, GLuint base);
-EXPORT void cwcglListDrawCommandsStatesClientNV(GLcontext *context, GLuint list, GLuint segment, const void ** indirects, const GLsizei * sizes, const GLuint * states, const GLuint * fbos, GLuint count);
-EXPORT void cwcglListParameterfSGIX(GLcontext *context, GLuint list, GLenum pname, GLfloat param);
-EXPORT void cwcglListParameterfvSGIX(GLcontext *context, GLuint list, GLenum pname, const GLfloat * params);
-EXPORT void cwcglListParameteriSGIX(GLcontext *context, GLuint list, GLenum pname, GLint param);
-EXPORT void cwcglListParameterivSGIX(GLcontext *context, GLuint list, GLenum pname, const GLint * params);
-EXPORT void cwcglLoadIdentity(GLcontext *context);
-EXPORT void cwcglLoadIdentityDeformationMapSGIX(GLcontext *context, GLbitfield mask);
-EXPORT void cwcglLoadMatrixd(GLcontext *context, const GLdouble * m);
-EXPORT void cwcglLoadMatrixf(GLcontext *context, const GLfloat * m);
-EXPORT void cwcglLoadMatrixx(GLcontext *context, const GLfixed * m);
-EXPORT void cwcglLoadMatrixxOES(GLcontext *context, const GLfixed * m);
-EXPORT void cwcglLoadName(GLcontext *context, GLuint name);
-EXPORT void cwcglLoadPaletteFromModelViewMatrixOES(GLcontext *context);
-EXPORT void cwcglLoadProgramNV(GLcontext *context, GLenum target, GLuint id, GLsizei len, const GLubyte * program);
-EXPORT void cwcglLoadTransposeMatrixd(GLcontext *context, const GLdouble * m);
-EXPORT void cwcglLoadTransposeMatrixdARB(GLcontext *context, const GLdouble * m);
-EXPORT void cwcglLoadTransposeMatrixf(GLcontext *context, const GLfloat * m);
-EXPORT void cwcglLoadTransposeMatrixfARB(GLcontext *context, const GLfloat * m);
-EXPORT void cwcglLoadTransposeMatrixxOES(GLcontext *context, const GLfixed * m);
-EXPORT void cwcglLockArraysEXT(GLcontext *context, GLint first, GLsizei count);
-EXPORT void cwcglLogicOp(GLcontext *context, GLenum opcode);
-EXPORT void cwcglMakeBufferNonResidentNV(GLcontext *context, GLenum target);
-EXPORT void cwcglMakeBufferResidentNV(GLcontext *context, GLenum target, GLenum access);
-EXPORT void cwcglMakeImageHandleNonResidentARB(GLcontext *context, GLuint64 handle);
-EXPORT void cwcglMakeImageHandleNonResidentNV(GLcontext *context, GLuint64 handle);
-EXPORT void cwcglMakeImageHandleResidentARB(GLcontext *context, GLuint64 handle, GLenum access);
-EXPORT void cwcglMakeImageHandleResidentNV(GLcontext *context, GLuint64 handle, GLenum access);
-EXPORT void cwcglMakeNamedBufferNonResidentNV(GLcontext *context, GLuint buffer);
-EXPORT void cwcglMakeNamedBufferResidentNV(GLcontext *context, GLuint buffer, GLenum access);
-EXPORT void cwcglMakeTextureHandleNonResidentARB(GLcontext *context, GLuint64 handle);
-EXPORT void cwcglMakeTextureHandleNonResidentNV(GLcontext *context, GLuint64 handle);
-EXPORT void cwcglMakeTextureHandleResidentARB(GLcontext *context, GLuint64 handle);
-EXPORT void cwcglMakeTextureHandleResidentNV(GLcontext *context, GLuint64 handle);
-EXPORT void cwcglMap1d(GLcontext *context, GLenum target, GLdouble u1, GLdouble u2, GLint stride, GLint order, const GLdouble * points);
-EXPORT void cwcglMap1f(GLcontext *context, GLenum target, GLfloat u1, GLfloat u2, GLint stride, GLint order, const GLfloat * points);
-EXPORT void cwcglMap1xOES(GLcontext *context, GLenum target, GLfixed u1, GLfixed u2, GLint stride, GLint order, GLfixed points);
-EXPORT void cwcglMap2d(GLcontext *context, GLenum target, GLdouble u1, GLdouble u2, GLint ustride, GLint uorder, GLdouble v1, GLdouble v2, GLint vstride, GLint vorder, const GLdouble * points);
-EXPORT void cwcglMap2f(GLcontext *context, GLenum target, GLfloat u1, GLfloat u2, GLint ustride, GLint uorder, GLfloat v1, GLfloat v2, GLint vstride, GLint vorder, const GLfloat * points);
-EXPORT void cwcglMap2xOES(GLcontext *context, GLenum target, GLfixed u1, GLfixed u2, GLint ustride, GLint uorder, GLfixed v1, GLfixed v2, GLint vstride, GLint vorder, GLfixed points);
-EXPORT void cwcglMapBuffer(GLcontext *context, GLenum target, GLenum access, void ** return_value);
-EXPORT void cwcglMapBufferARB(GLcontext *context, GLenum target, GLenum access, void ** return_value);
-EXPORT void cwcglMapBufferOES(GLcontext *context, GLenum target, GLenum access, void ** return_value);
-EXPORT void cwcglMapBufferRange(GLcontext *context, GLenum target, GLintptr offset, GLsizeiptr length, GLbitfield access, void ** return_value);
-EXPORT void cwcglMapBufferRangeEXT(GLcontext *context, GLenum target, GLintptr offset, GLsizeiptr length, GLbitfield access, void ** return_value);
-EXPORT void cwcglMapControlPointsNV(GLcontext *context, GLenum target, GLuint index, GLenum type, GLsizei ustride, GLsizei vstride, GLint uorder, GLint vorder, GLboolean packed, const void * points);
-EXPORT void cwcglMapGrid1d(GLcontext *context, GLint un, GLdouble u1, GLdouble u2);
-EXPORT void cwcglMapGrid1f(GLcontext *context, GLint un, GLfloat u1, GLfloat u2);
-EXPORT void cwcglMapGrid1xOES(GLcontext *context, GLint n, GLfixed u1, GLfixed u2);
-EXPORT void cwcglMapGrid2d(GLcontext *context, GLint un, GLdouble u1, GLdouble u2, GLint vn, GLdouble v1, GLdouble v2);
-EXPORT void cwcglMapGrid2f(GLcontext *context, GLint un, GLfloat u1, GLfloat u2, GLint vn, GLfloat v1, GLfloat v2);
-EXPORT void cwcglMapGrid2xOES(GLcontext *context, GLint n, GLfixed u1, GLfixed u2, GLfixed v1, GLfixed v2);
-EXPORT void cwcglMapNamedBuffer(GLcontext *context, GLuint buffer, GLenum access, void ** return_value);
-EXPORT void cwcglMapNamedBufferEXT(GLcontext *context, GLuint buffer, GLenum access, void ** return_value);
-EXPORT void cwcglMapNamedBufferRange(GLcontext *context, GLuint buffer, GLintptr offset, GLsizeiptr length, GLbitfield access, void ** return_value);
-EXPORT void cwcglMapNamedBufferRangeEXT(GLcontext *context, GLuint buffer, GLintptr offset, GLsizeiptr length, GLbitfield access, void ** return_value);
-EXPORT void cwcglMapObjectBufferATI(GLcontext *context, GLuint buffer, void ** return_value);
-EXPORT void cwcglMapParameterfvNV(GLcontext *context, GLenum target, GLenum pname, const GLfloat * params);
-EXPORT void cwcglMapParameterivNV(GLcontext *context, GLenum target, GLenum pname, const GLint * params);
-EXPORT void cwcglMapTexture2DINTEL(GLcontext *context, GLuint texture, GLint level, GLbitfield access, GLint * stride, GLenum * layout, void ** return_value);
-EXPORT void cwcglMapVertexAttrib1dAPPLE(GLcontext *context, GLuint index, GLuint size, GLdouble u1, GLdouble u2, GLint stride, GLint order, const GLdouble * points);
-EXPORT void cwcglMapVertexAttrib1fAPPLE(GLcontext *context, GLuint index, GLuint size, GLfloat u1, GLfloat u2, GLint stride, GLint order, const GLfloat * points);
-EXPORT void cwcglMapVertexAttrib2dAPPLE(GLcontext *context, GLuint index, GLuint size, GLdouble u1, GLdouble u2, GLint ustride, GLint uorder, GLdouble v1, GLdouble v2, GLint vstride, GLint vorder, const GLdouble * points);
-EXPORT void cwcglMapVertexAttrib2fAPPLE(GLcontext *context, GLuint index, GLuint size, GLfloat u1, GLfloat u2, GLint ustride, GLint uorder, GLfloat v1, GLfloat v2, GLint vstride, GLint vorder, const GLfloat * points);
-EXPORT void cwcglMaterialf(GLcontext *context, GLenum face, GLenum pname, GLfloat param);
-EXPORT void cwcglMaterialfv(GLcontext *context, GLenum face, GLenum pname, const GLfloat * params);
-EXPORT void cwcglMateriali(GLcontext *context, GLenum face, GLenum pname, GLint param);
-EXPORT void cwcglMaterialiv(GLcontext *context, GLenum face, GLenum pname, const GLint * params);
-EXPORT void cwcglMaterialx(GLcontext *context, GLenum face, GLenum pname, GLfixed param);
-EXPORT void cwcglMaterialxOES(GLcontext *context, GLenum face, GLenum pname, GLfixed param);
-EXPORT void cwcglMaterialxv(GLcontext *context, GLenum face, GLenum pname, const GLfixed * param);
-EXPORT void cwcglMaterialxvOES(GLcontext *context, GLenum face, GLenum pname, const GLfixed * param);
-EXPORT void cwcglMatrixFrustumEXT(GLcontext *context, GLenum mode, GLdouble left, GLdouble right, GLdouble bottom, GLdouble top, GLdouble zNear, GLdouble zFar);
-EXPORT void cwcglMatrixIndexPointerARB(GLcontext *context, GLint size, GLenum type, GLsizei stride, const void * pointer);
-EXPORT void cwcglMatrixIndexPointerOES(GLcontext *context, GLint size, GLenum type, GLsizei stride, const void * pointer);
-EXPORT void cwcglMatrixIndexubvARB(GLcontext *context, GLint size, const GLubyte * indices);
-EXPORT void cwcglMatrixIndexuivARB(GLcontext *context, GLint size, const GLuint * indices);
-EXPORT void cwcglMatrixIndexusvARB(GLcontext *context, GLint size, const GLushort * indices);
-EXPORT void cwcglMatrixLoad3x2fNV(GLcontext *context, GLenum matrixMode, const GLfloat * m);
-EXPORT void cwcglMatrixLoad3x3fNV(GLcontext *context, GLenum matrixMode, const GLfloat * m);
-EXPORT void cwcglMatrixLoadIdentityEXT(GLcontext *context, GLenum mode);
-EXPORT void cwcglMatrixLoadTranspose3x3fNV(GLcontext *context, GLenum matrixMode, const GLfloat * m);
-EXPORT void cwcglMatrixLoadTransposedEXT(GLcontext *context, GLenum mode, const GLdouble * m);
-EXPORT void cwcglMatrixLoadTransposefEXT(GLcontext *context, GLenum mode, const GLfloat * m);
-EXPORT void cwcglMatrixLoaddEXT(GLcontext *context, GLenum mode, const GLdouble * m);
-EXPORT void cwcglMatrixLoadfEXT(GLcontext *context, GLenum mode, const GLfloat * m);
-EXPORT void cwcglMatrixMode(GLcontext *context, GLenum mode);
-EXPORT void cwcglMatrixMult3x2fNV(GLcontext *context, GLenum matrixMode, const GLfloat * m);
-EXPORT void cwcglMatrixMult3x3fNV(GLcontext *context, GLenum matrixMode, const GLfloat * m);
-EXPORT void cwcglMatrixMultTranspose3x3fNV(GLcontext *context, GLenum matrixMode, const GLfloat * m);
-EXPORT void cwcglMatrixMultTransposedEXT(GLcontext *context, GLenum mode, const GLdouble * m);
-EXPORT void cwcglMatrixMultTransposefEXT(GLcontext *context, GLenum mode, const GLfloat * m);
-EXPORT void cwcglMatrixMultdEXT(GLcontext *context, GLenum mode, const GLdouble * m);
-EXPORT void cwcglMatrixMultfEXT(GLcontext *context, GLenum mode, const GLfloat * m);
-EXPORT void cwcglMatrixOrthoEXT(GLcontext *context, GLenum mode, GLdouble left, GLdouble right, GLdouble bottom, GLdouble top, GLdouble zNear, GLdouble zFar);
-EXPORT void cwcglMatrixPopEXT(GLcontext *context, GLenum mode);
-EXPORT void cwcglMatrixPushEXT(GLcontext *context, GLenum mode);
-EXPORT void cwcglMatrixRotatedEXT(GLcontext *context, GLenum mode, GLdouble angle, GLdouble x, GLdouble y, GLdouble z);
-EXPORT void cwcglMatrixRotatefEXT(GLcontext *context, GLenum mode, GLfloat angle, GLfloat x, GLfloat y, GLfloat z);
-EXPORT void cwcglMatrixScaledEXT(GLcontext *context, GLenum mode, GLdouble x, GLdouble y, GLdouble z);
-EXPORT void cwcglMatrixScalefEXT(GLcontext *context, GLenum mode, GLfloat x, GLfloat y, GLfloat z);
-EXPORT void cwcglMatrixTranslatedEXT(GLcontext *context, GLenum mode, GLdouble x, GLdouble y, GLdouble z);
-EXPORT void cwcglMatrixTranslatefEXT(GLcontext *context, GLenum mode, GLfloat x, GLfloat y, GLfloat z);
-EXPORT void cwcglMaxShaderCompilerThreadsARB(GLcontext *context, GLuint count);
-EXPORT void cwcglMemoryBarrier(GLcontext *context, GLbitfield barriers);
-EXPORT void cwcglMemoryBarrierByRegion(GLcontext *context, GLbitfield barriers);
-EXPORT void cwcglMemoryBarrierEXT(GLcontext *context, GLbitfield barriers);
-EXPORT void cwcglMinSampleShading(GLcontext *context, GLfloat value);
-EXPORT void cwcglMinSampleShadingARB(GLcontext *context, GLfloat value);
-EXPORT void cwcglMinSampleShadingOES(GLcontext *context, GLfloat value);
-EXPORT void cwcglMinmax(GLcontext *context, GLenum target, GLenum internalformat, GLboolean sink);
-EXPORT void cwcglMinmaxEXT(GLcontext *context, GLenum target, GLenum internalformat, GLboolean sink);
-EXPORT void cwcglMultMatrixd(GLcontext *context, const GLdouble * m);
-EXPORT void cwcglMultMatrixf(GLcontext *context, const GLfloat * m);
-EXPORT void cwcglMultMatrixx(GLcontext *context, const GLfixed * m);
-EXPORT void cwcglMultMatrixxOES(GLcontext *context, const GLfixed * m);
-EXPORT void cwcglMultTransposeMatrixd(GLcontext *context, const GLdouble * m);
-EXPORT void cwcglMultTransposeMatrixdARB(GLcontext *context, const GLdouble * m);
-EXPORT void cwcglMultTransposeMatrixf(GLcontext *context, const GLfloat * m);
-EXPORT void cwcglMultTransposeMatrixfARB(GLcontext *context, const GLfloat * m);
-EXPORT void cwcglMultTransposeMatrixxOES(GLcontext *context, const GLfixed * m);
-EXPORT void cwcglMultiDrawArrays(GLcontext *context, GLenum mode, const GLint * first, const GLsizei * count, GLsizei drawcount);
-EXPORT void cwcglMultiDrawArraysEXT(GLcontext *context, GLenum mode, const GLint * first, const GLsizei * count, GLsizei primcount);
-EXPORT void cwcglMultiDrawArraysIndirect(GLcontext *context, GLenum mode, const void * indirect, GLsizei drawcount, GLsizei stride);
-EXPORT void cwcglMultiDrawArraysIndirectAMD(GLcontext *context, GLenum mode, const void * indirect, GLsizei primcount, GLsizei stride);
-EXPORT void cwcglMultiDrawArraysIndirectBindlessCountNV(GLcontext *context, GLenum mode, const void * indirect, GLsizei drawCount, GLsizei maxDrawCount, GLsizei stride, GLint vertexBufferCount);
-EXPORT void cwcglMultiDrawArraysIndirectBindlessNV(GLcontext *context, GLenum mode, const void * indirect, GLsizei drawCount, GLsizei stride, GLint vertexBufferCount);
-EXPORT void cwcglMultiDrawArraysIndirectCountARB(GLcontext *context, GLenum mode, GLintptr indirect, GLintptr drawcount, GLsizei maxdrawcount, GLsizei stride);
-EXPORT void cwcglMultiDrawArraysIndirectEXT(GLcontext *context, GLenum mode, const void * indirect, GLsizei drawcount, GLsizei stride);
-EXPORT void cwcglMultiDrawElementArrayAPPLE(GLcontext *context, GLenum mode, const GLint * first, const GLsizei * count, GLsizei primcount);
-EXPORT void cwcglMultiDrawElements(GLcontext *context, GLenum mode, const GLsizei * count, GLenum type, const void *const* indices, GLsizei drawcount);
-EXPORT void cwcglMultiDrawElementsBaseVertex(GLcontext *context, GLenum mode, const GLsizei * count, GLenum type, const void *const* indices, GLsizei drawcount, const GLint * basevertex);
-EXPORT void cwcglMultiDrawElementsBaseVertexEXT(GLcontext *context, GLenum mode, const GLsizei * count, GLenum type, const void *const* indices, GLsizei primcount, const GLint * basevertex);
-EXPORT void cwcglMultiDrawElementsBaseVertexOES(GLcontext *context, GLenum mode, const GLsizei * count, GLenum type, const void *const* indices, GLsizei primcount, const GLint * basevertex);
-EXPORT void cwcglMultiDrawElementsEXT(GLcontext *context, GLenum mode, const GLsizei * count, GLenum type, const void *const* indices, GLsizei primcount);
-EXPORT void cwcglMultiDrawElementsIndirect(GLcontext *context, GLenum mode, GLenum type, const void * indirect, GLsizei drawcount, GLsizei stride);
-EXPORT void cwcglMultiDrawElementsIndirectAMD(GLcontext *context, GLenum mode, GLenum type, const void * indirect, GLsizei primcount, GLsizei stride);
-EXPORT void cwcglMultiDrawElementsIndirectBindlessCountNV(GLcontext *context, GLenum mode, GLenum type, const void * indirect, GLsizei drawCount, GLsizei maxDrawCount, GLsizei stride, GLint vertexBufferCount);
-EXPORT void cwcglMultiDrawElementsIndirectBindlessNV(GLcontext *context, GLenum mode, GLenum type, const void * indirect, GLsizei drawCount, GLsizei stride, GLint vertexBufferCount);
-EXPORT void cwcglMultiDrawElementsIndirectCountARB(GLcontext *context, GLenum mode, GLenum type, GLintptr indirect, GLintptr drawcount, GLsizei maxdrawcount, GLsizei stride);
-EXPORT void cwcglMultiDrawElementsIndirectEXT(GLcontext *context, GLenum mode, GLenum type, const void * indirect, GLsizei drawcount, GLsizei stride);
-EXPORT void cwcglMultiDrawRangeElementArrayAPPLE(GLcontext *context, GLenum mode, GLuint start, GLuint end, const GLint * first, const GLsizei * count, GLsizei primcount);
-EXPORT void cwcglMultiModeDrawArraysIBM(GLcontext *context, const GLenum * mode, const GLint * first, const GLsizei * count, GLsizei primcount, GLint modestride);
-EXPORT void cwcglMultiModeDrawElementsIBM(GLcontext *context, const GLenum * mode, const GLsizei * count, GLenum type, const void *const* indices, GLsizei primcount, GLint modestride);
-EXPORT void cwcglMultiTexBufferEXT(GLcontext *context, GLenum texunit, GLenum target, GLenum internalformat, GLuint buffer);
-EXPORT void cwcglMultiTexCoord1bOES(GLcontext *context, GLenum texture, GLbyte s);
-EXPORT void cwcglMultiTexCoord1bvOES(GLcontext *context, GLenum texture, const GLbyte * coords);
-EXPORT void cwcglMultiTexCoord1d(GLcontext *context, GLenum target, GLdouble s);
-EXPORT void cwcglMultiTexCoord1dARB(GLcontext *context, GLenum target, GLdouble s);
-EXPORT void cwcglMultiTexCoord1dv(GLcontext *context, GLenum target, const GLdouble * v);
-EXPORT void cwcglMultiTexCoord1dvARB(GLcontext *context, GLenum target, const GLdouble * v);
-EXPORT void cwcglMultiTexCoord1f(GLcontext *context, GLenum target, GLfloat s);
-EXPORT void cwcglMultiTexCoord1fARB(GLcontext *context, GLenum target, GLfloat s);
-EXPORT void cwcglMultiTexCoord1fv(GLcontext *context, GLenum target, const GLfloat * v);
-EXPORT void cwcglMultiTexCoord1fvARB(GLcontext *context, GLenum target, const GLfloat * v);
-EXPORT void cwcglMultiTexCoord1hNV(GLcontext *context, GLenum target, GLhalfNV s);
-EXPORT void cwcglMultiTexCoord1hvNV(GLcontext *context, GLenum target, const GLhalfNV * v);
-EXPORT void cwcglMultiTexCoord1i(GLcontext *context, GLenum target, GLint s);
-EXPORT void cwcglMultiTexCoord1iARB(GLcontext *context, GLenum target, GLint s);
-EXPORT void cwcglMultiTexCoord1iv(GLcontext *context, GLenum target, const GLint * v);
-EXPORT void cwcglMultiTexCoord1ivARB(GLcontext *context, GLenum target, const GLint * v);
-EXPORT void cwcglMultiTexCoord1s(GLcontext *context, GLenum target, GLshort s);
-EXPORT void cwcglMultiTexCoord1sARB(GLcontext *context, GLenum target, GLshort s);
-EXPORT void cwcglMultiTexCoord1sv(GLcontext *context, GLenum target, const GLshort * v);
-EXPORT void cwcglMultiTexCoord1svARB(GLcontext *context, GLenum target, const GLshort * v);
-EXPORT void cwcglMultiTexCoord1xOES(GLcontext *context, GLenum texture, GLfixed s);
-EXPORT void cwcglMultiTexCoord1xvOES(GLcontext *context, GLenum texture, const GLfixed * coords);
-EXPORT void cwcglMultiTexCoord2bOES(GLcontext *context, GLenum texture, GLbyte s, GLbyte t);
-EXPORT void cwcglMultiTexCoord2bvOES(GLcontext *context, GLenum texture, const GLbyte * coords);
-EXPORT void cwcglMultiTexCoord2d(GLcontext *context, GLenum target, GLdouble s, GLdouble t);
-EXPORT void cwcglMultiTexCoord2dARB(GLcontext *context, GLenum target, GLdouble s, GLdouble t);
-EXPORT void cwcglMultiTexCoord2dv(GLcontext *context, GLenum target, const GLdouble * v);
-EXPORT void cwcglMultiTexCoord2dvARB(GLcontext *context, GLenum target, const GLdouble * v);
-EXPORT void cwcglMultiTexCoord2f(GLcontext *context, GLenum target, GLfloat s, GLfloat t);
-EXPORT void cwcglMultiTexCoord2fARB(GLcontext *context, GLenum target, GLfloat s, GLfloat t);
-EXPORT void cwcglMultiTexCoord2fv(GLcontext *context, GLenum target, const GLfloat * v);
-EXPORT void cwcglMultiTexCoord2fvARB(GLcontext *context, GLenum target, const GLfloat * v);
-EXPORT void cwcglMultiTexCoord2hNV(GLcontext *context, GLenum target, GLhalfNV s, GLhalfNV t);
-EXPORT void cwcglMultiTexCoord2hvNV(GLcontext *context, GLenum target, const GLhalfNV * v);
-EXPORT void cwcglMultiTexCoord2i(GLcontext *context, GLenum target, GLint s, GLint t);
-EXPORT void cwcglMultiTexCoord2iARB(GLcontext *context, GLenum target, GLint s, GLint t);
-EXPORT void cwcglMultiTexCoord2iv(GLcontext *context, GLenum target, const GLint * v);
-EXPORT void cwcglMultiTexCoord2ivARB(GLcontext *context, GLenum target, const GLint * v);
-EXPORT void cwcglMultiTexCoord2s(GLcontext *context, GLenum target, GLshort s, GLshort t);
-EXPORT void cwcglMultiTexCoord2sARB(GLcontext *context, GLenum target, GLshort s, GLshort t);
-EXPORT void cwcglMultiTexCoord2sv(GLcontext *context, GLenum target, const GLshort * v);
-EXPORT void cwcglMultiTexCoord2svARB(GLcontext *context, GLenum target, const GLshort * v);
-EXPORT void cwcglMultiTexCoord2xOES(GLcontext *context, GLenum texture, GLfixed s, GLfixed t);
-EXPORT void cwcglMultiTexCoord2xvOES(GLcontext *context, GLenum texture, const GLfixed * coords);
-EXPORT void cwcglMultiTexCoord3bOES(GLcontext *context, GLenum texture, GLbyte s, GLbyte t, GLbyte r);
-EXPORT void cwcglMultiTexCoord3bvOES(GLcontext *context, GLenum texture, const GLbyte * coords);
-EXPORT void cwcglMultiTexCoord3d(GLcontext *context, GLenum target, GLdouble s, GLdouble t, GLdouble r);
-EXPORT void cwcglMultiTexCoord3dARB(GLcontext *context, GLenum target, GLdouble s, GLdouble t, GLdouble r);
-EXPORT void cwcglMultiTexCoord3dv(GLcontext *context, GLenum target, const GLdouble * v);
-EXPORT void cwcglMultiTexCoord3dvARB(GLcontext *context, GLenum target, const GLdouble * v);
-EXPORT void cwcglMultiTexCoord3f(GLcontext *context, GLenum target, GLfloat s, GLfloat t, GLfloat r);
-EXPORT void cwcglMultiTexCoord3fARB(GLcontext *context, GLenum target, GLfloat s, GLfloat t, GLfloat r);
-EXPORT void cwcglMultiTexCoord3fv(GLcontext *context, GLenum target, const GLfloat * v);
-EXPORT void cwcglMultiTexCoord3fvARB(GLcontext *context, GLenum target, const GLfloat * v);
-EXPORT void cwcglMultiTexCoord3hNV(GLcontext *context, GLenum target, GLhalfNV s, GLhalfNV t, GLhalfNV r);
-EXPORT void cwcglMultiTexCoord3hvNV(GLcontext *context, GLenum target, const GLhalfNV * v);
-EXPORT void cwcglMultiTexCoord3i(GLcontext *context, GLenum target, GLint s, GLint t, GLint r);
-EXPORT void cwcglMultiTexCoord3iARB(GLcontext *context, GLenum target, GLint s, GLint t, GLint r);
-EXPORT void cwcglMultiTexCoord3iv(GLcontext *context, GLenum target, const GLint * v);
-EXPORT void cwcglMultiTexCoord3ivARB(GLcontext *context, GLenum target, const GLint * v);
-EXPORT void cwcglMultiTexCoord3s(GLcontext *context, GLenum target, GLshort s, GLshort t, GLshort r);
-EXPORT void cwcglMultiTexCoord3sARB(GLcontext *context, GLenum target, GLshort s, GLshort t, GLshort r);
-EXPORT void cwcglMultiTexCoord3sv(GLcontext *context, GLenum target, const GLshort * v);
-EXPORT void cwcglMultiTexCoord3svARB(GLcontext *context, GLenum target, const GLshort * v);
-EXPORT void cwcglMultiTexCoord3xOES(GLcontext *context, GLenum texture, GLfixed s, GLfixed t, GLfixed r);
-EXPORT void cwcglMultiTexCoord3xvOES(GLcontext *context, GLenum texture, const GLfixed * coords);
-EXPORT void cwcglMultiTexCoord4bOES(GLcontext *context, GLenum texture, GLbyte s, GLbyte t, GLbyte r, GLbyte q);
-EXPORT void cwcglMultiTexCoord4bvOES(GLcontext *context, GLenum texture, const GLbyte * coords);
-EXPORT void cwcglMultiTexCoord4d(GLcontext *context, GLenum target, GLdouble s, GLdouble t, GLdouble r, GLdouble q);
-EXPORT void cwcglMultiTexCoord4dARB(GLcontext *context, GLenum target, GLdouble s, GLdouble t, GLdouble r, GLdouble q);
-EXPORT void cwcglMultiTexCoord4dv(GLcontext *context, GLenum target, const GLdouble * v);
-EXPORT void cwcglMultiTexCoord4dvARB(GLcontext *context, GLenum target, const GLdouble * v);
-EXPORT void cwcglMultiTexCoord4f(GLcontext *context, GLenum target, GLfloat s, GLfloat t, GLfloat r, GLfloat q);
-EXPORT void cwcglMultiTexCoord4fARB(GLcontext *context, GLenum target, GLfloat s, GLfloat t, GLfloat r, GLfloat q);
-EXPORT void cwcglMultiTexCoord4fv(GLcontext *context, GLenum target, const GLfloat * v);
-EXPORT void cwcglMultiTexCoord4fvARB(GLcontext *context, GLenum target, const GLfloat * v);
-EXPORT void cwcglMultiTexCoord4hNV(GLcontext *context, GLenum target, GLhalfNV s, GLhalfNV t, GLhalfNV r, GLhalfNV q);
-EXPORT void cwcglMultiTexCoord4hvNV(GLcontext *context, GLenum target, const GLhalfNV * v);
-EXPORT void cwcglMultiTexCoord4i(GLcontext *context, GLenum target, GLint s, GLint t, GLint r, GLint q);
-EXPORT void cwcglMultiTexCoord4iARB(GLcontext *context, GLenum target, GLint s, GLint t, GLint r, GLint q);
-EXPORT void cwcglMultiTexCoord4iv(GLcontext *context, GLenum target, const GLint * v);
-EXPORT void cwcglMultiTexCoord4ivARB(GLcontext *context, GLenum target, const GLint * v);
-EXPORT void cwcglMultiTexCoord4s(GLcontext *context, GLenum target, GLshort s, GLshort t, GLshort r, GLshort q);
-EXPORT void cwcglMultiTexCoord4sARB(GLcontext *context, GLenum target, GLshort s, GLshort t, GLshort r, GLshort q);
-EXPORT void cwcglMultiTexCoord4sv(GLcontext *context, GLenum target, const GLshort * v);
-EXPORT void cwcglMultiTexCoord4svARB(GLcontext *context, GLenum target, const GLshort * v);
-EXPORT void cwcglMultiTexCoord4x(GLcontext *context, GLenum texture, GLfixed s, GLfixed t, GLfixed r, GLfixed q);
-EXPORT void cwcglMultiTexCoord4xOES(GLcontext *context, GLenum texture, GLfixed s, GLfixed t, GLfixed r, GLfixed q);
-EXPORT void cwcglMultiTexCoord4xvOES(GLcontext *context, GLenum texture, const GLfixed * coords);
-EXPORT void cwcglMultiTexCoordP1ui(GLcontext *context, GLenum texture, GLenum type, GLuint coords);
-EXPORT void cwcglMultiTexCoordP1uiv(GLcontext *context, GLenum texture, GLenum type, const GLuint * coords);
-EXPORT void cwcglMultiTexCoordP2ui(GLcontext *context, GLenum texture, GLenum type, GLuint coords);
-EXPORT void cwcglMultiTexCoordP2uiv(GLcontext *context, GLenum texture, GLenum type, const GLuint * coords);
-EXPORT void cwcglMultiTexCoordP3ui(GLcontext *context, GLenum texture, GLenum type, GLuint coords);
-EXPORT void cwcglMultiTexCoordP3uiv(GLcontext *context, GLenum texture, GLenum type, const GLuint * coords);
-EXPORT void cwcglMultiTexCoordP4ui(GLcontext *context, GLenum texture, GLenum type, GLuint coords);
-EXPORT void cwcglMultiTexCoordP4uiv(GLcontext *context, GLenum texture, GLenum type, const GLuint * coords);
-EXPORT void cwcglMultiTexCoordPointerEXT(GLcontext *context, GLenum texunit, GLint size, GLenum type, GLsizei stride, const void * pointer);
-EXPORT void cwcglMultiTexEnvfEXT(GLcontext *context, GLenum texunit, GLenum target, GLenum pname, GLfloat param);
-EXPORT void cwcglMultiTexEnvfvEXT(GLcontext *context, GLenum texunit, GLenum target, GLenum pname, const GLfloat * params);
-EXPORT void cwcglMultiTexEnviEXT(GLcontext *context, GLenum texunit, GLenum target, GLenum pname, GLint param);
-EXPORT void cwcglMultiTexEnvivEXT(GLcontext *context, GLenum texunit, GLenum target, GLenum pname, const GLint * params);
-EXPORT void cwcglMultiTexGendEXT(GLcontext *context, GLenum texunit, GLenum coord, GLenum pname, GLdouble param);
-EXPORT void cwcglMultiTexGendvEXT(GLcontext *context, GLenum texunit, GLenum coord, GLenum pname, const GLdouble * params);
-EXPORT void cwcglMultiTexGenfEXT(GLcontext *context, GLenum texunit, GLenum coord, GLenum pname, GLfloat param);
-EXPORT void cwcglMultiTexGenfvEXT(GLcontext *context, GLenum texunit, GLenum coord, GLenum pname, const GLfloat * params);
-EXPORT void cwcglMultiTexGeniEXT(GLcontext *context, GLenum texunit, GLenum coord, GLenum pname, GLint param);
-EXPORT void cwcglMultiTexGenivEXT(GLcontext *context, GLenum texunit, GLenum coord, GLenum pname, const GLint * params);
-EXPORT void cwcglMultiTexImage1DEXT(GLcontext *context, GLenum texunit, GLenum target, GLint level, GLint internalformat, GLsizei width, GLint border, GLenum format, GLenum type, const void * pixels);
-EXPORT void cwcglMultiTexImage2DEXT(GLcontext *context, GLenum texunit, GLenum target, GLint level, GLint internalformat, GLsizei width, GLsizei height, GLint border, GLenum format, GLenum type, const void * pixels);
-EXPORT void cwcglMultiTexImage3DEXT(GLcontext *context, GLenum texunit, GLenum target, GLint level, GLint internalformat, GLsizei width, GLsizei height, GLsizei depth, GLint border, GLenum format, GLenum type, const void * pixels);
-EXPORT void cwcglMultiTexParameterIivEXT(GLcontext *context, GLenum texunit, GLenum target, GLenum pname, const GLint * params);
-EXPORT void cwcglMultiTexParameterIuivEXT(GLcontext *context, GLenum texunit, GLenum target, GLenum pname, const GLuint * params);
-EXPORT void cwcglMultiTexParameterfEXT(GLcontext *context, GLenum texunit, GLenum target, GLenum pname, GLfloat param);
-EXPORT void cwcglMultiTexParameterfvEXT(GLcontext *context, GLenum texunit, GLenum target, GLenum pname, const GLfloat * params);
-EXPORT void cwcglMultiTexParameteriEXT(GLcontext *context, GLenum texunit, GLenum target, GLenum pname, GLint param);
-EXPORT void cwcglMultiTexParameterivEXT(GLcontext *context, GLenum texunit, GLenum target, GLenum pname, const GLint * params);
-EXPORT void cwcglMultiTexRenderbufferEXT(GLcontext *context, GLenum texunit, GLenum target, GLuint renderbuffer);
-EXPORT void cwcglMultiTexSubImage1DEXT(GLcontext *context, GLenum texunit, GLenum target, GLint level, GLint xoffset, GLsizei width, GLenum format, GLenum type, const void * pixels);
-EXPORT void cwcglMultiTexSubImage2DEXT(GLcontext *context, GLenum texunit, GLenum target, GLint level, GLint xoffset, GLint yoffset, GLsizei width, GLsizei height, GLenum format, GLenum type, const void * pixels);
-EXPORT void cwcglMultiTexSubImage3DEXT(GLcontext *context, GLenum texunit, GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLenum format, GLenum type, const void * pixels);
-EXPORT void cwcglNamedBufferData(GLcontext *context, GLuint buffer, GLsizeiptr size, const void * data, GLenum usage);
-EXPORT void cwcglNamedBufferDataEXT(GLcontext *context, GLuint buffer, GLsizeiptr size, const void * data, GLenum usage);
-EXPORT void cwcglNamedBufferPageCommitmentARB(GLcontext *context, GLuint buffer, GLintptr offset, GLsizeiptr size, GLboolean commit);
-EXPORT void cwcglNamedBufferPageCommitmentEXT(GLcontext *context, GLuint buffer, GLintptr offset, GLsizeiptr size, GLboolean commit);
-EXPORT void cwcglNamedBufferStorage(GLcontext *context, GLuint buffer, GLsizeiptr size, const void * data, GLbitfield flags);
-EXPORT void cwcglNamedBufferStorageEXT(GLcontext *context, GLuint buffer, GLsizeiptr size, const void * data, GLbitfield flags);
-EXPORT void cwcglNamedBufferSubData(GLcontext *context, GLuint buffer, GLintptr offset, GLsizeiptr size, const void * data);
-EXPORT void cwcglNamedBufferSubDataEXT(GLcontext *context, GLuint buffer, GLintptr offset, GLsizeiptr size, const void * data);
-EXPORT void cwcglNamedCopyBufferSubDataEXT(GLcontext *context, GLuint readBuffer, GLuint writeBuffer, GLintptr readOffset, GLintptr writeOffset, GLsizeiptr size);
-EXPORT void cwcglNamedFramebufferDrawBuffer(GLcontext *context, GLuint framebuffer, GLenum buf);
-EXPORT void cwcglNamedFramebufferDrawBuffers(GLcontext *context, GLuint framebuffer, GLsizei n, const GLenum * bufs);
-EXPORT void cwcglNamedFramebufferParameteri(GLcontext *context, GLuint framebuffer, GLenum pname, GLint param);
-EXPORT void cwcglNamedFramebufferParameteriEXT(GLcontext *context, GLuint framebuffer, GLenum pname, GLint param);
-EXPORT void cwcglNamedFramebufferReadBuffer(GLcontext *context, GLuint framebuffer, GLenum src);
-EXPORT void cwcglNamedFramebufferRenderbuffer(GLcontext *context, GLuint framebuffer, GLenum attachment, GLenum renderbuffertarget, GLuint renderbuffer);
-EXPORT void cwcglNamedFramebufferRenderbufferEXT(GLcontext *context, GLuint framebuffer, GLenum attachment, GLenum renderbuffertarget, GLuint renderbuffer);
-EXPORT void cwcglNamedFramebufferSampleLocationsfvARB(GLcontext *context, GLuint framebuffer, GLuint start, GLsizei count, const GLfloat * v);
-EXPORT void cwcglNamedFramebufferSampleLocationsfvNV(GLcontext *context, GLuint framebuffer, GLuint start, GLsizei count, const GLfloat * v);
-EXPORT void cwcglNamedFramebufferTexture(GLcontext *context, GLuint framebuffer, GLenum attachment, GLuint texture, GLint level);
-EXPORT void cwcglNamedFramebufferSamplePositionsfvAMD(GLcontext *context, GLuint framebuffer, GLuint numsamples, GLuint pixelindex, const GLfloat * values);
-EXPORT void cwcglNamedFramebufferTexture1DEXT(GLcontext *context, GLuint framebuffer, GLenum attachment, GLenum textarget, GLuint texture, GLint level);
-EXPORT void cwcglNamedFramebufferTexture2DEXT(GLcontext *context, GLuint framebuffer, GLenum attachment, GLenum textarget, GLuint texture, GLint level);
-EXPORT void cwcglNamedFramebufferTexture3DEXT(GLcontext *context, GLuint framebuffer, GLenum attachment, GLenum textarget, GLuint texture, GLint level, GLint zoffset);
-EXPORT void cwcglNamedFramebufferTextureEXT(GLcontext *context, GLuint framebuffer, GLenum attachment, GLuint texture, GLint level);
-EXPORT void cwcglNamedFramebufferTextureFaceEXT(GLcontext *context, GLuint framebuffer, GLenum attachment, GLuint texture, GLint level, GLenum face);
-EXPORT void cwcglNamedFramebufferTextureLayer(GLcontext *context, GLuint framebuffer, GLenum attachment, GLuint texture, GLint level, GLint layer);
-EXPORT void cwcglNamedFramebufferTextureLayerEXT(GLcontext *context, GLuint framebuffer, GLenum attachment, GLuint texture, GLint level, GLint layer);
-EXPORT void cwcglNamedProgramLocalParameter4dEXT(GLcontext *context, GLuint program, GLenum target, GLuint index, GLdouble x, GLdouble y, GLdouble z, GLdouble w);
-EXPORT void cwcglNamedProgramLocalParameter4dvEXT(GLcontext *context, GLuint program, GLenum target, GLuint index, const GLdouble * params);
-EXPORT void cwcglNamedProgramLocalParameter4fEXT(GLcontext *context, GLuint program, GLenum target, GLuint index, GLfloat x, GLfloat y, GLfloat z, GLfloat w);
-EXPORT void cwcglNamedProgramLocalParameter4fvEXT(GLcontext *context, GLuint program, GLenum target, GLuint index, const GLfloat * params);
-EXPORT void cwcglNamedProgramLocalParameterI4iEXT(GLcontext *context, GLuint program, GLenum target, GLuint index, GLint x, GLint y, GLint z, GLint w);
-EXPORT void cwcglNamedProgramLocalParameterI4ivEXT(GLcontext *context, GLuint program, GLenum target, GLuint index, const GLint * params);
-EXPORT void cwcglNamedProgramLocalParameterI4uiEXT(GLcontext *context, GLuint program, GLenum target, GLuint index, GLuint x, GLuint y, GLuint z, GLuint w);
-EXPORT void cwcglNamedProgramLocalParameterI4uivEXT(GLcontext *context, GLuint program, GLenum target, GLuint index, const GLuint * params);
-EXPORT void cwcglNamedProgramLocalParameters4fvEXT(GLcontext *context, GLuint program, GLenum target, GLuint index, GLsizei count, const GLfloat * params);
-EXPORT void cwcglNamedProgramLocalParametersI4ivEXT(GLcontext *context, GLuint program, GLenum target, GLuint index, GLsizei count, const GLint * params);
-EXPORT void cwcglNamedProgramLocalParametersI4uivEXT(GLcontext *context, GLuint program, GLenum target, GLuint index, GLsizei count, const GLuint * params);
-EXPORT void cwcglNamedProgramStringEXT(GLcontext *context, GLuint program, GLenum target, GLenum format, GLsizei len, const void * string);
-EXPORT void cwcglNamedRenderbufferStorage(GLcontext *context, GLuint renderbuffer, GLenum internalformat, GLsizei width, GLsizei height);
-EXPORT void cwcglNamedRenderbufferStorageEXT(GLcontext *context, GLuint renderbuffer, GLenum internalformat, GLsizei width, GLsizei height);
-EXPORT void cwcglNamedRenderbufferStorageMultisample(GLcontext *context, GLuint renderbuffer, GLsizei samples, GLenum internalformat, GLsizei width, GLsizei height);
-EXPORT void cwcglNamedRenderbufferStorageMultisampleCoverageEXT(GLcontext *context, GLuint renderbuffer, GLsizei coverageSamples, GLsizei colorSamples, GLenum internalformat, GLsizei width, GLsizei height);
-EXPORT void cwcglNamedRenderbufferStorageMultisampleEXT(GLcontext *context, GLuint renderbuffer, GLsizei samples, GLenum internalformat, GLsizei width, GLsizei height);
-EXPORT void cwcglNamedStringARB(GLcontext *context, GLenum type, GLint namelen, const GLchar * name, GLint stringlen, const GLchar * string);
-EXPORT void cwcglNewList(GLcontext *context, GLuint list, GLenum mode);
-EXPORT void cwcglNewObjectBufferATI(GLcontext *context, GLsizei size, const void * pointer, GLenum usage, GLuint* return_value);
 EXPORT void cwcglNormal3b(GLcontext *context, GLbyte nx, GLbyte ny, GLbyte nz);
 EXPORT void cwcglNormal3bv(GLcontext *context, const GLbyte * v);
 EXPORT void cwcglNormal3d(GLcontext *context, GLdouble nx, GLdouble ny, GLdouble nz);
 EXPORT void cwcglNormal3dv(GLcontext *context, const GLdouble * v);
 EXPORT void cwcglNormal3f(GLcontext *context, GLfloat nx, GLfloat ny, GLfloat nz);
-EXPORT void cwcglNormal3fVertex3fSUN(GLcontext *context, GLfloat nx, GLfloat ny, GLfloat nz, GLfloat x, GLfloat y, GLfloat z);
-EXPORT void cwcglNormal3fVertex3fvSUN(GLcontext *context, const GLfloat * n, const GLfloat * v);
 EXPORT void cwcglNormal3fv(GLcontext *context, const GLfloat * v);
-EXPORT void cwcglNormal3hNV(GLcontext *context, GLhalfNV nx, GLhalfNV ny, GLhalfNV nz);
-EXPORT void cwcglNormal3hvNV(GLcontext *context, const GLhalfNV * v);
 EXPORT void cwcglNormal3i(GLcontext *context, GLint nx, GLint ny, GLint nz);
 EXPORT void cwcglNormal3iv(GLcontext *context, const GLint * v);
 EXPORT void cwcglNormal3s(GLcontext *context, GLshort nx, GLshort ny, GLshort nz);
 EXPORT void cwcglNormal3sv(GLcontext *context, const GLshort * v);
-EXPORT void cwcglNormal3x(GLcontext *context, GLfixed nx, GLfixed ny, GLfixed nz);
-EXPORT void cwcglNormal3xOES(GLcontext *context, GLfixed nx, GLfixed ny, GLfixed nz);
-EXPORT void cwcglNormal3xvOES(GLcontext *context, const GLfixed * coords);
-EXPORT void cwcglNormalFormatNV(GLcontext *context, GLenum type, GLsizei stride);
-EXPORT void cwcglNormalP3ui(GLcontext *context, GLenum type, GLuint coords);
-EXPORT void cwcglNormalP3uiv(GLcontext *context, GLenum type, const GLuint * coords);
-EXPORT void cwcglNormalPointer(GLcontext *context, GLenum type, GLsizei stride, const void * pointer);
-EXPORT void cwcglNormalPointerEXT(GLcontext *context, GLenum type, GLsizei stride, GLsizei count, const void * pointer);
-EXPORT void cwcglNormalPointerListIBM(GLcontext *context, GLenum type, GLint stride, const void ** pointer, GLint ptrstride);
-EXPORT void cwcglNormalPointervINTEL(GLcontext *context, GLenum type, const void ** pointer);
-EXPORT void cwcglNormalStream3bATI(GLcontext *context, GLenum stream, GLbyte nx, GLbyte ny, GLbyte nz);
-EXPORT void cwcglNormalStream3bvATI(GLcontext *context, GLenum stream, const GLbyte * coords);
-EXPORT void cwcglNormalStream3dATI(GLcontext *context, GLenum stream, GLdouble nx, GLdouble ny, GLdouble nz);
-EXPORT void cwcglNormalStream3dvATI(GLcontext *context, GLenum stream, const GLdouble * coords);
-EXPORT void cwcglNormalStream3fATI(GLcontext *context, GLenum stream, GLfloat nx, GLfloat ny, GLfloat nz);
-EXPORT void cwcglNormalStream3fvATI(GLcontext *context, GLenum stream, const GLfloat * coords);
-EXPORT void cwcglNormalStream3iATI(GLcontext *context, GLenum stream, GLint nx, GLint ny, GLint nz);
-EXPORT void cwcglNormalStream3ivATI(GLcontext *context, GLenum stream, const GLint * coords);
-EXPORT void cwcglNormalStream3sATI(GLcontext *context, GLenum stream, GLshort nx, GLshort ny, GLshort nz);
-EXPORT void cwcglNormalStream3svATI(GLcontext *context, GLenum stream, const GLshort * coords);
-EXPORT void cwcglObjectLabel(GLcontext *context, GLenum identifier, GLuint name, GLsizei length, const GLchar * label);
-EXPORT void cwcglObjectLabelKHR(GLcontext *context, GLenum identifier, GLuint name, GLsizei length, const GLchar * label);
-EXPORT void cwcglObjectPtrLabel(GLcontext *context, const void * ptr, GLsizei length, const GLchar * label);
-EXPORT void cwcglObjectPtrLabelKHR(GLcontext *context, const void * ptr, GLsizei length, const GLchar * label);
-EXPORT void cwcglObjectPurgeableAPPLE(GLcontext *context, GLenum objectType, GLuint name, GLenum option, GLenum* return_value);
-EXPORT void cwcglObjectUnpurgeableAPPLE(GLcontext *context, GLenum objectType, GLuint name, GLenum option, GLenum* return_value);
-EXPORT void cwcglOrtho(GLcontext *context, GLdouble left, GLdouble right, GLdouble bottom, GLdouble top, GLdouble zNear, GLdouble zFar);
-EXPORT void cwcglOrthof(GLcontext *context, GLfloat l, GLfloat r, GLfloat b, GLfloat t, GLfloat n, GLfloat f);
-EXPORT void cwcglOrthofOES(GLcontext *context, GLfloat l, GLfloat r, GLfloat b, GLfloat t, GLfloat n, GLfloat f);
-EXPORT void cwcglOrthox(GLcontext *context, GLfixed l, GLfixed r, GLfixed b, GLfixed t, GLfixed n, GLfixed f);
-EXPORT void cwcglOrthoxOES(GLcontext *context, GLfixed l, GLfixed r, GLfixed b, GLfixed t, GLfixed n, GLfixed f);
-EXPORT void cwcglPNTrianglesfATI(GLcontext *context, GLenum pname, GLfloat param);
-EXPORT void cwcglPNTrianglesiATI(GLcontext *context, GLenum pname, GLint param);
-EXPORT void cwcglPassTexCoordATI(GLcontext *context, GLuint dst, GLuint coord, GLenum swizzle);
-EXPORT void cwcglPassThrough(GLcontext *context, GLfloat token);
-EXPORT void cwcglPassThroughxOES(GLcontext *context, GLfixed token);
-EXPORT void cwcglPatchParameterfv(GLcontext *context, GLenum pname, const GLfloat * values);
-EXPORT void cwcglPatchParameteri(GLcontext *context, GLenum pname, GLint value);
-EXPORT void cwcglPatchParameteriEXT(GLcontext *context, GLenum pname, GLint value);
-EXPORT void cwcglPatchParameteriOES(GLcontext *context, GLenum pname, GLint value);
-EXPORT void cwcglPathColorGenNV(GLcontext *context, GLenum color, GLenum genMode, GLenum colorFormat, const GLfloat * coeffs);
-EXPORT void cwcglPathCommandsNV(GLcontext *context, GLuint path, GLsizei numCommands, const GLubyte * commands, GLsizei numCoords, GLenum coordType, const void * coords);
-EXPORT void cwcglPathCoordsNV(GLcontext *context, GLuint path, GLsizei numCoords, GLenum coordType, const void * coords);
-EXPORT void cwcglPathCoverDepthFuncNV(GLcontext *context, GLenum func);
-EXPORT void cwcglPathDashArrayNV(GLcontext *context, GLuint path, GLsizei dashCount, const GLfloat * dashArray);
-EXPORT void cwcglPathFogGenNV(GLcontext *context, GLenum genMode);
-EXPORT void cwcglPathGlyphIndexArrayNV(GLcontext *context, GLuint firstPathName, GLenum fontTarget, const void * fontName, GLbitfield fontStyle, GLuint firstGlyphIndex, GLsizei numGlyphs, GLuint pathParameterTemplate, GLfloat emScale, GLenum* return_value);
-EXPORT void cwcglPathGlyphIndexRangeNV(GLcontext *context, GLenum fontTarget, const void * fontName, GLbitfield fontStyle, GLuint pathParameterTemplate, GLfloat emScale, GLuint baseAndCount [2], GLenum* return_value);
-EXPORT void cwcglPathGlyphRangeNV(GLcontext *context, GLuint firstPathName, GLenum fontTarget, const void * fontName, GLbitfield fontStyle, GLuint firstGlyph, GLsizei numGlyphs, GLenum handleMissingGlyphs, GLuint pathParameterTemplate, GLfloat emScale);
-EXPORT void cwcglPathGlyphsNV(GLcontext *context, GLuint firstPathName, GLenum fontTarget, const void * fontName, GLbitfield fontStyle, GLsizei numGlyphs, GLenum type, const void * charcodes, GLenum handleMissingGlyphs, GLuint pathParameterTemplate, GLfloat emScale);
-EXPORT void cwcglPathMemoryGlyphIndexArrayNV(GLcontext *context, GLuint firstPathName, GLenum fontTarget, GLsizeiptr fontSize, const void * fontData, GLsizei faceIndex, GLuint firstGlyphIndex, GLsizei numGlyphs, GLuint pathParameterTemplate, GLfloat emScale, GLenum* return_value);
-EXPORT void cwcglPathParameterfNV(GLcontext *context, GLuint path, GLenum pname, GLfloat value);
-EXPORT void cwcglPathParameterfvNV(GLcontext *context, GLuint path, GLenum pname, const GLfloat * value);
-EXPORT void cwcglPathParameteriNV(GLcontext *context, GLuint path, GLenum pname, GLint value);
-EXPORT void cwcglPathParameterivNV(GLcontext *context, GLuint path, GLenum pname, const GLint * value);
-EXPORT void cwcglPathStencilDepthOffsetNV(GLcontext *context, GLfloat factor, GLfloat units);
-EXPORT void cwcglPathStencilFuncNV(GLcontext *context, GLenum func, GLint ref, GLuint mask);
-EXPORT void cwcglPathStringNV(GLcontext *context, GLuint path, GLenum format, GLsizei length, const void * pathString);
-EXPORT void cwcglPathSubCommandsNV(GLcontext *context, GLuint path, GLsizei commandStart, GLsizei commandsToDelete, GLsizei numCommands, const GLubyte * commands, GLsizei numCoords, GLenum coordType, const void * coords);
-EXPORT void cwcglPathSubCoordsNV(GLcontext *context, GLuint path, GLsizei coordStart, GLsizei numCoords, GLenum coordType, const void * coords);
-EXPORT void cwcglPathTexGenNV(GLcontext *context, GLenum texCoordSet, GLenum genMode, GLint components, const GLfloat * coeffs);
-EXPORT void cwcglPauseTransformFeedback(GLcontext *context);
-EXPORT void cwcglPauseTransformFeedbackNV(GLcontext *context);
-EXPORT void cwcglPixelDataRangeNV(GLcontext *context, GLenum target, GLsizei length, const void * pointer);
-EXPORT void cwcglPixelMapfv(GLcontext *context, GLenum map, GLsizei mapsize, const GLfloat * values);
-EXPORT void cwcglPixelMapuiv(GLcontext *context, GLenum map, GLsizei mapsize, const GLuint * values);
-EXPORT void cwcglPixelMapusv(GLcontext *context, GLenum map, GLsizei mapsize, const GLushort * values);
-EXPORT void cwcglPixelMapx(GLcontext *context, GLenum map, GLint size, const GLfixed * values);
-EXPORT void cwcglPixelStoref(GLcontext *context, GLenum pname, GLfloat param);
-EXPORT void cwcglPixelStorei(GLcontext *context, GLenum pname, GLint param);
-EXPORT void cwcglPixelStorex(GLcontext *context, GLenum pname, GLfixed param);
-EXPORT void cwcglPixelTexGenParameterfSGIS(GLcontext *context, GLenum pname, GLfloat param);
-EXPORT void cwcglPixelTexGenParameterfvSGIS(GLcontext *context, GLenum pname, const GLfloat * params);
-EXPORT void cwcglPixelTexGenParameteriSGIS(GLcontext *context, GLenum pname, GLint param);
-EXPORT void cwcglPixelTexGenParameterivSGIS(GLcontext *context, GLenum pname, const GLint * params);
-EXPORT void cwcglPixelTexGenSGIX(GLcontext *context, GLenum mode);
-EXPORT void cwcglPixelTransferf(GLcontext *context, GLenum pname, GLfloat param);
-EXPORT void cwcglPixelTransferi(GLcontext *context, GLenum pname, GLint param);
-EXPORT void cwcglPixelTransferxOES(GLcontext *context, GLenum pname, GLfixed param);
-EXPORT void cwcglPixelTransformParameterfEXT(GLcontext *context, GLenum target, GLenum pname, GLfloat param);
-EXPORT void cwcglPixelTransformParameterfvEXT(GLcontext *context, GLenum target, GLenum pname, const GLfloat * params);
-EXPORT void cwcglPixelTransformParameteriEXT(GLcontext *context, GLenum target, GLenum pname, GLint param);
-EXPORT void cwcglPixelTransformParameterivEXT(GLcontext *context, GLenum target, GLenum pname, const GLint * params);
-EXPORT void cwcglPixelZoom(GLcontext *context, GLfloat xfactor, GLfloat yfactor);
-EXPORT void cwcglPixelZoomxOES(GLcontext *context, GLfixed xfactor, GLfixed yfactor);
-EXPORT void cwcglPointAlongPathNV(GLcontext *context, GLuint path, GLsizei startSegment, GLsizei numSegments, GLfloat distance, GLfloat * x, GLfloat * y, GLfloat * tangentX, GLfloat * tangentY, GLboolean* return_value);
-EXPORT void cwcglPointParameterf(GLcontext *context, GLenum pname, GLfloat param);
-EXPORT void cwcglPointParameterfARB(GLcontext *context, GLenum pname, GLfloat param);
-EXPORT void cwcglPointParameterfEXT(GLcontext *context, GLenum pname, GLfloat param);
-EXPORT void cwcglPointParameterfSGIS(GLcontext *context, GLenum pname, GLfloat param);
-EXPORT void cwcglPointParameterfv(GLcontext *context, GLenum pname, const GLfloat * params);
-EXPORT void cwcglPointParameterfvARB(GLcontext *context, GLenum pname, const GLfloat * params);
-EXPORT void cwcglPointParameterfvEXT(GLcontext *context, GLenum pname, const GLfloat * params);
-EXPORT void cwcglPointParameterfvSGIS(GLcontext *context, GLenum pname, const GLfloat * params);
-EXPORT void cwcglPointParameteri(GLcontext *context, GLenum pname, GLint param);
-EXPORT void cwcglPointParameteriNV(GLcontext *context, GLenum pname, GLint param);
-EXPORT void cwcglPointParameteriv(GLcontext *context, GLenum pname, const GLint * params);
-EXPORT void cwcglPointParameterivNV(GLcontext *context, GLenum pname, const GLint * params);
-EXPORT void cwcglPointParameterx(GLcontext *context, GLenum pname, GLfixed param);
-EXPORT void cwcglPointParameterxOES(GLcontext *context, GLenum pname, GLfixed param);
-EXPORT void cwcglPointParameterxv(GLcontext *context, GLenum pname, const GLfixed * params);
-EXPORT void cwcglPointParameterxvOES(GLcontext *context, GLenum pname, const GLfixed * params);
-EXPORT void cwcglPointSize(GLcontext *context, GLfloat size);
-EXPORT void cwcglPointSizePointerOES(GLcontext *context, GLenum type, GLsizei stride, const void * pointer);
-EXPORT void cwcglPointSizex(GLcontext *context, GLfixed size);
-EXPORT void cwcglPointSizexOES(GLcontext *context, GLfixed size);
-EXPORT void cwcglPollAsyncSGIX(GLcontext *context, GLuint * markerp, GLint* return_value);
-EXPORT void cwcglPollInstrumentsSGIX(GLcontext *context, GLint * marker_p, GLint* return_value);
-EXPORT void cwcglPolygonMode(GLcontext *context, GLenum face, GLenum mode);
-EXPORT void cwcglPolygonModeNV(GLcontext *context, GLenum face, GLenum mode);
-EXPORT void cwcglPolygonOffset(GLcontext *context, GLfloat factor, GLfloat units);
-EXPORT void cwcglPolygonOffsetClampEXT(GLcontext *context, GLfloat factor, GLfloat units, GLfloat clamp);
-EXPORT void cwcglPolygonOffsetEXT(GLcontext *context, GLfloat factor, GLfloat bias);
-EXPORT void cwcglPolygonOffsetx(GLcontext *context, GLfixed factor, GLfixed units);
-EXPORT void cwcglPolygonOffsetxOES(GLcontext *context, GLfixed factor, GLfixed units);
-EXPORT void cwcglPolygonStipple(GLcontext *context, const GLubyte * mask);
-EXPORT void cwcglPopAttrib(GLcontext *context);
-EXPORT void cwcglPopClientAttrib(GLcontext *context);
-EXPORT void cwcglPopDebugGroup(GLcontext *context);
-EXPORT void cwcglPopDebugGroupKHR(GLcontext *context);
-EXPORT void cwcglPopGroupMarkerEXT(GLcontext *context);
-EXPORT void cwcglPopMatrix(GLcontext *context);
-EXPORT void cwcglPopName(GLcontext *context);
-EXPORT void cwcglPresentFrameDualFillNV(GLcontext *context, GLuint video_slot, GLuint64EXT minPresentTime, GLuint beginPresentTimeId, GLuint presentDurationId, GLenum type, GLenum target0, GLuint fill0, GLenum target1, GLuint fill1, GLenum target2, GLuint fill2, GLenum target3, GLuint fill3);
-EXPORT void cwcglPresentFrameKeyedNV(GLcontext *context, GLuint video_slot, GLuint64EXT minPresentTime, GLuint beginPresentTimeId, GLuint presentDurationId, GLenum type, GLenum target0, GLuint fill0, GLuint key0, GLenum target1, GLuint fill1, GLuint key1);
-EXPORT void cwcglPrimitiveBoundingBox(GLcontext *context, GLfloat minX, GLfloat minY, GLfloat minZ, GLfloat minW, GLfloat maxX, GLfloat maxY, GLfloat maxZ, GLfloat maxW);
-EXPORT void cwcglPrimitiveBoundingBoxARB(GLcontext *context, GLfloat minX, GLfloat minY, GLfloat minZ, GLfloat minW, GLfloat maxX, GLfloat maxY, GLfloat maxZ, GLfloat maxW);
-EXPORT void cwcglPrimitiveBoundingBoxEXT(GLcontext *context, GLfloat minX, GLfloat minY, GLfloat minZ, GLfloat minW, GLfloat maxX, GLfloat maxY, GLfloat maxZ, GLfloat maxW);
-EXPORT void cwcglPrimitiveBoundingBoxOES(GLcontext *context, GLfloat minX, GLfloat minY, GLfloat minZ, GLfloat minW, GLfloat maxX, GLfloat maxY, GLfloat maxZ, GLfloat maxW);
-EXPORT void cwcglPrimitiveRestartIndex(GLcontext *context, GLuint index);
-EXPORT void cwcglPrimitiveRestartIndexNV(GLcontext *context, GLuint index);
-EXPORT void cwcglPrimitiveRestartNV(GLcontext *context);
-EXPORT void cwcglPrioritizeTextures(GLcontext *context, GLsizei n, const GLuint * textures, const GLfloat * priorities);
-EXPORT void cwcglPrioritizeTexturesEXT(GLcontext *context, GLsizei n, const GLuint * textures, const GLclampf * priorities);
-EXPORT void cwcglPrioritizeTexturesxOES(GLcontext *context, GLsizei n, const GLuint * textures, const GLfixed * priorities);
-EXPORT void cwcglProgramBinary(GLcontext *context, GLuint program, GLenum binaryFormat, const void * binary, GLsizei length);
-EXPORT void cwcglProgramBinaryOES(GLcontext *context, GLuint program, GLenum binaryFormat, const void * binary, GLint length);
-EXPORT void cwcglProgramBufferParametersIivNV(GLcontext *context, GLenum target, GLuint bindingIndex, GLuint wordIndex, GLsizei count, const GLint * params);
-EXPORT void cwcglProgramBufferParametersIuivNV(GLcontext *context, GLenum target, GLuint bindingIndex, GLuint wordIndex, GLsizei count, const GLuint * params);
-EXPORT void cwcglProgramBufferParametersfvNV(GLcontext *context, GLenum target, GLuint bindingIndex, GLuint wordIndex, GLsizei count, const GLfloat * params);
-EXPORT void cwcglProgramEnvParameter4dARB(GLcontext *context, GLenum target, GLuint index, GLdouble x, GLdouble y, GLdouble z, GLdouble w);
-EXPORT void cwcglProgramEnvParameter4dvARB(GLcontext *context, GLenum target, GLuint index, const GLdouble * params);
-EXPORT void cwcglProgramEnvParameter4fARB(GLcontext *context, GLenum target, GLuint index, GLfloat x, GLfloat y, GLfloat z, GLfloat w);
-EXPORT void cwcglProgramEnvParameter4fvARB(GLcontext *context, GLenum target, GLuint index, const GLfloat * params);
-EXPORT void cwcglProgramEnvParameterI4iNV(GLcontext *context, GLenum target, GLuint index, GLint x, GLint y, GLint z, GLint w);
-EXPORT void cwcglProgramEnvParameterI4ivNV(GLcontext *context, GLenum target, GLuint index, const GLint * params);
-EXPORT void cwcglProgramEnvParameterI4uiNV(GLcontext *context, GLenum target, GLuint index, GLuint x, GLuint y, GLuint z, GLuint w);
-EXPORT void cwcglProgramEnvParameterI4uivNV(GLcontext *context, GLenum target, GLuint index, const GLuint * params);
-EXPORT void cwcglProgramEnvParameters4fvEXT(GLcontext *context, GLenum target, GLuint index, GLsizei count, const GLfloat * params);
-EXPORT void cwcglProgramEnvParametersI4ivNV(GLcontext *context, GLenum target, GLuint index, GLsizei count, const GLint * params);
-EXPORT void cwcglProgramEnvParametersI4uivNV(GLcontext *context, GLenum target, GLuint index, GLsizei count, const GLuint * params);
-EXPORT void cwcglProgramLocalParameter4dARB(GLcontext *context, GLenum target, GLuint index, GLdouble x, GLdouble y, GLdouble z, GLdouble w);
-EXPORT void cwcglProgramLocalParameter4dvARB(GLcontext *context, GLenum target, GLuint index, const GLdouble * params);
-EXPORT void cwcglProgramLocalParameter4fARB(GLcontext *context, GLenum target, GLuint index, GLfloat x, GLfloat y, GLfloat z, GLfloat w);
-EXPORT void cwcglProgramLocalParameter4fvARB(GLcontext *context, GLenum target, GLuint index, const GLfloat * params);
-EXPORT void cwcglProgramLocalParameterI4iNV(GLcontext *context, GLenum target, GLuint index, GLint x, GLint y, GLint z, GLint w);
-EXPORT void cwcglProgramLocalParameterI4ivNV(GLcontext *context, GLenum target, GLuint index, const GLint * params);
-EXPORT void cwcglProgramLocalParameterI4uiNV(GLcontext *context, GLenum target, GLuint index, GLuint x, GLuint y, GLuint z, GLuint w);
-EXPORT void cwcglProgramLocalParameterI4uivNV(GLcontext *context, GLenum target, GLuint index, const GLuint * params);
-EXPORT void cwcglProgramLocalParameters4fvEXT(GLcontext *context, GLenum target, GLuint index, GLsizei count, const GLfloat * params);
-EXPORT void cwcglProgramLocalParametersI4ivNV(GLcontext *context, GLenum target, GLuint index, GLsizei count, const GLint * params);
-EXPORT void cwcglProgramLocalParametersI4uivNV(GLcontext *context, GLenum target, GLuint index, GLsizei count, const GLuint * params);
-EXPORT void cwcglProgramNamedParameter4dNV(GLcontext *context, GLuint id, GLsizei len, const GLubyte * name, GLdouble x, GLdouble y, GLdouble z, GLdouble w);
-EXPORT void cwcglProgramNamedParameter4dvNV(GLcontext *context, GLuint id, GLsizei len, const GLubyte * name, const GLdouble * v);
-EXPORT void cwcglProgramNamedParameter4fNV(GLcontext *context, GLuint id, GLsizei len, const GLubyte * name, GLfloat x, GLfloat y, GLfloat z, GLfloat w);
-EXPORT void cwcglProgramNamedParameter4fvNV(GLcontext *context, GLuint id, GLsizei len, const GLubyte * name, const GLfloat * v);
-EXPORT void cwcglProgramParameter4dNV(GLcontext *context, GLenum target, GLuint index, GLdouble x, GLdouble y, GLdouble z, GLdouble w);
-EXPORT void cwcglProgramParameter4dvNV(GLcontext *context, GLenum target, GLuint index, const GLdouble * v);
-EXPORT void cwcglProgramParameter4fNV(GLcontext *context, GLenum target, GLuint index, GLfloat x, GLfloat y, GLfloat z, GLfloat w);
-EXPORT void cwcglProgramParameter4fvNV(GLcontext *context, GLenum target, GLuint index, const GLfloat * v);
-EXPORT void cwcglProgramParameteri(GLcontext *context, GLuint program, GLenum pname, GLint value);
-EXPORT void cwcglProgramParameteriARB(GLcontext *context, GLuint program, GLenum pname, GLint value);
-EXPORT void cwcglProgramParameteriEXT(GLcontext *context, GLuint program, GLenum pname, GLint value);
-EXPORT void cwcglProgramParameters4dvNV(GLcontext *context, GLenum target, GLuint index, GLsizei count, const GLdouble * v);
-EXPORT void cwcglProgramParameters4fvNV(GLcontext *context, GLenum target, GLuint index, GLsizei count, const GLfloat * v);
-EXPORT void cwcglProgramPathFragmentInputGenNV(GLcontext *context, GLuint program, GLint location, GLenum genMode, GLint components, const GLfloat * coeffs);
-EXPORT void cwcglProgramStringARB(GLcontext *context, GLenum target, GLenum format, GLsizei len, const void * string);
-EXPORT void cwcglProgramSubroutineParametersuivNV(GLcontext *context, GLenum target, GLsizei count, const GLuint * params);
-EXPORT void cwcglProgramUniform1d(GLcontext *context, GLuint program, GLint location, GLdouble v0);
-EXPORT void cwcglProgramUniform1dEXT(GLcontext *context, GLuint program, GLint location, GLdouble x);
-EXPORT void cwcglProgramUniform1dv(GLcontext *context, GLuint program, GLint location, GLsizei count, const GLdouble * value);
-EXPORT void cwcglProgramUniform1dvEXT(GLcontext *context, GLuint program, GLint location, GLsizei count, const GLdouble * value);
-EXPORT void cwcglProgramUniform1f(GLcontext *context, GLuint program, GLint location, GLfloat v0);
-EXPORT void cwcglProgramUniform1fEXT(GLcontext *context, GLuint program, GLint location, GLfloat v0);
-EXPORT void cwcglProgramUniform1fv(GLcontext *context, GLuint program, GLint location, GLsizei count, const GLfloat * value);
-EXPORT void cwcglProgramUniform1fvEXT(GLcontext *context, GLuint program, GLint location, GLsizei count, const GLfloat * value);
-EXPORT void cwcglProgramUniform1i(GLcontext *context, GLuint program, GLint location, GLint v0);
-EXPORT void cwcglProgramUniform1i64ARB(GLcontext *context, GLuint program, GLint location, GLint64 x);
-EXPORT void cwcglProgramUniform1i64NV(GLcontext *context, GLuint program, GLint location, GLint64EXT x);
-EXPORT void cwcglProgramUniform1i64vARB(GLcontext *context, GLuint program, GLint location, GLsizei count, const GLint64 * value);
-EXPORT void cwcglProgramUniform1i64vNV(GLcontext *context, GLuint program, GLint location, GLsizei count, const GLint64EXT * value);
-EXPORT void cwcglProgramUniform1iEXT(GLcontext *context, GLuint program, GLint location, GLint v0);
-EXPORT void cwcglProgramUniform1iv(GLcontext *context, GLuint program, GLint location, GLsizei count, const GLint * value);
-EXPORT void cwcglProgramUniform1ivEXT(GLcontext *context, GLuint program, GLint location, GLsizei count, const GLint * value);
-EXPORT void cwcglProgramUniform1ui(GLcontext *context, GLuint program, GLint location, GLuint v0);
-EXPORT void cwcglProgramUniform1ui64ARB(GLcontext *context, GLuint program, GLint location, GLuint64 x);
-EXPORT void cwcglProgramUniform1ui64NV(GLcontext *context, GLuint program, GLint location, GLuint64EXT x);
-EXPORT void cwcglProgramUniform1ui64vARB(GLcontext *context, GLuint program, GLint location, GLsizei count, const GLuint64 * value);
-EXPORT void cwcglProgramUniform1ui64vNV(GLcontext *context, GLuint program, GLint location, GLsizei count, const GLuint64EXT * value);
-EXPORT void cwcglProgramUniform1uiEXT(GLcontext *context, GLuint program, GLint location, GLuint v0);
-EXPORT void cwcglProgramUniform1uiv(GLcontext *context, GLuint program, GLint location, GLsizei count, const GLuint * value);
-EXPORT void cwcglProgramUniform1uivEXT(GLcontext *context, GLuint program, GLint location, GLsizei count, const GLuint * value);
-EXPORT void cwcglProgramUniform2d(GLcontext *context, GLuint program, GLint location, GLdouble v0, GLdouble v1);
-EXPORT void cwcglProgramUniform2dEXT(GLcontext *context, GLuint program, GLint location, GLdouble x, GLdouble y);
-EXPORT void cwcglProgramUniform2dv(GLcontext *context, GLuint program, GLint location, GLsizei count, const GLdouble * value);
-EXPORT void cwcglProgramUniform2dvEXT(GLcontext *context, GLuint program, GLint location, GLsizei count, const GLdouble * value);
-EXPORT void cwcglProgramUniform2f(GLcontext *context, GLuint program, GLint location, GLfloat v0, GLfloat v1);
-EXPORT void cwcglProgramUniform2fEXT(GLcontext *context, GLuint program, GLint location, GLfloat v0, GLfloat v1);
-EXPORT void cwcglProgramUniform2fv(GLcontext *context, GLuint program, GLint location, GLsizei count, const GLfloat * value);
-EXPORT void cwcglProgramUniform2fvEXT(GLcontext *context, GLuint program, GLint location, GLsizei count, const GLfloat * value);
-EXPORT void cwcglProgramUniform2i(GLcontext *context, GLuint program, GLint location, GLint v0, GLint v1);
-EXPORT void cwcglProgramUniform2i64ARB(GLcontext *context, GLuint program, GLint location, GLint64 x, GLint64 y);
-EXPORT void cwcglProgramUniform2i64NV(GLcontext *context, GLuint program, GLint location, GLint64EXT x, GLint64EXT y);
-EXPORT void cwcglProgramUniform2i64vARB(GLcontext *context, GLuint program, GLint location, GLsizei count, const GLint64 * value);
-EXPORT void cwcglProgramUniform2i64vNV(GLcontext *context, GLuint program, GLint location, GLsizei count, const GLint64EXT * value);
-EXPORT void cwcglProgramUniform2iEXT(GLcontext *context, GLuint program, GLint location, GLint v0, GLint v1);
-EXPORT void cwcglProgramUniform2iv(GLcontext *context, GLuint program, GLint location, GLsizei count, const GLint * value);
-EXPORT void cwcglProgramUniform2ivEXT(GLcontext *context, GLuint program, GLint location, GLsizei count, const GLint * value);
-EXPORT void cwcglProgramUniform2ui(GLcontext *context, GLuint program, GLint location, GLuint v0, GLuint v1);
-EXPORT void cwcglProgramUniform2ui64ARB(GLcontext *context, GLuint program, GLint location, GLuint64 x, GLuint64 y);
-EXPORT void cwcglProgramUniform2ui64NV(GLcontext *context, GLuint program, GLint location, GLuint64EXT x, GLuint64EXT y);
-EXPORT void cwcglProgramUniform2ui64vARB(GLcontext *context, GLuint program, GLint location, GLsizei count, const GLuint64 * value);
-EXPORT void cwcglProgramUniform2ui64vNV(GLcontext *context, GLuint program, GLint location, GLsizei count, const GLuint64EXT * value);
-EXPORT void cwcglProgramUniform2uiEXT(GLcontext *context, GLuint program, GLint location, GLuint v0, GLuint v1);
-EXPORT void cwcglProgramUniform2uiv(GLcontext *context, GLuint program, GLint location, GLsizei count, const GLuint * value);
-EXPORT void cwcglProgramUniform2uivEXT(GLcontext *context, GLuint program, GLint location, GLsizei count, const GLuint * value);
-EXPORT void cwcglProgramUniform3d(GLcontext *context, GLuint program, GLint location, GLdouble v0, GLdouble v1, GLdouble v2);
-EXPORT void cwcglProgramUniform3dEXT(GLcontext *context, GLuint program, GLint location, GLdouble x, GLdouble y, GLdouble z);
-EXPORT void cwcglProgramUniform3dv(GLcontext *context, GLuint program, GLint location, GLsizei count, const GLdouble * value);
-EXPORT void cwcglProgramUniform3dvEXT(GLcontext *context, GLuint program, GLint location, GLsizei count, const GLdouble * value);
-EXPORT void cwcglProgramUniform3f(GLcontext *context, GLuint program, GLint location, GLfloat v0, GLfloat v1, GLfloat v2);
-EXPORT void cwcglProgramUniform3fEXT(GLcontext *context, GLuint program, GLint location, GLfloat v0, GLfloat v1, GLfloat v2);
-EXPORT void cwcglProgramUniform3fv(GLcontext *context, GLuint program, GLint location, GLsizei count, const GLfloat * value);
-EXPORT void cwcglProgramUniform3fvEXT(GLcontext *context, GLuint program, GLint location, GLsizei count, const GLfloat * value);
-EXPORT void cwcglProgramUniform3i(GLcontext *context, GLuint program, GLint location, GLint v0, GLint v1, GLint v2);
-EXPORT void cwcglProgramUniform3i64ARB(GLcontext *context, GLuint program, GLint location, GLint64 x, GLint64 y, GLint64 z);
-EXPORT void cwcglProgramUniform3i64NV(GLcontext *context, GLuint program, GLint location, GLint64EXT x, GLint64EXT y, GLint64EXT z);
-EXPORT void cwcglProgramUniform3i64vARB(GLcontext *context, GLuint program, GLint location, GLsizei count, const GLint64 * value);
-EXPORT void cwcglProgramUniform3i64vNV(GLcontext *context, GLuint program, GLint location, GLsizei count, const GLint64EXT * value);
-EXPORT void cwcglProgramUniform3iEXT(GLcontext *context, GLuint program, GLint location, GLint v0, GLint v1, GLint v2);
-EXPORT void cwcglProgramUniform3iv(GLcontext *context, GLuint program, GLint location, GLsizei count, const GLint * value);
-EXPORT void cwcglProgramUniform3ivEXT(GLcontext *context, GLuint program, GLint location, GLsizei count, const GLint * value);
-EXPORT void cwcglProgramUniform3ui(GLcontext *context, GLuint program, GLint location, GLuint v0, GLuint v1, GLuint v2);
-EXPORT void cwcglProgramUniform3ui64ARB(GLcontext *context, GLuint program, GLint location, GLuint64 x, GLuint64 y, GLuint64 z);
-EXPORT void cwcglProgramUniform3ui64NV(GLcontext *context, GLuint program, GLint location, GLuint64EXT x, GLuint64EXT y, GLuint64EXT z);
-EXPORT void cwcglProgramUniform3ui64vARB(GLcontext *context, GLuint program, GLint location, GLsizei count, const GLuint64 * value);
-EXPORT void cwcglProgramUniform3ui64vNV(GLcontext *context, GLuint program, GLint location, GLsizei count, const GLuint64EXT * value);
-EXPORT void cwcglProgramUniform3uiEXT(GLcontext *context, GLuint program, GLint location, GLuint v0, GLuint v1, GLuint v2);
-EXPORT void cwcglProgramUniform3uiv(GLcontext *context, GLuint program, GLint location, GLsizei count, const GLuint * value);
-EXPORT void cwcglProgramUniform3uivEXT(GLcontext *context, GLuint program, GLint location, GLsizei count, const GLuint * value);
-EXPORT void cwcglProgramUniform4d(GLcontext *context, GLuint program, GLint location, GLdouble v0, GLdouble v1, GLdouble v2, GLdouble v3);
-EXPORT void cwcglProgramUniform4dEXT(GLcontext *context, GLuint program, GLint location, GLdouble x, GLdouble y, GLdouble z, GLdouble w);
-EXPORT void cwcglProgramUniform4dv(GLcontext *context, GLuint program, GLint location, GLsizei count, const GLdouble * value);
-EXPORT void cwcglProgramUniform4dvEXT(GLcontext *context, GLuint program, GLint location, GLsizei count, const GLdouble * value);
-EXPORT void cwcglProgramUniform4f(GLcontext *context, GLuint program, GLint location, GLfloat v0, GLfloat v1, GLfloat v2, GLfloat v3);
-EXPORT void cwcglProgramUniform4fEXT(GLcontext *context, GLuint program, GLint location, GLfloat v0, GLfloat v1, GLfloat v2, GLfloat v3);
-EXPORT void cwcglProgramUniform4fv(GLcontext *context, GLuint program, GLint location, GLsizei count, const GLfloat * value);
-EXPORT void cwcglProgramUniform4fvEXT(GLcontext *context, GLuint program, GLint location, GLsizei count, const GLfloat * value);
-EXPORT void cwcglProgramUniform4i(GLcontext *context, GLuint program, GLint location, GLint v0, GLint v1, GLint v2, GLint v3);
-EXPORT void cwcglProgramUniform4i64ARB(GLcontext *context, GLuint program, GLint location, GLint64 x, GLint64 y, GLint64 z, GLint64 w);
-EXPORT void cwcglProgramUniform4i64NV(GLcontext *context, GLuint program, GLint location, GLint64EXT x, GLint64EXT y, GLint64EXT z, GLint64EXT w);
-EXPORT void cwcglProgramUniform4i64vARB(GLcontext *context, GLuint program, GLint location, GLsizei count, const GLint64 * value);
-EXPORT void cwcglProgramUniform4i64vNV(GLcontext *context, GLuint program, GLint location, GLsizei count, const GLint64EXT * value);
-EXPORT void cwcglProgramUniform4iEXT(GLcontext *context, GLuint program, GLint location, GLint v0, GLint v1, GLint v2, GLint v3);
-EXPORT void cwcglProgramUniform4iv(GLcontext *context, GLuint program, GLint location, GLsizei count, const GLint * value);
-EXPORT void cwcglProgramUniform4ivEXT(GLcontext *context, GLuint program, GLint location, GLsizei count, const GLint * value);
-EXPORT void cwcglProgramUniform4ui(GLcontext *context, GLuint program, GLint location, GLuint v0, GLuint v1, GLuint v2, GLuint v3);
-EXPORT void cwcglProgramUniform4ui64ARB(GLcontext *context, GLuint program, GLint location, GLuint64 x, GLuint64 y, GLuint64 z, GLuint64 w);
-EXPORT void cwcglProgramUniform4ui64NV(GLcontext *context, GLuint program, GLint location, GLuint64EXT x, GLuint64EXT y, GLuint64EXT z, GLuint64EXT w);
-EXPORT void cwcglProgramUniform4ui64vARB(GLcontext *context, GLuint program, GLint location, GLsizei count, const GLuint64 * value);
-EXPORT void cwcglProgramUniform4ui64vNV(GLcontext *context, GLuint program, GLint location, GLsizei count, const GLuint64EXT * value);
-EXPORT void cwcglProgramUniform4uiEXT(GLcontext *context, GLuint program, GLint location, GLuint v0, GLuint v1, GLuint v2, GLuint v3);
-EXPORT void cwcglProgramUniform4uiv(GLcontext *context, GLuint program, GLint location, GLsizei count, const GLuint * value);
-EXPORT void cwcglProgramUniform4uivEXT(GLcontext *context, GLuint program, GLint location, GLsizei count, const GLuint * value);
-EXPORT void cwcglProgramUniformHandleui64ARB(GLcontext *context, GLuint program, GLint location, GLuint64 value);
-EXPORT void cwcglProgramUniformHandleui64IMG(GLcontext *context, GLuint program, GLint location, GLuint64 value);
-EXPORT void cwcglProgramUniformHandleui64NV(GLcontext *context, GLuint program, GLint location, GLuint64 value);
-EXPORT void cwcglProgramUniformHandleui64vARB(GLcontext *context, GLuint program, GLint location, GLsizei count, const GLuint64 * values);
-EXPORT void cwcglProgramUniformHandleui64vIMG(GLcontext *context, GLuint program, GLint location, GLsizei count, const GLuint64 * values);
-EXPORT void cwcglProgramUniformHandleui64vNV(GLcontext *context, GLuint program, GLint location, GLsizei count, const GLuint64 * values);
-EXPORT void cwcglProgramUniformMatrix2dv(GLcontext *context, GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble * value);
-EXPORT void cwcglProgramUniformMatrix2dvEXT(GLcontext *context, GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble * value);
-EXPORT void cwcglProgramUniformMatrix2fv(GLcontext *context, GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat * value);
-EXPORT void cwcglProgramUniformMatrix2fvEXT(GLcontext *context, GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat * value);
-EXPORT void cwcglProgramUniformMatrix2x3dv(GLcontext *context, GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble * value);
-EXPORT void cwcglProgramUniformMatrix2x3dvEXT(GLcontext *context, GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble * value);
-EXPORT void cwcglProgramUniformMatrix2x3fv(GLcontext *context, GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat * value);
-EXPORT void cwcglProgramUniformMatrix2x3fvEXT(GLcontext *context, GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat * value);
-EXPORT void cwcglProgramUniformMatrix2x4dv(GLcontext *context, GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble * value);
-EXPORT void cwcglProgramUniformMatrix2x4dvEXT(GLcontext *context, GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble * value);
-EXPORT void cwcglProgramUniformMatrix2x4fv(GLcontext *context, GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat * value);
-EXPORT void cwcglProgramUniformMatrix2x4fvEXT(GLcontext *context, GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat * value);
-EXPORT void cwcglProgramUniformMatrix3dv(GLcontext *context, GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble * value);
-EXPORT void cwcglProgramUniformMatrix3dvEXT(GLcontext *context, GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble * value);
-EXPORT void cwcglProgramUniformMatrix3fv(GLcontext *context, GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat * value);
-EXPORT void cwcglProgramUniformMatrix3fvEXT(GLcontext *context, GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat * value);
-EXPORT void cwcglProgramUniformMatrix3x2dv(GLcontext *context, GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble * value);
-EXPORT void cwcglProgramUniformMatrix3x2dvEXT(GLcontext *context, GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble * value);
-EXPORT void cwcglProgramUniformMatrix3x2fv(GLcontext *context, GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat * value);
-EXPORT void cwcglProgramUniformMatrix3x2fvEXT(GLcontext *context, GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat * value);
-EXPORT void cwcglProgramUniformMatrix3x4dv(GLcontext *context, GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble * value);
-EXPORT void cwcglProgramUniformMatrix3x4dvEXT(GLcontext *context, GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble * value);
-EXPORT void cwcglProgramUniformMatrix3x4fv(GLcontext *context, GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat * value);
-EXPORT void cwcglProgramUniformMatrix3x4fvEXT(GLcontext *context, GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat * value);
-EXPORT void cwcglProgramUniformMatrix4dv(GLcontext *context, GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble * value);
-EXPORT void cwcglProgramUniformMatrix4dvEXT(GLcontext *context, GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble * value);
-EXPORT void cwcglProgramUniformMatrix4fv(GLcontext *context, GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat * value);
-EXPORT void cwcglProgramUniformMatrix4fvEXT(GLcontext *context, GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat * value);
-EXPORT void cwcglProgramUniformMatrix4x2dv(GLcontext *context, GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble * value);
-EXPORT void cwcglProgramUniformMatrix4x2dvEXT(GLcontext *context, GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble * value);
-EXPORT void cwcglProgramUniformMatrix4x2fv(GLcontext *context, GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat * value);
-EXPORT void cwcglProgramUniformMatrix4x2fvEXT(GLcontext *context, GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat * value);
-EXPORT void cwcglProgramUniformMatrix4x3dv(GLcontext *context, GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble * value);
-EXPORT void cwcglProgramUniformMatrix4x3dvEXT(GLcontext *context, GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble * value);
-EXPORT void cwcglProgramUniformMatrix4x3fv(GLcontext *context, GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat * value);
-EXPORT void cwcglProgramUniformMatrix4x3fvEXT(GLcontext *context, GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat * value);
-EXPORT void cwcglProgramUniformui64NV(GLcontext *context, GLuint program, GLint location, GLuint64EXT value);
-EXPORT void cwcglProgramUniformui64vNV(GLcontext *context, GLuint program, GLint location, GLsizei count, const GLuint64EXT * value);
-EXPORT void cwcglProgramVertexLimitNV(GLcontext *context, GLenum target, GLint limit);
-EXPORT void cwcglProvokingVertex(GLcontext *context, GLenum mode);
-EXPORT void cwcglProvokingVertexEXT(GLcontext *context, GLenum mode);
-EXPORT void cwcglPushAttrib(GLcontext *context, GLbitfield mask);
-EXPORT void cwcglPushClientAttrib(GLcontext *context, GLbitfield mask);
-EXPORT void cwcglPushClientAttribDefaultEXT(GLcontext *context, GLbitfield mask);
-EXPORT void cwcglPushDebugGroup(GLcontext *context, GLenum source, GLuint id, GLsizei length, const GLchar * message);
-EXPORT void cwcglPushDebugGroupKHR(GLcontext *context, GLenum source, GLuint id, GLsizei length, const GLchar * message);
-EXPORT void cwcglPushGroupMarkerEXT(GLcontext *context, GLsizei length, const GLchar * marker);
-EXPORT void cwcglPushMatrix(GLcontext *context);
-EXPORT void cwcglPushName(GLcontext *context, GLuint name);
-EXPORT void cwcglQueryCounter(GLcontext *context, GLuint id, GLenum target);
-EXPORT void cwcglQueryCounterEXT(GLcontext *context, GLuint id, GLenum target);
-EXPORT void cwcglQueryMatrixxOES(GLcontext *context, GLfixed * mantissa, GLint * exponent, GLbitfield* return_value);
-EXPORT void cwcglQueryObjectParameteruiAMD(GLcontext *context, GLenum target, GLuint id, GLenum pname, GLuint param);
 EXPORT void cwcglRasterPos2d(GLcontext *context, GLdouble x, GLdouble y);
 EXPORT void cwcglRasterPos2dv(GLcontext *context, const GLdouble * v);
 EXPORT void cwcglRasterPos2f(GLcontext *context, GLfloat x, GLfloat y);
@@ -6450,8 +7829,6 @@ EXPORT void cwcglRasterPos2i(GLcontext *context, GLint x, GLint y);
 EXPORT void cwcglRasterPos2iv(GLcontext *context, const GLint * v);
 EXPORT void cwcglRasterPos2s(GLcontext *context, GLshort x, GLshort y);
 EXPORT void cwcglRasterPos2sv(GLcontext *context, const GLshort * v);
-EXPORT void cwcglRasterPos2xOES(GLcontext *context, GLfixed x, GLfixed y);
-EXPORT void cwcglRasterPos2xvOES(GLcontext *context, const GLfixed * coords);
 EXPORT void cwcglRasterPos3d(GLcontext *context, GLdouble x, GLdouble y, GLdouble z);
 EXPORT void cwcglRasterPos3dv(GLcontext *context, const GLdouble * v);
 EXPORT void cwcglRasterPos3f(GLcontext *context, GLfloat x, GLfloat y, GLfloat z);
@@ -6460,8 +7837,6 @@ EXPORT void cwcglRasterPos3i(GLcontext *context, GLint x, GLint y, GLint z);
 EXPORT void cwcglRasterPos3iv(GLcontext *context, const GLint * v);
 EXPORT void cwcglRasterPos3s(GLcontext *context, GLshort x, GLshort y, GLshort z);
 EXPORT void cwcglRasterPos3sv(GLcontext *context, const GLshort * v);
-EXPORT void cwcglRasterPos3xOES(GLcontext *context, GLfixed x, GLfixed y, GLfixed z);
-EXPORT void cwcglRasterPos3xvOES(GLcontext *context, const GLfixed * coords);
 EXPORT void cwcglRasterPos4d(GLcontext *context, GLdouble x, GLdouble y, GLdouble z, GLdouble w);
 EXPORT void cwcglRasterPos4dv(GLcontext *context, const GLdouble * v);
 EXPORT void cwcglRasterPos4f(GLcontext *context, GLfloat x, GLfloat y, GLfloat z, GLfloat w);
@@ -6470,18 +7845,6 @@ EXPORT void cwcglRasterPos4i(GLcontext *context, GLint x, GLint y, GLint z, GLin
 EXPORT void cwcglRasterPos4iv(GLcontext *context, const GLint * v);
 EXPORT void cwcglRasterPos4s(GLcontext *context, GLshort x, GLshort y, GLshort z, GLshort w);
 EXPORT void cwcglRasterPos4sv(GLcontext *context, const GLshort * v);
-EXPORT void cwcglRasterPos4xOES(GLcontext *context, GLfixed x, GLfixed y, GLfixed z, GLfixed w);
-EXPORT void cwcglRasterPos4xvOES(GLcontext *context, const GLfixed * coords);
-EXPORT void cwcglRasterSamplesEXT(GLcontext *context, GLuint samples, GLboolean fixedsamplelocations);
-EXPORT void cwcglReadBuffer(GLcontext *context, GLenum src);
-EXPORT void cwcglReadBufferIndexedEXT(GLcontext *context, GLenum src, GLint index);
-EXPORT void cwcglReadBufferNV(GLcontext *context, GLenum mode);
-EXPORT void cwcglReadInstrumentsSGIX(GLcontext *context, GLint marker);
-EXPORT void cwcglReadPixels(GLcontext *context, GLint x, GLint y, GLsizei width, GLsizei height, GLenum format, GLenum type, void * pixels);
-EXPORT void cwcglReadnPixels(GLcontext *context, GLint x, GLint y, GLsizei width, GLsizei height, GLenum format, GLenum type, GLsizei bufSize, void * data);
-EXPORT void cwcglReadnPixelsARB(GLcontext *context, GLint x, GLint y, GLsizei width, GLsizei height, GLenum format, GLenum type, GLsizei bufSize, void * data);
-EXPORT void cwcglReadnPixelsEXT(GLcontext *context, GLint x, GLint y, GLsizei width, GLsizei height, GLenum format, GLenum type, GLsizei bufSize, void * data);
-EXPORT void cwcglReadnPixelsKHR(GLcontext *context, GLint x, GLint y, GLsizei width, GLsizei height, GLenum format, GLenum type, GLsizei bufSize, void * data);
 EXPORT void cwcglRectd(GLcontext *context, GLdouble x1, GLdouble y1, GLdouble x2, GLdouble y2);
 EXPORT void cwcglRectdv(GLcontext *context, const GLdouble * v1, const GLdouble * v2);
 EXPORT void cwcglRectf(GLcontext *context, GLfloat x1, GLfloat y1, GLfloat x2, GLfloat y2);
@@ -6490,856 +7853,572 @@ EXPORT void cwcglRecti(GLcontext *context, GLint x1, GLint y1, GLint x2, GLint y
 EXPORT void cwcglRectiv(GLcontext *context, const GLint * v1, const GLint * v2);
 EXPORT void cwcglRects(GLcontext *context, GLshort x1, GLshort y1, GLshort x2, GLshort y2);
 EXPORT void cwcglRectsv(GLcontext *context, const GLshort * v1, const GLshort * v2);
-EXPORT void cwcglRectxOES(GLcontext *context, GLfixed x1, GLfixed y1, GLfixed x2, GLfixed y2);
-EXPORT void cwcglRectxvOES(GLcontext *context, const GLfixed * v1, const GLfixed * v2);
-EXPORT void cwcglReferencePlaneSGIX(GLcontext *context, const GLdouble * equation);
-EXPORT void cwcglReleaseShaderCompiler(GLcontext *context);
-EXPORT void cwcglRenderMode(GLcontext *context, GLenum mode, GLint* return_value);
-EXPORT void cwcglRenderbufferStorage(GLcontext *context, GLenum target, GLenum internalformat, GLsizei width, GLsizei height);
-EXPORT void cwcglRenderbufferStorageEXT(GLcontext *context, GLenum target, GLenum internalformat, GLsizei width, GLsizei height);
-EXPORT void cwcglRenderbufferStorageMultisample(GLcontext *context, GLenum target, GLsizei samples, GLenum internalformat, GLsizei width, GLsizei height);
-EXPORT void cwcglRenderbufferStorageMultisampleANGLE(GLcontext *context, GLenum target, GLsizei samples, GLenum internalformat, GLsizei width, GLsizei height);
-EXPORT void cwcglRenderbufferStorageMultisampleAPPLE(GLcontext *context, GLenum target, GLsizei samples, GLenum internalformat, GLsizei width, GLsizei height);
-EXPORT void cwcglRenderbufferStorageMultisampleCoverageNV(GLcontext *context, GLenum target, GLsizei coverageSamples, GLsizei colorSamples, GLenum internalformat, GLsizei width, GLsizei height);
-EXPORT void cwcglRenderbufferStorageMultisampleEXT(GLcontext *context, GLenum target, GLsizei samples, GLenum internalformat, GLsizei width, GLsizei height);
-EXPORT void cwcglRenderbufferStorageMultisampleIMG(GLcontext *context, GLenum target, GLsizei samples, GLenum internalformat, GLsizei width, GLsizei height);
-EXPORT void cwcglRenderbufferStorageMultisampleNV(GLcontext *context, GLenum target, GLsizei samples, GLenum internalformat, GLsizei width, GLsizei height);
-EXPORT void cwcglRenderbufferStorageOES(GLcontext *context, GLenum target, GLenum internalformat, GLsizei width, GLsizei height);
-EXPORT void cwcglReplacementCodePointerSUN(GLcontext *context, GLenum type, GLsizei stride, const void ** pointer);
-EXPORT void cwcglReplacementCodeubSUN(GLcontext *context, GLubyte code);
-EXPORT void cwcglReplacementCodeubvSUN(GLcontext *context, const GLubyte * code);
-EXPORT void cwcglReplacementCodeuiColor3fVertex3fSUN(GLcontext *context, GLuint rc, GLfloat r, GLfloat g, GLfloat b, GLfloat x, GLfloat y, GLfloat z);
-EXPORT void cwcglReplacementCodeuiColor3fVertex3fvSUN(GLcontext *context, const GLuint * rc, const GLfloat * c, const GLfloat * v);
-EXPORT void cwcglReplacementCodeuiColor4fNormal3fVertex3fSUN(GLcontext *context, GLuint rc, GLfloat r, GLfloat g, GLfloat b, GLfloat a, GLfloat nx, GLfloat ny, GLfloat nz, GLfloat x, GLfloat y, GLfloat z);
-EXPORT void cwcglReplacementCodeuiColor4fNormal3fVertex3fvSUN(GLcontext *context, const GLuint * rc, const GLfloat * c, const GLfloat * n, const GLfloat * v);
-EXPORT void cwcglReplacementCodeuiColor4ubVertex3fSUN(GLcontext *context, GLuint rc, GLubyte r, GLubyte g, GLubyte b, GLubyte a, GLfloat x, GLfloat y, GLfloat z);
-EXPORT void cwcglReplacementCodeuiColor4ubVertex3fvSUN(GLcontext *context, const GLuint * rc, const GLubyte * c, const GLfloat * v);
-EXPORT void cwcglReplacementCodeuiNormal3fVertex3fSUN(GLcontext *context, GLuint rc, GLfloat nx, GLfloat ny, GLfloat nz, GLfloat x, GLfloat y, GLfloat z);
-EXPORT void cwcglReplacementCodeuiNormal3fVertex3fvSUN(GLcontext *context, const GLuint * rc, const GLfloat * n, const GLfloat * v);
-EXPORT void cwcglReplacementCodeuiSUN(GLcontext *context, GLuint code);
-EXPORT void cwcglReplacementCodeuiTexCoord2fColor4fNormal3fVertex3fSUN(GLcontext *context, GLuint rc, GLfloat s, GLfloat t, GLfloat r, GLfloat g, GLfloat b, GLfloat a, GLfloat nx, GLfloat ny, GLfloat nz, GLfloat x, GLfloat y, GLfloat z);
-EXPORT void cwcglReplacementCodeuiTexCoord2fColor4fNormal3fVertex3fvSUN(GLcontext *context, const GLuint * rc, const GLfloat * tc, const GLfloat * c, const GLfloat * n, const GLfloat * v);
-EXPORT void cwcglReplacementCodeuiTexCoord2fNormal3fVertex3fSUN(GLcontext *context, GLuint rc, GLfloat s, GLfloat t, GLfloat nx, GLfloat ny, GLfloat nz, GLfloat x, GLfloat y, GLfloat z);
-EXPORT void cwcglReplacementCodeuiTexCoord2fNormal3fVertex3fvSUN(GLcontext *context, const GLuint * rc, const GLfloat * tc, const GLfloat * n, const GLfloat * v);
-EXPORT void cwcglReplacementCodeuiTexCoord2fVertex3fSUN(GLcontext *context, GLuint rc, GLfloat s, GLfloat t, GLfloat x, GLfloat y, GLfloat z);
-EXPORT void cwcglReplacementCodeuiTexCoord2fVertex3fvSUN(GLcontext *context, const GLuint * rc, const GLfloat * tc, const GLfloat * v);
-EXPORT void cwcglReplacementCodeuiVertex3fSUN(GLcontext *context, GLuint rc, GLfloat x, GLfloat y, GLfloat z);
-EXPORT void cwcglReplacementCodeuiVertex3fvSUN(GLcontext *context, const GLuint * rc, const GLfloat * v);
-EXPORT void cwcglReplacementCodeuivSUN(GLcontext *context, const GLuint * code);
-EXPORT void cwcglReplacementCodeusSUN(GLcontext *context, GLushort code);
-EXPORT void cwcglReplacementCodeusvSUN(GLcontext *context, const GLushort * code);
-EXPORT void cwcglRequestResidentProgramsNV(GLcontext *context, GLsizei n, const GLuint * programs);
-EXPORT void cwcglResetHistogram(GLcontext *context, GLenum target);
-EXPORT void cwcglResetHistogramEXT(GLcontext *context, GLenum target);
-EXPORT void cwcglResetMinmax(GLcontext *context, GLenum target);
-EXPORT void cwcglResetMinmaxEXT(GLcontext *context, GLenum target);
-EXPORT void cwcglResizeBuffersMESA(GLcontext *context);
-EXPORT void cwcglResolveDepthValuesNV(GLcontext *context);
-EXPORT void cwcglResolveMultisampleFramebufferAPPLE(GLcontext *context);
-EXPORT void cwcglResumeTransformFeedback(GLcontext *context);
-EXPORT void cwcglResumeTransformFeedbackNV(GLcontext *context);
-EXPORT void cwcglRotated(GLcontext *context, GLdouble angle, GLdouble x, GLdouble y, GLdouble z);
-EXPORT void cwcglRotatef(GLcontext *context, GLfloat angle, GLfloat x, GLfloat y, GLfloat z);
-EXPORT void cwcglRotatex(GLcontext *context, GLfixed angle, GLfixed x, GLfixed y, GLfixed z);
-EXPORT void cwcglRotatexOES(GLcontext *context, GLfixed angle, GLfixed x, GLfixed y, GLfixed z);
-EXPORT void cwcglSampleCoverage(GLcontext *context, GLfloat value, GLboolean invert);
-EXPORT void cwcglSampleCoverageARB(GLcontext *context, GLfloat value, GLboolean invert);
-EXPORT void cwcglSampleCoveragex(GLcontext *context, GLclampx value, GLboolean invert);
-EXPORT void cwcglSampleCoveragexOES(GLcontext *context, GLclampx value, GLboolean invert);
-EXPORT void cwcglSampleMapATI(GLcontext *context, GLuint dst, GLuint interp, GLenum swizzle);
-EXPORT void cwcglSampleMaskEXT(GLcontext *context, GLclampf value, GLboolean invert);
-EXPORT void cwcglSampleMaskIndexedNV(GLcontext *context, GLuint index, GLbitfield mask);
-EXPORT void cwcglSampleMaskSGIS(GLcontext *context, GLclampf value, GLboolean invert);
-EXPORT void cwcglSampleMaski(GLcontext *context, GLuint maskNumber, GLbitfield mask);
-EXPORT void cwcglSamplePatternEXT(GLcontext *context, GLenum pattern);
-EXPORT void cwcglSamplePatternSGIS(GLcontext *context, GLenum pattern);
-EXPORT void cwcglSamplerParameterIiv(GLcontext *context, GLuint sampler, GLenum pname, const GLint * param);
-EXPORT void cwcglSamplerParameterIivEXT(GLcontext *context, GLuint sampler, GLenum pname, const GLint * param);
-EXPORT void cwcglSamplerParameterIivOES(GLcontext *context, GLuint sampler, GLenum pname, const GLint * param);
-EXPORT void cwcglSamplerParameterIuiv(GLcontext *context, GLuint sampler, GLenum pname, const GLuint * param);
-EXPORT void cwcglSamplerParameterIuivEXT(GLcontext *context, GLuint sampler, GLenum pname, const GLuint * param);
-EXPORT void cwcglSamplerParameterIuivOES(GLcontext *context, GLuint sampler, GLenum pname, const GLuint * param);
-EXPORT void cwcglSamplerParameterf(GLcontext *context, GLuint sampler, GLenum pname, GLfloat param);
-EXPORT void cwcglSamplerParameterfv(GLcontext *context, GLuint sampler, GLenum pname, const GLfloat * param);
-EXPORT void cwcglSamplerParameteri(GLcontext *context, GLuint sampler, GLenum pname, GLint param);
-EXPORT void cwcglSamplerParameteriv(GLcontext *context, GLuint sampler, GLenum pname, const GLint * param);
-EXPORT void cwcglScaled(GLcontext *context, GLdouble x, GLdouble y, GLdouble z);
-EXPORT void cwcglScalef(GLcontext *context, GLfloat x, GLfloat y, GLfloat z);
-EXPORT void cwcglScalex(GLcontext *context, GLfixed x, GLfixed y, GLfixed z);
-EXPORT void cwcglScalexOES(GLcontext *context, GLfixed x, GLfixed y, GLfixed z);
-EXPORT void cwcglScissor(GLcontext *context, GLint x, GLint y, GLsizei width, GLsizei height);
-EXPORT void cwcglScissorArrayv(GLcontext *context, GLuint first, GLsizei count, const GLint * v);
-EXPORT void cwcglScissorArrayvNV(GLcontext *context, GLuint first, GLsizei count, const GLint * v);
-EXPORT void cwcglScissorArrayvOES(GLcontext *context, GLuint first, GLsizei count, const GLint * v);
-EXPORT void cwcglScissorIndexed(GLcontext *context, GLuint index, GLint left, GLint bottom, GLsizei width, GLsizei height);
-EXPORT void cwcglScissorIndexedNV(GLcontext *context, GLuint index, GLint left, GLint bottom, GLsizei width, GLsizei height);
-EXPORT void cwcglScissorIndexedOES(GLcontext *context, GLuint index, GLint left, GLint bottom, GLsizei width, GLsizei height);
-EXPORT void cwcglScissorIndexedv(GLcontext *context, GLuint index, const GLint * v);
-EXPORT void cwcglScissorIndexedvNV(GLcontext *context, GLuint index, const GLint * v);
-EXPORT void cwcglScissorIndexedvOES(GLcontext *context, GLuint index, const GLint * v);
-EXPORT void cwcglSecondaryColor3b(GLcontext *context, GLbyte red, GLbyte green, GLbyte blue);
-EXPORT void cwcglSecondaryColor3bEXT(GLcontext *context, GLbyte red, GLbyte green, GLbyte blue);
-EXPORT void cwcglSecondaryColor3bv(GLcontext *context, const GLbyte * v);
-EXPORT void cwcglSecondaryColor3bvEXT(GLcontext *context, const GLbyte * v);
-EXPORT void cwcglSecondaryColor3d(GLcontext *context, GLdouble red, GLdouble green, GLdouble blue);
-EXPORT void cwcglSecondaryColor3dEXT(GLcontext *context, GLdouble red, GLdouble green, GLdouble blue);
-EXPORT void cwcglSecondaryColor3dv(GLcontext *context, const GLdouble * v);
-EXPORT void cwcglSecondaryColor3dvEXT(GLcontext *context, const GLdouble * v);
-EXPORT void cwcglSecondaryColor3f(GLcontext *context, GLfloat red, GLfloat green, GLfloat blue);
-EXPORT void cwcglSecondaryColor3fEXT(GLcontext *context, GLfloat red, GLfloat green, GLfloat blue);
-EXPORT void cwcglSecondaryColor3fv(GLcontext *context, const GLfloat * v);
-EXPORT void cwcglSecondaryColor3fvEXT(GLcontext *context, const GLfloat * v);
-EXPORT void cwcglSecondaryColor3hNV(GLcontext *context, GLhalfNV red, GLhalfNV green, GLhalfNV blue);
-EXPORT void cwcglSecondaryColor3hvNV(GLcontext *context, const GLhalfNV * v);
-EXPORT void cwcglSecondaryColor3i(GLcontext *context, GLint red, GLint green, GLint blue);
-EXPORT void cwcglSecondaryColor3iEXT(GLcontext *context, GLint red, GLint green, GLint blue);
-EXPORT void cwcglSecondaryColor3iv(GLcontext *context, const GLint * v);
-EXPORT void cwcglSecondaryColor3ivEXT(GLcontext *context, const GLint * v);
-EXPORT void cwcglSecondaryColor3s(GLcontext *context, GLshort red, GLshort green, GLshort blue);
-EXPORT void cwcglSecondaryColor3sEXT(GLcontext *context, GLshort red, GLshort green, GLshort blue);
-EXPORT void cwcglSecondaryColor3sv(GLcontext *context, const GLshort * v);
-EXPORT void cwcglSecondaryColor3svEXT(GLcontext *context, const GLshort * v);
-EXPORT void cwcglSecondaryColor3ub(GLcontext *context, GLubyte red, GLubyte green, GLubyte blue);
-EXPORT void cwcglSecondaryColor3ubEXT(GLcontext *context, GLubyte red, GLubyte green, GLubyte blue);
-EXPORT void cwcglSecondaryColor3ubv(GLcontext *context, const GLubyte * v);
-EXPORT void cwcglSecondaryColor3ubvEXT(GLcontext *context, const GLubyte * v);
-EXPORT void cwcglSecondaryColor3ui(GLcontext *context, GLuint red, GLuint green, GLuint blue);
-EXPORT void cwcglSecondaryColor3uiEXT(GLcontext *context, GLuint red, GLuint green, GLuint blue);
-EXPORT void cwcglSecondaryColor3uiv(GLcontext *context, const GLuint * v);
-EXPORT void cwcglSecondaryColor3uivEXT(GLcontext *context, const GLuint * v);
-EXPORT void cwcglSecondaryColor3us(GLcontext *context, GLushort red, GLushort green, GLushort blue);
-EXPORT void cwcglSecondaryColor3usEXT(GLcontext *context, GLushort red, GLushort green, GLushort blue);
-EXPORT void cwcglSecondaryColor3usv(GLcontext *context, const GLushort * v);
-EXPORT void cwcglSecondaryColor3usvEXT(GLcontext *context, const GLushort * v);
-EXPORT void cwcglSecondaryColorFormatNV(GLcontext *context, GLint size, GLenum type, GLsizei stride);
-EXPORT void cwcglSecondaryColorP3ui(GLcontext *context, GLenum type, GLuint color);
-EXPORT void cwcglSecondaryColorP3uiv(GLcontext *context, GLenum type, const GLuint * color);
-EXPORT void cwcglSecondaryColorPointer(GLcontext *context, GLint size, GLenum type, GLsizei stride, const void * pointer);
-EXPORT void cwcglSecondaryColorPointerEXT(GLcontext *context, GLint size, GLenum type, GLsizei stride, const void * pointer);
-EXPORT void cwcglSecondaryColorPointerListIBM(GLcontext *context, GLint size, GLenum type, GLint stride, const void ** pointer, GLint ptrstride);
-EXPORT void cwcglSelectBuffer(GLcontext *context, GLsizei size, GLuint * buffer);
-EXPORT void cwcglSelectPerfMonitorCountersAMD(GLcontext *context, GLuint monitor, GLboolean enable, GLuint group, GLint numCounters, GLuint * counterList);
-EXPORT void cwcglSeparableFilter2D(GLcontext *context, GLenum target, GLenum internalformat, GLsizei width, GLsizei height, GLenum format, GLenum type, const void * row, const void * column);
-EXPORT void cwcglSeparableFilter2DEXT(GLcontext *context, GLenum target, GLenum internalformat, GLsizei width, GLsizei height, GLenum format, GLenum type, const void * row, const void * column);
-EXPORT void cwcglSetFenceAPPLE(GLcontext *context, GLuint fence);
-EXPORT void cwcglSetFenceNV(GLcontext *context, GLuint fence, GLenum condition);
-EXPORT void cwcglSetFragmentShaderConstantATI(GLcontext *context, GLuint dst, const GLfloat * value);
-EXPORT void cwcglSetInvariantEXT(GLcontext *context, GLuint id, GLenum type, const void * addr);
-EXPORT void cwcglSetLocalConstantEXT(GLcontext *context, GLuint id, GLenum type, const void * addr);
-EXPORT void cwcglSetMultisamplefvAMD(GLcontext *context, GLenum pname, GLuint index, const GLfloat * val);
-EXPORT void cwcglShadeModel(GLcontext *context, GLenum mode);
-EXPORT void cwcglShaderBinary(GLcontext *context, GLsizei count, const GLuint * shaders, GLenum binaryformat, const void * binary, GLsizei length);
-EXPORT void cwcglShaderOp1EXT(GLcontext *context, GLenum op, GLuint res, GLuint arg1);
-EXPORT void cwcglShaderOp2EXT(GLcontext *context, GLenum op, GLuint res, GLuint arg1, GLuint arg2);
-EXPORT void cwcglShaderOp3EXT(GLcontext *context, GLenum op, GLuint res, GLuint arg1, GLuint arg2, GLuint arg3);
-EXPORT void cwcglShaderSource(GLcontext *context, GLuint shader, GLsizei count, const GLchar *const* string, const GLint * length);
-EXPORT void cwcglShaderSourceARB(GLcontext *context, GLhandleARB shaderObj, GLsizei count, const GLcharARB ** string, const GLint * length);
-EXPORT void cwcglShaderStorageBlockBinding(GLcontext *context, GLuint program, GLuint storageBlockIndex, GLuint storageBlockBinding);
-EXPORT void cwcglSharpenTexFuncSGIS(GLcontext *context, GLenum target, GLsizei n, const GLfloat * points);
-EXPORT void cwcglSpriteParameterfSGIX(GLcontext *context, GLenum pname, GLfloat param);
-EXPORT void cwcglSpriteParameterfvSGIX(GLcontext *context, GLenum pname, const GLfloat * params);
-EXPORT void cwcglSpriteParameteriSGIX(GLcontext *context, GLenum pname, GLint param);
-EXPORT void cwcglSpriteParameterivSGIX(GLcontext *context, GLenum pname, const GLint * params);
-EXPORT void cwcglStartInstrumentsSGIX(GLcontext *context);
-EXPORT void cwcglStartTilingQCOM(GLcontext *context, GLuint x, GLuint y, GLuint width, GLuint height, GLbitfield preserveMask);
-EXPORT void cwcglStateCaptureNV(GLcontext *context, GLuint state, GLenum mode);
-EXPORT void cwcglStencilClearTagEXT(GLcontext *context, GLsizei stencilTagBits, GLuint stencilClearTag);
-EXPORT void cwcglStencilFillPathInstancedNV(GLcontext *context, GLsizei numPaths, GLenum pathNameType, const void * paths, GLuint pathBase, GLenum fillMode, GLuint mask, GLenum transformType, const GLfloat * transformValues);
-EXPORT void cwcglStencilFillPathNV(GLcontext *context, GLuint path, GLenum fillMode, GLuint mask);
-EXPORT void cwcglStencilFunc(GLcontext *context, GLenum func, GLint ref, GLuint mask);
-EXPORT void cwcglStencilFuncSeparate(GLcontext *context, GLenum face, GLenum func, GLint ref, GLuint mask);
-EXPORT void cwcglStencilFuncSeparateATI(GLcontext *context, GLenum frontfunc, GLenum backfunc, GLint ref, GLuint mask);
-EXPORT void cwcglStencilMask(GLcontext *context, GLuint mask);
-EXPORT void cwcglStencilMaskSeparate(GLcontext *context, GLenum face, GLuint mask);
-EXPORT void cwcglStencilOp(GLcontext *context, GLenum fail, GLenum zfail, GLenum zpass);
-EXPORT void cwcglStencilOpSeparate(GLcontext *context, GLenum face, GLenum sfail, GLenum dpfail, GLenum dppass);
-EXPORT void cwcglStencilOpSeparateATI(GLcontext *context, GLenum face, GLenum sfail, GLenum dpfail, GLenum dppass);
-EXPORT void cwcglStencilOpValueAMD(GLcontext *context, GLenum face, GLuint value);
-EXPORT void cwcglStencilStrokePathInstancedNV(GLcontext *context, GLsizei numPaths, GLenum pathNameType, const void * paths, GLuint pathBase, GLint reference, GLuint mask, GLenum transformType, const GLfloat * transformValues);
-EXPORT void cwcglStencilStrokePathNV(GLcontext *context, GLuint path, GLint reference, GLuint mask);
-EXPORT void cwcglStencilThenCoverFillPathInstancedNV(GLcontext *context, GLsizei numPaths, GLenum pathNameType, const void * paths, GLuint pathBase, GLenum fillMode, GLuint mask, GLenum coverMode, GLenum transformType, const GLfloat * transformValues);
-EXPORT void cwcglStencilThenCoverFillPathNV(GLcontext *context, GLuint path, GLenum fillMode, GLuint mask, GLenum coverMode);
-EXPORT void cwcglStencilThenCoverStrokePathInstancedNV(GLcontext *context, GLsizei numPaths, GLenum pathNameType, const void * paths, GLuint pathBase, GLint reference, GLuint mask, GLenum coverMode, GLenum transformType, const GLfloat * transformValues);
-EXPORT void cwcglStencilThenCoverStrokePathNV(GLcontext *context, GLuint path, GLint reference, GLuint mask, GLenum coverMode);
-EXPORT void cwcglStopInstrumentsSGIX(GLcontext *context, GLint marker);
-EXPORT void cwcglStringMarkerGREMEDY(GLcontext *context, GLsizei len, const void * string);
-EXPORT void cwcglSubpixelPrecisionBiasNV(GLcontext *context, GLuint xbits, GLuint ybits);
-EXPORT void cwcglSwizzleEXT(GLcontext *context, GLuint res, GLuint in, GLenum outX, GLenum outY, GLenum outZ, GLenum outW);
-EXPORT void cwcglSyncTextureINTEL(GLcontext *context, GLuint texture);
-EXPORT void cwcglTagSampleBufferSGIX(GLcontext *context);
-EXPORT void cwcglTangent3bEXT(GLcontext *context, GLbyte tx, GLbyte ty, GLbyte tz);
-EXPORT void cwcglTangent3bvEXT(GLcontext *context, const GLbyte * v);
-EXPORT void cwcglTangent3dEXT(GLcontext *context, GLdouble tx, GLdouble ty, GLdouble tz);
-EXPORT void cwcglTangent3dvEXT(GLcontext *context, const GLdouble * v);
-EXPORT void cwcglTangent3fEXT(GLcontext *context, GLfloat tx, GLfloat ty, GLfloat tz);
-EXPORT void cwcglTangent3fvEXT(GLcontext *context, const GLfloat * v);
-EXPORT void cwcglTangent3iEXT(GLcontext *context, GLint tx, GLint ty, GLint tz);
-EXPORT void cwcglTangent3ivEXT(GLcontext *context, const GLint * v);
-EXPORT void cwcglTangent3sEXT(GLcontext *context, GLshort tx, GLshort ty, GLshort tz);
-EXPORT void cwcglTangent3svEXT(GLcontext *context, const GLshort * v);
-EXPORT void cwcglTangentPointerEXT(GLcontext *context, GLenum type, GLsizei stride, const void * pointer);
-EXPORT void cwcglTbufferMask3DFX(GLcontext *context, GLuint mask);
-EXPORT void cwcglTessellationFactorAMD(GLcontext *context, GLfloat factor);
-EXPORT void cwcglTessellationModeAMD(GLcontext *context, GLenum mode);
-EXPORT void cwcglTestFenceAPPLE(GLcontext *context, GLuint fence, GLboolean* return_value);
-EXPORT void cwcglTestFenceNV(GLcontext *context, GLuint fence, GLboolean* return_value);
-EXPORT void cwcglTestObjectAPPLE(GLcontext *context, GLenum object, GLuint name, GLboolean* return_value);
-EXPORT void cwcglTexBuffer(GLcontext *context, GLenum target, GLenum internalformat, GLuint buffer);
-EXPORT void cwcglTexBufferARB(GLcontext *context, GLenum target, GLenum internalformat, GLuint buffer);
-EXPORT void cwcglTexBufferEXT(GLcontext *context, GLenum target, GLenum internalformat, GLuint buffer);
-EXPORT void cwcglTexBufferOES(GLcontext *context, GLenum target, GLenum internalformat, GLuint buffer);
-EXPORT void cwcglTexBufferRange(GLcontext *context, GLenum target, GLenum internalformat, GLuint buffer, GLintptr offset, GLsizeiptr size);
-EXPORT void cwcglTexBufferRangeEXT(GLcontext *context, GLenum target, GLenum internalformat, GLuint buffer, GLintptr offset, GLsizeiptr size);
-EXPORT void cwcglTexBufferRangeOES(GLcontext *context, GLenum target, GLenum internalformat, GLuint buffer, GLintptr offset, GLsizeiptr size);
-EXPORT void cwcglTexBumpParameterfvATI(GLcontext *context, GLenum pname, const GLfloat * param);
-EXPORT void cwcglTexBumpParameterivATI(GLcontext *context, GLenum pname, const GLint * param);
-EXPORT void cwcglTexCoord1bOES(GLcontext *context, GLbyte s);
-EXPORT void cwcglTexCoord1bvOES(GLcontext *context, const GLbyte * coords);
 EXPORT void cwcglTexCoord1d(GLcontext *context, GLdouble s);
 EXPORT void cwcglTexCoord1dv(GLcontext *context, const GLdouble * v);
 EXPORT void cwcglTexCoord1f(GLcontext *context, GLfloat s);
 EXPORT void cwcglTexCoord1fv(GLcontext *context, const GLfloat * v);
-EXPORT void cwcglTexCoord1hNV(GLcontext *context, GLhalfNV s);
-EXPORT void cwcglTexCoord1hvNV(GLcontext *context, const GLhalfNV * v);
 EXPORT void cwcglTexCoord1i(GLcontext *context, GLint s);
 EXPORT void cwcglTexCoord1iv(GLcontext *context, const GLint * v);
 EXPORT void cwcglTexCoord1s(GLcontext *context, GLshort s);
 EXPORT void cwcglTexCoord1sv(GLcontext *context, const GLshort * v);
-EXPORT void cwcglTexCoord1xOES(GLcontext *context, GLfixed s);
-EXPORT void cwcglTexCoord1xvOES(GLcontext *context, const GLfixed * coords);
-EXPORT void cwcglTexCoord2bOES(GLcontext *context, GLbyte s, GLbyte t);
-EXPORT void cwcglTexCoord2bvOES(GLcontext *context, const GLbyte * coords);
 EXPORT void cwcglTexCoord2d(GLcontext *context, GLdouble s, GLdouble t);
 EXPORT void cwcglTexCoord2dv(GLcontext *context, const GLdouble * v);
 EXPORT void cwcglTexCoord2f(GLcontext *context, GLfloat s, GLfloat t);
-EXPORT void cwcglTexCoord2fColor3fVertex3fSUN(GLcontext *context, GLfloat s, GLfloat t, GLfloat r, GLfloat g, GLfloat b, GLfloat x, GLfloat y, GLfloat z);
-EXPORT void cwcglTexCoord2fColor3fVertex3fvSUN(GLcontext *context, const GLfloat * tc, const GLfloat * c, const GLfloat * v);
-EXPORT void cwcglTexCoord2fColor4fNormal3fVertex3fSUN(GLcontext *context, GLfloat s, GLfloat t, GLfloat r, GLfloat g, GLfloat b, GLfloat a, GLfloat nx, GLfloat ny, GLfloat nz, GLfloat x, GLfloat y, GLfloat z);
-EXPORT void cwcglTexCoord2fColor4fNormal3fVertex3fvSUN(GLcontext *context, const GLfloat * tc, const GLfloat * c, const GLfloat * n, const GLfloat * v);
-EXPORT void cwcglTexCoord2fColor4ubVertex3fSUN(GLcontext *context, GLfloat s, GLfloat t, GLubyte r, GLubyte g, GLubyte b, GLubyte a, GLfloat x, GLfloat y, GLfloat z);
-EXPORT void cwcglTexCoord2fColor4ubVertex3fvSUN(GLcontext *context, const GLfloat * tc, const GLubyte * c, const GLfloat * v);
-EXPORT void cwcglTexCoord2fNormal3fVertex3fSUN(GLcontext *context, GLfloat s, GLfloat t, GLfloat nx, GLfloat ny, GLfloat nz, GLfloat x, GLfloat y, GLfloat z);
-EXPORT void cwcglTexCoord2fNormal3fVertex3fvSUN(GLcontext *context, const GLfloat * tc, const GLfloat * n, const GLfloat * v);
-EXPORT void cwcglTexCoord2fVertex3fSUN(GLcontext *context, GLfloat s, GLfloat t, GLfloat x, GLfloat y, GLfloat z);
-EXPORT void cwcglTexCoord2fVertex3fvSUN(GLcontext *context, const GLfloat * tc, const GLfloat * v);
 EXPORT void cwcglTexCoord2fv(GLcontext *context, const GLfloat * v);
-EXPORT void cwcglTexCoord2hNV(GLcontext *context, GLhalfNV s, GLhalfNV t);
-EXPORT void cwcglTexCoord2hvNV(GLcontext *context, const GLhalfNV * v);
 EXPORT void cwcglTexCoord2i(GLcontext *context, GLint s, GLint t);
 EXPORT void cwcglTexCoord2iv(GLcontext *context, const GLint * v);
 EXPORT void cwcglTexCoord2s(GLcontext *context, GLshort s, GLshort t);
 EXPORT void cwcglTexCoord2sv(GLcontext *context, const GLshort * v);
-EXPORT void cwcglTexCoord2xOES(GLcontext *context, GLfixed s, GLfixed t);
-EXPORT void cwcglTexCoord2xvOES(GLcontext *context, const GLfixed * coords);
-EXPORT void cwcglTexCoord3bOES(GLcontext *context, GLbyte s, GLbyte t, GLbyte r);
-EXPORT void cwcglTexCoord3bvOES(GLcontext *context, const GLbyte * coords);
 EXPORT void cwcglTexCoord3d(GLcontext *context, GLdouble s, GLdouble t, GLdouble r);
 EXPORT void cwcglTexCoord3dv(GLcontext *context, const GLdouble * v);
 EXPORT void cwcglTexCoord3f(GLcontext *context, GLfloat s, GLfloat t, GLfloat r);
 EXPORT void cwcglTexCoord3fv(GLcontext *context, const GLfloat * v);
-EXPORT void cwcglTexCoord3hNV(GLcontext *context, GLhalfNV s, GLhalfNV t, GLhalfNV r);
-EXPORT void cwcglTexCoord3hvNV(GLcontext *context, const GLhalfNV * v);
 EXPORT void cwcglTexCoord3i(GLcontext *context, GLint s, GLint t, GLint r);
 EXPORT void cwcglTexCoord3iv(GLcontext *context, const GLint * v);
 EXPORT void cwcglTexCoord3s(GLcontext *context, GLshort s, GLshort t, GLshort r);
 EXPORT void cwcglTexCoord3sv(GLcontext *context, const GLshort * v);
-EXPORT void cwcglTexCoord3xOES(GLcontext *context, GLfixed s, GLfixed t, GLfixed r);
-EXPORT void cwcglTexCoord3xvOES(GLcontext *context, const GLfixed * coords);
-EXPORT void cwcglTexCoord4bOES(GLcontext *context, GLbyte s, GLbyte t, GLbyte r, GLbyte q);
-EXPORT void cwcglTexCoord4bvOES(GLcontext *context, const GLbyte * coords);
 EXPORT void cwcglTexCoord4d(GLcontext *context, GLdouble s, GLdouble t, GLdouble r, GLdouble q);
 EXPORT void cwcglTexCoord4dv(GLcontext *context, const GLdouble * v);
 EXPORT void cwcglTexCoord4f(GLcontext *context, GLfloat s, GLfloat t, GLfloat r, GLfloat q);
-EXPORT void cwcglTexCoord4fColor4fNormal3fVertex4fSUN(GLcontext *context, GLfloat s, GLfloat t, GLfloat p, GLfloat q, GLfloat r, GLfloat g, GLfloat b, GLfloat a, GLfloat nx, GLfloat ny, GLfloat nz, GLfloat x, GLfloat y, GLfloat z, GLfloat w);
-EXPORT void cwcglTexCoord4fColor4fNormal3fVertex4fvSUN(GLcontext *context, const GLfloat * tc, const GLfloat * c, const GLfloat * n, const GLfloat * v);
-EXPORT void cwcglTexCoord4fVertex4fSUN(GLcontext *context, GLfloat s, GLfloat t, GLfloat p, GLfloat q, GLfloat x, GLfloat y, GLfloat z, GLfloat w);
-EXPORT void cwcglTexCoord4fVertex4fvSUN(GLcontext *context, const GLfloat * tc, const GLfloat * v);
 EXPORT void cwcglTexCoord4fv(GLcontext *context, const GLfloat * v);
-EXPORT void cwcglTexCoord4hNV(GLcontext *context, GLhalfNV s, GLhalfNV t, GLhalfNV r, GLhalfNV q);
-EXPORT void cwcglTexCoord4hvNV(GLcontext *context, const GLhalfNV * v);
 EXPORT void cwcglTexCoord4i(GLcontext *context, GLint s, GLint t, GLint r, GLint q);
 EXPORT void cwcglTexCoord4iv(GLcontext *context, const GLint * v);
 EXPORT void cwcglTexCoord4s(GLcontext *context, GLshort s, GLshort t, GLshort r, GLshort q);
 EXPORT void cwcglTexCoord4sv(GLcontext *context, const GLshort * v);
-EXPORT void cwcglTexCoord4xOES(GLcontext *context, GLfixed s, GLfixed t, GLfixed r, GLfixed q);
-EXPORT void cwcglTexCoord4xvOES(GLcontext *context, const GLfixed * coords);
-EXPORT void cwcglTexCoordFormatNV(GLcontext *context, GLint size, GLenum type, GLsizei stride);
-EXPORT void cwcglTexCoordP1ui(GLcontext *context, GLenum type, GLuint coords);
-EXPORT void cwcglTexCoordP1uiv(GLcontext *context, GLenum type, const GLuint * coords);
-EXPORT void cwcglTexCoordP2ui(GLcontext *context, GLenum type, GLuint coords);
-EXPORT void cwcglTexCoordP2uiv(GLcontext *context, GLenum type, const GLuint * coords);
-EXPORT void cwcglTexCoordP3ui(GLcontext *context, GLenum type, GLuint coords);
-EXPORT void cwcglTexCoordP3uiv(GLcontext *context, GLenum type, const GLuint * coords);
-EXPORT void cwcglTexCoordP4ui(GLcontext *context, GLenum type, GLuint coords);
-EXPORT void cwcglTexCoordP4uiv(GLcontext *context, GLenum type, const GLuint * coords);
-EXPORT void cwcglTexCoordPointer(GLcontext *context, GLint size, GLenum type, GLsizei stride, const void * pointer);
-EXPORT void cwcglTexCoordPointerEXT(GLcontext *context, GLint size, GLenum type, GLsizei stride, GLsizei count, const void * pointer);
-EXPORT void cwcglTexCoordPointerListIBM(GLcontext *context, GLint size, GLenum type, GLint stride, const void ** pointer, GLint ptrstride);
-EXPORT void cwcglTexCoordPointervINTEL(GLcontext *context, GLint size, GLenum type, const void ** pointer);
-EXPORT void cwcglTexEnvf(GLcontext *context, GLenum target, GLenum pname, GLfloat param);
-EXPORT void cwcglTexEnvfv(GLcontext *context, GLenum target, GLenum pname, const GLfloat * params);
-EXPORT void cwcglTexEnvi(GLcontext *context, GLenum target, GLenum pname, GLint param);
-EXPORT void cwcglTexEnviv(GLcontext *context, GLenum target, GLenum pname, const GLint * params);
-EXPORT void cwcglTexEnvx(GLcontext *context, GLenum target, GLenum pname, GLfixed param);
-EXPORT void cwcglTexEnvxOES(GLcontext *context, GLenum target, GLenum pname, GLfixed param);
-EXPORT void cwcglTexEnvxv(GLcontext *context, GLenum target, GLenum pname, const GLfixed * params);
-EXPORT void cwcglTexEnvxvOES(GLcontext *context, GLenum target, GLenum pname, const GLfixed * params);
-EXPORT void cwcglTexFilterFuncSGIS(GLcontext *context, GLenum target, GLenum filter, GLsizei n, const GLfloat * weights);
-EXPORT void cwcglTexGend(GLcontext *context, GLenum coord, GLenum pname, GLdouble param);
-EXPORT void cwcglTexGendv(GLcontext *context, GLenum coord, GLenum pname, const GLdouble * params);
-EXPORT void cwcglTexGenf(GLcontext *context, GLenum coord, GLenum pname, GLfloat param);
-EXPORT void cwcglTexGenfOES(GLcontext *context, GLenum coord, GLenum pname, GLfloat param);
-EXPORT void cwcglTexGenfv(GLcontext *context, GLenum coord, GLenum pname, const GLfloat * params);
-EXPORT void cwcglTexGenfvOES(GLcontext *context, GLenum coord, GLenum pname, const GLfloat * params);
-EXPORT void cwcglTexGeni(GLcontext *context, GLenum coord, GLenum pname, GLint param);
-EXPORT void cwcglTexGeniOES(GLcontext *context, GLenum coord, GLenum pname, GLint param);
-EXPORT void cwcglTexGeniv(GLcontext *context, GLenum coord, GLenum pname, const GLint * params);
-EXPORT void cwcglTexGenivOES(GLcontext *context, GLenum coord, GLenum pname, const GLint * params);
-EXPORT void cwcglTexGenxOES(GLcontext *context, GLenum coord, GLenum pname, GLfixed param);
-EXPORT void cwcglTexGenxvOES(GLcontext *context, GLenum coord, GLenum pname, const GLfixed * params);
-EXPORT void cwcglTexImage1D(GLcontext *context, GLenum target, GLint level, GLint internalformat, GLsizei width, GLint border, GLenum format, GLenum type, const void * pixels);
-EXPORT void cwcglTexImage2D(GLcontext *context, GLenum target, GLint level, GLint internalformat, GLsizei width, GLsizei height, GLint border, GLenum format, GLenum type, const void * pixels);
-EXPORT void cwcglTexImage2DMultisample(GLcontext *context, GLenum target, GLsizei samples, GLenum internalformat, GLsizei width, GLsizei height, GLboolean fixedsamplelocations);
-EXPORT void cwcglTexImage2DMultisampleCoverageNV(GLcontext *context, GLenum target, GLsizei coverageSamples, GLsizei colorSamples, GLint internalFormat, GLsizei width, GLsizei height, GLboolean fixedSampleLocations);
-EXPORT void cwcglTexImage3D(GLcontext *context, GLenum target, GLint level, GLint internalformat, GLsizei width, GLsizei height, GLsizei depth, GLint border, GLenum format, GLenum type, const void * pixels);
-EXPORT void cwcglTexImage3DEXT(GLcontext *context, GLenum target, GLint level, GLenum internalformat, GLsizei width, GLsizei height, GLsizei depth, GLint border, GLenum format, GLenum type, const void * pixels);
-EXPORT void cwcglTexImage3DMultisample(GLcontext *context, GLenum target, GLsizei samples, GLenum internalformat, GLsizei width, GLsizei height, GLsizei depth, GLboolean fixedsamplelocations);
-EXPORT void cwcglTexImage3DMultisampleCoverageNV(GLcontext *context, GLenum target, GLsizei coverageSamples, GLsizei colorSamples, GLint internalFormat, GLsizei width, GLsizei height, GLsizei depth, GLboolean fixedSampleLocations);
-EXPORT void cwcglTexImage3DOES(GLcontext *context, GLenum target, GLint level, GLenum internalformat, GLsizei width, GLsizei height, GLsizei depth, GLint border, GLenum format, GLenum type, const void * pixels);
-EXPORT void cwcglTexImage4DSGIS(GLcontext *context, GLenum target, GLint level, GLenum internalformat, GLsizei width, GLsizei height, GLsizei depth, GLsizei size4d, GLint border, GLenum format, GLenum type, const void * pixels);
-EXPORT void cwcglTexPageCommitmentARB(GLcontext *context, GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLboolean commit);
-EXPORT void cwcglTexPageCommitmentEXT(GLcontext *context, GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLboolean commit);
-EXPORT void cwcglTexParameterIiv(GLcontext *context, GLenum target, GLenum pname, const GLint * params);
-EXPORT void cwcglTexParameterIivEXT(GLcontext *context, GLenum target, GLenum pname, const GLint * params);
-EXPORT void cwcglTexParameterIivOES(GLcontext *context, GLenum target, GLenum pname, const GLint * params);
-EXPORT void cwcglTexParameterIuiv(GLcontext *context, GLenum target, GLenum pname, const GLuint * params);
-EXPORT void cwcglTexParameterIuivEXT(GLcontext *context, GLenum target, GLenum pname, const GLuint * params);
-EXPORT void cwcglTexParameterIuivOES(GLcontext *context, GLenum target, GLenum pname, const GLuint * params);
-EXPORT void cwcglTexParameterf(GLcontext *context, GLenum target, GLenum pname, GLfloat param);
-EXPORT void cwcglTexParameterfv(GLcontext *context, GLenum target, GLenum pname, const GLfloat * params);
-EXPORT void cwcglTexParameteri(GLcontext *context, GLenum target, GLenum pname, GLint param);
-EXPORT void cwcglTexParameteriv(GLcontext *context, GLenum target, GLenum pname, const GLint * params);
-EXPORT void cwcglTexParameterx(GLcontext *context, GLenum target, GLenum pname, GLfixed param);
-EXPORT void cwcglTexParameterxOES(GLcontext *context, GLenum target, GLenum pname, GLfixed param);
-EXPORT void cwcglTexParameterxv(GLcontext *context, GLenum target, GLenum pname, const GLfixed * params);
-EXPORT void cwcglTexParameterxvOES(GLcontext *context, GLenum target, GLenum pname, const GLfixed * params);
-EXPORT void cwcglTexRenderbufferNV(GLcontext *context, GLenum target, GLuint renderbuffer);
-EXPORT void cwcglTexStorage1D(GLcontext *context, GLenum target, GLsizei levels, GLenum internalformat, GLsizei width);
-EXPORT void cwcglTexStorage1DEXT(GLcontext *context, GLenum target, GLsizei levels, GLenum internalformat, GLsizei width);
-EXPORT void cwcglTexStorage2D(GLcontext *context, GLenum target, GLsizei levels, GLenum internalformat, GLsizei width, GLsizei height);
-EXPORT void cwcglTexStorage2DEXT(GLcontext *context, GLenum target, GLsizei levels, GLenum internalformat, GLsizei width, GLsizei height);
-EXPORT void cwcglTexStorage2DMultisample(GLcontext *context, GLenum target, GLsizei samples, GLenum internalformat, GLsizei width, GLsizei height, GLboolean fixedsamplelocations);
-EXPORT void cwcglTexStorage3D(GLcontext *context, GLenum target, GLsizei levels, GLenum internalformat, GLsizei width, GLsizei height, GLsizei depth);
-EXPORT void cwcglTexStorage3DEXT(GLcontext *context, GLenum target, GLsizei levels, GLenum internalformat, GLsizei width, GLsizei height, GLsizei depth);
-EXPORT void cwcglTexStorage3DMultisample(GLcontext *context, GLenum target, GLsizei samples, GLenum internalformat, GLsizei width, GLsizei height, GLsizei depth, GLboolean fixedsamplelocations);
-EXPORT void cwcglTexStorage3DMultisampleOES(GLcontext *context, GLenum target, GLsizei samples, GLenum internalformat, GLsizei width, GLsizei height, GLsizei depth, GLboolean fixedsamplelocations);
-EXPORT void cwcglTexStorageSparseAMD(GLcontext *context, GLenum target, GLenum internalFormat, GLsizei width, GLsizei height, GLsizei depth, GLsizei layers, GLbitfield flags);
-EXPORT void cwcglTexSubImage1D(GLcontext *context, GLenum target, GLint level, GLint xoffset, GLsizei width, GLenum format, GLenum type, const void * pixels);
-EXPORT void cwcglTexSubImage1DEXT(GLcontext *context, GLenum target, GLint level, GLint xoffset, GLsizei width, GLenum format, GLenum type, const void * pixels);
-EXPORT void cwcglTexSubImage2D(GLcontext *context, GLenum target, GLint level, GLint xoffset, GLint yoffset, GLsizei width, GLsizei height, GLenum format, GLenum type, const void * pixels);
-EXPORT void cwcglTexSubImage2DEXT(GLcontext *context, GLenum target, GLint level, GLint xoffset, GLint yoffset, GLsizei width, GLsizei height, GLenum format, GLenum type, const void * pixels);
-EXPORT void cwcglTexSubImage3D(GLcontext *context, GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLenum format, GLenum type, const void * pixels);
-EXPORT void cwcglTexSubImage3DEXT(GLcontext *context, GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLenum format, GLenum type, const void * pixels);
-EXPORT void cwcglTexSubImage3DOES(GLcontext *context, GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLenum format, GLenum type, const void * pixels);
-EXPORT void cwcglTexSubImage4DSGIS(GLcontext *context, GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLint woffset, GLsizei width, GLsizei height, GLsizei depth, GLsizei size4d, GLenum format, GLenum type, const void * pixels);
-EXPORT void cwcglTextureBarrier(GLcontext *context);
-EXPORT void cwcglTextureBarrierNV(GLcontext *context);
-EXPORT void cwcglTextureBuffer(GLcontext *context, GLuint texture, GLenum internalformat, GLuint buffer);
-EXPORT void cwcglTextureBufferEXT(GLcontext *context, GLuint texture, GLenum target, GLenum internalformat, GLuint buffer);
-EXPORT void cwcglTextureBufferRange(GLcontext *context, GLuint texture, GLenum internalformat, GLuint buffer, GLintptr offset, GLsizeiptr size);
-EXPORT void cwcglTextureBufferRangeEXT(GLcontext *context, GLuint texture, GLenum target, GLenum internalformat, GLuint buffer, GLintptr offset, GLsizeiptr size);
-EXPORT void cwcglTextureColorMaskSGIS(GLcontext *context, GLboolean red, GLboolean green, GLboolean blue, GLboolean alpha);
-EXPORT void cwcglTextureImage1DEXT(GLcontext *context, GLuint texture, GLenum target, GLint level, GLint internalformat, GLsizei width, GLint border, GLenum format, GLenum type, const void * pixels);
-EXPORT void cwcglTextureImage2DEXT(GLcontext *context, GLuint texture, GLenum target, GLint level, GLint internalformat, GLsizei width, GLsizei height, GLint border, GLenum format, GLenum type, const void * pixels);
-EXPORT void cwcglTextureImage2DMultisampleCoverageNV(GLcontext *context, GLuint texture, GLenum target, GLsizei coverageSamples, GLsizei colorSamples, GLint internalFormat, GLsizei width, GLsizei height, GLboolean fixedSampleLocations);
-EXPORT void cwcglTextureImage2DMultisampleNV(GLcontext *context, GLuint texture, GLenum target, GLsizei samples, GLint internalFormat, GLsizei width, GLsizei height, GLboolean fixedSampleLocations);
-EXPORT void cwcglTextureImage3DEXT(GLcontext *context, GLuint texture, GLenum target, GLint level, GLint internalformat, GLsizei width, GLsizei height, GLsizei depth, GLint border, GLenum format, GLenum type, const void * pixels);
-EXPORT void cwcglTextureImage3DMultisampleCoverageNV(GLcontext *context, GLuint texture, GLenum target, GLsizei coverageSamples, GLsizei colorSamples, GLint internalFormat, GLsizei width, GLsizei height, GLsizei depth, GLboolean fixedSampleLocations);
-EXPORT void cwcglTextureImage3DMultisampleNV(GLcontext *context, GLuint texture, GLenum target, GLsizei samples, GLint internalFormat, GLsizei width, GLsizei height, GLsizei depth, GLboolean fixedSampleLocations);
-EXPORT void cwcglTextureLightEXT(GLcontext *context, GLenum pname);
-EXPORT void cwcglTextureMaterialEXT(GLcontext *context, GLenum face, GLenum mode);
-EXPORT void cwcglTextureNormalEXT(GLcontext *context, GLenum mode);
-EXPORT void cwcglTexturePageCommitmentEXT(GLcontext *context, GLuint texture, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLboolean commit);
-EXPORT void cwcglTextureParameterIiv(GLcontext *context, GLuint texture, GLenum pname, const GLint * params);
-EXPORT void cwcglTextureParameterIivEXT(GLcontext *context, GLuint texture, GLenum target, GLenum pname, const GLint * params);
-EXPORT void cwcglTextureParameterIuiv(GLcontext *context, GLuint texture, GLenum pname, const GLuint * params);
-EXPORT void cwcglTextureParameterIuivEXT(GLcontext *context, GLuint texture, GLenum target, GLenum pname, const GLuint * params);
-EXPORT void cwcglTextureParameterf(GLcontext *context, GLuint texture, GLenum pname, GLfloat param);
-EXPORT void cwcglTextureParameterfEXT(GLcontext *context, GLuint texture, GLenum target, GLenum pname, GLfloat param);
-EXPORT void cwcglTextureParameterfv(GLcontext *context, GLuint texture, GLenum pname, const GLfloat * param);
-EXPORT void cwcglTextureParameterfvEXT(GLcontext *context, GLuint texture, GLenum target, GLenum pname, const GLfloat * params);
-EXPORT void cwcglTextureParameteri(GLcontext *context, GLuint texture, GLenum pname, GLint param);
-EXPORT void cwcglTextureParameteriEXT(GLcontext *context, GLuint texture, GLenum target, GLenum pname, GLint param);
-EXPORT void cwcglTextureParameteriv(GLcontext *context, GLuint texture, GLenum pname, const GLint * param);
-EXPORT void cwcglTextureParameterivEXT(GLcontext *context, GLuint texture, GLenum target, GLenum pname, const GLint * params);
-EXPORT void cwcglTextureRangeAPPLE(GLcontext *context, GLenum target, GLsizei length, const void * pointer);
-EXPORT void cwcglTextureRenderbufferEXT(GLcontext *context, GLuint texture, GLenum target, GLuint renderbuffer);
-EXPORT void cwcglTextureStorage1D(GLcontext *context, GLuint texture, GLsizei levels, GLenum internalformat, GLsizei width);
-EXPORT void cwcglTextureStorage1DEXT(GLcontext *context, GLuint texture, GLenum target, GLsizei levels, GLenum internalformat, GLsizei width);
-EXPORT void cwcglTextureStorage2D(GLcontext *context, GLuint texture, GLsizei levels, GLenum internalformat, GLsizei width, GLsizei height);
-EXPORT void cwcglTextureStorage2DEXT(GLcontext *context, GLuint texture, GLenum target, GLsizei levels, GLenum internalformat, GLsizei width, GLsizei height);
-EXPORT void cwcglTextureStorage2DMultisample(GLcontext *context, GLuint texture, GLsizei samples, GLenum internalformat, GLsizei width, GLsizei height, GLboolean fixedsamplelocations);
-EXPORT void cwcglTextureStorage2DMultisampleEXT(GLcontext *context, GLuint texture, GLenum target, GLsizei samples, GLenum internalformat, GLsizei width, GLsizei height, GLboolean fixedsamplelocations);
-EXPORT void cwcglTextureStorage3D(GLcontext *context, GLuint texture, GLsizei levels, GLenum internalformat, GLsizei width, GLsizei height, GLsizei depth);
-EXPORT void cwcglTextureStorage3DEXT(GLcontext *context, GLuint texture, GLenum target, GLsizei levels, GLenum internalformat, GLsizei width, GLsizei height, GLsizei depth);
-EXPORT void cwcglTextureStorage3DMultisample(GLcontext *context, GLuint texture, GLsizei samples, GLenum internalformat, GLsizei width, GLsizei height, GLsizei depth, GLboolean fixedsamplelocations);
-EXPORT void cwcglTextureStorage3DMultisampleEXT(GLcontext *context, GLuint texture, GLenum target, GLsizei samples, GLenum internalformat, GLsizei width, GLsizei height, GLsizei depth, GLboolean fixedsamplelocations);
-EXPORT void cwcglTextureStorageSparseAMD(GLcontext *context, GLuint texture, GLenum target, GLenum internalFormat, GLsizei width, GLsizei height, GLsizei depth, GLsizei layers, GLbitfield flags);
-EXPORT void cwcglTextureSubImage1D(GLcontext *context, GLuint texture, GLint level, GLint xoffset, GLsizei width, GLenum format, GLenum type, const void * pixels);
-EXPORT void cwcglTextureSubImage1DEXT(GLcontext *context, GLuint texture, GLenum target, GLint level, GLint xoffset, GLsizei width, GLenum format, GLenum type, const void * pixels);
-EXPORT void cwcglTextureSubImage2D(GLcontext *context, GLuint texture, GLint level, GLint xoffset, GLint yoffset, GLsizei width, GLsizei height, GLenum format, GLenum type, const void * pixels);
-EXPORT void cwcglTextureSubImage2DEXT(GLcontext *context, GLuint texture, GLenum target, GLint level, GLint xoffset, GLint yoffset, GLsizei width, GLsizei height, GLenum format, GLenum type, const void * pixels);
-EXPORT void cwcglTextureSubImage3D(GLcontext *context, GLuint texture, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLenum format, GLenum type, const void * pixels);
-EXPORT void cwcglTextureSubImage3DEXT(GLcontext *context, GLuint texture, GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLenum format, GLenum type, const void * pixels);
-EXPORT void cwcglTextureView(GLcontext *context, GLuint texture, GLenum target, GLuint origtexture, GLenum internalformat, GLuint minlevel, GLuint numlevels, GLuint minlayer, GLuint numlayers);
-EXPORT void cwcglTextureViewEXT(GLcontext *context, GLuint texture, GLenum target, GLuint origtexture, GLenum internalformat, GLuint minlevel, GLuint numlevels, GLuint minlayer, GLuint numlayers);
-EXPORT void cwcglTextureViewOES(GLcontext *context, GLuint texture, GLenum target, GLuint origtexture, GLenum internalformat, GLuint minlevel, GLuint numlevels, GLuint minlayer, GLuint numlayers);
-EXPORT void cwcglTrackMatrixNV(GLcontext *context, GLenum target, GLuint address, GLenum matrix, GLenum transform);
-EXPORT void cwcglTransformFeedbackAttribsNV(GLcontext *context, GLsizei count, const GLint * attribs, GLenum bufferMode);
-EXPORT void cwcglTransformFeedbackBufferBase(GLcontext *context, GLuint xfb, GLuint index, GLuint buffer);
-EXPORT void cwcglTransformFeedbackBufferRange(GLcontext *context, GLuint xfb, GLuint index, GLuint buffer, GLintptr offset, GLsizeiptr size);
-EXPORT void cwcglTransformFeedbackStreamAttribsNV(GLcontext *context, GLsizei count, const GLint * attribs, GLsizei nbuffers, const GLint * bufstreams, GLenum bufferMode);
-EXPORT void cwcglTransformFeedbackVaryings(GLcontext *context, GLuint program, GLsizei count, const GLchar *const* varyings, GLenum bufferMode);
-EXPORT void cwcglTransformFeedbackVaryingsEXT(GLcontext *context, GLuint program, GLsizei count, const GLchar *const* varyings, GLenum bufferMode);
-EXPORT void cwcglTransformFeedbackVaryingsNV(GLcontext *context, GLuint program, GLsizei count, const GLint * locations, GLenum bufferMode);
-EXPORT void cwcglTransformPathNV(GLcontext *context, GLuint resultPath, GLuint srcPath, GLenum transformType, const GLfloat * transformValues);
-EXPORT void cwcglTranslated(GLcontext *context, GLdouble x, GLdouble y, GLdouble z);
-EXPORT void cwcglTranslatef(GLcontext *context, GLfloat x, GLfloat y, GLfloat z);
-EXPORT void cwcglTranslatex(GLcontext *context, GLfixed x, GLfixed y, GLfixed z);
-EXPORT void cwcglTranslatexOES(GLcontext *context, GLfixed x, GLfixed y, GLfixed z);
-EXPORT void cwcglUniform1d(GLcontext *context, GLint location, GLdouble x);
-EXPORT void cwcglUniform1dv(GLcontext *context, GLint location, GLsizei count, const GLdouble * value);
-EXPORT void cwcglUniform1f(GLcontext *context, GLint location, GLfloat v0);
-EXPORT void cwcglUniform1fARB(GLcontext *context, GLint location, GLfloat v0);
-EXPORT void cwcglUniform1fv(GLcontext *context, GLint location, GLsizei count, const GLfloat * value);
-EXPORT void cwcglUniform1fvARB(GLcontext *context, GLint location, GLsizei count, const GLfloat * value);
-EXPORT void cwcglUniform1i(GLcontext *context, GLint location, GLint v0);
-EXPORT void cwcglUniform1i64ARB(GLcontext *context, GLint location, GLint64 x);
-EXPORT void cwcglUniform1i64NV(GLcontext *context, GLint location, GLint64EXT x);
-EXPORT void cwcglUniform1i64vARB(GLcontext *context, GLint location, GLsizei count, const GLint64 * value);
-EXPORT void cwcglUniform1i64vNV(GLcontext *context, GLint location, GLsizei count, const GLint64EXT * value);
-EXPORT void cwcglUniform1iARB(GLcontext *context, GLint location, GLint v0);
-EXPORT void cwcglUniform1iv(GLcontext *context, GLint location, GLsizei count, const GLint * value);
-EXPORT void cwcglUniform1ivARB(GLcontext *context, GLint location, GLsizei count, const GLint * value);
-EXPORT void cwcglUniform1ui(GLcontext *context, GLint location, GLuint v0);
-EXPORT void cwcglUniform1ui64ARB(GLcontext *context, GLint location, GLuint64 x);
-EXPORT void cwcglUniform1ui64NV(GLcontext *context, GLint location, GLuint64EXT x);
-EXPORT void cwcglUniform1ui64vARB(GLcontext *context, GLint location, GLsizei count, const GLuint64 * value);
-EXPORT void cwcglUniform1ui64vNV(GLcontext *context, GLint location, GLsizei count, const GLuint64EXT * value);
-EXPORT void cwcglUniform1uiEXT(GLcontext *context, GLint location, GLuint v0);
-EXPORT void cwcglUniform1uiv(GLcontext *context, GLint location, GLsizei count, const GLuint * value);
-EXPORT void cwcglUniform1uivEXT(GLcontext *context, GLint location, GLsizei count, const GLuint * value);
-EXPORT void cwcglUniform2d(GLcontext *context, GLint location, GLdouble x, GLdouble y);
-EXPORT void cwcglUniform2dv(GLcontext *context, GLint location, GLsizei count, const GLdouble * value);
-EXPORT void cwcglUniform2f(GLcontext *context, GLint location, GLfloat v0, GLfloat v1);
-EXPORT void cwcglUniform2fARB(GLcontext *context, GLint location, GLfloat v0, GLfloat v1);
-EXPORT void cwcglUniform2fv(GLcontext *context, GLint location, GLsizei count, const GLfloat * value);
-EXPORT void cwcglUniform2fvARB(GLcontext *context, GLint location, GLsizei count, const GLfloat * value);
-EXPORT void cwcglUniform2i(GLcontext *context, GLint location, GLint v0, GLint v1);
-EXPORT void cwcglUniform2i64ARB(GLcontext *context, GLint location, GLint64 x, GLint64 y);
-EXPORT void cwcglUniform2i64NV(GLcontext *context, GLint location, GLint64EXT x, GLint64EXT y);
-EXPORT void cwcglUniform2i64vARB(GLcontext *context, GLint location, GLsizei count, const GLint64 * value);
-EXPORT void cwcglUniform2i64vNV(GLcontext *context, GLint location, GLsizei count, const GLint64EXT * value);
-EXPORT void cwcglUniform2iARB(GLcontext *context, GLint location, GLint v0, GLint v1);
-EXPORT void cwcglUniform2iv(GLcontext *context, GLint location, GLsizei count, const GLint * value);
-EXPORT void cwcglUniform2ivARB(GLcontext *context, GLint location, GLsizei count, const GLint * value);
-EXPORT void cwcglUniform2ui(GLcontext *context, GLint location, GLuint v0, GLuint v1);
-EXPORT void cwcglUniform2ui64ARB(GLcontext *context, GLint location, GLuint64 x, GLuint64 y);
-EXPORT void cwcglUniform2ui64NV(GLcontext *context, GLint location, GLuint64EXT x, GLuint64EXT y);
-EXPORT void cwcglUniform2ui64vARB(GLcontext *context, GLint location, GLsizei count, const GLuint64 * value);
-EXPORT void cwcglUniform2ui64vNV(GLcontext *context, GLint location, GLsizei count, const GLuint64EXT * value);
-EXPORT void cwcglUniform2uiEXT(GLcontext *context, GLint location, GLuint v0, GLuint v1);
-EXPORT void cwcglUniform2uiv(GLcontext *context, GLint location, GLsizei count, const GLuint * value);
-EXPORT void cwcglUniform2uivEXT(GLcontext *context, GLint location, GLsizei count, const GLuint * value);
-EXPORT void cwcglUniform3d(GLcontext *context, GLint location, GLdouble x, GLdouble y, GLdouble z);
-EXPORT void cwcglUniform3dv(GLcontext *context, GLint location, GLsizei count, const GLdouble * value);
-EXPORT void cwcglUniform3f(GLcontext *context, GLint location, GLfloat v0, GLfloat v1, GLfloat v2);
-EXPORT void cwcglUniform3fARB(GLcontext *context, GLint location, GLfloat v0, GLfloat v1, GLfloat v2);
-EXPORT void cwcglUniform3fv(GLcontext *context, GLint location, GLsizei count, const GLfloat * value);
-EXPORT void cwcglUniform3fvARB(GLcontext *context, GLint location, GLsizei count, const GLfloat * value);
-EXPORT void cwcglUniform3i(GLcontext *context, GLint location, GLint v0, GLint v1, GLint v2);
-EXPORT void cwcglUniform3i64ARB(GLcontext *context, GLint location, GLint64 x, GLint64 y, GLint64 z);
-EXPORT void cwcglUniform3i64NV(GLcontext *context, GLint location, GLint64EXT x, GLint64EXT y, GLint64EXT z);
-EXPORT void cwcglUniform3i64vARB(GLcontext *context, GLint location, GLsizei count, const GLint64 * value);
-EXPORT void cwcglUniform3i64vNV(GLcontext *context, GLint location, GLsizei count, const GLint64EXT * value);
-EXPORT void cwcglUniform3iARB(GLcontext *context, GLint location, GLint v0, GLint v1, GLint v2);
-EXPORT void cwcglUniform3iv(GLcontext *context, GLint location, GLsizei count, const GLint * value);
-EXPORT void cwcglUniform3ivARB(GLcontext *context, GLint location, GLsizei count, const GLint * value);
-EXPORT void cwcglUniform3ui(GLcontext *context, GLint location, GLuint v0, GLuint v1, GLuint v2);
-EXPORT void cwcglUniform3ui64ARB(GLcontext *context, GLint location, GLuint64 x, GLuint64 y, GLuint64 z);
-EXPORT void cwcglUniform3ui64NV(GLcontext *context, GLint location, GLuint64EXT x, GLuint64EXT y, GLuint64EXT z);
-EXPORT void cwcglUniform3ui64vARB(GLcontext *context, GLint location, GLsizei count, const GLuint64 * value);
-EXPORT void cwcglUniform3ui64vNV(GLcontext *context, GLint location, GLsizei count, const GLuint64EXT * value);
-EXPORT void cwcglUniform3uiEXT(GLcontext *context, GLint location, GLuint v0, GLuint v1, GLuint v2);
-EXPORT void cwcglUniform3uiv(GLcontext *context, GLint location, GLsizei count, const GLuint * value);
-EXPORT void cwcglUniform3uivEXT(GLcontext *context, GLint location, GLsizei count, const GLuint * value);
-EXPORT void cwcglUniform4d(GLcontext *context, GLint location, GLdouble x, GLdouble y, GLdouble z, GLdouble w);
-EXPORT void cwcglUniform4dv(GLcontext *context, GLint location, GLsizei count, const GLdouble * value);
-EXPORT void cwcglUniform4f(GLcontext *context, GLint location, GLfloat v0, GLfloat v1, GLfloat v2, GLfloat v3);
-EXPORT void cwcglUniform4fARB(GLcontext *context, GLint location, GLfloat v0, GLfloat v1, GLfloat v2, GLfloat v3);
-EXPORT void cwcglUniform4fv(GLcontext *context, GLint location, GLsizei count, const GLfloat * value);
-EXPORT void cwcglUniform4fvARB(GLcontext *context, GLint location, GLsizei count, const GLfloat * value);
-EXPORT void cwcglUniform4i(GLcontext *context, GLint location, GLint v0, GLint v1, GLint v2, GLint v3);
-EXPORT void cwcglUniform4i64ARB(GLcontext *context, GLint location, GLint64 x, GLint64 y, GLint64 z, GLint64 w);
-EXPORT void cwcglUniform4i64NV(GLcontext *context, GLint location, GLint64EXT x, GLint64EXT y, GLint64EXT z, GLint64EXT w);
-EXPORT void cwcglUniform4i64vARB(GLcontext *context, GLint location, GLsizei count, const GLint64 * value);
-EXPORT void cwcglUniform4i64vNV(GLcontext *context, GLint location, GLsizei count, const GLint64EXT * value);
-EXPORT void cwcglUniform4iARB(GLcontext *context, GLint location, GLint v0, GLint v1, GLint v2, GLint v3);
-EXPORT void cwcglUniform4iv(GLcontext *context, GLint location, GLsizei count, const GLint * value);
-EXPORT void cwcglUniform4ivARB(GLcontext *context, GLint location, GLsizei count, const GLint * value);
-EXPORT void cwcglUniform4ui(GLcontext *context, GLint location, GLuint v0, GLuint v1, GLuint v2, GLuint v3);
-EXPORT void cwcglUniform4ui64ARB(GLcontext *context, GLint location, GLuint64 x, GLuint64 y, GLuint64 z, GLuint64 w);
-EXPORT void cwcglUniform4ui64NV(GLcontext *context, GLint location, GLuint64EXT x, GLuint64EXT y, GLuint64EXT z, GLuint64EXT w);
-EXPORT void cwcglUniform4ui64vARB(GLcontext *context, GLint location, GLsizei count, const GLuint64 * value);
-EXPORT void cwcglUniform4ui64vNV(GLcontext *context, GLint location, GLsizei count, const GLuint64EXT * value);
-EXPORT void cwcglUniform4uiEXT(GLcontext *context, GLint location, GLuint v0, GLuint v1, GLuint v2, GLuint v3);
-EXPORT void cwcglUniform4uiv(GLcontext *context, GLint location, GLsizei count, const GLuint * value);
-EXPORT void cwcglUniform4uivEXT(GLcontext *context, GLint location, GLsizei count, const GLuint * value);
-EXPORT void cwcglUniformBlockBinding(GLcontext *context, GLuint program, GLuint uniformBlockIndex, GLuint uniformBlockBinding);
-EXPORT void cwcglUniformBufferEXT(GLcontext *context, GLuint program, GLint location, GLuint buffer);
-EXPORT void cwcglUniformHandleui64ARB(GLcontext *context, GLint location, GLuint64 value);
-EXPORT void cwcglUniformHandleui64IMG(GLcontext *context, GLint location, GLuint64 value);
-EXPORT void cwcglUniformHandleui64NV(GLcontext *context, GLint location, GLuint64 value);
-EXPORT void cwcglUniformHandleui64vARB(GLcontext *context, GLint location, GLsizei count, const GLuint64 * value);
-EXPORT void cwcglUniformHandleui64vIMG(GLcontext *context, GLint location, GLsizei count, const GLuint64 * value);
-EXPORT void cwcglUniformHandleui64vNV(GLcontext *context, GLint location, GLsizei count, const GLuint64 * value);
-EXPORT void cwcglUniformMatrix2dv(GLcontext *context, GLint location, GLsizei count, GLboolean transpose, const GLdouble * value);
-EXPORT void cwcglUniformMatrix2fv(GLcontext *context, GLint location, GLsizei count, GLboolean transpose, const GLfloat * value);
-EXPORT void cwcglUniformMatrix2fvARB(GLcontext *context, GLint location, GLsizei count, GLboolean transpose, const GLfloat * value);
-EXPORT void cwcglUniformMatrix2x3dv(GLcontext *context, GLint location, GLsizei count, GLboolean transpose, const GLdouble * value);
-EXPORT void cwcglUniformMatrix2x3fv(GLcontext *context, GLint location, GLsizei count, GLboolean transpose, const GLfloat * value);
-EXPORT void cwcglUniformMatrix2x3fvNV(GLcontext *context, GLint location, GLsizei count, GLboolean transpose, const GLfloat * value);
-EXPORT void cwcglUniformMatrix2x4dv(GLcontext *context, GLint location, GLsizei count, GLboolean transpose, const GLdouble * value);
-EXPORT void cwcglUniformMatrix2x4fv(GLcontext *context, GLint location, GLsizei count, GLboolean transpose, const GLfloat * value);
-EXPORT void cwcglUniformMatrix2x4fvNV(GLcontext *context, GLint location, GLsizei count, GLboolean transpose, const GLfloat * value);
-EXPORT void cwcglUniformMatrix3dv(GLcontext *context, GLint location, GLsizei count, GLboolean transpose, const GLdouble * value);
-EXPORT void cwcglUniformMatrix3fv(GLcontext *context, GLint location, GLsizei count, GLboolean transpose, const GLfloat * value);
-EXPORT void cwcglUniformMatrix3fvARB(GLcontext *context, GLint location, GLsizei count, GLboolean transpose, const GLfloat * value);
-EXPORT void cwcglUniformMatrix3x2dv(GLcontext *context, GLint location, GLsizei count, GLboolean transpose, const GLdouble * value);
-EXPORT void cwcglUniformMatrix3x2fv(GLcontext *context, GLint location, GLsizei count, GLboolean transpose, const GLfloat * value);
-EXPORT void cwcglUniformMatrix3x2fvNV(GLcontext *context, GLint location, GLsizei count, GLboolean transpose, const GLfloat * value);
-EXPORT void cwcglUniformMatrix3x4dv(GLcontext *context, GLint location, GLsizei count, GLboolean transpose, const GLdouble * value);
-EXPORT void cwcglUniformMatrix3x4fv(GLcontext *context, GLint location, GLsizei count, GLboolean transpose, const GLfloat * value);
-EXPORT void cwcglUniformMatrix3x4fvNV(GLcontext *context, GLint location, GLsizei count, GLboolean transpose, const GLfloat * value);
-EXPORT void cwcglUniformMatrix4dv(GLcontext *context, GLint location, GLsizei count, GLboolean transpose, const GLdouble * value);
-EXPORT void cwcglUniformMatrix4fv(GLcontext *context, GLint location, GLsizei count, GLboolean transpose, const GLfloat * value);
-EXPORT void cwcglUniformMatrix4fvARB(GLcontext *context, GLint location, GLsizei count, GLboolean transpose, const GLfloat * value);
-EXPORT void cwcglUniformMatrix4x2dv(GLcontext *context, GLint location, GLsizei count, GLboolean transpose, const GLdouble * value);
-EXPORT void cwcglUniformMatrix4x2fv(GLcontext *context, GLint location, GLsizei count, GLboolean transpose, const GLfloat * value);
-EXPORT void cwcglUniformMatrix4x2fvNV(GLcontext *context, GLint location, GLsizei count, GLboolean transpose, const GLfloat * value);
-EXPORT void cwcglUniformMatrix4x3dv(GLcontext *context, GLint location, GLsizei count, GLboolean transpose, const GLdouble * value);
-EXPORT void cwcglUniformMatrix4x3fv(GLcontext *context, GLint location, GLsizei count, GLboolean transpose, const GLfloat * value);
-EXPORT void cwcglUniformMatrix4x3fvNV(GLcontext *context, GLint location, GLsizei count, GLboolean transpose, const GLfloat * value);
-EXPORT void cwcglUniformSubroutinesuiv(GLcontext *context, GLenum shadertype, GLsizei count, const GLuint * indices);
-EXPORT void cwcglUniformui64NV(GLcontext *context, GLint location, GLuint64EXT value);
-EXPORT void cwcglUniformui64vNV(GLcontext *context, GLint location, GLsizei count, const GLuint64EXT * value);
-EXPORT void cwcglUnlockArraysEXT(GLcontext *context);
-EXPORT void cwcglUnmapBuffer(GLcontext *context, GLenum target, GLboolean* return_value);
-EXPORT void cwcglUnmapBufferARB(GLcontext *context, GLenum target, GLboolean* return_value);
-EXPORT void cwcglUnmapBufferOES(GLcontext *context, GLenum target, GLboolean* return_value);
-EXPORT void cwcglUnmapNamedBuffer(GLcontext *context, GLuint buffer, GLboolean* return_value);
-EXPORT void cwcglUnmapNamedBufferEXT(GLcontext *context, GLuint buffer, GLboolean* return_value);
-EXPORT void cwcglUnmapObjectBufferATI(GLcontext *context, GLuint buffer);
-EXPORT void cwcglUnmapTexture2DINTEL(GLcontext *context, GLuint texture, GLint level);
-EXPORT void cwcglUpdateObjectBufferATI(GLcontext *context, GLuint buffer, GLuint offset, GLsizei size, const void * pointer, GLenum preserve);
-EXPORT void cwcglUseProgram(GLcontext *context, GLuint program);
-EXPORT void cwcglUseProgramObjectARB(GLcontext *context, GLhandleARB programObj);
-EXPORT void cwcglUseProgramStages(GLcontext *context, GLuint pipeline, GLbitfield stages, GLuint program);
-EXPORT void cwcglUseProgramStagesEXT(GLcontext *context, GLuint pipeline, GLbitfield stages, GLuint program);
-EXPORT void cwcglUseShaderProgramEXT(GLcontext *context, GLenum type, GLuint program);
-EXPORT void cwcglVDPAUFiniNV(GLcontext *context);
-EXPORT void cwcglVDPAUGetSurfaceivNV(GLcontext *context, GLvdpauSurfaceNV surface, GLenum pname, GLsizei bufSize, GLsizei * length, GLint * values);
-EXPORT void cwcglVDPAUInitNV(GLcontext *context, const void * vdpDevice, const void * getProcAddress);
-EXPORT void cwcglVDPAUIsSurfaceNV(GLcontext *context, GLvdpauSurfaceNV surface, GLboolean* return_value);
-EXPORT void cwcglVDPAUMapSurfacesNV(GLcontext *context, GLsizei numSurfaces, const GLvdpauSurfaceNV * surfaces);
-EXPORT void cwcglVDPAURegisterOutputSurfaceNV(GLcontext *context, const void * vdpSurface, GLenum target, GLsizei numTextureNames, const GLuint * textureNames, GLvdpauSurfaceNV* return_value);
-EXPORT void cwcglVDPAURegisterVideoSurfaceNV(GLcontext *context, const void * vdpSurface, GLenum target, GLsizei numTextureNames, const GLuint * textureNames, GLvdpauSurfaceNV* return_value);
-EXPORT void cwcglVDPAUSurfaceAccessNV(GLcontext *context, GLvdpauSurfaceNV surface, GLenum access);
-EXPORT void cwcglVDPAUUnmapSurfacesNV(GLcontext *context, GLsizei numSurface, const GLvdpauSurfaceNV * surfaces);
-EXPORT void cwcglVDPAUUnregisterSurfaceNV(GLcontext *context, GLvdpauSurfaceNV surface);
-EXPORT void cwcglValidateProgram(GLcontext *context, GLuint program);
-EXPORT void cwcglValidateProgramARB(GLcontext *context, GLhandleARB programObj);
-EXPORT void cwcglValidateProgramPipeline(GLcontext *context, GLuint pipeline);
-EXPORT void cwcglValidateProgramPipelineEXT(GLcontext *context, GLuint pipeline);
-EXPORT void cwcglVariantArrayObjectATI(GLcontext *context, GLuint id, GLenum type, GLsizei stride, GLuint buffer, GLuint offset);
-EXPORT void cwcglVariantPointerEXT(GLcontext *context, GLuint id, GLenum type, GLuint stride, const void * addr);
-EXPORT void cwcglVariantbvEXT(GLcontext *context, GLuint id, const GLbyte * addr);
-EXPORT void cwcglVariantdvEXT(GLcontext *context, GLuint id, const GLdouble * addr);
-EXPORT void cwcglVariantfvEXT(GLcontext *context, GLuint id, const GLfloat * addr);
-EXPORT void cwcglVariantivEXT(GLcontext *context, GLuint id, const GLint * addr);
-EXPORT void cwcglVariantsvEXT(GLcontext *context, GLuint id, const GLshort * addr);
-EXPORT void cwcglVariantubvEXT(GLcontext *context, GLuint id, const GLubyte * addr);
-EXPORT void cwcglVariantuivEXT(GLcontext *context, GLuint id, const GLuint * addr);
-EXPORT void cwcglVariantusvEXT(GLcontext *context, GLuint id, const GLushort * addr);
-EXPORT void cwcglVertex2bOES(GLcontext *context, GLbyte x, GLbyte y);
-EXPORT void cwcglVertex2bvOES(GLcontext *context, const GLbyte * coords);
 EXPORT void cwcglVertex2d(GLcontext *context, GLdouble x, GLdouble y);
 EXPORT void cwcglVertex2dv(GLcontext *context, const GLdouble * v);
 EXPORT void cwcglVertex2f(GLcontext *context, GLfloat x, GLfloat y);
 EXPORT void cwcglVertex2fv(GLcontext *context, const GLfloat * v);
-EXPORT void cwcglVertex2hNV(GLcontext *context, GLhalfNV x, GLhalfNV y);
-EXPORT void cwcglVertex2hvNV(GLcontext *context, const GLhalfNV * v);
 EXPORT void cwcglVertex2i(GLcontext *context, GLint x, GLint y);
 EXPORT void cwcglVertex2iv(GLcontext *context, const GLint * v);
 EXPORT void cwcglVertex2s(GLcontext *context, GLshort x, GLshort y);
 EXPORT void cwcglVertex2sv(GLcontext *context, const GLshort * v);
-EXPORT void cwcglVertex2xOES(GLcontext *context, GLfixed x);
-EXPORT void cwcglVertex2xvOES(GLcontext *context, const GLfixed * coords);
-EXPORT void cwcglVertex3bOES(GLcontext *context, GLbyte x, GLbyte y, GLbyte z);
-EXPORT void cwcglVertex3bvOES(GLcontext *context, const GLbyte * coords);
 EXPORT void cwcglVertex3d(GLcontext *context, GLdouble x, GLdouble y, GLdouble z);
 EXPORT void cwcglVertex3dv(GLcontext *context, const GLdouble * v);
 EXPORT void cwcglVertex3f(GLcontext *context, GLfloat x, GLfloat y, GLfloat z);
 EXPORT void cwcglVertex3fv(GLcontext *context, const GLfloat * v);
-EXPORT void cwcglVertex3hNV(GLcontext *context, GLhalfNV x, GLhalfNV y, GLhalfNV z);
-EXPORT void cwcglVertex3hvNV(GLcontext *context, const GLhalfNV * v);
 EXPORT void cwcglVertex3i(GLcontext *context, GLint x, GLint y, GLint z);
 EXPORT void cwcglVertex3iv(GLcontext *context, const GLint * v);
 EXPORT void cwcglVertex3s(GLcontext *context, GLshort x, GLshort y, GLshort z);
 EXPORT void cwcglVertex3sv(GLcontext *context, const GLshort * v);
-EXPORT void cwcglVertex3xOES(GLcontext *context, GLfixed x, GLfixed y);
-EXPORT void cwcglVertex3xvOES(GLcontext *context, const GLfixed * coords);
-EXPORT void cwcglVertex4bOES(GLcontext *context, GLbyte x, GLbyte y, GLbyte z, GLbyte w);
-EXPORT void cwcglVertex4bvOES(GLcontext *context, const GLbyte * coords);
 EXPORT void cwcglVertex4d(GLcontext *context, GLdouble x, GLdouble y, GLdouble z, GLdouble w);
 EXPORT void cwcglVertex4dv(GLcontext *context, const GLdouble * v);
 EXPORT void cwcglVertex4f(GLcontext *context, GLfloat x, GLfloat y, GLfloat z, GLfloat w);
 EXPORT void cwcglVertex4fv(GLcontext *context, const GLfloat * v);
-EXPORT void cwcglVertex4hNV(GLcontext *context, GLhalfNV x, GLhalfNV y, GLhalfNV z, GLhalfNV w);
-EXPORT void cwcglVertex4hvNV(GLcontext *context, const GLhalfNV * v);
 EXPORT void cwcglVertex4i(GLcontext *context, GLint x, GLint y, GLint z, GLint w);
 EXPORT void cwcglVertex4iv(GLcontext *context, const GLint * v);
 EXPORT void cwcglVertex4s(GLcontext *context, GLshort x, GLshort y, GLshort z, GLshort w);
 EXPORT void cwcglVertex4sv(GLcontext *context, const GLshort * v);
-EXPORT void cwcglVertex4xOES(GLcontext *context, GLfixed x, GLfixed y, GLfixed z);
-EXPORT void cwcglVertex4xvOES(GLcontext *context, const GLfixed * coords);
-EXPORT void cwcglVertexArrayAttribBinding(GLcontext *context, GLuint vaobj, GLuint attribindex, GLuint bindingindex);
-EXPORT void cwcglVertexArrayAttribFormat(GLcontext *context, GLuint vaobj, GLuint attribindex, GLint size, GLenum type, GLboolean normalized, GLuint relativeoffset);
-EXPORT void cwcglVertexArrayAttribIFormat(GLcontext *context, GLuint vaobj, GLuint attribindex, GLint size, GLenum type, GLuint relativeoffset);
-EXPORT void cwcglVertexArrayAttribLFormat(GLcontext *context, GLuint vaobj, GLuint attribindex, GLint size, GLenum type, GLuint relativeoffset);
-EXPORT void cwcglVertexArrayBindVertexBufferEXT(GLcontext *context, GLuint vaobj, GLuint bindingindex, GLuint buffer, GLintptr offset, GLsizei stride);
-EXPORT void cwcglVertexArrayBindingDivisor(GLcontext *context, GLuint vaobj, GLuint bindingindex, GLuint divisor);
-EXPORT void cwcglVertexArrayColorOffsetEXT(GLcontext *context, GLuint vaobj, GLuint buffer, GLint size, GLenum type, GLsizei stride, GLintptr offset);
-EXPORT void cwcglVertexArrayEdgeFlagOffsetEXT(GLcontext *context, GLuint vaobj, GLuint buffer, GLsizei stride, GLintptr offset);
-EXPORT void cwcglVertexArrayElementBuffer(GLcontext *context, GLuint vaobj, GLuint buffer);
-EXPORT void cwcglVertexArrayFogCoordOffsetEXT(GLcontext *context, GLuint vaobj, GLuint buffer, GLenum type, GLsizei stride, GLintptr offset);
-EXPORT void cwcglVertexArrayIndexOffsetEXT(GLcontext *context, GLuint vaobj, GLuint buffer, GLenum type, GLsizei stride, GLintptr offset);
-EXPORT void cwcglVertexArrayMultiTexCoordOffsetEXT(GLcontext *context, GLuint vaobj, GLuint buffer, GLenum texunit, GLint size, GLenum type, GLsizei stride, GLintptr offset);
-EXPORT void cwcglVertexArrayNormalOffsetEXT(GLcontext *context, GLuint vaobj, GLuint buffer, GLenum type, GLsizei stride, GLintptr offset);
-EXPORT void cwcglVertexArrayParameteriAPPLE(GLcontext *context, GLenum pname, GLint param);
-EXPORT void cwcglVertexArrayRangeAPPLE(GLcontext *context, GLsizei length, void * pointer);
-EXPORT void cwcglVertexArrayRangeNV(GLcontext *context, GLsizei length, const void * pointer);
-EXPORT void cwcglVertexArraySecondaryColorOffsetEXT(GLcontext *context, GLuint vaobj, GLuint buffer, GLint size, GLenum type, GLsizei stride, GLintptr offset);
-EXPORT void cwcglVertexArrayTexCoordOffsetEXT(GLcontext *context, GLuint vaobj, GLuint buffer, GLint size, GLenum type, GLsizei stride, GLintptr offset);
-EXPORT void cwcglVertexArrayVertexAttribBindingEXT(GLcontext *context, GLuint vaobj, GLuint attribindex, GLuint bindingindex);
-EXPORT void cwcglVertexArrayVertexAttribDivisorEXT(GLcontext *context, GLuint vaobj, GLuint index, GLuint divisor);
-EXPORT void cwcglVertexArrayVertexAttribFormatEXT(GLcontext *context, GLuint vaobj, GLuint attribindex, GLint size, GLenum type, GLboolean normalized, GLuint relativeoffset);
-EXPORT void cwcglVertexArrayVertexAttribIFormatEXT(GLcontext *context, GLuint vaobj, GLuint attribindex, GLint size, GLenum type, GLuint relativeoffset);
-EXPORT void cwcglVertexArrayVertexAttribIOffsetEXT(GLcontext *context, GLuint vaobj, GLuint buffer, GLuint index, GLint size, GLenum type, GLsizei stride, GLintptr offset);
-EXPORT void cwcglVertexArrayVertexAttribLFormatEXT(GLcontext *context, GLuint vaobj, GLuint attribindex, GLint size, GLenum type, GLuint relativeoffset);
-EXPORT void cwcglVertexArrayVertexAttribLOffsetEXT(GLcontext *context, GLuint vaobj, GLuint buffer, GLuint index, GLint size, GLenum type, GLsizei stride, GLintptr offset);
-EXPORT void cwcglVertexArrayVertexAttribOffsetEXT(GLcontext *context, GLuint vaobj, GLuint buffer, GLuint index, GLint size, GLenum type, GLboolean normalized, GLsizei stride, GLintptr offset);
-EXPORT void cwcglVertexArrayVertexBindingDivisorEXT(GLcontext *context, GLuint vaobj, GLuint bindingindex, GLuint divisor);
-EXPORT void cwcglVertexArrayVertexBuffer(GLcontext *context, GLuint vaobj, GLuint bindingindex, GLuint buffer, GLintptr offset, GLsizei stride);
-EXPORT void cwcglVertexArrayVertexBuffers(GLcontext *context, GLuint vaobj, GLuint first, GLsizei count, const GLuint * buffers, const GLintptr * offsets, const GLsizei * strides);
-EXPORT void cwcglVertexArrayVertexOffsetEXT(GLcontext *context, GLuint vaobj, GLuint buffer, GLint size, GLenum type, GLsizei stride, GLintptr offset);
+EXPORT void cwcglClipPlane(GLcontext *context, GLenum plane, const GLdouble * equation);
+EXPORT void cwcglColorMaterial(GLcontext *context, GLenum face, GLenum mode);
+EXPORT void cwcglFogf(GLcontext *context, GLenum pname, GLfloat param);
+EXPORT void cwcglFogfv(GLcontext *context, GLenum pname, const GLfloat * params);
+EXPORT void cwcglFogi(GLcontext *context, GLenum pname, GLint param);
+EXPORT void cwcglFogiv(GLcontext *context, GLenum pname, const GLint * params);
+EXPORT void cwcglLightf(GLcontext *context, GLenum light, GLenum pname, GLfloat param);
+EXPORT void cwcglLightfv(GLcontext *context, GLenum light, GLenum pname, const GLfloat * params);
+EXPORT void cwcglLighti(GLcontext *context, GLenum light, GLenum pname, GLint param);
+EXPORT void cwcglLightiv(GLcontext *context, GLenum light, GLenum pname, const GLint * params);
+EXPORT void cwcglLightModelf(GLcontext *context, GLenum pname, GLfloat param);
+EXPORT void cwcglLightModelfv(GLcontext *context, GLenum pname, const GLfloat * params);
+EXPORT void cwcglLightModeli(GLcontext *context, GLenum pname, GLint param);
+EXPORT void cwcglLightModeliv(GLcontext *context, GLenum pname, const GLint * params);
+EXPORT void cwcglLineStipple(GLcontext *context, GLint factor, GLushort pattern);
+EXPORT void cwcglMaterialf(GLcontext *context, GLenum face, GLenum pname, GLfloat param);
+EXPORT void cwcglMaterialfv(GLcontext *context, GLenum face, GLenum pname, const GLfloat * params);
+EXPORT void cwcglMateriali(GLcontext *context, GLenum face, GLenum pname, GLint param);
+EXPORT void cwcglMaterialiv(GLcontext *context, GLenum face, GLenum pname, const GLint * params);
+EXPORT void cwcglPolygonStipple(GLcontext *context, const GLubyte * mask);
+EXPORT void cwcglShadeModel(GLcontext *context, GLenum mode);
+EXPORT void cwcglTexEnvf(GLcontext *context, GLenum target, GLenum pname, GLfloat param);
+EXPORT void cwcglTexEnvfv(GLcontext *context, GLenum target, GLenum pname, const GLfloat * params);
+EXPORT void cwcglTexEnvi(GLcontext *context, GLenum target, GLenum pname, GLint param);
+EXPORT void cwcglTexEnviv(GLcontext *context, GLenum target, GLenum pname, const GLint * params);
+EXPORT void cwcglTexGend(GLcontext *context, GLenum coord, GLenum pname, GLdouble param);
+EXPORT void cwcglTexGendv(GLcontext *context, GLenum coord, GLenum pname, const GLdouble * params);
+EXPORT void cwcglTexGenf(GLcontext *context, GLenum coord, GLenum pname, GLfloat param);
+EXPORT void cwcglTexGenfv(GLcontext *context, GLenum coord, GLenum pname, const GLfloat * params);
+EXPORT void cwcglTexGeni(GLcontext *context, GLenum coord, GLenum pname, GLint param);
+EXPORT void cwcglTexGeniv(GLcontext *context, GLenum coord, GLenum pname, const GLint * params);
+EXPORT void cwcglFeedbackBuffer(GLcontext *context, GLsizei size, GLenum type, GLfloat * buffer);
+EXPORT void cwcglSelectBuffer(GLcontext *context, GLsizei size, GLuint * buffer);
+EXPORT void cwcglRenderMode(GLcontext *context, GLenum mode, GLint* return_value);
+EXPORT void cwcglInitNames(GLcontext *context);
+EXPORT void cwcglLoadName(GLcontext *context, GLuint name);
+EXPORT void cwcglPassThrough(GLcontext *context, GLfloat token);
+EXPORT void cwcglPopName(GLcontext *context);
+EXPORT void cwcglPushName(GLcontext *context, GLuint name);
+EXPORT void cwcglClearAccum(GLcontext *context, GLfloat red, GLfloat green, GLfloat blue, GLfloat alpha);
+EXPORT void cwcglClearIndex(GLcontext *context, GLfloat c);
+EXPORT void cwcglIndexMask(GLcontext *context, GLuint mask);
+EXPORT void cwcglAccum(GLcontext *context, GLenum op, GLfloat value);
+EXPORT void cwcglPopAttrib(GLcontext *context);
+EXPORT void cwcglPushAttrib(GLcontext *context, GLbitfield mask);
+EXPORT void cwcglMap1d(GLcontext *context, GLenum target, GLdouble u1, GLdouble u2, GLint stride, GLint order, const GLdouble * points);
+EXPORT void cwcglMap1f(GLcontext *context, GLenum target, GLfloat u1, GLfloat u2, GLint stride, GLint order, const GLfloat * points);
+EXPORT void cwcglMap2d(GLcontext *context, GLenum target, GLdouble u1, GLdouble u2, GLint ustride, GLint uorder, GLdouble v1, GLdouble v2, GLint vstride, GLint vorder, const GLdouble * points);
+EXPORT void cwcglMap2f(GLcontext *context, GLenum target, GLfloat u1, GLfloat u2, GLint ustride, GLint uorder, GLfloat v1, GLfloat v2, GLint vstride, GLint vorder, const GLfloat * points);
+EXPORT void cwcglMapGrid1d(GLcontext *context, GLint un, GLdouble u1, GLdouble u2);
+EXPORT void cwcglMapGrid1f(GLcontext *context, GLint un, GLfloat u1, GLfloat u2);
+EXPORT void cwcglMapGrid2d(GLcontext *context, GLint un, GLdouble u1, GLdouble u2, GLint vn, GLdouble v1, GLdouble v2);
+EXPORT void cwcglMapGrid2f(GLcontext *context, GLint un, GLfloat u1, GLfloat u2, GLint vn, GLfloat v1, GLfloat v2);
+EXPORT void cwcglEvalCoord1d(GLcontext *context, GLdouble u);
+EXPORT void cwcglEvalCoord1dv(GLcontext *context, const GLdouble * u);
+EXPORT void cwcglEvalCoord1f(GLcontext *context, GLfloat u);
+EXPORT void cwcglEvalCoord1fv(GLcontext *context, const GLfloat * u);
+EXPORT void cwcglEvalCoord2d(GLcontext *context, GLdouble u, GLdouble v);
+EXPORT void cwcglEvalCoord2dv(GLcontext *context, const GLdouble * u);
+EXPORT void cwcglEvalCoord2f(GLcontext *context, GLfloat u, GLfloat v);
+EXPORT void cwcglEvalCoord2fv(GLcontext *context, const GLfloat * u);
+EXPORT void cwcglEvalMesh1(GLcontext *context, GLenum mode, GLint i1, GLint i2);
+EXPORT void cwcglEvalPoint1(GLcontext *context, GLint i);
+EXPORT void cwcglEvalMesh2(GLcontext *context, GLenum mode, GLint i1, GLint i2, GLint j1, GLint j2);
+EXPORT void cwcglEvalPoint2(GLcontext *context, GLint i, GLint j);
+EXPORT void cwcglAlphaFunc(GLcontext *context, GLenum func, GLfloat ref);
+EXPORT void cwcglPixelZoom(GLcontext *context, GLfloat xfactor, GLfloat yfactor);
+EXPORT void cwcglPixelTransferf(GLcontext *context, GLenum pname, GLfloat param);
+EXPORT void cwcglPixelTransferi(GLcontext *context, GLenum pname, GLint param);
+EXPORT void cwcglPixelMapfv(GLcontext *context, GLenum map, GLsizei mapsize, const GLfloat * values);
+EXPORT void cwcglPixelMapuiv(GLcontext *context, GLenum map, GLsizei mapsize, const GLuint * values);
+EXPORT void cwcglPixelMapusv(GLcontext *context, GLenum map, GLsizei mapsize, const GLushort * values);
+EXPORT void cwcglCopyPixels(GLcontext *context, GLint x, GLint y, GLsizei width, GLsizei height, GLenum type);
+EXPORT void cwcglDrawPixels(GLcontext *context, GLsizei width, GLsizei height, GLenum format, GLenum type, const void * pixels);
+EXPORT void cwcglGetClipPlane(GLcontext *context, GLenum plane, GLdouble * equation);
+EXPORT void cwcglGetLightfv(GLcontext *context, GLenum light, GLenum pname, GLfloat * params);
+EXPORT void cwcglGetLightiv(GLcontext *context, GLenum light, GLenum pname, GLint * params);
+EXPORT void cwcglGetMapdv(GLcontext *context, GLenum target, GLenum query, GLdouble * v);
+EXPORT void cwcglGetMapfv(GLcontext *context, GLenum target, GLenum query, GLfloat * v);
+EXPORT void cwcglGetMapiv(GLcontext *context, GLenum target, GLenum query, GLint * v);
+EXPORT void cwcglGetMaterialfv(GLcontext *context, GLenum face, GLenum pname, GLfloat * params);
+EXPORT void cwcglGetMaterialiv(GLcontext *context, GLenum face, GLenum pname, GLint * params);
+EXPORT void cwcglGetPixelMapfv(GLcontext *context, GLenum map, GLfloat * values);
+EXPORT void cwcglGetPixelMapuiv(GLcontext *context, GLenum map, GLuint * values);
+EXPORT void cwcglGetPixelMapusv(GLcontext *context, GLenum map, GLushort * values);
+EXPORT void cwcglGetPolygonStipple(GLcontext *context, GLubyte * mask);
+EXPORT void cwcglGetTexEnvfv(GLcontext *context, GLenum target, GLenum pname, GLfloat * params);
+EXPORT void cwcglGetTexEnviv(GLcontext *context, GLenum target, GLenum pname, GLint * params);
+EXPORT void cwcglGetTexGendv(GLcontext *context, GLenum coord, GLenum pname, GLdouble * params);
+EXPORT void cwcglGetTexGenfv(GLcontext *context, GLenum coord, GLenum pname, GLfloat * params);
+EXPORT void cwcglGetTexGeniv(GLcontext *context, GLenum coord, GLenum pname, GLint * params);
+EXPORT void cwcglIsList(GLcontext *context, GLuint list, GLboolean* return_value);
+EXPORT void cwcglFrustum(GLcontext *context, GLdouble left, GLdouble right, GLdouble bottom, GLdouble top, GLdouble zNear, GLdouble zFar);
+EXPORT void cwcglLoadIdentity(GLcontext *context);
+EXPORT void cwcglLoadMatrixf(GLcontext *context, const GLfloat * m);
+EXPORT void cwcglLoadMatrixd(GLcontext *context, const GLdouble * m);
+EXPORT void cwcglMatrixMode(GLcontext *context, GLenum mode);
+EXPORT void cwcglMultMatrixf(GLcontext *context, const GLfloat * m);
+EXPORT void cwcglMultMatrixd(GLcontext *context, const GLdouble * m);
+EXPORT void cwcglOrtho(GLcontext *context, GLdouble left, GLdouble right, GLdouble bottom, GLdouble top, GLdouble zNear, GLdouble zFar);
+EXPORT void cwcglPopMatrix(GLcontext *context);
+EXPORT void cwcglPushMatrix(GLcontext *context);
+EXPORT void cwcglRotated(GLcontext *context, GLdouble angle, GLdouble x, GLdouble y, GLdouble z);
+EXPORT void cwcglRotatef(GLcontext *context, GLfloat angle, GLfloat x, GLfloat y, GLfloat z);
+EXPORT void cwcglScaled(GLcontext *context, GLdouble x, GLdouble y, GLdouble z);
+EXPORT void cwcglScalef(GLcontext *context, GLfloat x, GLfloat y, GLfloat z);
+EXPORT void cwcglTranslated(GLcontext *context, GLdouble x, GLdouble y, GLdouble z);
+EXPORT void cwcglTranslatef(GLcontext *context, GLfloat x, GLfloat y, GLfloat z);
+#endif
+#if CWCGL_VERSION >= GL_VERSION_1_1
+EXPORT void cwcglDrawArrays(GLcontext *context, GLenum mode, GLint first, GLsizei count);
+EXPORT void cwcglDrawElements(GLcontext *context, GLenum mode, GLsizei count, GLenum type, const void * indices);
+EXPORT void cwcglGetPointerv(GLcontext *context, GLenum pname, void ** params);
+EXPORT void cwcglPolygonOffset(GLcontext *context, GLfloat factor, GLfloat units);
+EXPORT void cwcglCopyTexImage1D(GLcontext *context, GLenum target, GLint level, GLenum internalformat, GLint x, GLint y, GLsizei width, GLint border);
+EXPORT void cwcglCopyTexImage2D(GLcontext *context, GLenum target, GLint level, GLenum internalformat, GLint x, GLint y, GLsizei width, GLsizei height, GLint border);
+EXPORT void cwcglCopyTexSubImage1D(GLcontext *context, GLenum target, GLint level, GLint xoffset, GLint x, GLint y, GLsizei width);
+EXPORT void cwcglCopyTexSubImage2D(GLcontext *context, GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint x, GLint y, GLsizei width, GLsizei height);
+EXPORT void cwcglTexSubImage1D(GLcontext *context, GLenum target, GLint level, GLint xoffset, GLsizei width, GLenum format, GLenum type, const void * pixels);
+EXPORT void cwcglTexSubImage2D(GLcontext *context, GLenum target, GLint level, GLint xoffset, GLint yoffset, GLsizei width, GLsizei height, GLenum format, GLenum type, const void * pixels);
+EXPORT void cwcglBindTexture(GLcontext *context, GLenum target, GLuint texture);
+EXPORT void cwcglDeleteTextures(GLcontext *context, GLsizei n, const GLuint * textures);
+EXPORT void cwcglGenTextures(GLcontext *context, GLsizei n, GLuint * textures);
+EXPORT void cwcglIsTexture(GLcontext *context, GLuint texture, GLboolean* return_value);
+EXPORT void cwcglArrayElement(GLcontext *context, GLint i);
+EXPORT void cwcglColorPointer(GLcontext *context, GLint size, GLenum type, GLsizei stride, const void * pointer);
+EXPORT void cwcglDisableClientState(GLcontext *context, GLenum array);
+EXPORT void cwcglEdgeFlagPointer(GLcontext *context, GLsizei stride, const void * pointer);
+EXPORT void cwcglEnableClientState(GLcontext *context, GLenum array);
+EXPORT void cwcglIndexPointer(GLcontext *context, GLenum type, GLsizei stride, const void * pointer);
+EXPORT void cwcglInterleavedArrays(GLcontext *context, GLenum format, GLsizei stride, const void * pointer);
+EXPORT void cwcglNormalPointer(GLcontext *context, GLenum type, GLsizei stride, const void * pointer);
+EXPORT void cwcglTexCoordPointer(GLcontext *context, GLint size, GLenum type, GLsizei stride, const void * pointer);
+EXPORT void cwcglVertexPointer(GLcontext *context, GLint size, GLenum type, GLsizei stride, const void * pointer);
+EXPORT void cwcglAreTexturesResident(GLcontext *context, GLsizei n, const GLuint * textures, GLboolean * residences, GLboolean* return_value);
+EXPORT void cwcglPrioritizeTextures(GLcontext *context, GLsizei n, const GLuint * textures, const GLfloat * priorities);
+EXPORT void cwcglIndexub(GLcontext *context, GLubyte c);
+EXPORT void cwcglIndexubv(GLcontext *context, const GLubyte * c);
+EXPORT void cwcglPopClientAttrib(GLcontext *context);
+EXPORT void cwcglPushClientAttrib(GLcontext *context, GLbitfield mask);
+#endif
+#if CWCGL_VERSION >= GL_VERSION_1_2
+EXPORT void cwcglDrawRangeElements(GLcontext *context, GLenum mode, GLuint start, GLuint end, GLsizei count, GLenum type, const void * indices);
+EXPORT void cwcglTexImage3D(GLcontext *context, GLenum target, GLint level, GLint internalformat, GLsizei width, GLsizei height, GLsizei depth, GLint border, GLenum format, GLenum type, const void * pixels);
+EXPORT void cwcglTexSubImage3D(GLcontext *context, GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLenum format, GLenum type, const void * pixels);
+EXPORT void cwcglCopyTexSubImage3D(GLcontext *context, GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLint x, GLint y, GLsizei width, GLsizei height);
+#endif
+#if CWCGL_VERSION >= GL_VERSION_1_3
+EXPORT void cwcglActiveTexture(GLcontext *context, GLenum texture);
+EXPORT void cwcglSampleCoverage(GLcontext *context, GLfloat value, GLboolean invert);
+EXPORT void cwcglCompressedTexImage3D(GLcontext *context, GLenum target, GLint level, GLenum internalformat, GLsizei width, GLsizei height, GLsizei depth, GLint border, GLsizei imageSize, const void * data);
+EXPORT void cwcglCompressedTexImage2D(GLcontext *context, GLenum target, GLint level, GLenum internalformat, GLsizei width, GLsizei height, GLint border, GLsizei imageSize, const void * data);
+EXPORT void cwcglCompressedTexImage1D(GLcontext *context, GLenum target, GLint level, GLenum internalformat, GLsizei width, GLint border, GLsizei imageSize, const void * data);
+EXPORT void cwcglCompressedTexSubImage3D(GLcontext *context, GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLenum format, GLsizei imageSize, const void * data);
+EXPORT void cwcglCompressedTexSubImage2D(GLcontext *context, GLenum target, GLint level, GLint xoffset, GLint yoffset, GLsizei width, GLsizei height, GLenum format, GLsizei imageSize, const void * data);
+EXPORT void cwcglCompressedTexSubImage1D(GLcontext *context, GLenum target, GLint level, GLint xoffset, GLsizei width, GLenum format, GLsizei imageSize, const void * data);
+EXPORT void cwcglGetCompressedTexImage(GLcontext *context, GLenum target, GLint level, void * img);
+EXPORT void cwcglClientActiveTexture(GLcontext *context, GLenum texture);
+EXPORT void cwcglMultiTexCoord1d(GLcontext *context, GLenum target, GLdouble s);
+EXPORT void cwcglMultiTexCoord1dv(GLcontext *context, GLenum target, const GLdouble * v);
+EXPORT void cwcglMultiTexCoord1f(GLcontext *context, GLenum target, GLfloat s);
+EXPORT void cwcglMultiTexCoord1fv(GLcontext *context, GLenum target, const GLfloat * v);
+EXPORT void cwcglMultiTexCoord1i(GLcontext *context, GLenum target, GLint s);
+EXPORT void cwcglMultiTexCoord1iv(GLcontext *context, GLenum target, const GLint * v);
+EXPORT void cwcglMultiTexCoord1s(GLcontext *context, GLenum target, GLshort s);
+EXPORT void cwcglMultiTexCoord1sv(GLcontext *context, GLenum target, const GLshort * v);
+EXPORT void cwcglMultiTexCoord2d(GLcontext *context, GLenum target, GLdouble s, GLdouble t);
+EXPORT void cwcglMultiTexCoord2dv(GLcontext *context, GLenum target, const GLdouble * v);
+EXPORT void cwcglMultiTexCoord2f(GLcontext *context, GLenum target, GLfloat s, GLfloat t);
+EXPORT void cwcglMultiTexCoord2fv(GLcontext *context, GLenum target, const GLfloat * v);
+EXPORT void cwcglMultiTexCoord2i(GLcontext *context, GLenum target, GLint s, GLint t);
+EXPORT void cwcglMultiTexCoord2iv(GLcontext *context, GLenum target, const GLint * v);
+EXPORT void cwcglMultiTexCoord2s(GLcontext *context, GLenum target, GLshort s, GLshort t);
+EXPORT void cwcglMultiTexCoord2sv(GLcontext *context, GLenum target, const GLshort * v);
+EXPORT void cwcglMultiTexCoord3d(GLcontext *context, GLenum target, GLdouble s, GLdouble t, GLdouble r);
+EXPORT void cwcglMultiTexCoord3dv(GLcontext *context, GLenum target, const GLdouble * v);
+EXPORT void cwcglMultiTexCoord3f(GLcontext *context, GLenum target, GLfloat s, GLfloat t, GLfloat r);
+EXPORT void cwcglMultiTexCoord3fv(GLcontext *context, GLenum target, const GLfloat * v);
+EXPORT void cwcglMultiTexCoord3i(GLcontext *context, GLenum target, GLint s, GLint t, GLint r);
+EXPORT void cwcglMultiTexCoord3iv(GLcontext *context, GLenum target, const GLint * v);
+EXPORT void cwcglMultiTexCoord3s(GLcontext *context, GLenum target, GLshort s, GLshort t, GLshort r);
+EXPORT void cwcglMultiTexCoord3sv(GLcontext *context, GLenum target, const GLshort * v);
+EXPORT void cwcglMultiTexCoord4d(GLcontext *context, GLenum target, GLdouble s, GLdouble t, GLdouble r, GLdouble q);
+EXPORT void cwcglMultiTexCoord4dv(GLcontext *context, GLenum target, const GLdouble * v);
+EXPORT void cwcglMultiTexCoord4f(GLcontext *context, GLenum target, GLfloat s, GLfloat t, GLfloat r, GLfloat q);
+EXPORT void cwcglMultiTexCoord4fv(GLcontext *context, GLenum target, const GLfloat * v);
+EXPORT void cwcglMultiTexCoord4i(GLcontext *context, GLenum target, GLint s, GLint t, GLint r, GLint q);
+EXPORT void cwcglMultiTexCoord4iv(GLcontext *context, GLenum target, const GLint * v);
+EXPORT void cwcglMultiTexCoord4s(GLcontext *context, GLenum target, GLshort s, GLshort t, GLshort r, GLshort q);
+EXPORT void cwcglMultiTexCoord4sv(GLcontext *context, GLenum target, const GLshort * v);
+EXPORT void cwcglLoadTransposeMatrixf(GLcontext *context, const GLfloat * m);
+EXPORT void cwcglLoadTransposeMatrixd(GLcontext *context, const GLdouble * m);
+EXPORT void cwcglMultTransposeMatrixf(GLcontext *context, const GLfloat * m);
+EXPORT void cwcglMultTransposeMatrixd(GLcontext *context, const GLdouble * m);
+#endif
+#if CWCGL_VERSION >= GL_VERSION_1_4
+EXPORT void cwcglBlendFuncSeparate(GLcontext *context, GLenum sfactorRGB, GLenum dfactorRGB, GLenum sfactorAlpha, GLenum dfactorAlpha);
+EXPORT void cwcglMultiDrawArrays(GLcontext *context, GLenum mode, const GLint * first, const GLsizei * count, GLsizei drawcount);
+EXPORT void cwcglMultiDrawElements(GLcontext *context, GLenum mode, const GLsizei * count, GLenum type, const void *const* indices, GLsizei drawcount);
+EXPORT void cwcglPointParameterf(GLcontext *context, GLenum pname, GLfloat param);
+EXPORT void cwcglPointParameterfv(GLcontext *context, GLenum pname, const GLfloat * params);
+EXPORT void cwcglPointParameteri(GLcontext *context, GLenum pname, GLint param);
+EXPORT void cwcglPointParameteriv(GLcontext *context, GLenum pname, const GLint * params);
+EXPORT void cwcglFogCoordf(GLcontext *context, GLfloat coord);
+EXPORT void cwcglFogCoordfv(GLcontext *context, const GLfloat * coord);
+EXPORT void cwcglFogCoordd(GLcontext *context, GLdouble coord);
+EXPORT void cwcglFogCoorddv(GLcontext *context, const GLdouble * coord);
+EXPORT void cwcglFogCoordPointer(GLcontext *context, GLenum type, GLsizei stride, const void * pointer);
+EXPORT void cwcglSecondaryColor3b(GLcontext *context, GLbyte red, GLbyte green, GLbyte blue);
+EXPORT void cwcglSecondaryColor3bv(GLcontext *context, const GLbyte * v);
+EXPORT void cwcglSecondaryColor3d(GLcontext *context, GLdouble red, GLdouble green, GLdouble blue);
+EXPORT void cwcglSecondaryColor3dv(GLcontext *context, const GLdouble * v);
+EXPORT void cwcglSecondaryColor3f(GLcontext *context, GLfloat red, GLfloat green, GLfloat blue);
+EXPORT void cwcglSecondaryColor3fv(GLcontext *context, const GLfloat * v);
+EXPORT void cwcglSecondaryColor3i(GLcontext *context, GLint red, GLint green, GLint blue);
+EXPORT void cwcglSecondaryColor3iv(GLcontext *context, const GLint * v);
+EXPORT void cwcglSecondaryColor3s(GLcontext *context, GLshort red, GLshort green, GLshort blue);
+EXPORT void cwcglSecondaryColor3sv(GLcontext *context, const GLshort * v);
+EXPORT void cwcglSecondaryColor3ub(GLcontext *context, GLubyte red, GLubyte green, GLubyte blue);
+EXPORT void cwcglSecondaryColor3ubv(GLcontext *context, const GLubyte * v);
+EXPORT void cwcglSecondaryColor3ui(GLcontext *context, GLuint red, GLuint green, GLuint blue);
+EXPORT void cwcglSecondaryColor3uiv(GLcontext *context, const GLuint * v);
+EXPORT void cwcglSecondaryColor3us(GLcontext *context, GLushort red, GLushort green, GLushort blue);
+EXPORT void cwcglSecondaryColor3usv(GLcontext *context, const GLushort * v);
+EXPORT void cwcglSecondaryColorPointer(GLcontext *context, GLint size, GLenum type, GLsizei stride, const void * pointer);
+EXPORT void cwcglWindowPos2d(GLcontext *context, GLdouble x, GLdouble y);
+EXPORT void cwcglWindowPos2dv(GLcontext *context, const GLdouble * v);
+EXPORT void cwcglWindowPos2f(GLcontext *context, GLfloat x, GLfloat y);
+EXPORT void cwcglWindowPos2fv(GLcontext *context, const GLfloat * v);
+EXPORT void cwcglWindowPos2i(GLcontext *context, GLint x, GLint y);
+EXPORT void cwcglWindowPos2iv(GLcontext *context, const GLint * v);
+EXPORT void cwcglWindowPos2s(GLcontext *context, GLshort x, GLshort y);
+EXPORT void cwcglWindowPos2sv(GLcontext *context, const GLshort * v);
+EXPORT void cwcglWindowPos3d(GLcontext *context, GLdouble x, GLdouble y, GLdouble z);
+EXPORT void cwcglWindowPos3dv(GLcontext *context, const GLdouble * v);
+EXPORT void cwcglWindowPos3f(GLcontext *context, GLfloat x, GLfloat y, GLfloat z);
+EXPORT void cwcglWindowPos3fv(GLcontext *context, const GLfloat * v);
+EXPORT void cwcglWindowPos3i(GLcontext *context, GLint x, GLint y, GLint z);
+EXPORT void cwcglWindowPos3iv(GLcontext *context, const GLint * v);
+EXPORT void cwcglWindowPos3s(GLcontext *context, GLshort x, GLshort y, GLshort z);
+EXPORT void cwcglWindowPos3sv(GLcontext *context, const GLshort * v);
+EXPORT void cwcglBlendColor(GLcontext *context, GLfloat red, GLfloat green, GLfloat blue, GLfloat alpha);
+EXPORT void cwcglBlendEquation(GLcontext *context, GLenum mode);
+#endif
+#if CWCGL_VERSION >= GL_VERSION_1_5
+EXPORT void cwcglGenQueries(GLcontext *context, GLsizei n, GLuint * ids);
+EXPORT void cwcglDeleteQueries(GLcontext *context, GLsizei n, const GLuint * ids);
+EXPORT void cwcglIsQuery(GLcontext *context, GLuint id, GLboolean* return_value);
+EXPORT void cwcglBeginQuery(GLcontext *context, GLenum target, GLuint id);
+EXPORT void cwcglEndQuery(GLcontext *context, GLenum target);
+EXPORT void cwcglGetQueryiv(GLcontext *context, GLenum target, GLenum pname, GLint * params);
+EXPORT void cwcglGetQueryObjectiv(GLcontext *context, GLuint id, GLenum pname, GLint * params);
+EXPORT void cwcglGetQueryObjectuiv(GLcontext *context, GLuint id, GLenum pname, GLuint * params);
+EXPORT void cwcglBindBuffer(GLcontext *context, GLenum target, GLuint buffer);
+EXPORT void cwcglDeleteBuffers(GLcontext *context, GLsizei n, const GLuint * buffers);
+EXPORT void cwcglGenBuffers(GLcontext *context, GLsizei n, GLuint * buffers);
+EXPORT void cwcglIsBuffer(GLcontext *context, GLuint buffer, GLboolean* return_value);
+EXPORT void cwcglBufferData(GLcontext *context, GLenum target, GLsizeiptr size, const void * data, GLenum usage);
+EXPORT void cwcglBufferSubData(GLcontext *context, GLenum target, GLintptr offset, GLsizeiptr size, const void * data);
+EXPORT void cwcglGetBufferSubData(GLcontext *context, GLenum target, GLintptr offset, GLsizeiptr size, void * data);
+EXPORT void cwcglMapBuffer(GLcontext *context, GLenum target, GLenum access, void ** return_value);
+EXPORT void cwcglUnmapBuffer(GLcontext *context, GLenum target, GLboolean* return_value);
+EXPORT void cwcglGetBufferParameteriv(GLcontext *context, GLenum target, GLenum pname, GLint * params);
+EXPORT void cwcglGetBufferPointerv(GLcontext *context, GLenum target, GLenum pname, void ** params);
+#endif
+#if CWCGL_VERSION >= GL_VERSION_2_0
+EXPORT void cwcglBlendEquationSeparate(GLcontext *context, GLenum modeRGB, GLenum modeAlpha);
+EXPORT void cwcglDrawBuffers(GLcontext *context, GLsizei n, const GLenum * bufs);
+EXPORT void cwcglStencilOpSeparate(GLcontext *context, GLenum face, GLenum sfail, GLenum dpfail, GLenum dppass);
+EXPORT void cwcglStencilFuncSeparate(GLcontext *context, GLenum face, GLenum func, GLint ref, GLuint mask);
+EXPORT void cwcglStencilMaskSeparate(GLcontext *context, GLenum face, GLuint mask);
+EXPORT void cwcglAttachShader(GLcontext *context, GLuint program, GLuint shader);
+EXPORT void cwcglBindAttribLocation(GLcontext *context, GLuint program, GLuint index, const GLchar * name);
+EXPORT void cwcglCompileShader(GLcontext *context, GLuint shader);
+EXPORT void cwcglCreateProgram(GLcontext *context, GLuint* return_value);
+EXPORT void cwcglCreateShader(GLcontext *context, GLenum type, GLuint* return_value);
+EXPORT void cwcglDeleteProgram(GLcontext *context, GLuint program);
+EXPORT void cwcglDeleteShader(GLcontext *context, GLuint shader);
+EXPORT void cwcglDetachShader(GLcontext *context, GLuint program, GLuint shader);
+EXPORT void cwcglDisableVertexAttribArray(GLcontext *context, GLuint index);
+EXPORT void cwcglEnableVertexAttribArray(GLcontext *context, GLuint index);
+EXPORT void cwcglGetActiveAttrib(GLcontext *context, GLuint program, GLuint index, GLsizei bufSize, GLsizei * length, GLint * size, GLenum * type, GLchar * name);
+EXPORT void cwcglGetActiveUniform(GLcontext *context, GLuint program, GLuint index, GLsizei bufSize, GLsizei * length, GLint * size, GLenum * type, GLchar * name);
+EXPORT void cwcglGetAttachedShaders(GLcontext *context, GLuint program, GLsizei maxCount, GLsizei * count, GLuint * shaders);
+EXPORT void cwcglGetAttribLocation(GLcontext *context, GLuint program, const GLchar * name, GLint* return_value);
+EXPORT void cwcglGetProgramiv(GLcontext *context, GLuint program, GLenum pname, GLint * params);
+EXPORT void cwcglGetProgramInfoLog(GLcontext *context, GLuint program, GLsizei bufSize, GLsizei * length, GLchar * infoLog);
+EXPORT void cwcglGetShaderiv(GLcontext *context, GLuint shader, GLenum pname, GLint * params);
+EXPORT void cwcglGetShaderInfoLog(GLcontext *context, GLuint shader, GLsizei bufSize, GLsizei * length, GLchar * infoLog);
+EXPORT void cwcglGetShaderSource(GLcontext *context, GLuint shader, GLsizei bufSize, GLsizei * length, GLchar * source);
+EXPORT void cwcglGetUniformLocation(GLcontext *context, GLuint program, const GLchar * name, GLint* return_value);
+EXPORT void cwcglGetUniformfv(GLcontext *context, GLuint program, GLint location, GLfloat * params);
+EXPORT void cwcglGetUniformiv(GLcontext *context, GLuint program, GLint location, GLint * params);
+EXPORT void cwcglGetVertexAttribdv(GLcontext *context, GLuint index, GLenum pname, GLdouble * params);
+EXPORT void cwcglGetVertexAttribfv(GLcontext *context, GLuint index, GLenum pname, GLfloat * params);
+EXPORT void cwcglGetVertexAttribiv(GLcontext *context, GLuint index, GLenum pname, GLint * params);
+EXPORT void cwcglGetVertexAttribPointerv(GLcontext *context, GLuint index, GLenum pname, void ** pointer);
+EXPORT void cwcglIsProgram(GLcontext *context, GLuint program, GLboolean* return_value);
+EXPORT void cwcglIsShader(GLcontext *context, GLuint shader, GLboolean* return_value);
+EXPORT void cwcglLinkProgram(GLcontext *context, GLuint program);
+EXPORT void cwcglShaderSource(GLcontext *context, GLuint shader, GLsizei count, const GLchar *const* string, const GLint * length);
+EXPORT void cwcglUseProgram(GLcontext *context, GLuint program);
+EXPORT void cwcglUniform1f(GLcontext *context, GLint location, GLfloat v0);
+EXPORT void cwcglUniform2f(GLcontext *context, GLint location, GLfloat v0, GLfloat v1);
+EXPORT void cwcglUniform3f(GLcontext *context, GLint location, GLfloat v0, GLfloat v1, GLfloat v2);
+EXPORT void cwcglUniform4f(GLcontext *context, GLint location, GLfloat v0, GLfloat v1, GLfloat v2, GLfloat v3);
+EXPORT void cwcglUniform1i(GLcontext *context, GLint location, GLint v0);
+EXPORT void cwcglUniform2i(GLcontext *context, GLint location, GLint v0, GLint v1);
+EXPORT void cwcglUniform3i(GLcontext *context, GLint location, GLint v0, GLint v1, GLint v2);
+EXPORT void cwcglUniform4i(GLcontext *context, GLint location, GLint v0, GLint v1, GLint v2, GLint v3);
+EXPORT void cwcglUniform1fv(GLcontext *context, GLint location, GLsizei count, const GLfloat * value);
+EXPORT void cwcglUniform2fv(GLcontext *context, GLint location, GLsizei count, const GLfloat * value);
+EXPORT void cwcglUniform3fv(GLcontext *context, GLint location, GLsizei count, const GLfloat * value);
+EXPORT void cwcglUniform4fv(GLcontext *context, GLint location, GLsizei count, const GLfloat * value);
+EXPORT void cwcglUniform1iv(GLcontext *context, GLint location, GLsizei count, const GLint * value);
+EXPORT void cwcglUniform2iv(GLcontext *context, GLint location, GLsizei count, const GLint * value);
+EXPORT void cwcglUniform3iv(GLcontext *context, GLint location, GLsizei count, const GLint * value);
+EXPORT void cwcglUniform4iv(GLcontext *context, GLint location, GLsizei count, const GLint * value);
+EXPORT void cwcglUniformMatrix2fv(GLcontext *context, GLint location, GLsizei count, GLboolean transpose, const GLfloat * value);
+EXPORT void cwcglUniformMatrix3fv(GLcontext *context, GLint location, GLsizei count, GLboolean transpose, const GLfloat * value);
+EXPORT void cwcglUniformMatrix4fv(GLcontext *context, GLint location, GLsizei count, GLboolean transpose, const GLfloat * value);
+EXPORT void cwcglValidateProgram(GLcontext *context, GLuint program);
 EXPORT void cwcglVertexAttrib1d(GLcontext *context, GLuint index, GLdouble x);
-EXPORT void cwcglVertexAttrib1dARB(GLcontext *context, GLuint index, GLdouble x);
-EXPORT void cwcglVertexAttrib1dNV(GLcontext *context, GLuint index, GLdouble x);
 EXPORT void cwcglVertexAttrib1dv(GLcontext *context, GLuint index, const GLdouble * v);
-EXPORT void cwcglVertexAttrib1dvARB(GLcontext *context, GLuint index, const GLdouble * v);
-EXPORT void cwcglVertexAttrib1dvNV(GLcontext *context, GLuint index, const GLdouble * v);
 EXPORT void cwcglVertexAttrib1f(GLcontext *context, GLuint index, GLfloat x);
-EXPORT void cwcglVertexAttrib1fARB(GLcontext *context, GLuint index, GLfloat x);
-EXPORT void cwcglVertexAttrib1fNV(GLcontext *context, GLuint index, GLfloat x);
 EXPORT void cwcglVertexAttrib1fv(GLcontext *context, GLuint index, const GLfloat * v);
-EXPORT void cwcglVertexAttrib1fvARB(GLcontext *context, GLuint index, const GLfloat * v);
-EXPORT void cwcglVertexAttrib1fvNV(GLcontext *context, GLuint index, const GLfloat * v);
-EXPORT void cwcglVertexAttrib1hNV(GLcontext *context, GLuint index, GLhalfNV x);
-EXPORT void cwcglVertexAttrib1hvNV(GLcontext *context, GLuint index, const GLhalfNV * v);
 EXPORT void cwcglVertexAttrib1s(GLcontext *context, GLuint index, GLshort x);
-EXPORT void cwcglVertexAttrib1sARB(GLcontext *context, GLuint index, GLshort x);
-EXPORT void cwcglVertexAttrib1sNV(GLcontext *context, GLuint index, GLshort x);
 EXPORT void cwcglVertexAttrib1sv(GLcontext *context, GLuint index, const GLshort * v);
-EXPORT void cwcglVertexAttrib1svARB(GLcontext *context, GLuint index, const GLshort * v);
-EXPORT void cwcglVertexAttrib1svNV(GLcontext *context, GLuint index, const GLshort * v);
 EXPORT void cwcglVertexAttrib2d(GLcontext *context, GLuint index, GLdouble x, GLdouble y);
-EXPORT void cwcglVertexAttrib2dARB(GLcontext *context, GLuint index, GLdouble x, GLdouble y);
-EXPORT void cwcglVertexAttrib2dNV(GLcontext *context, GLuint index, GLdouble x, GLdouble y);
 EXPORT void cwcglVertexAttrib2dv(GLcontext *context, GLuint index, const GLdouble * v);
-EXPORT void cwcglVertexAttrib2dvARB(GLcontext *context, GLuint index, const GLdouble * v);
-EXPORT void cwcglVertexAttrib2dvNV(GLcontext *context, GLuint index, const GLdouble * v);
 EXPORT void cwcglVertexAttrib2f(GLcontext *context, GLuint index, GLfloat x, GLfloat y);
-EXPORT void cwcglVertexAttrib2fARB(GLcontext *context, GLuint index, GLfloat x, GLfloat y);
-EXPORT void cwcglVertexAttrib2fNV(GLcontext *context, GLuint index, GLfloat x, GLfloat y);
 EXPORT void cwcglVertexAttrib2fv(GLcontext *context, GLuint index, const GLfloat * v);
-EXPORT void cwcglVertexAttrib2fvARB(GLcontext *context, GLuint index, const GLfloat * v);
-EXPORT void cwcglVertexAttrib2fvNV(GLcontext *context, GLuint index, const GLfloat * v);
-EXPORT void cwcglVertexAttrib2hNV(GLcontext *context, GLuint index, GLhalfNV x, GLhalfNV y);
-EXPORT void cwcglVertexAttrib2hvNV(GLcontext *context, GLuint index, const GLhalfNV * v);
 EXPORT void cwcglVertexAttrib2s(GLcontext *context, GLuint index, GLshort x, GLshort y);
-EXPORT void cwcglVertexAttrib2sARB(GLcontext *context, GLuint index, GLshort x, GLshort y);
-EXPORT void cwcglVertexAttrib2sNV(GLcontext *context, GLuint index, GLshort x, GLshort y);
 EXPORT void cwcglVertexAttrib2sv(GLcontext *context, GLuint index, const GLshort * v);
-EXPORT void cwcglVertexAttrib2svARB(GLcontext *context, GLuint index, const GLshort * v);
-EXPORT void cwcglVertexAttrib2svNV(GLcontext *context, GLuint index, const GLshort * v);
 EXPORT void cwcglVertexAttrib3d(GLcontext *context, GLuint index, GLdouble x, GLdouble y, GLdouble z);
-EXPORT void cwcglVertexAttrib3dARB(GLcontext *context, GLuint index, GLdouble x, GLdouble y, GLdouble z);
-EXPORT void cwcglVertexAttrib3dNV(GLcontext *context, GLuint index, GLdouble x, GLdouble y, GLdouble z);
 EXPORT void cwcglVertexAttrib3dv(GLcontext *context, GLuint index, const GLdouble * v);
-EXPORT void cwcglVertexAttrib3dvARB(GLcontext *context, GLuint index, const GLdouble * v);
-EXPORT void cwcglVertexAttrib3dvNV(GLcontext *context, GLuint index, const GLdouble * v);
 EXPORT void cwcglVertexAttrib3f(GLcontext *context, GLuint index, GLfloat x, GLfloat y, GLfloat z);
-EXPORT void cwcglVertexAttrib3fARB(GLcontext *context, GLuint index, GLfloat x, GLfloat y, GLfloat z);
-EXPORT void cwcglVertexAttrib3fNV(GLcontext *context, GLuint index, GLfloat x, GLfloat y, GLfloat z);
 EXPORT void cwcglVertexAttrib3fv(GLcontext *context, GLuint index, const GLfloat * v);
-EXPORT void cwcglVertexAttrib3fvARB(GLcontext *context, GLuint index, const GLfloat * v);
-EXPORT void cwcglVertexAttrib3fvNV(GLcontext *context, GLuint index, const GLfloat * v);
-EXPORT void cwcglVertexAttrib3hNV(GLcontext *context, GLuint index, GLhalfNV x, GLhalfNV y, GLhalfNV z);
-EXPORT void cwcglVertexAttrib3hvNV(GLcontext *context, GLuint index, const GLhalfNV * v);
 EXPORT void cwcglVertexAttrib3s(GLcontext *context, GLuint index, GLshort x, GLshort y, GLshort z);
-EXPORT void cwcglVertexAttrib3sARB(GLcontext *context, GLuint index, GLshort x, GLshort y, GLshort z);
-EXPORT void cwcglVertexAttrib3sNV(GLcontext *context, GLuint index, GLshort x, GLshort y, GLshort z);
 EXPORT void cwcglVertexAttrib3sv(GLcontext *context, GLuint index, const GLshort * v);
-EXPORT void cwcglVertexAttrib3svARB(GLcontext *context, GLuint index, const GLshort * v);
-EXPORT void cwcglVertexAttrib3svNV(GLcontext *context, GLuint index, const GLshort * v);
 EXPORT void cwcglVertexAttrib4Nbv(GLcontext *context, GLuint index, const GLbyte * v);
-EXPORT void cwcglVertexAttrib4NbvARB(GLcontext *context, GLuint index, const GLbyte * v);
 EXPORT void cwcglVertexAttrib4Niv(GLcontext *context, GLuint index, const GLint * v);
-EXPORT void cwcglVertexAttrib4NivARB(GLcontext *context, GLuint index, const GLint * v);
 EXPORT void cwcglVertexAttrib4Nsv(GLcontext *context, GLuint index, const GLshort * v);
-EXPORT void cwcglVertexAttrib4NsvARB(GLcontext *context, GLuint index, const GLshort * v);
 EXPORT void cwcglVertexAttrib4Nub(GLcontext *context, GLuint index, GLubyte x, GLubyte y, GLubyte z, GLubyte w);
-EXPORT void cwcglVertexAttrib4NubARB(GLcontext *context, GLuint index, GLubyte x, GLubyte y, GLubyte z, GLubyte w);
 EXPORT void cwcglVertexAttrib4Nubv(GLcontext *context, GLuint index, const GLubyte * v);
-EXPORT void cwcglVertexAttrib4NubvARB(GLcontext *context, GLuint index, const GLubyte * v);
 EXPORT void cwcglVertexAttrib4Nuiv(GLcontext *context, GLuint index, const GLuint * v);
-EXPORT void cwcglVertexAttrib4NuivARB(GLcontext *context, GLuint index, const GLuint * v);
 EXPORT void cwcglVertexAttrib4Nusv(GLcontext *context, GLuint index, const GLushort * v);
-EXPORT void cwcglVertexAttrib4NusvARB(GLcontext *context, GLuint index, const GLushort * v);
 EXPORT void cwcglVertexAttrib4bv(GLcontext *context, GLuint index, const GLbyte * v);
-EXPORT void cwcglVertexAttrib4bvARB(GLcontext *context, GLuint index, const GLbyte * v);
 EXPORT void cwcglVertexAttrib4d(GLcontext *context, GLuint index, GLdouble x, GLdouble y, GLdouble z, GLdouble w);
-EXPORT void cwcglVertexAttrib4dARB(GLcontext *context, GLuint index, GLdouble x, GLdouble y, GLdouble z, GLdouble w);
-EXPORT void cwcglVertexAttrib4dNV(GLcontext *context, GLuint index, GLdouble x, GLdouble y, GLdouble z, GLdouble w);
 EXPORT void cwcglVertexAttrib4dv(GLcontext *context, GLuint index, const GLdouble * v);
-EXPORT void cwcglVertexAttrib4dvARB(GLcontext *context, GLuint index, const GLdouble * v);
-EXPORT void cwcglVertexAttrib4dvNV(GLcontext *context, GLuint index, const GLdouble * v);
 EXPORT void cwcglVertexAttrib4f(GLcontext *context, GLuint index, GLfloat x, GLfloat y, GLfloat z, GLfloat w);
-EXPORT void cwcglVertexAttrib4fARB(GLcontext *context, GLuint index, GLfloat x, GLfloat y, GLfloat z, GLfloat w);
-EXPORT void cwcglVertexAttrib4fNV(GLcontext *context, GLuint index, GLfloat x, GLfloat y, GLfloat z, GLfloat w);
 EXPORT void cwcglVertexAttrib4fv(GLcontext *context, GLuint index, const GLfloat * v);
-EXPORT void cwcglVertexAttrib4fvARB(GLcontext *context, GLuint index, const GLfloat * v);
-EXPORT void cwcglVertexAttrib4fvNV(GLcontext *context, GLuint index, const GLfloat * v);
-EXPORT void cwcglVertexAttrib4hNV(GLcontext *context, GLuint index, GLhalfNV x, GLhalfNV y, GLhalfNV z, GLhalfNV w);
-EXPORT void cwcglVertexAttrib4hvNV(GLcontext *context, GLuint index, const GLhalfNV * v);
 EXPORT void cwcglVertexAttrib4iv(GLcontext *context, GLuint index, const GLint * v);
-EXPORT void cwcglVertexAttrib4ivARB(GLcontext *context, GLuint index, const GLint * v);
 EXPORT void cwcglVertexAttrib4s(GLcontext *context, GLuint index, GLshort x, GLshort y, GLshort z, GLshort w);
-EXPORT void cwcglVertexAttrib4sARB(GLcontext *context, GLuint index, GLshort x, GLshort y, GLshort z, GLshort w);
-EXPORT void cwcglVertexAttrib4sNV(GLcontext *context, GLuint index, GLshort x, GLshort y, GLshort z, GLshort w);
 EXPORT void cwcglVertexAttrib4sv(GLcontext *context, GLuint index, const GLshort * v);
-EXPORT void cwcglVertexAttrib4svARB(GLcontext *context, GLuint index, const GLshort * v);
-EXPORT void cwcglVertexAttrib4svNV(GLcontext *context, GLuint index, const GLshort * v);
-EXPORT void cwcglVertexAttrib4ubNV(GLcontext *context, GLuint index, GLubyte x, GLubyte y, GLubyte z, GLubyte w);
 EXPORT void cwcglVertexAttrib4ubv(GLcontext *context, GLuint index, const GLubyte * v);
-EXPORT void cwcglVertexAttrib4ubvARB(GLcontext *context, GLuint index, const GLubyte * v);
-EXPORT void cwcglVertexAttrib4ubvNV(GLcontext *context, GLuint index, const GLubyte * v);
 EXPORT void cwcglVertexAttrib4uiv(GLcontext *context, GLuint index, const GLuint * v);
-EXPORT void cwcglVertexAttrib4uivARB(GLcontext *context, GLuint index, const GLuint * v);
 EXPORT void cwcglVertexAttrib4usv(GLcontext *context, GLuint index, const GLushort * v);
-EXPORT void cwcglVertexAttrib4usvARB(GLcontext *context, GLuint index, const GLushort * v);
-EXPORT void cwcglVertexAttribArrayObjectATI(GLcontext *context, GLuint index, GLint size, GLenum type, GLboolean normalized, GLsizei stride, GLuint buffer, GLuint offset);
-EXPORT void cwcglVertexAttribBinding(GLcontext *context, GLuint attribindex, GLuint bindingindex);
-EXPORT void cwcglVertexAttribDivisor(GLcontext *context, GLuint index, GLuint divisor);
-EXPORT void cwcglVertexAttribDivisorANGLE(GLcontext *context, GLuint index, GLuint divisor);
-EXPORT void cwcglVertexAttribDivisorARB(GLcontext *context, GLuint index, GLuint divisor);
-EXPORT void cwcglVertexAttribDivisorEXT(GLcontext *context, GLuint index, GLuint divisor);
-EXPORT void cwcglVertexAttribDivisorNV(GLcontext *context, GLuint index, GLuint divisor);
-EXPORT void cwcglVertexAttribFormat(GLcontext *context, GLuint attribindex, GLint size, GLenum type, GLboolean normalized, GLuint relativeoffset);
-EXPORT void cwcglVertexAttribFormatNV(GLcontext *context, GLuint index, GLint size, GLenum type, GLboolean normalized, GLsizei stride);
-EXPORT void cwcglVertexAttribI1i(GLcontext *context, GLuint index, GLint x);
-EXPORT void cwcglVertexAttribI1iEXT(GLcontext *context, GLuint index, GLint x);
-EXPORT void cwcglVertexAttribI1iv(GLcontext *context, GLuint index, const GLint * v);
-EXPORT void cwcglVertexAttribI1ivEXT(GLcontext *context, GLuint index, const GLint * v);
-EXPORT void cwcglVertexAttribI1ui(GLcontext *context, GLuint index, GLuint x);
-EXPORT void cwcglVertexAttribI1uiEXT(GLcontext *context, GLuint index, GLuint x);
-EXPORT void cwcglVertexAttribI1uiv(GLcontext *context, GLuint index, const GLuint * v);
-EXPORT void cwcglVertexAttribI1uivEXT(GLcontext *context, GLuint index, const GLuint * v);
-EXPORT void cwcglVertexAttribI2i(GLcontext *context, GLuint index, GLint x, GLint y);
-EXPORT void cwcglVertexAttribI2iEXT(GLcontext *context, GLuint index, GLint x, GLint y);
-EXPORT void cwcglVertexAttribI2iv(GLcontext *context, GLuint index, const GLint * v);
-EXPORT void cwcglVertexAttribI2ivEXT(GLcontext *context, GLuint index, const GLint * v);
-EXPORT void cwcglVertexAttribI2ui(GLcontext *context, GLuint index, GLuint x, GLuint y);
-EXPORT void cwcglVertexAttribI2uiEXT(GLcontext *context, GLuint index, GLuint x, GLuint y);
-EXPORT void cwcglVertexAttribI2uiv(GLcontext *context, GLuint index, const GLuint * v);
-EXPORT void cwcglVertexAttribI2uivEXT(GLcontext *context, GLuint index, const GLuint * v);
-EXPORT void cwcglVertexAttribI3i(GLcontext *context, GLuint index, GLint x, GLint y, GLint z);
-EXPORT void cwcglVertexAttribI3iEXT(GLcontext *context, GLuint index, GLint x, GLint y, GLint z);
-EXPORT void cwcglVertexAttribI3iv(GLcontext *context, GLuint index, const GLint * v);
-EXPORT void cwcglVertexAttribI3ivEXT(GLcontext *context, GLuint index, const GLint * v);
-EXPORT void cwcglVertexAttribI3ui(GLcontext *context, GLuint index, GLuint x, GLuint y, GLuint z);
-EXPORT void cwcglVertexAttribI3uiEXT(GLcontext *context, GLuint index, GLuint x, GLuint y, GLuint z);
-EXPORT void cwcglVertexAttribI3uiv(GLcontext *context, GLuint index, const GLuint * v);
-EXPORT void cwcglVertexAttribI3uivEXT(GLcontext *context, GLuint index, const GLuint * v);
-EXPORT void cwcglVertexAttribI4bv(GLcontext *context, GLuint index, const GLbyte * v);
-EXPORT void cwcglVertexAttribI4bvEXT(GLcontext *context, GLuint index, const GLbyte * v);
-EXPORT void cwcglVertexAttribI4i(GLcontext *context, GLuint index, GLint x, GLint y, GLint z, GLint w);
-EXPORT void cwcglVertexAttribI4iEXT(GLcontext *context, GLuint index, GLint x, GLint y, GLint z, GLint w);
-EXPORT void cwcglVertexAttribI4iv(GLcontext *context, GLuint index, const GLint * v);
-EXPORT void cwcglVertexAttribI4ivEXT(GLcontext *context, GLuint index, const GLint * v);
-EXPORT void cwcglVertexAttribI4sv(GLcontext *context, GLuint index, const GLshort * v);
-EXPORT void cwcglVertexAttribI4svEXT(GLcontext *context, GLuint index, const GLshort * v);
-EXPORT void cwcglVertexAttribI4ubv(GLcontext *context, GLuint index, const GLubyte * v);
-EXPORT void cwcglVertexAttribI4ubvEXT(GLcontext *context, GLuint index, const GLubyte * v);
-EXPORT void cwcglVertexAttribI4ui(GLcontext *context, GLuint index, GLuint x, GLuint y, GLuint z, GLuint w);
-EXPORT void cwcglVertexAttribI4uiEXT(GLcontext *context, GLuint index, GLuint x, GLuint y, GLuint z, GLuint w);
-EXPORT void cwcglVertexAttribI4uiv(GLcontext *context, GLuint index, const GLuint * v);
-EXPORT void cwcglVertexAttribI4uivEXT(GLcontext *context, GLuint index, const GLuint * v);
-EXPORT void cwcglVertexAttribI4usv(GLcontext *context, GLuint index, const GLushort * v);
-EXPORT void cwcglVertexAttribI4usvEXT(GLcontext *context, GLuint index, const GLushort * v);
-EXPORT void cwcglVertexAttribIFormat(GLcontext *context, GLuint attribindex, GLint size, GLenum type, GLuint relativeoffset);
-EXPORT void cwcglVertexAttribIFormatNV(GLcontext *context, GLuint index, GLint size, GLenum type, GLsizei stride);
+EXPORT void cwcglVertexAttribPointer(GLcontext *context, GLuint index, GLint size, GLenum type, GLboolean normalized, GLsizei stride, const void * pointer);
+#endif
+#if CWCGL_VERSION >= GL_VERSION_2_1
+EXPORT void cwcglUniformMatrix2x3fv(GLcontext *context, GLint location, GLsizei count, GLboolean transpose, const GLfloat * value);
+EXPORT void cwcglUniformMatrix3x2fv(GLcontext *context, GLint location, GLsizei count, GLboolean transpose, const GLfloat * value);
+EXPORT void cwcglUniformMatrix2x4fv(GLcontext *context, GLint location, GLsizei count, GLboolean transpose, const GLfloat * value);
+EXPORT void cwcglUniformMatrix4x2fv(GLcontext *context, GLint location, GLsizei count, GLboolean transpose, const GLfloat * value);
+EXPORT void cwcglUniformMatrix3x4fv(GLcontext *context, GLint location, GLsizei count, GLboolean transpose, const GLfloat * value);
+EXPORT void cwcglUniformMatrix4x3fv(GLcontext *context, GLint location, GLsizei count, GLboolean transpose, const GLfloat * value);
+#endif
+#if CWCGL_VERSION >= GL_VERSION_3_0
+EXPORT void cwcglColorMaski(GLcontext *context, GLuint index, GLboolean r, GLboolean g, GLboolean b, GLboolean a);
+EXPORT void cwcglGetBooleani_v(GLcontext *context, GLenum target, GLuint index, GLboolean * data);
+EXPORT void cwcglGetIntegeri_v(GLcontext *context, GLenum target, GLuint index, GLint * data);
+EXPORT void cwcglEnablei(GLcontext *context, GLenum target, GLuint index);
+EXPORT void cwcglDisablei(GLcontext *context, GLenum target, GLuint index);
+EXPORT void cwcglIsEnabledi(GLcontext *context, GLenum target, GLuint index, GLboolean* return_value);
+EXPORT void cwcglBeginTransformFeedback(GLcontext *context, GLenum primitiveMode);
+EXPORT void cwcglEndTransformFeedback(GLcontext *context);
+EXPORT void cwcglBindBufferRange(GLcontext *context, GLenum target, GLuint index, GLuint buffer, GLintptr offset, GLsizeiptr size);
+EXPORT void cwcglBindBufferBase(GLcontext *context, GLenum target, GLuint index, GLuint buffer);
+EXPORT void cwcglTransformFeedbackVaryings(GLcontext *context, GLuint program, GLsizei count, const GLchar *const* varyings, GLenum bufferMode);
+EXPORT void cwcglGetTransformFeedbackVarying(GLcontext *context, GLuint program, GLuint index, GLsizei bufSize, GLsizei * length, GLsizei * size, GLenum * type, GLchar * name);
+EXPORT void cwcglClampColor(GLcontext *context, GLenum target, GLenum clamp);
+EXPORT void cwcglBeginConditionalRender(GLcontext *context, GLuint id, GLenum mode);
+EXPORT void cwcglEndConditionalRender(GLcontext *context);
 EXPORT void cwcglVertexAttribIPointer(GLcontext *context, GLuint index, GLint size, GLenum type, GLsizei stride, const void * pointer);
-EXPORT void cwcglVertexAttribIPointerEXT(GLcontext *context, GLuint index, GLint size, GLenum type, GLsizei stride, const void * pointer);
-EXPORT void cwcglVertexAttribL1d(GLcontext *context, GLuint index, GLdouble x);
-EXPORT void cwcglVertexAttribL1dEXT(GLcontext *context, GLuint index, GLdouble x);
-EXPORT void cwcglVertexAttribL1dv(GLcontext *context, GLuint index, const GLdouble * v);
-EXPORT void cwcglVertexAttribL1dvEXT(GLcontext *context, GLuint index, const GLdouble * v);
-EXPORT void cwcglVertexAttribL1i64NV(GLcontext *context, GLuint index, GLint64EXT x);
-EXPORT void cwcglVertexAttribL1i64vNV(GLcontext *context, GLuint index, const GLint64EXT * v);
-EXPORT void cwcglVertexAttribL1ui64ARB(GLcontext *context, GLuint index, GLuint64EXT x);
-EXPORT void cwcglVertexAttribL1ui64NV(GLcontext *context, GLuint index, GLuint64EXT x);
-EXPORT void cwcglVertexAttribL1ui64vARB(GLcontext *context, GLuint index, const GLuint64EXT * v);
-EXPORT void cwcglVertexAttribL1ui64vNV(GLcontext *context, GLuint index, const GLuint64EXT * v);
-EXPORT void cwcglVertexAttribL2d(GLcontext *context, GLuint index, GLdouble x, GLdouble y);
-EXPORT void cwcglVertexAttribL2dEXT(GLcontext *context, GLuint index, GLdouble x, GLdouble y);
-EXPORT void cwcglVertexAttribL2dv(GLcontext *context, GLuint index, const GLdouble * v);
-EXPORT void cwcglVertexAttribL2dvEXT(GLcontext *context, GLuint index, const GLdouble * v);
-EXPORT void cwcglVertexAttribL2i64NV(GLcontext *context, GLuint index, GLint64EXT x, GLint64EXT y);
-EXPORT void cwcglVertexAttribL2i64vNV(GLcontext *context, GLuint index, const GLint64EXT * v);
-EXPORT void cwcglVertexAttribL2ui64NV(GLcontext *context, GLuint index, GLuint64EXT x, GLuint64EXT y);
-EXPORT void cwcglVertexAttribL2ui64vNV(GLcontext *context, GLuint index, const GLuint64EXT * v);
-EXPORT void cwcglVertexAttribL3d(GLcontext *context, GLuint index, GLdouble x, GLdouble y, GLdouble z);
-EXPORT void cwcglVertexAttribL3dEXT(GLcontext *context, GLuint index, GLdouble x, GLdouble y, GLdouble z);
-EXPORT void cwcglVertexAttribL3dv(GLcontext *context, GLuint index, const GLdouble * v);
-EXPORT void cwcglVertexAttribL3dvEXT(GLcontext *context, GLuint index, const GLdouble * v);
-EXPORT void cwcglVertexAttribL3i64NV(GLcontext *context, GLuint index, GLint64EXT x, GLint64EXT y, GLint64EXT z);
-EXPORT void cwcglVertexAttribL3i64vNV(GLcontext *context, GLuint index, const GLint64EXT * v);
-EXPORT void cwcglVertexAttribL3ui64NV(GLcontext *context, GLuint index, GLuint64EXT x, GLuint64EXT y, GLuint64EXT z);
-EXPORT void cwcglVertexAttribL3ui64vNV(GLcontext *context, GLuint index, const GLuint64EXT * v);
-EXPORT void cwcglVertexAttribL4d(GLcontext *context, GLuint index, GLdouble x, GLdouble y, GLdouble z, GLdouble w);
-EXPORT void cwcglVertexAttribL4dEXT(GLcontext *context, GLuint index, GLdouble x, GLdouble y, GLdouble z, GLdouble w);
-EXPORT void cwcglVertexAttribL4dv(GLcontext *context, GLuint index, const GLdouble * v);
-EXPORT void cwcglVertexAttribL4dvEXT(GLcontext *context, GLuint index, const GLdouble * v);
-EXPORT void cwcglVertexAttribL4i64NV(GLcontext *context, GLuint index, GLint64EXT x, GLint64EXT y, GLint64EXT z, GLint64EXT w);
-EXPORT void cwcglVertexAttribL4i64vNV(GLcontext *context, GLuint index, const GLint64EXT * v);
-EXPORT void cwcglVertexAttribL4ui64NV(GLcontext *context, GLuint index, GLuint64EXT x, GLuint64EXT y, GLuint64EXT z, GLuint64EXT w);
-EXPORT void cwcglVertexAttribL4ui64vNV(GLcontext *context, GLuint index, const GLuint64EXT * v);
-EXPORT void cwcglVertexAttribLFormat(GLcontext *context, GLuint attribindex, GLint size, GLenum type, GLuint relativeoffset);
-EXPORT void cwcglVertexAttribLFormatNV(GLcontext *context, GLuint index, GLint size, GLenum type, GLsizei stride);
-EXPORT void cwcglVertexAttribLPointer(GLcontext *context, GLuint index, GLint size, GLenum type, GLsizei stride, const void * pointer);
-EXPORT void cwcglVertexAttribLPointerEXT(GLcontext *context, GLuint index, GLint size, GLenum type, GLsizei stride, const void * pointer);
+EXPORT void cwcglGetVertexAttribIiv(GLcontext *context, GLuint index, GLenum pname, GLint * params);
+EXPORT void cwcglGetVertexAttribIuiv(GLcontext *context, GLuint index, GLenum pname, GLuint * params);
+EXPORT void cwcglVertexAttribI1i(GLcontext *context, GLuint index, GLint x);
+EXPORT void cwcglVertexAttribI2i(GLcontext *context, GLuint index, GLint x, GLint y);
+EXPORT void cwcglVertexAttribI3i(GLcontext *context, GLuint index, GLint x, GLint y, GLint z);
+EXPORT void cwcglVertexAttribI4i(GLcontext *context, GLuint index, GLint x, GLint y, GLint z, GLint w);
+EXPORT void cwcglVertexAttribI1ui(GLcontext *context, GLuint index, GLuint x);
+EXPORT void cwcglVertexAttribI2ui(GLcontext *context, GLuint index, GLuint x, GLuint y);
+EXPORT void cwcglVertexAttribI3ui(GLcontext *context, GLuint index, GLuint x, GLuint y, GLuint z);
+EXPORT void cwcglVertexAttribI4ui(GLcontext *context, GLuint index, GLuint x, GLuint y, GLuint z, GLuint w);
+EXPORT void cwcglVertexAttribI1iv(GLcontext *context, GLuint index, const GLint * v);
+EXPORT void cwcglVertexAttribI2iv(GLcontext *context, GLuint index, const GLint * v);
+EXPORT void cwcglVertexAttribI3iv(GLcontext *context, GLuint index, const GLint * v);
+EXPORT void cwcglVertexAttribI4iv(GLcontext *context, GLuint index, const GLint * v);
+EXPORT void cwcglVertexAttribI1uiv(GLcontext *context, GLuint index, const GLuint * v);
+EXPORT void cwcglVertexAttribI2uiv(GLcontext *context, GLuint index, const GLuint * v);
+EXPORT void cwcglVertexAttribI3uiv(GLcontext *context, GLuint index, const GLuint * v);
+EXPORT void cwcglVertexAttribI4uiv(GLcontext *context, GLuint index, const GLuint * v);
+EXPORT void cwcglVertexAttribI4bv(GLcontext *context, GLuint index, const GLbyte * v);
+EXPORT void cwcglVertexAttribI4sv(GLcontext *context, GLuint index, const GLshort * v);
+EXPORT void cwcglVertexAttribI4ubv(GLcontext *context, GLuint index, const GLubyte * v);
+EXPORT void cwcglVertexAttribI4usv(GLcontext *context, GLuint index, const GLushort * v);
+EXPORT void cwcglGetUniformuiv(GLcontext *context, GLuint program, GLint location, GLuint * params);
+EXPORT void cwcglBindFragDataLocation(GLcontext *context, GLuint program, GLuint color, const GLchar * name);
+EXPORT void cwcglGetFragDataLocation(GLcontext *context, GLuint program, const GLchar * name, GLint* return_value);
+EXPORT void cwcglUniform1ui(GLcontext *context, GLint location, GLuint v0);
+EXPORT void cwcglUniform2ui(GLcontext *context, GLint location, GLuint v0, GLuint v1);
+EXPORT void cwcglUniform3ui(GLcontext *context, GLint location, GLuint v0, GLuint v1, GLuint v2);
+EXPORT void cwcglUniform4ui(GLcontext *context, GLint location, GLuint v0, GLuint v1, GLuint v2, GLuint v3);
+EXPORT void cwcglUniform1uiv(GLcontext *context, GLint location, GLsizei count, const GLuint * value);
+EXPORT void cwcglUniform2uiv(GLcontext *context, GLint location, GLsizei count, const GLuint * value);
+EXPORT void cwcglUniform3uiv(GLcontext *context, GLint location, GLsizei count, const GLuint * value);
+EXPORT void cwcglUniform4uiv(GLcontext *context, GLint location, GLsizei count, const GLuint * value);
+EXPORT void cwcglTexParameterIiv(GLcontext *context, GLenum target, GLenum pname, const GLint * params);
+EXPORT void cwcglTexParameterIuiv(GLcontext *context, GLenum target, GLenum pname, const GLuint * params);
+EXPORT void cwcglGetTexParameterIiv(GLcontext *context, GLenum target, GLenum pname, GLint * params);
+EXPORT void cwcglGetTexParameterIuiv(GLcontext *context, GLenum target, GLenum pname, GLuint * params);
+EXPORT void cwcglClearBufferiv(GLcontext *context, GLenum buffer, GLint drawbuffer, const GLint * value);
+EXPORT void cwcglClearBufferuiv(GLcontext *context, GLenum buffer, GLint drawbuffer, const GLuint * value);
+EXPORT void cwcglClearBufferfv(GLcontext *context, GLenum buffer, GLint drawbuffer, const GLfloat * value);
+EXPORT void cwcglClearBufferfi(GLcontext *context, GLenum buffer, GLint drawbuffer, GLfloat depth, GLint stencil);
+EXPORT void cwcglGetStringi(GLcontext *context, GLenum name, GLuint index, const GLubyte ** return_value);
+EXPORT void cwcglIsRenderbuffer(GLcontext *context, GLuint renderbuffer, GLboolean* return_value);
+EXPORT void cwcglBindRenderbuffer(GLcontext *context, GLenum target, GLuint renderbuffer);
+EXPORT void cwcglDeleteRenderbuffers(GLcontext *context, GLsizei n, const GLuint * renderbuffers);
+EXPORT void cwcglGenRenderbuffers(GLcontext *context, GLsizei n, GLuint * renderbuffers);
+EXPORT void cwcglRenderbufferStorage(GLcontext *context, GLenum target, GLenum internalformat, GLsizei width, GLsizei height);
+EXPORT void cwcglGetRenderbufferParameteriv(GLcontext *context, GLenum target, GLenum pname, GLint * params);
+EXPORT void cwcglIsFramebuffer(GLcontext *context, GLuint framebuffer, GLboolean* return_value);
+EXPORT void cwcglBindFramebuffer(GLcontext *context, GLenum target, GLuint framebuffer);
+EXPORT void cwcglDeleteFramebuffers(GLcontext *context, GLsizei n, const GLuint * framebuffers);
+EXPORT void cwcglGenFramebuffers(GLcontext *context, GLsizei n, GLuint * framebuffers);
+EXPORT void cwcglCheckFramebufferStatus(GLcontext *context, GLenum target, GLenum* return_value);
+EXPORT void cwcglFramebufferTexture1D(GLcontext *context, GLenum target, GLenum attachment, GLenum textarget, GLuint texture, GLint level);
+EXPORT void cwcglFramebufferTexture2D(GLcontext *context, GLenum target, GLenum attachment, GLenum textarget, GLuint texture, GLint level);
+EXPORT void cwcglFramebufferTexture3D(GLcontext *context, GLenum target, GLenum attachment, GLenum textarget, GLuint texture, GLint level, GLint zoffset);
+EXPORT void cwcglFramebufferRenderbuffer(GLcontext *context, GLenum target, GLenum attachment, GLenum renderbuffertarget, GLuint renderbuffer);
+EXPORT void cwcglGetFramebufferAttachmentParameteriv(GLcontext *context, GLenum target, GLenum attachment, GLenum pname, GLint * params);
+EXPORT void cwcglGenerateMipmap(GLcontext *context, GLenum target);
+EXPORT void cwcglBlitFramebuffer(GLcontext *context, GLint srcX0, GLint srcY0, GLint srcX1, GLint srcY1, GLint dstX0, GLint dstY0, GLint dstX1, GLint dstY1, GLbitfield mask, GLenum filter);
+EXPORT void cwcglRenderbufferStorageMultisample(GLcontext *context, GLenum target, GLsizei samples, GLenum internalformat, GLsizei width, GLsizei height);
+EXPORT void cwcglFramebufferTextureLayer(GLcontext *context, GLenum target, GLenum attachment, GLuint texture, GLint level, GLint layer);
+EXPORT void cwcglMapBufferRange(GLcontext *context, GLenum target, GLintptr offset, GLsizeiptr length, GLbitfield access, void ** return_value);
+EXPORT void cwcglFlushMappedBufferRange(GLcontext *context, GLenum target, GLintptr offset, GLsizeiptr length);
+EXPORT void cwcglBindVertexArray(GLcontext *context, GLuint array);
+EXPORT void cwcglDeleteVertexArrays(GLcontext *context, GLsizei n, const GLuint * arrays);
+EXPORT void cwcglGenVertexArrays(GLcontext *context, GLsizei n, GLuint * arrays);
+EXPORT void cwcglIsVertexArray(GLcontext *context, GLuint array, GLboolean* return_value);
+#endif
+#if CWCGL_VERSION >= GL_VERSION_3_1
+EXPORT void cwcglDrawArraysInstanced(GLcontext *context, GLenum mode, GLint first, GLsizei count, GLsizei instancecount);
+EXPORT void cwcglDrawElementsInstanced(GLcontext *context, GLenum mode, GLsizei count, GLenum type, const void * indices, GLsizei instancecount);
+EXPORT void cwcglTexBuffer(GLcontext *context, GLenum target, GLenum internalformat, GLuint buffer);
+EXPORT void cwcglPrimitiveRestartIndex(GLcontext *context, GLuint index);
+EXPORT void cwcglCopyBufferSubData(GLcontext *context, GLenum readTarget, GLenum writeTarget, GLintptr readOffset, GLintptr writeOffset, GLsizeiptr size);
+EXPORT void cwcglGetUniformIndices(GLcontext *context, GLuint program, GLsizei uniformCount, const GLchar *const* uniformNames, GLuint * uniformIndices);
+EXPORT void cwcglGetActiveUniformsiv(GLcontext *context, GLuint program, GLsizei uniformCount, const GLuint * uniformIndices, GLenum pname, GLint * params);
+EXPORT void cwcglGetActiveUniformName(GLcontext *context, GLuint program, GLuint uniformIndex, GLsizei bufSize, GLsizei * length, GLchar * uniformName);
+EXPORT void cwcglGetUniformBlockIndex(GLcontext *context, GLuint program, const GLchar * uniformBlockName, GLuint* return_value);
+EXPORT void cwcglGetActiveUniformBlockiv(GLcontext *context, GLuint program, GLuint uniformBlockIndex, GLenum pname, GLint * params);
+EXPORT void cwcglGetActiveUniformBlockName(GLcontext *context, GLuint program, GLuint uniformBlockIndex, GLsizei bufSize, GLsizei * length, GLchar * uniformBlockName);
+EXPORT void cwcglUniformBlockBinding(GLcontext *context, GLuint program, GLuint uniformBlockIndex, GLuint uniformBlockBinding);
+#endif
+#if CWCGL_VERSION >= GL_VERSION_3_2
+EXPORT void cwcglDrawElementsBaseVertex(GLcontext *context, GLenum mode, GLsizei count, GLenum type, const void * indices, GLint basevertex);
+EXPORT void cwcglDrawRangeElementsBaseVertex(GLcontext *context, GLenum mode, GLuint start, GLuint end, GLsizei count, GLenum type, const void * indices, GLint basevertex);
+EXPORT void cwcglDrawElementsInstancedBaseVertex(GLcontext *context, GLenum mode, GLsizei count, GLenum type, const void * indices, GLsizei instancecount, GLint basevertex);
+EXPORT void cwcglMultiDrawElementsBaseVertex(GLcontext *context, GLenum mode, const GLsizei * count, GLenum type, const void *const* indices, GLsizei drawcount, const GLint * basevertex);
+EXPORT void cwcglProvokingVertex(GLcontext *context, GLenum mode);
+EXPORT void cwcglFenceSync(GLcontext *context, GLenum condition, GLbitfield flags, GLsync* return_value);
+EXPORT void cwcglIsSync(GLcontext *context, GLsync sync, GLboolean* return_value);
+EXPORT void cwcglDeleteSync(GLcontext *context, GLsync sync);
+EXPORT void cwcglClientWaitSync(GLcontext *context, GLsync sync, GLbitfield flags, GLuint64 timeout, GLenum* return_value);
+EXPORT void cwcglWaitSync(GLcontext *context, GLsync sync, GLbitfield flags, GLuint64 timeout);
+EXPORT void cwcglGetInteger64v(GLcontext *context, GLenum pname, GLint64 * data);
+EXPORT void cwcglGetSynciv(GLcontext *context, GLsync sync, GLenum pname, GLsizei count, GLsizei * length, GLint * values);
+EXPORT void cwcglGetInteger64i_v(GLcontext *context, GLenum target, GLuint index, GLint64 * data);
+EXPORT void cwcglGetBufferParameteri64v(GLcontext *context, GLenum target, GLenum pname, GLint64 * params);
+EXPORT void cwcglFramebufferTexture(GLcontext *context, GLenum target, GLenum attachment, GLuint texture, GLint level);
+EXPORT void cwcglTexImage2DMultisample(GLcontext *context, GLenum target, GLsizei samples, GLenum internalformat, GLsizei width, GLsizei height, GLboolean fixedsamplelocations);
+EXPORT void cwcglTexImage3DMultisample(GLcontext *context, GLenum target, GLsizei samples, GLenum internalformat, GLsizei width, GLsizei height, GLsizei depth, GLboolean fixedsamplelocations);
+EXPORT void cwcglGetMultisamplefv(GLcontext *context, GLenum pname, GLuint index, GLfloat * val);
+EXPORT void cwcglSampleMaski(GLcontext *context, GLuint maskNumber, GLbitfield mask);
+#endif
+#if CWCGL_VERSION >= GL_VERSION_3_3
+EXPORT void cwcglBindFragDataLocationIndexed(GLcontext *context, GLuint program, GLuint colorNumber, GLuint index, const GLchar * name);
+EXPORT void cwcglGetFragDataIndex(GLcontext *context, GLuint program, const GLchar * name, GLint* return_value);
+EXPORT void cwcglGenSamplers(GLcontext *context, GLsizei count, GLuint * samplers);
+EXPORT void cwcglDeleteSamplers(GLcontext *context, GLsizei count, const GLuint * samplers);
+EXPORT void cwcglIsSampler(GLcontext *context, GLuint sampler, GLboolean* return_value);
+EXPORT void cwcglBindSampler(GLcontext *context, GLuint unit, GLuint sampler);
+EXPORT void cwcglSamplerParameteri(GLcontext *context, GLuint sampler, GLenum pname, GLint param);
+EXPORT void cwcglSamplerParameteriv(GLcontext *context, GLuint sampler, GLenum pname, const GLint * param);
+EXPORT void cwcglSamplerParameterf(GLcontext *context, GLuint sampler, GLenum pname, GLfloat param);
+EXPORT void cwcglSamplerParameterfv(GLcontext *context, GLuint sampler, GLenum pname, const GLfloat * param);
+EXPORT void cwcglSamplerParameterIiv(GLcontext *context, GLuint sampler, GLenum pname, const GLint * param);
+EXPORT void cwcglSamplerParameterIuiv(GLcontext *context, GLuint sampler, GLenum pname, const GLuint * param);
+EXPORT void cwcglGetSamplerParameteriv(GLcontext *context, GLuint sampler, GLenum pname, GLint * params);
+EXPORT void cwcglGetSamplerParameterIiv(GLcontext *context, GLuint sampler, GLenum pname, GLint * params);
+EXPORT void cwcglGetSamplerParameterfv(GLcontext *context, GLuint sampler, GLenum pname, GLfloat * params);
+EXPORT void cwcglGetSamplerParameterIuiv(GLcontext *context, GLuint sampler, GLenum pname, GLuint * params);
+EXPORT void cwcglQueryCounter(GLcontext *context, GLuint id, GLenum target);
+EXPORT void cwcglGetQueryObjecti64v(GLcontext *context, GLuint id, GLenum pname, GLint64 * params);
+EXPORT void cwcglGetQueryObjectui64v(GLcontext *context, GLuint id, GLenum pname, GLuint64 * params);
+EXPORT void cwcglVertexAttribDivisor(GLcontext *context, GLuint index, GLuint divisor);
 EXPORT void cwcglVertexAttribP1ui(GLcontext *context, GLuint index, GLenum type, GLboolean normalized, GLuint value);
 EXPORT void cwcglVertexAttribP1uiv(GLcontext *context, GLuint index, GLenum type, GLboolean normalized, const GLuint * value);
 EXPORT void cwcglVertexAttribP2ui(GLcontext *context, GLuint index, GLenum type, GLboolean normalized, GLuint value);
@@ -7348,166 +8427,375 @@ EXPORT void cwcglVertexAttribP3ui(GLcontext *context, GLuint index, GLenum type,
 EXPORT void cwcglVertexAttribP3uiv(GLcontext *context, GLuint index, GLenum type, GLboolean normalized, const GLuint * value);
 EXPORT void cwcglVertexAttribP4ui(GLcontext *context, GLuint index, GLenum type, GLboolean normalized, GLuint value);
 EXPORT void cwcglVertexAttribP4uiv(GLcontext *context, GLuint index, GLenum type, GLboolean normalized, const GLuint * value);
-EXPORT void cwcglVertexAttribParameteriAMD(GLcontext *context, GLuint index, GLenum pname, GLint param);
-EXPORT void cwcglVertexAttribPointer(GLcontext *context, GLuint index, GLint size, GLenum type, GLboolean normalized, GLsizei stride, const void * pointer);
-EXPORT void cwcglVertexAttribPointerARB(GLcontext *context, GLuint index, GLint size, GLenum type, GLboolean normalized, GLsizei stride, const void * pointer);
-EXPORT void cwcglVertexAttribPointerNV(GLcontext *context, GLuint index, GLint fsize, GLenum type, GLsizei stride, const void * pointer);
-EXPORT void cwcglVertexAttribs1dvNV(GLcontext *context, GLuint index, GLsizei count, const GLdouble * v);
-EXPORT void cwcglVertexAttribs1fvNV(GLcontext *context, GLuint index, GLsizei count, const GLfloat * v);
-EXPORT void cwcglVertexAttribs1hvNV(GLcontext *context, GLuint index, GLsizei n, const GLhalfNV * v);
-EXPORT void cwcglVertexAttribs1svNV(GLcontext *context, GLuint index, GLsizei count, const GLshort * v);
-EXPORT void cwcglVertexAttribs2dvNV(GLcontext *context, GLuint index, GLsizei count, const GLdouble * v);
-EXPORT void cwcglVertexAttribs2fvNV(GLcontext *context, GLuint index, GLsizei count, const GLfloat * v);
-EXPORT void cwcglVertexAttribs2hvNV(GLcontext *context, GLuint index, GLsizei n, const GLhalfNV * v);
-EXPORT void cwcglVertexAttribs2svNV(GLcontext *context, GLuint index, GLsizei count, const GLshort * v);
-EXPORT void cwcglVertexAttribs3dvNV(GLcontext *context, GLuint index, GLsizei count, const GLdouble * v);
-EXPORT void cwcglVertexAttribs3fvNV(GLcontext *context, GLuint index, GLsizei count, const GLfloat * v);
-EXPORT void cwcglVertexAttribs3hvNV(GLcontext *context, GLuint index, GLsizei n, const GLhalfNV * v);
-EXPORT void cwcglVertexAttribs3svNV(GLcontext *context, GLuint index, GLsizei count, const GLshort * v);
-EXPORT void cwcglVertexAttribs4dvNV(GLcontext *context, GLuint index, GLsizei count, const GLdouble * v);
-EXPORT void cwcglVertexAttribs4fvNV(GLcontext *context, GLuint index, GLsizei count, const GLfloat * v);
-EXPORT void cwcglVertexAttribs4hvNV(GLcontext *context, GLuint index, GLsizei n, const GLhalfNV * v);
-EXPORT void cwcglVertexAttribs4svNV(GLcontext *context, GLuint index, GLsizei count, const GLshort * v);
-EXPORT void cwcglVertexAttribs4ubvNV(GLcontext *context, GLuint index, GLsizei count, const GLubyte * v);
-EXPORT void cwcglVertexBindingDivisor(GLcontext *context, GLuint bindingindex, GLuint divisor);
-EXPORT void cwcglVertexBlendARB(GLcontext *context, GLint count);
-EXPORT void cwcglVertexBlendEnvfATI(GLcontext *context, GLenum pname, GLfloat param);
-EXPORT void cwcglVertexBlendEnviATI(GLcontext *context, GLenum pname, GLint param);
-EXPORT void cwcglVertexFormatNV(GLcontext *context, GLint size, GLenum type, GLsizei stride);
 EXPORT void cwcglVertexP2ui(GLcontext *context, GLenum type, GLuint value);
 EXPORT void cwcglVertexP2uiv(GLcontext *context, GLenum type, const GLuint * value);
 EXPORT void cwcglVertexP3ui(GLcontext *context, GLenum type, GLuint value);
 EXPORT void cwcglVertexP3uiv(GLcontext *context, GLenum type, const GLuint * value);
 EXPORT void cwcglVertexP4ui(GLcontext *context, GLenum type, GLuint value);
 EXPORT void cwcglVertexP4uiv(GLcontext *context, GLenum type, const GLuint * value);
-EXPORT void cwcglVertexPointer(GLcontext *context, GLint size, GLenum type, GLsizei stride, const void * pointer);
-EXPORT void cwcglVertexPointerEXT(GLcontext *context, GLint size, GLenum type, GLsizei stride, GLsizei count, const void * pointer);
-EXPORT void cwcglVertexPointerListIBM(GLcontext *context, GLint size, GLenum type, GLint stride, const void ** pointer, GLint ptrstride);
-EXPORT void cwcglVertexPointervINTEL(GLcontext *context, GLint size, GLenum type, const void ** pointer);
-EXPORT void cwcglVertexStream1dATI(GLcontext *context, GLenum stream, GLdouble x);
-EXPORT void cwcglVertexStream1dvATI(GLcontext *context, GLenum stream, const GLdouble * coords);
-EXPORT void cwcglVertexStream1fATI(GLcontext *context, GLenum stream, GLfloat x);
-EXPORT void cwcglVertexStream1fvATI(GLcontext *context, GLenum stream, const GLfloat * coords);
-EXPORT void cwcglVertexStream1iATI(GLcontext *context, GLenum stream, GLint x);
-EXPORT void cwcglVertexStream1ivATI(GLcontext *context, GLenum stream, const GLint * coords);
-EXPORT void cwcglVertexStream1sATI(GLcontext *context, GLenum stream, GLshort x);
-EXPORT void cwcglVertexStream1svATI(GLcontext *context, GLenum stream, const GLshort * coords);
-EXPORT void cwcglVertexStream2dATI(GLcontext *context, GLenum stream, GLdouble x, GLdouble y);
-EXPORT void cwcglVertexStream2dvATI(GLcontext *context, GLenum stream, const GLdouble * coords);
-EXPORT void cwcglVertexStream2fATI(GLcontext *context, GLenum stream, GLfloat x, GLfloat y);
-EXPORT void cwcglVertexStream2fvATI(GLcontext *context, GLenum stream, const GLfloat * coords);
-EXPORT void cwcglVertexStream2iATI(GLcontext *context, GLenum stream, GLint x, GLint y);
-EXPORT void cwcglVertexStream2ivATI(GLcontext *context, GLenum stream, const GLint * coords);
-EXPORT void cwcglVertexStream2sATI(GLcontext *context, GLenum stream, GLshort x, GLshort y);
-EXPORT void cwcglVertexStream2svATI(GLcontext *context, GLenum stream, const GLshort * coords);
-EXPORT void cwcglVertexStream3dATI(GLcontext *context, GLenum stream, GLdouble x, GLdouble y, GLdouble z);
-EXPORT void cwcglVertexStream3dvATI(GLcontext *context, GLenum stream, const GLdouble * coords);
-EXPORT void cwcglVertexStream3fATI(GLcontext *context, GLenum stream, GLfloat x, GLfloat y, GLfloat z);
-EXPORT void cwcglVertexStream3fvATI(GLcontext *context, GLenum stream, const GLfloat * coords);
-EXPORT void cwcglVertexStream3iATI(GLcontext *context, GLenum stream, GLint x, GLint y, GLint z);
-EXPORT void cwcglVertexStream3ivATI(GLcontext *context, GLenum stream, const GLint * coords);
-EXPORT void cwcglVertexStream3sATI(GLcontext *context, GLenum stream, GLshort x, GLshort y, GLshort z);
-EXPORT void cwcglVertexStream3svATI(GLcontext *context, GLenum stream, const GLshort * coords);
-EXPORT void cwcglVertexStream4dATI(GLcontext *context, GLenum stream, GLdouble x, GLdouble y, GLdouble z, GLdouble w);
-EXPORT void cwcglVertexStream4dvATI(GLcontext *context, GLenum stream, const GLdouble * coords);
-EXPORT void cwcglVertexStream4fATI(GLcontext *context, GLenum stream, GLfloat x, GLfloat y, GLfloat z, GLfloat w);
-EXPORT void cwcglVertexStream4fvATI(GLcontext *context, GLenum stream, const GLfloat * coords);
-EXPORT void cwcglVertexStream4iATI(GLcontext *context, GLenum stream, GLint x, GLint y, GLint z, GLint w);
-EXPORT void cwcglVertexStream4ivATI(GLcontext *context, GLenum stream, const GLint * coords);
-EXPORT void cwcglVertexStream4sATI(GLcontext *context, GLenum stream, GLshort x, GLshort y, GLshort z, GLshort w);
-EXPORT void cwcglVertexStream4svATI(GLcontext *context, GLenum stream, const GLshort * coords);
-EXPORT void cwcglVertexWeightPointerEXT(GLcontext *context, GLint size, GLenum type, GLsizei stride, const void * pointer);
-EXPORT void cwcglVertexWeightfEXT(GLcontext *context, GLfloat weight);
-EXPORT void cwcglVertexWeightfvEXT(GLcontext *context, const GLfloat * weight);
-EXPORT void cwcglVertexWeighthNV(GLcontext *context, GLhalfNV weight);
-EXPORT void cwcglVertexWeighthvNV(GLcontext *context, const GLhalfNV * weight);
-EXPORT void cwcglVideoCaptureNV(GLcontext *context, GLuint video_capture_slot, GLuint * sequence_num, GLuint64EXT * capture_time, GLenum* return_value);
-EXPORT void cwcglVideoCaptureStreamParameterdvNV(GLcontext *context, GLuint video_capture_slot, GLuint stream, GLenum pname, const GLdouble * params);
-EXPORT void cwcglVideoCaptureStreamParameterfvNV(GLcontext *context, GLuint video_capture_slot, GLuint stream, GLenum pname, const GLfloat * params);
-EXPORT void cwcglVideoCaptureStreamParameterivNV(GLcontext *context, GLuint video_capture_slot, GLuint stream, GLenum pname, const GLint * params);
-EXPORT void cwcglViewport(GLcontext *context, GLint x, GLint y, GLsizei width, GLsizei height);
+EXPORT void cwcglTexCoordP1ui(GLcontext *context, GLenum type, GLuint coords);
+EXPORT void cwcglTexCoordP1uiv(GLcontext *context, GLenum type, const GLuint * coords);
+EXPORT void cwcglTexCoordP2ui(GLcontext *context, GLenum type, GLuint coords);
+EXPORT void cwcglTexCoordP2uiv(GLcontext *context, GLenum type, const GLuint * coords);
+EXPORT void cwcglTexCoordP3ui(GLcontext *context, GLenum type, GLuint coords);
+EXPORT void cwcglTexCoordP3uiv(GLcontext *context, GLenum type, const GLuint * coords);
+EXPORT void cwcglTexCoordP4ui(GLcontext *context, GLenum type, GLuint coords);
+EXPORT void cwcglTexCoordP4uiv(GLcontext *context, GLenum type, const GLuint * coords);
+EXPORT void cwcglMultiTexCoordP1ui(GLcontext *context, GLenum texture, GLenum type, GLuint coords);
+EXPORT void cwcglMultiTexCoordP1uiv(GLcontext *context, GLenum texture, GLenum type, const GLuint * coords);
+EXPORT void cwcglMultiTexCoordP2ui(GLcontext *context, GLenum texture, GLenum type, GLuint coords);
+EXPORT void cwcglMultiTexCoordP2uiv(GLcontext *context, GLenum texture, GLenum type, const GLuint * coords);
+EXPORT void cwcglMultiTexCoordP3ui(GLcontext *context, GLenum texture, GLenum type, GLuint coords);
+EXPORT void cwcglMultiTexCoordP3uiv(GLcontext *context, GLenum texture, GLenum type, const GLuint * coords);
+EXPORT void cwcglMultiTexCoordP4ui(GLcontext *context, GLenum texture, GLenum type, GLuint coords);
+EXPORT void cwcglMultiTexCoordP4uiv(GLcontext *context, GLenum texture, GLenum type, const GLuint * coords);
+EXPORT void cwcglNormalP3ui(GLcontext *context, GLenum type, GLuint coords);
+EXPORT void cwcglNormalP3uiv(GLcontext *context, GLenum type, const GLuint * coords);
+EXPORT void cwcglColorP3ui(GLcontext *context, GLenum type, GLuint color);
+EXPORT void cwcglColorP3uiv(GLcontext *context, GLenum type, const GLuint * color);
+EXPORT void cwcglColorP4ui(GLcontext *context, GLenum type, GLuint color);
+EXPORT void cwcglColorP4uiv(GLcontext *context, GLenum type, const GLuint * color);
+EXPORT void cwcglSecondaryColorP3ui(GLcontext *context, GLenum type, GLuint color);
+EXPORT void cwcglSecondaryColorP3uiv(GLcontext *context, GLenum type, const GLuint * color);
+#endif
+#if CWCGL_VERSION >= GL_VERSION_4_0
+EXPORT void cwcglMinSampleShading(GLcontext *context, GLfloat value);
+EXPORT void cwcglBlendEquationi(GLcontext *context, GLuint buf, GLenum mode);
+EXPORT void cwcglBlendEquationSeparatei(GLcontext *context, GLuint buf, GLenum modeRGB, GLenum modeAlpha);
+EXPORT void cwcglBlendFunci(GLcontext *context, GLuint buf, GLenum src, GLenum dst);
+EXPORT void cwcglBlendFuncSeparatei(GLcontext *context, GLuint buf, GLenum srcRGB, GLenum dstRGB, GLenum srcAlpha, GLenum dstAlpha);
+EXPORT void cwcglDrawArraysIndirect(GLcontext *context, GLenum mode, const void * indirect);
+EXPORT void cwcglDrawElementsIndirect(GLcontext *context, GLenum mode, GLenum type, const void * indirect);
+EXPORT void cwcglUniform1d(GLcontext *context, GLint location, GLdouble x);
+EXPORT void cwcglUniform2d(GLcontext *context, GLint location, GLdouble x, GLdouble y);
+EXPORT void cwcglUniform3d(GLcontext *context, GLint location, GLdouble x, GLdouble y, GLdouble z);
+EXPORT void cwcglUniform4d(GLcontext *context, GLint location, GLdouble x, GLdouble y, GLdouble z, GLdouble w);
+EXPORT void cwcglUniform1dv(GLcontext *context, GLint location, GLsizei count, const GLdouble * value);
+EXPORT void cwcglUniform2dv(GLcontext *context, GLint location, GLsizei count, const GLdouble * value);
+EXPORT void cwcglUniform3dv(GLcontext *context, GLint location, GLsizei count, const GLdouble * value);
+EXPORT void cwcglUniform4dv(GLcontext *context, GLint location, GLsizei count, const GLdouble * value);
+EXPORT void cwcglUniformMatrix2dv(GLcontext *context, GLint location, GLsizei count, GLboolean transpose, const GLdouble * value);
+EXPORT void cwcglUniformMatrix3dv(GLcontext *context, GLint location, GLsizei count, GLboolean transpose, const GLdouble * value);
+EXPORT void cwcglUniformMatrix4dv(GLcontext *context, GLint location, GLsizei count, GLboolean transpose, const GLdouble * value);
+EXPORT void cwcglUniformMatrix2x3dv(GLcontext *context, GLint location, GLsizei count, GLboolean transpose, const GLdouble * value);
+EXPORT void cwcglUniformMatrix2x4dv(GLcontext *context, GLint location, GLsizei count, GLboolean transpose, const GLdouble * value);
+EXPORT void cwcglUniformMatrix3x2dv(GLcontext *context, GLint location, GLsizei count, GLboolean transpose, const GLdouble * value);
+EXPORT void cwcglUniformMatrix3x4dv(GLcontext *context, GLint location, GLsizei count, GLboolean transpose, const GLdouble * value);
+EXPORT void cwcglUniformMatrix4x2dv(GLcontext *context, GLint location, GLsizei count, GLboolean transpose, const GLdouble * value);
+EXPORT void cwcglUniformMatrix4x3dv(GLcontext *context, GLint location, GLsizei count, GLboolean transpose, const GLdouble * value);
+EXPORT void cwcglGetUniformdv(GLcontext *context, GLuint program, GLint location, GLdouble * params);
+EXPORT void cwcglGetSubroutineUniformLocation(GLcontext *context, GLuint program, GLenum shadertype, const GLchar * name, GLint* return_value);
+EXPORT void cwcglGetSubroutineIndex(GLcontext *context, GLuint program, GLenum shadertype, const GLchar * name, GLuint* return_value);
+EXPORT void cwcglGetActiveSubroutineUniformiv(GLcontext *context, GLuint program, GLenum shadertype, GLuint index, GLenum pname, GLint * values);
+EXPORT void cwcglGetActiveSubroutineUniformName(GLcontext *context, GLuint program, GLenum shadertype, GLuint index, GLsizei bufSize, GLsizei * length, GLchar * name);
+EXPORT void cwcglGetActiveSubroutineName(GLcontext *context, GLuint program, GLenum shadertype, GLuint index, GLsizei bufSize, GLsizei * length, GLchar * name);
+EXPORT void cwcglUniformSubroutinesuiv(GLcontext *context, GLenum shadertype, GLsizei count, const GLuint * indices);
+EXPORT void cwcglGetUniformSubroutineuiv(GLcontext *context, GLenum shadertype, GLint location, GLuint * params);
+EXPORT void cwcglGetProgramStageiv(GLcontext *context, GLuint program, GLenum shadertype, GLenum pname, GLint * values);
+EXPORT void cwcglPatchParameteri(GLcontext *context, GLenum pname, GLint value);
+EXPORT void cwcglPatchParameterfv(GLcontext *context, GLenum pname, const GLfloat * values);
+EXPORT void cwcglBindTransformFeedback(GLcontext *context, GLenum target, GLuint id);
+EXPORT void cwcglDeleteTransformFeedbacks(GLcontext *context, GLsizei n, const GLuint * ids);
+EXPORT void cwcglGenTransformFeedbacks(GLcontext *context, GLsizei n, GLuint * ids);
+EXPORT void cwcglIsTransformFeedback(GLcontext *context, GLuint id, GLboolean* return_value);
+EXPORT void cwcglPauseTransformFeedback(GLcontext *context);
+EXPORT void cwcglResumeTransformFeedback(GLcontext *context);
+EXPORT void cwcglDrawTransformFeedback(GLcontext *context, GLenum mode, GLuint id);
+EXPORT void cwcglDrawTransformFeedbackStream(GLcontext *context, GLenum mode, GLuint id, GLuint stream);
+EXPORT void cwcglBeginQueryIndexed(GLcontext *context, GLenum target, GLuint index, GLuint id);
+EXPORT void cwcglEndQueryIndexed(GLcontext *context, GLenum target, GLuint index);
+EXPORT void cwcglGetQueryIndexediv(GLcontext *context, GLenum target, GLuint index, GLenum pname, GLint * params);
+#endif
+#if CWCGL_VERSION >= GL_VERSION_4_1
+EXPORT void cwcglReleaseShaderCompiler(GLcontext *context);
+EXPORT void cwcglShaderBinary(GLcontext *context, GLsizei count, const GLuint * shaders, GLenum binaryFormat, const void * binary, GLsizei length);
+EXPORT void cwcglGetShaderPrecisionFormat(GLcontext *context, GLenum shadertype, GLenum precisiontype, GLint * range, GLint * precision);
+EXPORT void cwcglDepthRangef(GLcontext *context, GLfloat n, GLfloat f);
+EXPORT void cwcglClearDepthf(GLcontext *context, GLfloat d);
+EXPORT void cwcglGetProgramBinary(GLcontext *context, GLuint program, GLsizei bufSize, GLsizei * length, GLenum * binaryFormat, void * binary);
+EXPORT void cwcglProgramBinary(GLcontext *context, GLuint program, GLenum binaryFormat, const void * binary, GLsizei length);
+EXPORT void cwcglProgramParameteri(GLcontext *context, GLuint program, GLenum pname, GLint value);
+EXPORT void cwcglUseProgramStages(GLcontext *context, GLuint pipeline, GLbitfield stages, GLuint program);
+EXPORT void cwcglActiveShaderProgram(GLcontext *context, GLuint pipeline, GLuint program);
+EXPORT void cwcglCreateShaderProgramv(GLcontext *context, GLenum type, GLsizei count, const GLchar *const* strings, GLuint* return_value);
+EXPORT void cwcglBindProgramPipeline(GLcontext *context, GLuint pipeline);
+EXPORT void cwcglDeleteProgramPipelines(GLcontext *context, GLsizei n, const GLuint * pipelines);
+EXPORT void cwcglGenProgramPipelines(GLcontext *context, GLsizei n, GLuint * pipelines);
+EXPORT void cwcglIsProgramPipeline(GLcontext *context, GLuint pipeline, GLboolean* return_value);
+EXPORT void cwcglGetProgramPipelineiv(GLcontext *context, GLuint pipeline, GLenum pname, GLint * params);
+EXPORT void cwcglProgramUniform1i(GLcontext *context, GLuint program, GLint location, GLint v0);
+EXPORT void cwcglProgramUniform1iv(GLcontext *context, GLuint program, GLint location, GLsizei count, const GLint * value);
+EXPORT void cwcglProgramUniform1f(GLcontext *context, GLuint program, GLint location, GLfloat v0);
+EXPORT void cwcglProgramUniform1fv(GLcontext *context, GLuint program, GLint location, GLsizei count, const GLfloat * value);
+EXPORT void cwcglProgramUniform1d(GLcontext *context, GLuint program, GLint location, GLdouble v0);
+EXPORT void cwcglProgramUniform1dv(GLcontext *context, GLuint program, GLint location, GLsizei count, const GLdouble * value);
+EXPORT void cwcglProgramUniform1ui(GLcontext *context, GLuint program, GLint location, GLuint v0);
+EXPORT void cwcglProgramUniform1uiv(GLcontext *context, GLuint program, GLint location, GLsizei count, const GLuint * value);
+EXPORT void cwcglProgramUniform2i(GLcontext *context, GLuint program, GLint location, GLint v0, GLint v1);
+EXPORT void cwcglProgramUniform2iv(GLcontext *context, GLuint program, GLint location, GLsizei count, const GLint * value);
+EXPORT void cwcglProgramUniform2f(GLcontext *context, GLuint program, GLint location, GLfloat v0, GLfloat v1);
+EXPORT void cwcglProgramUniform2fv(GLcontext *context, GLuint program, GLint location, GLsizei count, const GLfloat * value);
+EXPORT void cwcglProgramUniform2d(GLcontext *context, GLuint program, GLint location, GLdouble v0, GLdouble v1);
+EXPORT void cwcglProgramUniform2dv(GLcontext *context, GLuint program, GLint location, GLsizei count, const GLdouble * value);
+EXPORT void cwcglProgramUniform2ui(GLcontext *context, GLuint program, GLint location, GLuint v0, GLuint v1);
+EXPORT void cwcglProgramUniform2uiv(GLcontext *context, GLuint program, GLint location, GLsizei count, const GLuint * value);
+EXPORT void cwcglProgramUniform3i(GLcontext *context, GLuint program, GLint location, GLint v0, GLint v1, GLint v2);
+EXPORT void cwcglProgramUniform3iv(GLcontext *context, GLuint program, GLint location, GLsizei count, const GLint * value);
+EXPORT void cwcglProgramUniform3f(GLcontext *context, GLuint program, GLint location, GLfloat v0, GLfloat v1, GLfloat v2);
+EXPORT void cwcglProgramUniform3fv(GLcontext *context, GLuint program, GLint location, GLsizei count, const GLfloat * value);
+EXPORT void cwcglProgramUniform3d(GLcontext *context, GLuint program, GLint location, GLdouble v0, GLdouble v1, GLdouble v2);
+EXPORT void cwcglProgramUniform3dv(GLcontext *context, GLuint program, GLint location, GLsizei count, const GLdouble * value);
+EXPORT void cwcglProgramUniform3ui(GLcontext *context, GLuint program, GLint location, GLuint v0, GLuint v1, GLuint v2);
+EXPORT void cwcglProgramUniform3uiv(GLcontext *context, GLuint program, GLint location, GLsizei count, const GLuint * value);
+EXPORT void cwcglProgramUniform4i(GLcontext *context, GLuint program, GLint location, GLint v0, GLint v1, GLint v2, GLint v3);
+EXPORT void cwcglProgramUniform4iv(GLcontext *context, GLuint program, GLint location, GLsizei count, const GLint * value);
+EXPORT void cwcglProgramUniform4f(GLcontext *context, GLuint program, GLint location, GLfloat v0, GLfloat v1, GLfloat v2, GLfloat v3);
+EXPORT void cwcglProgramUniform4fv(GLcontext *context, GLuint program, GLint location, GLsizei count, const GLfloat * value);
+EXPORT void cwcglProgramUniform4d(GLcontext *context, GLuint program, GLint location, GLdouble v0, GLdouble v1, GLdouble v2, GLdouble v3);
+EXPORT void cwcglProgramUniform4dv(GLcontext *context, GLuint program, GLint location, GLsizei count, const GLdouble * value);
+EXPORT void cwcglProgramUniform4ui(GLcontext *context, GLuint program, GLint location, GLuint v0, GLuint v1, GLuint v2, GLuint v3);
+EXPORT void cwcglProgramUniform4uiv(GLcontext *context, GLuint program, GLint location, GLsizei count, const GLuint * value);
+EXPORT void cwcglProgramUniformMatrix2fv(GLcontext *context, GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat * value);
+EXPORT void cwcglProgramUniformMatrix3fv(GLcontext *context, GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat * value);
+EXPORT void cwcglProgramUniformMatrix4fv(GLcontext *context, GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat * value);
+EXPORT void cwcglProgramUniformMatrix2dv(GLcontext *context, GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble * value);
+EXPORT void cwcglProgramUniformMatrix3dv(GLcontext *context, GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble * value);
+EXPORT void cwcglProgramUniformMatrix4dv(GLcontext *context, GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble * value);
+EXPORT void cwcglProgramUniformMatrix2x3fv(GLcontext *context, GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat * value);
+EXPORT void cwcglProgramUniformMatrix3x2fv(GLcontext *context, GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat * value);
+EXPORT void cwcglProgramUniformMatrix2x4fv(GLcontext *context, GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat * value);
+EXPORT void cwcglProgramUniformMatrix4x2fv(GLcontext *context, GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat * value);
+EXPORT void cwcglProgramUniformMatrix3x4fv(GLcontext *context, GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat * value);
+EXPORT void cwcglProgramUniformMatrix4x3fv(GLcontext *context, GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat * value);
+EXPORT void cwcglProgramUniformMatrix2x3dv(GLcontext *context, GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble * value);
+EXPORT void cwcglProgramUniformMatrix3x2dv(GLcontext *context, GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble * value);
+EXPORT void cwcglProgramUniformMatrix2x4dv(GLcontext *context, GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble * value);
+EXPORT void cwcglProgramUniformMatrix4x2dv(GLcontext *context, GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble * value);
+EXPORT void cwcglProgramUniformMatrix3x4dv(GLcontext *context, GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble * value);
+EXPORT void cwcglProgramUniformMatrix4x3dv(GLcontext *context, GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble * value);
+EXPORT void cwcglValidateProgramPipeline(GLcontext *context, GLuint pipeline);
+EXPORT void cwcglGetProgramPipelineInfoLog(GLcontext *context, GLuint pipeline, GLsizei bufSize, GLsizei * length, GLchar * infoLog);
+EXPORT void cwcglVertexAttribL1d(GLcontext *context, GLuint index, GLdouble x);
+EXPORT void cwcglVertexAttribL2d(GLcontext *context, GLuint index, GLdouble x, GLdouble y);
+EXPORT void cwcglVertexAttribL3d(GLcontext *context, GLuint index, GLdouble x, GLdouble y, GLdouble z);
+EXPORT void cwcglVertexAttribL4d(GLcontext *context, GLuint index, GLdouble x, GLdouble y, GLdouble z, GLdouble w);
+EXPORT void cwcglVertexAttribL1dv(GLcontext *context, GLuint index, const GLdouble * v);
+EXPORT void cwcglVertexAttribL2dv(GLcontext *context, GLuint index, const GLdouble * v);
+EXPORT void cwcglVertexAttribL3dv(GLcontext *context, GLuint index, const GLdouble * v);
+EXPORT void cwcglVertexAttribL4dv(GLcontext *context, GLuint index, const GLdouble * v);
+EXPORT void cwcglVertexAttribLPointer(GLcontext *context, GLuint index, GLint size, GLenum type, GLsizei stride, const void * pointer);
+EXPORT void cwcglGetVertexAttribLdv(GLcontext *context, GLuint index, GLenum pname, GLdouble * params);
 EXPORT void cwcglViewportArrayv(GLcontext *context, GLuint first, GLsizei count, const GLfloat * v);
-EXPORT void cwcglViewportArrayvNV(GLcontext *context, GLuint first, GLsizei count, const GLfloat * v);
-EXPORT void cwcglViewportArrayvOES(GLcontext *context, GLuint first, GLsizei count, const GLfloat * v);
 EXPORT void cwcglViewportIndexedf(GLcontext *context, GLuint index, GLfloat x, GLfloat y, GLfloat w, GLfloat h);
-EXPORT void cwcglViewportIndexedfOES(GLcontext *context, GLuint index, GLfloat x, GLfloat y, GLfloat w, GLfloat h);
-EXPORT void cwcglViewportIndexedfNV(GLcontext *context, GLuint index, GLfloat x, GLfloat y, GLfloat w, GLfloat h);
 EXPORT void cwcglViewportIndexedfv(GLcontext *context, GLuint index, const GLfloat * v);
-EXPORT void cwcglViewportIndexedfvOES(GLcontext *context, GLuint index, const GLfloat * v);
-EXPORT void cwcglViewportIndexedfvNV(GLcontext *context, GLuint index, const GLfloat * v);
-EXPORT void cwcglViewportPositionWScaleNV(GLcontext *context, GLuint index, GLfloat xcoeff, GLfloat ycoeff);
-EXPORT void cwcglViewportSwizzleNV(GLcontext *context, GLuint index, GLenum swizzlex, GLenum swizzley, GLenum swizzlez, GLenum swizzlew);
-EXPORT void cwcglWaitSync(GLcontext *context, GLsync sync, GLbitfield flags, GLuint64 timeout);
-EXPORT void cwcglWaitSyncAPPLE(GLcontext *context, GLsync sync, GLbitfield flags, GLuint64 timeout);
-EXPORT void cwcglWeightPathsNV(GLcontext *context, GLuint resultPath, GLsizei numPaths, const GLuint * paths, const GLfloat * weights);
-EXPORT void cwcglWeightPointerARB(GLcontext *context, GLint size, GLenum type, GLsizei stride, const void * pointer);
-EXPORT void cwcglWeightPointerOES(GLcontext *context, GLint size, GLenum type, GLsizei stride, const void * pointer);
-EXPORT void cwcglWeightbvARB(GLcontext *context, GLint size, const GLbyte * weights);
-EXPORT void cwcglWeightdvARB(GLcontext *context, GLint size, const GLdouble * weights);
-EXPORT void cwcglWeightfvARB(GLcontext *context, GLint size, const GLfloat * weights);
-EXPORT void cwcglWeightivARB(GLcontext *context, GLint size, const GLint * weights);
-EXPORT void cwcglWeightsvARB(GLcontext *context, GLint size, const GLshort * weights);
-EXPORT void cwcglWeightubvARB(GLcontext *context, GLint size, const GLubyte * weights);
-EXPORT void cwcglWeightuivARB(GLcontext *context, GLint size, const GLuint * weights);
-EXPORT void cwcglWeightusvARB(GLcontext *context, GLint size, const GLushort * weights);
-EXPORT void cwcglWindowPos2d(GLcontext *context, GLdouble x, GLdouble y);
-EXPORT void cwcglWindowPos2dARB(GLcontext *context, GLdouble x, GLdouble y);
-EXPORT void cwcglWindowPos2dMESA(GLcontext *context, GLdouble x, GLdouble y);
-EXPORT void cwcglWindowPos2dv(GLcontext *context, const GLdouble * v);
-EXPORT void cwcglWindowPos2dvARB(GLcontext *context, const GLdouble * v);
-EXPORT void cwcglWindowPos2dvMESA(GLcontext *context, const GLdouble * v);
-EXPORT void cwcglWindowPos2f(GLcontext *context, GLfloat x, GLfloat y);
-EXPORT void cwcglWindowPos2fARB(GLcontext *context, GLfloat x, GLfloat y);
-EXPORT void cwcglWindowPos2fMESA(GLcontext *context, GLfloat x, GLfloat y);
-EXPORT void cwcglWindowPos2fv(GLcontext *context, const GLfloat * v);
-EXPORT void cwcglWindowPos2fvARB(GLcontext *context, const GLfloat * v);
-EXPORT void cwcglWindowPos2fvMESA(GLcontext *context, const GLfloat * v);
-EXPORT void cwcglWindowPos2i(GLcontext *context, GLint x, GLint y);
-EXPORT void cwcglWindowPos2iARB(GLcontext *context, GLint x, GLint y);
-EXPORT void cwcglWindowPos2iMESA(GLcontext *context, GLint x, GLint y);
-EXPORT void cwcglWindowPos2iv(GLcontext *context, const GLint * v);
-EXPORT void cwcglWindowPos2ivARB(GLcontext *context, const GLint * v);
-EXPORT void cwcglWindowPos2ivMESA(GLcontext *context, const GLint * v);
-EXPORT void cwcglWindowPos2s(GLcontext *context, GLshort x, GLshort y);
-EXPORT void cwcglWindowPos2sARB(GLcontext *context, GLshort x, GLshort y);
-EXPORT void cwcglWindowPos2sMESA(GLcontext *context, GLshort x, GLshort y);
-EXPORT void cwcglWindowPos2sv(GLcontext *context, const GLshort * v);
-EXPORT void cwcglWindowPos2svARB(GLcontext *context, const GLshort * v);
-EXPORT void cwcglWindowPos2svMESA(GLcontext *context, const GLshort * v);
-EXPORT void cwcglWindowPos3d(GLcontext *context, GLdouble x, GLdouble y, GLdouble z);
-EXPORT void cwcglWindowPos3dARB(GLcontext *context, GLdouble x, GLdouble y, GLdouble z);
-EXPORT void cwcglWindowPos3dMESA(GLcontext *context, GLdouble x, GLdouble y, GLdouble z);
-EXPORT void cwcglWindowPos3dv(GLcontext *context, const GLdouble * v);
-EXPORT void cwcglWindowPos3dvARB(GLcontext *context, const GLdouble * v);
-EXPORT void cwcglWindowPos3dvMESA(GLcontext *context, const GLdouble * v);
-EXPORT void cwcglWindowPos3f(GLcontext *context, GLfloat x, GLfloat y, GLfloat z);
-EXPORT void cwcglWindowPos3fARB(GLcontext *context, GLfloat x, GLfloat y, GLfloat z);
-EXPORT void cwcglWindowPos3fMESA(GLcontext *context, GLfloat x, GLfloat y, GLfloat z);
-EXPORT void cwcglWindowPos3fv(GLcontext *context, const GLfloat * v);
-EXPORT void cwcglWindowPos3fvARB(GLcontext *context, const GLfloat * v);
-EXPORT void cwcglWindowPos3fvMESA(GLcontext *context, const GLfloat * v);
-EXPORT void cwcglWindowPos3i(GLcontext *context, GLint x, GLint y, GLint z);
-EXPORT void cwcglWindowPos3iARB(GLcontext *context, GLint x, GLint y, GLint z);
-EXPORT void cwcglWindowPos3iMESA(GLcontext *context, GLint x, GLint y, GLint z);
-EXPORT void cwcglWindowPos3iv(GLcontext *context, const GLint * v);
-EXPORT void cwcglWindowPos3ivARB(GLcontext *context, const GLint * v);
-EXPORT void cwcglWindowPos3ivMESA(GLcontext *context, const GLint * v);
-EXPORT void cwcglWindowPos3s(GLcontext *context, GLshort x, GLshort y, GLshort z);
-EXPORT void cwcglWindowPos3sARB(GLcontext *context, GLshort x, GLshort y, GLshort z);
-EXPORT void cwcglWindowPos3sMESA(GLcontext *context, GLshort x, GLshort y, GLshort z);
-EXPORT void cwcglWindowPos3sv(GLcontext *context, const GLshort * v);
-EXPORT void cwcglWindowPos3svARB(GLcontext *context, const GLshort * v);
-EXPORT void cwcglWindowPos3svMESA(GLcontext *context, const GLshort * v);
-EXPORT void cwcglWindowPos4dMESA(GLcontext *context, GLdouble x, GLdouble y, GLdouble z, GLdouble w);
-EXPORT void cwcglWindowPos4dvMESA(GLcontext *context, const GLdouble * v);
-EXPORT void cwcglWindowPos4fMESA(GLcontext *context, GLfloat x, GLfloat y, GLfloat z, GLfloat w);
-EXPORT void cwcglWindowPos4fvMESA(GLcontext *context, const GLfloat * v);
-EXPORT void cwcglWindowPos4iMESA(GLcontext *context, GLint x, GLint y, GLint z, GLint w);
-EXPORT void cwcglWindowPos4ivMESA(GLcontext *context, const GLint * v);
-EXPORT void cwcglWindowPos4sMESA(GLcontext *context, GLshort x, GLshort y, GLshort z, GLshort w);
-EXPORT void cwcglWindowPos4svMESA(GLcontext *context, const GLshort * v);
-EXPORT void cwcglWindowRectanglesEXT(GLcontext *context, GLenum mode, GLsizei count, const GLint * box);
-EXPORT void cwcglWriteMaskEXT(GLcontext *context, GLuint res, GLuint in, GLenum outX, GLenum outY, GLenum outZ, GLenum outW);
+EXPORT void cwcglScissorArrayv(GLcontext *context, GLuint first, GLsizei count, const GLint * v);
+EXPORT void cwcglScissorIndexed(GLcontext *context, GLuint index, GLint left, GLint bottom, GLsizei width, GLsizei height);
+EXPORT void cwcglScissorIndexedv(GLcontext *context, GLuint index, const GLint * v);
+EXPORT void cwcglDepthRangeArrayv(GLcontext *context, GLuint first, GLsizei count, const GLdouble * v);
+EXPORT void cwcglDepthRangeIndexed(GLcontext *context, GLuint index, GLdouble n, GLdouble f);
+EXPORT void cwcglGetFloati_v(GLcontext *context, GLenum target, GLuint index, GLfloat * data);
+EXPORT void cwcglGetDoublei_v(GLcontext *context, GLenum target, GLuint index, GLdouble * data);
+#endif
+#if CWCGL_VERSION >= GL_VERSION_4_2
+EXPORT void cwcglDrawArraysInstancedBaseInstance(GLcontext *context, GLenum mode, GLint first, GLsizei count, GLsizei instancecount, GLuint baseinstance);
+EXPORT void cwcglDrawElementsInstancedBaseInstance(GLcontext *context, GLenum mode, GLsizei count, GLenum type, const void * indices, GLsizei instancecount, GLuint baseinstance);
+EXPORT void cwcglDrawElementsInstancedBaseVertexBaseInstance(GLcontext *context, GLenum mode, GLsizei count, GLenum type, const void * indices, GLsizei instancecount, GLint basevertex, GLuint baseinstance);
+EXPORT void cwcglGetInternalformativ(GLcontext *context, GLenum target, GLenum internalformat, GLenum pname, GLsizei count, GLint * params);
+EXPORT void cwcglGetActiveAtomicCounterBufferiv(GLcontext *context, GLuint program, GLuint bufferIndex, GLenum pname, GLint * params);
+EXPORT void cwcglBindImageTexture(GLcontext *context, GLuint unit, GLuint texture, GLint level, GLboolean layered, GLint layer, GLenum access, GLenum format);
+EXPORT void cwcglMemoryBarrier(GLcontext *context, GLbitfield barriers);
+EXPORT void cwcglTexStorage1D(GLcontext *context, GLenum target, GLsizei levels, GLenum internalformat, GLsizei width);
+EXPORT void cwcglTexStorage2D(GLcontext *context, GLenum target, GLsizei levels, GLenum internalformat, GLsizei width, GLsizei height);
+EXPORT void cwcglTexStorage3D(GLcontext *context, GLenum target, GLsizei levels, GLenum internalformat, GLsizei width, GLsizei height, GLsizei depth);
+EXPORT void cwcglDrawTransformFeedbackInstanced(GLcontext *context, GLenum mode, GLuint id, GLsizei instancecount);
+EXPORT void cwcglDrawTransformFeedbackStreamInstanced(GLcontext *context, GLenum mode, GLuint id, GLuint stream, GLsizei instancecount);
+#endif
+#if CWCGL_VERSION >= GL_VERSION_4_3
+EXPORT void cwcglClearBufferData(GLcontext *context, GLenum target, GLenum internalformat, GLenum format, GLenum type, const void * data);
+EXPORT void cwcglClearBufferSubData(GLcontext *context, GLenum target, GLenum internalformat, GLintptr offset, GLsizeiptr size, GLenum format, GLenum type, const void * data);
+EXPORT void cwcglDispatchCompute(GLcontext *context, GLuint num_groups_x, GLuint num_groups_y, GLuint num_groups_z);
+EXPORT void cwcglDispatchComputeIndirect(GLcontext *context, GLintptr indirect);
+EXPORT void cwcglCopyImageSubData(GLcontext *context, GLuint srcName, GLenum srcTarget, GLint srcLevel, GLint srcX, GLint srcY, GLint srcZ, GLuint dstName, GLenum dstTarget, GLint dstLevel, GLint dstX, GLint dstY, GLint dstZ, GLsizei srcWidth, GLsizei srcHeight, GLsizei srcDepth);
+EXPORT void cwcglFramebufferParameteri(GLcontext *context, GLenum target, GLenum pname, GLint param);
+EXPORT void cwcglGetFramebufferParameteriv(GLcontext *context, GLenum target, GLenum pname, GLint * params);
+EXPORT void cwcglGetInternalformati64v(GLcontext *context, GLenum target, GLenum internalformat, GLenum pname, GLsizei count, GLint64 * params);
+EXPORT void cwcglInvalidateTexSubImage(GLcontext *context, GLuint texture, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth);
+EXPORT void cwcglInvalidateTexImage(GLcontext *context, GLuint texture, GLint level);
+EXPORT void cwcglInvalidateBufferSubData(GLcontext *context, GLuint buffer, GLintptr offset, GLsizeiptr length);
+EXPORT void cwcglInvalidateBufferData(GLcontext *context, GLuint buffer);
+EXPORT void cwcglInvalidateFramebuffer(GLcontext *context, GLenum target, GLsizei numAttachments, const GLenum * attachments);
+EXPORT void cwcglInvalidateSubFramebuffer(GLcontext *context, GLenum target, GLsizei numAttachments, const GLenum * attachments, GLint x, GLint y, GLsizei width, GLsizei height);
+EXPORT void cwcglMultiDrawArraysIndirect(GLcontext *context, GLenum mode, const void * indirect, GLsizei drawcount, GLsizei stride);
+EXPORT void cwcglMultiDrawElementsIndirect(GLcontext *context, GLenum mode, GLenum type, const void * indirect, GLsizei drawcount, GLsizei stride);
+EXPORT void cwcglGetProgramInterfaceiv(GLcontext *context, GLuint program, GLenum programInterface, GLenum pname, GLint * params);
+EXPORT void cwcglGetProgramResourceIndex(GLcontext *context, GLuint program, GLenum programInterface, const GLchar * name, GLuint* return_value);
+EXPORT void cwcglGetProgramResourceName(GLcontext *context, GLuint program, GLenum programInterface, GLuint index, GLsizei bufSize, GLsizei * length, GLchar * name);
+EXPORT void cwcglGetProgramResourceiv(GLcontext *context, GLuint program, GLenum programInterface, GLuint index, GLsizei propCount, const GLenum * props, GLsizei count, GLsizei * length, GLint * params);
+EXPORT void cwcglGetProgramResourceLocation(GLcontext *context, GLuint program, GLenum programInterface, const GLchar * name, GLint* return_value);
+EXPORT void cwcglGetProgramResourceLocationIndex(GLcontext *context, GLuint program, GLenum programInterface, const GLchar * name, GLint* return_value);
+EXPORT void cwcglShaderStorageBlockBinding(GLcontext *context, GLuint program, GLuint storageBlockIndex, GLuint storageBlockBinding);
+EXPORT void cwcglTexBufferRange(GLcontext *context, GLenum target, GLenum internalformat, GLuint buffer, GLintptr offset, GLsizeiptr size);
+EXPORT void cwcglTexStorage2DMultisample(GLcontext *context, GLenum target, GLsizei samples, GLenum internalformat, GLsizei width, GLsizei height, GLboolean fixedsamplelocations);
+EXPORT void cwcglTexStorage3DMultisample(GLcontext *context, GLenum target, GLsizei samples, GLenum internalformat, GLsizei width, GLsizei height, GLsizei depth, GLboolean fixedsamplelocations);
+EXPORT void cwcglTextureView(GLcontext *context, GLuint texture, GLenum target, GLuint origtexture, GLenum internalformat, GLuint minlevel, GLuint numlevels, GLuint minlayer, GLuint numlayers);
+EXPORT void cwcglBindVertexBuffer(GLcontext *context, GLuint bindingindex, GLuint buffer, GLintptr offset, GLsizei stride);
+EXPORT void cwcglVertexAttribFormat(GLcontext *context, GLuint attribindex, GLint size, GLenum type, GLboolean normalized, GLuint relativeoffset);
+EXPORT void cwcglVertexAttribIFormat(GLcontext *context, GLuint attribindex, GLint size, GLenum type, GLuint relativeoffset);
+EXPORT void cwcglVertexAttribLFormat(GLcontext *context, GLuint attribindex, GLint size, GLenum type, GLuint relativeoffset);
+EXPORT void cwcglVertexAttribBinding(GLcontext *context, GLuint attribindex, GLuint bindingindex);
+EXPORT void cwcglVertexBindingDivisor(GLcontext *context, GLuint bindingindex, GLuint divisor);
+EXPORT void cwcglDebugMessageControl(GLcontext *context, GLenum source, GLenum type, GLenum severity, GLsizei count, const GLuint * ids, GLboolean enabled);
+EXPORT void cwcglDebugMessageInsert(GLcontext *context, GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar * buf);
+EXPORT void cwcglDebugMessageCallback(GLcontext *context, GLDEBUGPROC callback, const void * userParam);
+EXPORT void cwcglGetDebugMessageLog(GLcontext *context, GLuint count, GLsizei bufSize, GLenum * sources, GLenum * types, GLuint * ids, GLenum * severities, GLsizei * lengths, GLchar * messageLog, GLuint* return_value);
+EXPORT void cwcglPushDebugGroup(GLcontext *context, GLenum source, GLuint id, GLsizei length, const GLchar * message);
+EXPORT void cwcglPopDebugGroup(GLcontext *context);
+EXPORT void cwcglObjectLabel(GLcontext *context, GLenum identifier, GLuint name, GLsizei length, const GLchar * label);
+EXPORT void cwcglGetObjectLabel(GLcontext *context, GLenum identifier, GLuint name, GLsizei bufSize, GLsizei * length, GLchar * label);
+EXPORT void cwcglObjectPtrLabel(GLcontext *context, const void * ptr, GLsizei length, const GLchar * label);
+EXPORT void cwcglGetObjectPtrLabel(GLcontext *context, const void * ptr, GLsizei bufSize, GLsizei * length, GLchar * label);
+#endif
+#if CWCGL_VERSION >= GL_VERSION_4_4
+EXPORT void cwcglBufferStorage(GLcontext *context, GLenum target, GLsizeiptr size, const void * data, GLbitfield flags);
+EXPORT void cwcglClearTexImage(GLcontext *context, GLuint texture, GLint level, GLenum format, GLenum type, const void * data);
+EXPORT void cwcglClearTexSubImage(GLcontext *context, GLuint texture, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLenum format, GLenum type, const void * data);
+EXPORT void cwcglBindBuffersBase(GLcontext *context, GLenum target, GLuint first, GLsizei count, const GLuint * buffers);
+EXPORT void cwcglBindBuffersRange(GLcontext *context, GLenum target, GLuint first, GLsizei count, const GLuint * buffers, const GLintptr * offsets, const GLsizeiptr * sizes);
+EXPORT void cwcglBindTextures(GLcontext *context, GLuint first, GLsizei count, const GLuint * textures);
+EXPORT void cwcglBindSamplers(GLcontext *context, GLuint first, GLsizei count, const GLuint * samplers);
+EXPORT void cwcglBindImageTextures(GLcontext *context, GLuint first, GLsizei count, const GLuint * textures);
+EXPORT void cwcglBindVertexBuffers(GLcontext *context, GLuint first, GLsizei count, const GLuint * buffers, const GLintptr * offsets, const GLsizei * strides);
+#endif
+#if CWCGL_VERSION >= GL_VERSION_4_5
+EXPORT void cwcglClipControl(GLcontext *context, GLenum origin, GLenum depth);
+EXPORT void cwcglCreateTransformFeedbacks(GLcontext *context, GLsizei n, GLuint * ids);
+EXPORT void cwcglTransformFeedbackBufferBase(GLcontext *context, GLuint xfb, GLuint index, GLuint buffer);
+EXPORT void cwcglTransformFeedbackBufferRange(GLcontext *context, GLuint xfb, GLuint index, GLuint buffer, GLintptr offset, GLsizeiptr size);
+EXPORT void cwcglGetTransformFeedbackiv(GLcontext *context, GLuint xfb, GLenum pname, GLint * param);
+EXPORT void cwcglGetTransformFeedbacki_v(GLcontext *context, GLuint xfb, GLenum pname, GLuint index, GLint * param);
+EXPORT void cwcglGetTransformFeedbacki64_v(GLcontext *context, GLuint xfb, GLenum pname, GLuint index, GLint64 * param);
+EXPORT void cwcglCreateBuffers(GLcontext *context, GLsizei n, GLuint * buffers);
+EXPORT void cwcglNamedBufferStorage(GLcontext *context, GLuint buffer, GLsizeiptr size, const void * data, GLbitfield flags);
+EXPORT void cwcglNamedBufferData(GLcontext *context, GLuint buffer, GLsizeiptr size, const void * data, GLenum usage);
+EXPORT void cwcglNamedBufferSubData(GLcontext *context, GLuint buffer, GLintptr offset, GLsizeiptr size, const void * data);
+EXPORT void cwcglCopyNamedBufferSubData(GLcontext *context, GLuint readBuffer, GLuint writeBuffer, GLintptr readOffset, GLintptr writeOffset, GLsizeiptr size);
+EXPORT void cwcglClearNamedBufferData(GLcontext *context, GLuint buffer, GLenum internalformat, GLenum format, GLenum type, const void * data);
+EXPORT void cwcglClearNamedBufferSubData(GLcontext *context, GLuint buffer, GLenum internalformat, GLintptr offset, GLsizeiptr size, GLenum format, GLenum type, const void * data);
+EXPORT void cwcglMapNamedBuffer(GLcontext *context, GLuint buffer, GLenum access, void ** return_value);
+EXPORT void cwcglMapNamedBufferRange(GLcontext *context, GLuint buffer, GLintptr offset, GLsizeiptr length, GLbitfield access, void ** return_value);
+EXPORT void cwcglUnmapNamedBuffer(GLcontext *context, GLuint buffer, GLboolean* return_value);
+EXPORT void cwcglFlushMappedNamedBufferRange(GLcontext *context, GLuint buffer, GLintptr offset, GLsizeiptr length);
+EXPORT void cwcglGetNamedBufferParameteriv(GLcontext *context, GLuint buffer, GLenum pname, GLint * params);
+EXPORT void cwcglGetNamedBufferParameteri64v(GLcontext *context, GLuint buffer, GLenum pname, GLint64 * params);
+EXPORT void cwcglGetNamedBufferPointerv(GLcontext *context, GLuint buffer, GLenum pname, void ** params);
+EXPORT void cwcglGetNamedBufferSubData(GLcontext *context, GLuint buffer, GLintptr offset, GLsizeiptr size, void * data);
+EXPORT void cwcglCreateFramebuffers(GLcontext *context, GLsizei n, GLuint * framebuffers);
+EXPORT void cwcglNamedFramebufferRenderbuffer(GLcontext *context, GLuint framebuffer, GLenum attachment, GLenum renderbuffertarget, GLuint renderbuffer);
+EXPORT void cwcglNamedFramebufferParameteri(GLcontext *context, GLuint framebuffer, GLenum pname, GLint param);
+EXPORT void cwcglNamedFramebufferTexture(GLcontext *context, GLuint framebuffer, GLenum attachment, GLuint texture, GLint level);
+EXPORT void cwcglNamedFramebufferTextureLayer(GLcontext *context, GLuint framebuffer, GLenum attachment, GLuint texture, GLint level, GLint layer);
+EXPORT void cwcglNamedFramebufferDrawBuffer(GLcontext *context, GLuint framebuffer, GLenum buf);
+EXPORT void cwcglNamedFramebufferDrawBuffers(GLcontext *context, GLuint framebuffer, GLsizei n, const GLenum * bufs);
+EXPORT void cwcglNamedFramebufferReadBuffer(GLcontext *context, GLuint framebuffer, GLenum src);
+EXPORT void cwcglInvalidateNamedFramebufferData(GLcontext *context, GLuint framebuffer, GLsizei numAttachments, const GLenum * attachments);
+EXPORT void cwcglInvalidateNamedFramebufferSubData(GLcontext *context, GLuint framebuffer, GLsizei numAttachments, const GLenum * attachments, GLint x, GLint y, GLsizei width, GLsizei height);
+EXPORT void cwcglClearNamedFramebufferiv(GLcontext *context, GLuint framebuffer, GLenum buffer, GLint drawbuffer, const GLint * value);
+EXPORT void cwcglClearNamedFramebufferuiv(GLcontext *context, GLuint framebuffer, GLenum buffer, GLint drawbuffer, const GLuint * value);
+EXPORT void cwcglClearNamedFramebufferfv(GLcontext *context, GLuint framebuffer, GLenum buffer, GLint drawbuffer, const GLfloat * value);
+EXPORT void cwcglClearNamedFramebufferfi(GLcontext *context, GLuint framebuffer, GLenum buffer, GLint drawbuffer, GLfloat depth, GLint stencil);
+EXPORT void cwcglBlitNamedFramebuffer(GLcontext *context, GLuint readFramebuffer, GLuint drawFramebuffer, GLint srcX0, GLint srcY0, GLint srcX1, GLint srcY1, GLint dstX0, GLint dstY0, GLint dstX1, GLint dstY1, GLbitfield mask, GLenum filter);
+EXPORT void cwcglCheckNamedFramebufferStatus(GLcontext *context, GLuint framebuffer, GLenum target, GLenum* return_value);
+EXPORT void cwcglGetNamedFramebufferParameteriv(GLcontext *context, GLuint framebuffer, GLenum pname, GLint * param);
+EXPORT void cwcglGetNamedFramebufferAttachmentParameteriv(GLcontext *context, GLuint framebuffer, GLenum attachment, GLenum pname, GLint * params);
+EXPORT void cwcglCreateRenderbuffers(GLcontext *context, GLsizei n, GLuint * renderbuffers);
+EXPORT void cwcglNamedRenderbufferStorage(GLcontext *context, GLuint renderbuffer, GLenum internalformat, GLsizei width, GLsizei height);
+EXPORT void cwcglNamedRenderbufferStorageMultisample(GLcontext *context, GLuint renderbuffer, GLsizei samples, GLenum internalformat, GLsizei width, GLsizei height);
+EXPORT void cwcglGetNamedRenderbufferParameteriv(GLcontext *context, GLuint renderbuffer, GLenum pname, GLint * params);
+EXPORT void cwcglCreateTextures(GLcontext *context, GLenum target, GLsizei n, GLuint * textures);
+EXPORT void cwcglTextureBuffer(GLcontext *context, GLuint texture, GLenum internalformat, GLuint buffer);
+EXPORT void cwcglTextureBufferRange(GLcontext *context, GLuint texture, GLenum internalformat, GLuint buffer, GLintptr offset, GLsizeiptr size);
+EXPORT void cwcglTextureStorage1D(GLcontext *context, GLuint texture, GLsizei levels, GLenum internalformat, GLsizei width);
+EXPORT void cwcglTextureStorage2D(GLcontext *context, GLuint texture, GLsizei levels, GLenum internalformat, GLsizei width, GLsizei height);
+EXPORT void cwcglTextureStorage3D(GLcontext *context, GLuint texture, GLsizei levels, GLenum internalformat, GLsizei width, GLsizei height, GLsizei depth);
+EXPORT void cwcglTextureStorage2DMultisample(GLcontext *context, GLuint texture, GLsizei samples, GLenum internalformat, GLsizei width, GLsizei height, GLboolean fixedsamplelocations);
+EXPORT void cwcglTextureStorage3DMultisample(GLcontext *context, GLuint texture, GLsizei samples, GLenum internalformat, GLsizei width, GLsizei height, GLsizei depth, GLboolean fixedsamplelocations);
+EXPORT void cwcglTextureSubImage1D(GLcontext *context, GLuint texture, GLint level, GLint xoffset, GLsizei width, GLenum format, GLenum type, const void * pixels);
+EXPORT void cwcglTextureSubImage2D(GLcontext *context, GLuint texture, GLint level, GLint xoffset, GLint yoffset, GLsizei width, GLsizei height, GLenum format, GLenum type, const void * pixels);
+EXPORT void cwcglTextureSubImage3D(GLcontext *context, GLuint texture, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLenum format, GLenum type, const void * pixels);
+EXPORT void cwcglCompressedTextureSubImage1D(GLcontext *context, GLuint texture, GLint level, GLint xoffset, GLsizei width, GLenum format, GLsizei imageSize, const void * data);
+EXPORT void cwcglCompressedTextureSubImage2D(GLcontext *context, GLuint texture, GLint level, GLint xoffset, GLint yoffset, GLsizei width, GLsizei height, GLenum format, GLsizei imageSize, const void * data);
+EXPORT void cwcglCompressedTextureSubImage3D(GLcontext *context, GLuint texture, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLenum format, GLsizei imageSize, const void * data);
+EXPORT void cwcglCopyTextureSubImage1D(GLcontext *context, GLuint texture, GLint level, GLint xoffset, GLint x, GLint y, GLsizei width);
+EXPORT void cwcglCopyTextureSubImage2D(GLcontext *context, GLuint texture, GLint level, GLint xoffset, GLint yoffset, GLint x, GLint y, GLsizei width, GLsizei height);
+EXPORT void cwcglCopyTextureSubImage3D(GLcontext *context, GLuint texture, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLint x, GLint y, GLsizei width, GLsizei height);
+EXPORT void cwcglTextureParameterf(GLcontext *context, GLuint texture, GLenum pname, GLfloat param);
+EXPORT void cwcglTextureParameterfv(GLcontext *context, GLuint texture, GLenum pname, const GLfloat * param);
+EXPORT void cwcglTextureParameteri(GLcontext *context, GLuint texture, GLenum pname, GLint param);
+EXPORT void cwcglTextureParameterIiv(GLcontext *context, GLuint texture, GLenum pname, const GLint * params);
+EXPORT void cwcglTextureParameterIuiv(GLcontext *context, GLuint texture, GLenum pname, const GLuint * params);
+EXPORT void cwcglTextureParameteriv(GLcontext *context, GLuint texture, GLenum pname, const GLint * param);
+EXPORT void cwcglGenerateTextureMipmap(GLcontext *context, GLuint texture);
+EXPORT void cwcglBindTextureUnit(GLcontext *context, GLuint unit, GLuint texture);
+EXPORT void cwcglGetTextureImage(GLcontext *context, GLuint texture, GLint level, GLenum format, GLenum type, GLsizei bufSize, void * pixels);
+EXPORT void cwcglGetCompressedTextureImage(GLcontext *context, GLuint texture, GLint level, GLsizei bufSize, void * pixels);
+EXPORT void cwcglGetTextureLevelParameterfv(GLcontext *context, GLuint texture, GLint level, GLenum pname, GLfloat * params);
+EXPORT void cwcglGetTextureLevelParameteriv(GLcontext *context, GLuint texture, GLint level, GLenum pname, GLint * params);
+EXPORT void cwcglGetTextureParameterfv(GLcontext *context, GLuint texture, GLenum pname, GLfloat * params);
+EXPORT void cwcglGetTextureParameterIiv(GLcontext *context, GLuint texture, GLenum pname, GLint * params);
+EXPORT void cwcglGetTextureParameterIuiv(GLcontext *context, GLuint texture, GLenum pname, GLuint * params);
+EXPORT void cwcglGetTextureParameteriv(GLcontext *context, GLuint texture, GLenum pname, GLint * params);
+EXPORT void cwcglCreateVertexArrays(GLcontext *context, GLsizei n, GLuint * arrays);
+EXPORT void cwcglDisableVertexArrayAttrib(GLcontext *context, GLuint vaobj, GLuint index);
+EXPORT void cwcglEnableVertexArrayAttrib(GLcontext *context, GLuint vaobj, GLuint index);
+EXPORT void cwcglVertexArrayElementBuffer(GLcontext *context, GLuint vaobj, GLuint buffer);
+EXPORT void cwcglVertexArrayVertexBuffer(GLcontext *context, GLuint vaobj, GLuint bindingindex, GLuint buffer, GLintptr offset, GLsizei stride);
+EXPORT void cwcglVertexArrayVertexBuffers(GLcontext *context, GLuint vaobj, GLuint first, GLsizei count, const GLuint * buffers, const GLintptr * offsets, const GLsizei * strides);
+EXPORT void cwcglVertexArrayAttribBinding(GLcontext *context, GLuint vaobj, GLuint attribindex, GLuint bindingindex);
+EXPORT void cwcglVertexArrayAttribFormat(GLcontext *context, GLuint vaobj, GLuint attribindex, GLint size, GLenum type, GLboolean normalized, GLuint relativeoffset);
+EXPORT void cwcglVertexArrayAttribIFormat(GLcontext *context, GLuint vaobj, GLuint attribindex, GLint size, GLenum type, GLuint relativeoffset);
+EXPORT void cwcglVertexArrayAttribLFormat(GLcontext *context, GLuint vaobj, GLuint attribindex, GLint size, GLenum type, GLuint relativeoffset);
+EXPORT void cwcglVertexArrayBindingDivisor(GLcontext *context, GLuint vaobj, GLuint bindingindex, GLuint divisor);
+EXPORT void cwcglGetVertexArrayiv(GLcontext *context, GLuint vaobj, GLenum pname, GLint * param);
+EXPORT void cwcglGetVertexArrayIndexediv(GLcontext *context, GLuint vaobj, GLuint index, GLenum pname, GLint * param);
+EXPORT void cwcglGetVertexArrayIndexed64iv(GLcontext *context, GLuint vaobj, GLuint index, GLenum pname, GLint64 * param);
+EXPORT void cwcglCreateSamplers(GLcontext *context, GLsizei n, GLuint * samplers);
+EXPORT void cwcglCreateProgramPipelines(GLcontext *context, GLsizei n, GLuint * pipelines);
+EXPORT void cwcglCreateQueries(GLcontext *context, GLenum target, GLsizei n, GLuint * ids);
+EXPORT void cwcglGetQueryBufferObjecti64v(GLcontext *context, GLuint id, GLuint buffer, GLenum pname, GLintptr offset);
+EXPORT void cwcglGetQueryBufferObjectiv(GLcontext *context, GLuint id, GLuint buffer, GLenum pname, GLintptr offset);
+EXPORT void cwcglGetQueryBufferObjectui64v(GLcontext *context, GLuint id, GLuint buffer, GLenum pname, GLintptr offset);
+EXPORT void cwcglGetQueryBufferObjectuiv(GLcontext *context, GLuint id, GLuint buffer, GLenum pname, GLintptr offset);
+EXPORT void cwcglMemoryBarrierByRegion(GLcontext *context, GLbitfield barriers);
+EXPORT void cwcglGetTextureSubImage(GLcontext *context, GLuint texture, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLenum format, GLenum type, GLsizei bufSize, void * pixels);
+EXPORT void cwcglGetCompressedTextureSubImage(GLcontext *context, GLuint texture, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLsizei bufSize, void * pixels);
+EXPORT void cwcglGetGraphicsResetStatus(GLcontext *context, GLenum* return_value);
+EXPORT void cwcglGetnCompressedTexImage(GLcontext *context, GLenum target, GLint lod, GLsizei bufSize, void * pixels);
+EXPORT void cwcglGetnTexImage(GLcontext *context, GLenum target, GLint level, GLenum format, GLenum type, GLsizei bufSize, void * pixels);
+EXPORT void cwcglGetnUniformdv(GLcontext *context, GLuint program, GLint location, GLsizei bufSize, GLdouble * params);
+EXPORT void cwcglGetnUniformfv(GLcontext *context, GLuint program, GLint location, GLsizei bufSize, GLfloat * params);
+EXPORT void cwcglGetnUniformiv(GLcontext *context, GLuint program, GLint location, GLsizei bufSize, GLint * params);
+EXPORT void cwcglGetnUniformuiv(GLcontext *context, GLuint program, GLint location, GLsizei bufSize, GLuint * params);
+EXPORT void cwcglReadnPixels(GLcontext *context, GLint x, GLint y, GLsizei width, GLsizei height, GLenum format, GLenum type, GLsizei bufSize, void * data);
+EXPORT void cwcglGetnMapdv(GLcontext *context, GLenum target, GLenum query, GLsizei bufSize, GLdouble * v);
+EXPORT void cwcglGetnMapfv(GLcontext *context, GLenum target, GLenum query, GLsizei bufSize, GLfloat * v);
+EXPORT void cwcglGetnMapiv(GLcontext *context, GLenum target, GLenum query, GLsizei bufSize, GLint * v);
+EXPORT void cwcglGetnPixelMapfv(GLcontext *context, GLenum map, GLsizei bufSize, GLfloat * values);
+EXPORT void cwcglGetnPixelMapuiv(GLcontext *context, GLenum map, GLsizei bufSize, GLuint * values);
+EXPORT void cwcglGetnPixelMapusv(GLcontext *context, GLenum map, GLsizei bufSize, GLushort * values);
+EXPORT void cwcglGetnPolygonStipple(GLcontext *context, GLsizei bufSize, GLubyte * pattern);
+EXPORT void cwcglGetnColorTable(GLcontext *context, GLenum target, GLenum format, GLenum type, GLsizei bufSize, void * table);
+EXPORT void cwcglGetnConvolutionFilter(GLcontext *context, GLenum target, GLenum format, GLenum type, GLsizei bufSize, void * image);
+EXPORT void cwcglGetnSeparableFilter(GLcontext *context, GLenum target, GLenum format, GLenum type, GLsizei rowBufSize, void * row, GLsizei columnBufSize, void * column, void * span);
+EXPORT void cwcglGetnHistogram(GLcontext *context, GLenum target, GLboolean reset, GLenum format, GLenum type, GLsizei bufSize, void * values);
+EXPORT void cwcglGetnMinmax(GLcontext *context, GLenum target, GLboolean reset, GLenum format, GLenum type, GLsizei bufSize, void * values);
+EXPORT void cwcglTextureBarrier(GLcontext *context);
+#endif
+#if CWCGL_VERSION >= GL_VERSION_4_6
+EXPORT void cwcglSpecializeShader(GLcontext *context, GLuint shader, const GLchar * pEntryPoint, GLuint numSpecializationConstants, const GLuint * pConstantIndex, const GLuint * pConstantValue);
+EXPORT void cwcglMultiDrawArraysIndirectCount(GLcontext *context, GLenum mode, const void * indirect, GLintptr drawcount, GLsizei maxdrawcount, GLsizei stride);
+EXPORT void cwcglMultiDrawElementsIndirectCount(GLcontext *context, GLenum mode, GLenum type, const void * indirect, GLintptr drawcount, GLsizei maxdrawcount, GLsizei stride);
+EXPORT void cwcglPolygonOffsetClamp(GLcontext *context, GLfloat factor, GLfloat units, GLfloat clamp);
+#endif
 EXPORT int InitOpenGL(void);
 
 #ifdef __cplusplus

@@ -76,12 +76,14 @@ extern "C" {
 #endif
 #endif
 
+#if !defined(EXPORT)
 #if defined(CWCGL_WINDOWS)
 #define EXPORT __declspec(dllexport)
 #elif defined(CWCGL_EMSCRIPTEN)
 #define EXPORT EMSCRIPTEN_KEEPALIVE
 #else
 #define EXPORT
+#endif
 #endif
 
 /*!

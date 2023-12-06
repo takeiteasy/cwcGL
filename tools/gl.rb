@@ -168,6 +168,16 @@ extern "C" {
 #endif
 #endif
 
+#if !defined(EXPORT)
+#if defined(CWCGL_WINDOWS)
+#define EXPORT __declspec(dllexport)
+#elif defined(CWCGL_EMSCRIPTEN)
+#define EXPORT EMSCRIPTEN_KEEPALIVE
+#else
+#define EXPORT
+#endif
+#endif
+
 #if !defined(CWCGL_VERSION)
 #define CWCGL_VERSION 1000
 #endif
@@ -258,14 +268,41 @@ if $OutputGLBindings
   puts "#undef X", ""
 end
 
+# Define command-types enum for each OpenGL function
+puts "typedef enum {"
+commands.each do |k, _|
+  puts "    cwc#{k}Command,"
+end
+puts "} GLcommandType;"
+
+puts <<STRUCTS
+
+typedef struct GLcommand {
+    GLcommandType type;
+    void *data;
+    struct GLcommand *next, *prev;
+} GLcommand;
+
+typedef struct {
+    GLcommand *front, *back;
+} GLcontext;
+
+STRUCTS
+
 # Generate header definitions
 if not $DisableWrapperOut
-  commands.each do |k, v|
-    argsVoid = (v[:params].length == 1 and v[:params][0] == "void")
-    returnsVoid = v[:result] == "void"
-    params = v[:params].join ", "
-    returnValue = returnsVoid ? "" : ", #{v[:result]}* return_value"
-    puts "EXPORT void cwc#{k}(GLcontext *context#{params == "void" ? "" : ", " + params}#{returnValue});"
+  $functions.each do |k, v|
+    maj, min = k.split '.'
+    puts "#if CWCGL_VERSION >= GL_VERSION_#{maj}_#{min}"
+    v.each do |vv|
+      cmd = commands[vv[1]]
+      argsVoid = (cmd[:params].length == 1 and cmd[:params][0] == "void")
+      returnsVoid = cmd[:result] == "void"
+      params = cmd[:params].join ", "
+      returnValue = returnsVoid ? "" : ", #{cmd[:result]}* return_value"
+      puts "EXPORT void cwc#{vv[1]}(GLcontext *context#{params == "void" ? "" : ", " + params}#{returnValue});"
+    end
+    puts "#endif"
   end
 end
 
@@ -314,8 +351,8 @@ puts <<SOURCE
  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#include "cwcgl.h"
-#include "wrapper.h"
+#include "glWrapper.h"
+#include <stdlib.h>
 
 SOURCE
 
@@ -447,7 +484,7 @@ static void* LoadGLProc(const char *namez) {
 }
 
 #define X(T, N) \\
-    if (!(cwcgl##N = (T)LoadGLProc(#N))) \\
+    if (!(__##N = (T)LoadGLProc(#N))) \\
         failures++;
 static int failures = 0;
 int InitOpenGL(void) {
@@ -478,18 +515,11 @@ if $DisableWrapperOut
   exit 0
 end
 
-# Define command-types enum for each OpenGL function
-puts "typedef enum {"
-commands.each do |k, _|
-  puts "    cwc#{k}Command,"
-end
-puts "} cwcglCommandType;", ""
-
-# Define the base `command` type
-puts "typedef struct {"
-puts "    void* data;"
-puts "    cwcglCommandType type;"
-puts "} cwcglCommand;", ""
+puts <<CONTEXT
+static void PushCommand(GLcontext *context, GLcommand *command) {
+     // TODO
+}
+CONTEXT
 
 # Generate command data structures and wrapper functions for each OpenGL function
 commands.each do |k, v|
@@ -515,7 +545,7 @@ commands.each do |k, v|
   noParams = params == "void"
   returnValue = returnsVoid ? "" : ", #{v[:result]}* return_value"
   puts "void cwc#{k}(GLcontext *context#{noParams ? "" : ", " + params}#{returnValue}) {"
-  puts "    cwcglCommand* command = malloc(sizeof(cwcglCommand);"
+  puts "    GLcommand* command = malloc(sizeof(GLcommand));"
   hasParams = (not noParams or (not returnsVoid and argsVoid))
   if hasParams
     puts "    cwc#{k}CommandData* data = malloc(sizeof(cwc#{k}CommandData));"
@@ -535,12 +565,12 @@ commands.each do |k, v|
   else
     puts "    command->data = NULL;"
   end
-  puts "    cwcglPushCommand(context, command);"
+  puts "    PushCommand(context, command);"
   puts "}", ""
 end
 
 # Define function to free commands
-puts "void cwcglFreeCommand(cwcglCommand* command) {"
+puts "static void FreeCommand(GLcommand* command) {"
 puts "    switch (command->type)"
 commands.each do |k, v|
   argsVoid = v[:params].length == 1 and v[:params][0] == "void"
@@ -556,7 +586,7 @@ puts "            break;"
 puts "}", ""
 
 # Define function to process commands back to OpenGL function
-puts "void cwcglProcessCommand(cwcglCommand* command) {"
+puts "static void ProcessCommand(GLcommand* command) {"
 puts "    switch (command->type)"
 commands.each do |k, v|
   argsVoid = v[:params].length == 1 and v[:params][0] == "void"
