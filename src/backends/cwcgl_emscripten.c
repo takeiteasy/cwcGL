@@ -1,5 +1,5 @@
 /* cwcgl_emscripten.c -- https://github.com/takeiteasy/cwcGL
- 
+
  The MIT License (MIT)
  Copyright (c) 2022 George Watson
  Permission is hereby granted, free of charge, to any person
@@ -19,6 +19,7 @@
  TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
+#include "glWindow.c"
 #include <emscripten/html5_webgl.h>
 #define canvas "#canvas"
 
@@ -92,13 +93,13 @@ static const char* beforeunload_callback(int eventType, const void *reserved, vo
 int glWindow(unsigned int w, unsigned int h, const char *title, GLflags flags) {
     if (GLwindow.running)
         return 0;
-    
+
     emscripten_set_canvas_element_size(canvas, w, h);
-    
+
     emscripten_set_keypress_callback(EMSCRIPTEN_EVENT_TARGET_WINDOW, 0, 1, key_callback);
     emscripten_set_keydown_callback(EMSCRIPTEN_EVENT_TARGET_WINDOW, 0, 1, key_callback);
     emscripten_set_keyup_callback(EMSCRIPTEN_EVENT_TARGET_WINDOW, 0, 1, key_callback);
-    
+
     emscripten_set_click_callback(canvas, 0, 1, mouse_callback);
     emscripten_set_mousedown_callback(canvas, 0, 1, mouse_callback);
     emscripten_set_mouseup_callback(canvas, 0, 1, mouse_callback);
@@ -108,22 +109,22 @@ int glWindow(unsigned int w, unsigned int h, const char *title, GLflags flags) {
     emscripten_set_mouseleave_callback(canvas, 0, 1, mouse_callback);
     emscripten_set_mouseover_callback(canvas, 0, 1, mouse_callback);
     emscripten_set_mouseout_callback(canvas, 0, 1, mouse_callback);
-    
+
     emscripten_set_wheel_callback(EMSCRIPTEN_EVENT_TARGET_WINDOW, 0, 1, wheel_callback);
 
     emscripten_set_resize_callback(EMSCRIPTEN_EVENT_TARGET_WINDOW, 0, 1, uievent_callback);
     emscripten_set_scroll_callback(EMSCRIPTEN_EVENT_TARGET_WINDOW, 0, 1, uievent_callback);
-    
+
     emscripten_set_blur_callback(EMSCRIPTEN_EVENT_TARGET_WINDOW, 0, 1, focusevent_callback);
     emscripten_set_focus_callback(EMSCRIPTEN_EVENT_TARGET_WINDOW, 0, 1, focusevent_callback);
     emscripten_set_focusin_callback(EMSCRIPTEN_EVENT_TARGET_WINDOW, 0, 1, focusevent_callback);
     emscripten_set_focusout_callback(EMSCRIPTEN_EVENT_TARGET_WINDOW, 0, 1, focusevent_callback);
-    
+
     EmscriptenWebGLContextAttributes attribs;
     emscripten_webgl_init_context_attributes(&attribs);
     attribs.majorVersion = GL_VERSION_MAJOR;
     GLnative.webgl = emscripten_webgl_create_context(canvas, &attribs);
-    
+
     GLwindow.running = emscripten_webgl_make_context_current(GLnative.webgl) == EMSCRIPTEN_RESULT_SUCCESS;
     return GLwindow.running;
 }

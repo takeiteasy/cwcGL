@@ -63,13 +63,3 @@ void glWindowUserdata(void *userdata) {
 int glIsWindowOpen(void) {
     return GLwindow.running;
 }
-
-#if defined(CWCGL_EMSCRIPTEN)
-#include "backends/cwcgl_emscripten.c"
-#elif defined(CWCGL_MAC)
-#include "backends/cwcgl_mac.c"
-#elif defined(CWCGL_WINDOWS)
-#include "backends/cwcgl_windows.c"
-#elif defined(CWCGL_LINUX)
-#include "backends/cwcgl_linux.c"
-#endif

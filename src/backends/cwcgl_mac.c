@@ -1,5 +1,5 @@
 /* cwcgl_mac.c -- https://github.com/takeiteasy/cwcGL
- 
+
  The MIT License (MIT)
  Copyright (c) 2022 George Watson
  Permission is hereby granted, free of charge, to any person
@@ -19,6 +19,7 @@
  TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
+#include "glWindow.c"
 #include <stdio.h>
 #include <limits.h>
 #include <assert.h>
@@ -235,32 +236,32 @@ static id CreateNSString(const char *str) {
 int glWindow(unsigned int w, unsigned int h, const char *title, GLflags flags) {
     if (GLwindow.running)
         return 0;
-    
+
     AutoreleasePool({
         ObjC(id)(class(NSApplication), sel(sharedApplication));
         ObjC(void, NSInteger)(NSApp, sel(setActivationPolicy:), NSApplicationActivationPolicyRegular);
-        
+
         Class AppDelegate = ObjC_Class(AppDelegate, NSObject);
         ObjC_AddMethod(AppDelegate, applicationShouldTerminate, applicationShouldTerminate, NSUIntegerEncoding "@:@:");
         id appDelegate = ObjC(id)(ObjC(id)((id)AppDelegate, sel(alloc)), sel(init));
-        
+
         ObjC(void, id)(NSApp, sel(setDelegate:), appDelegate);
         ObjC(void)(NSApp, sel(finishLaunching));
-        
+
         id menuBar = ObjC_Initalize(NSMenu);
         id menuItem = ObjC_Initalize(NSMenuItem);
         ObjC(void, id)(menuBar, sel(addItem:), menuItem);
         ObjC(id, id)(NSApp, sel(setMainMenu:), menuBar);
         id procInfo = ObjC(id)(class(NSProcessInfo), sel(processInfo));
         id appName = ObjC(id)(procInfo, sel(processName));
-        
+
         id appMenu = ObjC(id, id)(ObjC_Alloc(NSMenu), sel(initWithTitle:), appName);
         id quitTitle = ObjC(id, id)(CreateNSString("Quit "), sel(stringByAppendingString:), appName);
         id quitItem = ObjC(id, id, SEL, id)(ObjC_Alloc(NSMenuItem), sel(initWithTitle:action:keyEquivalent:), quitTitle, sel(terminate:), CreateNSString("q"));
-        
+
         ObjC(void, id)(appMenu, sel(addItem:), quitItem);
         ObjC(void, id)(menuItem, sel(setSubmenu:), appMenu);
-        
+
         NSWindowStyleMask styleMask = NSWindowStyleMaskTitled | NSWindowStyleMaskClosable | NSWindowStyleMaskMiniaturizable;
 #if MAC_OS_X_VERSION_MAX_ALLOWED < MAC_OS_X_VERSION_10_7
         if (flags & glFullscreen)
@@ -269,7 +270,7 @@ int glWindow(unsigned int w, unsigned int h, const char *title, GLflags flags) {
         flags |= (flags & glFullscreen ? (glBorderless | glResizable | glFullscreenDesktop) : 0);
         styleMask |= (flags & glResizable ? NSWindowStyleMaskResizable : 0);
         styleMask |= (flags & glBorderless ? NSWindowStyleMaskFullSizeContentView : 0);
-        
+
         if (flags & glFullscreenDesktop) {
             NSRect f = ObjC_Struct(NSRect)(ObjC(id)(class(NSScreen), sel(mainScreen)), sel(frame));
             w = f.size.width;
@@ -277,24 +278,24 @@ int glWindow(unsigned int w, unsigned int h, const char *title, GLflags flags) {
             styleMask |= NSWindowStyleMaskFullSizeContentView;
         }
         NSRect windowFrame = {{0, 0}, {w, h}};
-        
+
         GLnative.window = ObjC(id, NSRect, NSUInteger, NSUInteger, BOOL)(ObjC_Alloc(NSWindow), sel(initWithContentRect:styleMask:backing:defer:), windowFrame, styleMask, NSBackingStoreBuffered, NO);
         ObjC(void, BOOL)(GLnative.window, sel(setReleasedWhenClosed:), NO);
-        
+
         if (flags & glAlwaysOnTop)
             ObjC(void, NSInteger)(GLnative.window, sel(setLevel:), NSFloatingWindowLevel);
-        
+
 #if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_7
         if (flags & glFullscreen) {
             ObjC(void, NSUInteger)(GLnative.window, sel(setCollectionBehavior:), NSWindowCollectionBehaviorFullScreenPrimary);
             ObjC(void, SEL, id, BOOL)(GLnative.window, sel(performSelectorOnMainThread:withObject:waitUntilDone:), sel(toggleFullScreen:), GLnative.window, NO);
         }
 #endif
-        
+
         ObjC(void, BOOL)(GLnative.window, sel(setAcceptsMouseMovedEvents:), YES);
         ObjC(void, BOOL)(GLnative.window, sel(setRestorable:), NO);
         ObjC(void, BOOL)(GLnative.window, sel(setReleasedWhenClosed:), NO);
-        
+
         id windowTitle = nil;
         if (flags & glBorderless && flags & ~glFullscreen) {
             windowTitle = ObjC(id)(class(NSString), sel(string));
@@ -307,8 +308,8 @@ int glWindow(unsigned int w, unsigned int h, const char *title, GLflags flags) {
         ObjC(void, id)(GLnative.window, sel(setTitle:), windowTitle);
         ObjC(void)(GLnative.window, sel(center));
         ObjC(void, id)(GLnative.window, sel(setBackgroundColor:), ObjC(id)(class(NSColor), sel(blackColor)));
-        
-        
+
+
         Class WindowDelegate = ObjC_Class(WindowDelegate, NSObject);
         ObjC_AddIVar(WindowDelegate, glWindow, sizeof(void*), "ˆv");
         ObjC_AddMethod(WindowDelegate, windowShouldClose:, windowShouldClose, "c@:@");
@@ -319,12 +320,12 @@ int glWindow(unsigned int w, unsigned int h, const char *title, GLflags flags) {
         ObjC_SubClass(WindowDelegate);
         id windowDelegate = ObjC(id)(ObjC(id)((id)WindowDelegate, sel(alloc)), sel(init));
         ObjC(void, id)(GLnative.window, sel(setDelegate:), windowDelegate);
-        
+
         id contentView = ObjC(id)(GLnative.window, sel(contentView));
         int trackingFlags = NSTrackingMouseEnteredAndExited | NSTrackingActiveInKeyWindow | NSTrackingInVisibleRect;
         id trackingArea = ObjC(id, NSRect, int, id, id)(ObjC_Alloc(NSTrackingArea), sel(initWithRect:options:owner:userInfo:), windowFrame, trackingFlags, windowDelegate, 0);
         ObjC(void, id)(contentView, sel(addTrackingArea:), trackingArea);
-        
+
         NSOpenGLPixelFormatAttribute pixelFormatAttributes[] = {
             NSOpenGLPFAOpenGLProfile, NSOpenGLProfileVersion3_2Core,
             NSOpenGLPFAColorSize, 24,
@@ -334,18 +335,18 @@ int glWindow(unsigned int w, unsigned int h, const char *title, GLflags flags) {
             NSOpenGLPFANoRecovery,
             0
         };
-        
+
         id pixelFormat = ObjC(id, const uint32_t*)(ObjC_Alloc(NSOpenGLPixelFormat), sel(initWithAttributes:), pixelFormatAttributes);
-        
+
         GLnative.glContext = ObjC(id, id, id)(ObjC_Alloc(NSOpenGLContext), sel(initWithFormat:shareContext:), pixelFormat, nil);
         ObjC(void, id)(GLnative.glContext, sel(setView:), contentView);
         ObjC(void)(GLnative.glContext, sel(makeCurrentContext));
-        
+
         ObjC(void, BOOL)(GLnative.window, sel(setAcceptsMouseMovedEvents:), YES);
         ObjC(void, SEL, id, BOOL)(GLnative.window, sel(performSelectorOnMainThread:withObject:waitUntilDone:), sel(makeKeyAndOrderFront:), nil, YES);
         ObjC(void, BOOL)(NSApp, sel(activateIgnoringOtherApps:), YES);
     });
-    
+
     GLwindow.running = 1;
     return 1;
 }
@@ -696,7 +697,7 @@ static uint32_t ConvertMacMod(NSUInteger modifierFlags) {
 int glPollWindow(void) {
     if (!GLwindow.running)
         return 0;
-    
+
     id distantPast = ObjC(id)(class(NSDate), sel(distantPast));
     id e = nil;
     while (GLwindow.running && (e = ObjC(id, unsigned long long, id, id, BOOL)(NSApp, sel(nextEventMatchingMask:untilDate:inMode:dequeue:), NSUIntegerMax, distantPast, NSDefaultRunLoopMode, YES))) {

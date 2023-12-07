@@ -1,5 +1,5 @@
 /* cwc_linux.c -- https://github.com/takeiteasy/cwcGL
- 
+
  The MIT License (MIT)
  Copyright (c) 2022 George Watson
  Permission is hereby granted, free of charge, to any person
@@ -19,6 +19,7 @@
  TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
+#include "glWindow.c"
 #include <sys/time.h>
 #include <X11/X.h>
 #include <X11/Xlib.h>
@@ -48,18 +49,18 @@ struct Hints {
 int glWindow(unsigned int w, unsigned int h, const char *title, GLflags flags) {
     if (GLwindow.running)
         return 0;
-    
+
     if (!(GLnative.display = XOpenDisplay(NULL)))
         return 0;
     GLnative.root   = DefaultRootWindow(GLnative.display);
     GLnative.screen = DefaultScreen(GLnative.display);
-    
+
     int screenW = DisplayWidth(GLnative.display, GLnative.screen);
     int screenH = DisplayHeight(GLnative.display, GLnative.screen);
-    
+
     if (flags & ppFullscreen)
         flags = ppFullscreen | ppBorderless;
-    
+
     int x = 0, y = 0;
     if (flags & ppFullscreen || flags & ppFullscreenDesktop) {
         w = screenW;
@@ -68,7 +69,7 @@ int glWindow(unsigned int w, unsigned int h, const char *title, GLflags flags) {
         x = screenW / 2 - w / 2;
         y = screenH / 2 - h / 2;
     }
-    
+
     Visual *visual = DefaultVisual(GLnative.display, GLnative.screen);
     int format_c = 0;
     XPixmapFormatValues* formats = XListPixmapFormats(GLnative.display, &format_c);
@@ -82,7 +83,7 @@ int glWindow(unsigned int w, unsigned int h, const char *title, GLflags flags) {
     XFree(formats);
     if (depth_c != 32)
         return 0;
-    
+
     static int attribList[] = {
         GLX_RENDER_TYPE,
         GLX_RGBA_BIT,
@@ -98,24 +99,24 @@ int glWindow(unsigned int w, unsigned int h, const char *title, GLflags flags) {
         1,
         None
     };
-    
+
     int fbcCount = 0;
     GLXFBConfig* fbc = glXChooseFBConfig(dpy, DefaultScreen(dpy), attribList, &fbcCount);
     if (!fbc)
         return 0;
     fbConfig = fbc[0];
-    
+
     XVisualInfo *vi = glXGetVisualFromFBConfig(GLnative.display, fbConfig);
     if (!vi)
         return 0;
-    
+
     GLXContext tmpCtx = glXCreateContext(GLnative.display, vi, 0, GL_TRUE);
     glXCreateContextAttribsARB =
     (PFNGLXCREATECONTEXTATTRIBSARBPROC)glXGetProcAddressARB((const GLubyte*)"glXCreateContextAttribsARB");
     glXDestroyContext(GLnative.display, tmpCtx);
     if (!glXCreateContextAttribsARB)
         return 0;
-    
+
     GLnative.glc = glXCreateContext(GLnative.display, vi, NULL, GL_TRUE);
 #if !defined(GL_LEGACY) && defined(GL_VERSION_MAJOR) && defined(GL_VERSION_MINOR)
     int contextAttributes[] = {
@@ -132,7 +133,7 @@ int glWindow(unsigned int w, unsigned int h, const char *title, GLflags flags) {
 #endif
     GLnative.glc = glXCreateContextAttribsARB(GLnative.display, fbConfig, NULL, GL_TRUE, contextAttributes);
     glXMakeCurrent(GLnative.display, GLnative.window, GLnative.glc);
-    
+
     XSetWindowAttributes swa;
     swa.override_redirect = True;
     swa.border_pixel = BlackPixel(GLnative.display, GLnative.screen);
@@ -142,13 +143,13 @@ int glWindow(unsigned int w, unsigned int h, const char *title, GLflags flags) {
         return 0;
     GLnative.width = w;
     GLnative.height = h;
-    
+
     GLnative.delete = XInternAtom(GLnative.display, "WM_DELETE_WINDOW", False);
     XSetWMProtocols(GLnative.display, GLnative.window, &GLnative.delete, 1);
-    
+
     XSelectInput(GLnative.display, GLnative.window, StructureNotifyMask | KeyPressMask | KeyReleaseMask | PointerMotionMask | ButtonPressMask | ButtonReleaseMask | ExposureMask | FocusChangeMask | EnterWindowMask | LeaveWindowMask);
     XStoreName(GLnative.display, GLnative.window, title);
-    
+
     if (flags & ppFullscreen) {
         Atom p = XInternAtom(GLnative.display, "_NET_WM_STATE_FULLSCREEN", True);
         XChangeProperty(GLnative.display, GLnative.window, XInternAtom(GLnative.display, "_NET_WM_STATE", True), XA_ATOM, 32, PropModeReplace, (unsigned char*)&p, 1);
@@ -160,12 +161,12 @@ int glWindow(unsigned int w, unsigned int h, const char *title, GLflags flags) {
         Atom p = XInternAtom(GLnative.display, "_MOTIF_WM_HINTS", True);
         XChangeProperty(GLnative.display, GLnative.window, p, p, 32, PropModeReplace, (unsigned char*)&hints, 5);
     }
-    
+
     if (flags & ppAlwaysOnTop) {
         Atom p = XInternAtom(GLnative.display, "_NET_WM_STATE_ABOVE", False);
         XChangeProperty(GLnative.display, GLnative.window, XInternAtom(GLnative.display, "_NET_WM_STATE", False), XA_ATOM, 32, PropModeReplace, (unsigned char *)&p, 1);
     }
-    
+
     XSizeHints hints;
     hints.flags = PPosition | PMinSize | PMaxSize;
     hints.x = 0;
@@ -186,7 +187,7 @@ int glWindow(unsigned int w, unsigned int h, const char *title, GLflags flags) {
     XMapRaised(GLnative.display, GLnative.window);
     XFlush(GLnative.display);
     GLnative.gc = DefaultGC(GLnative.display, GLnative.screen);
-    
+
     GLwindow.running = 1;
     return 1;
 }
@@ -196,7 +197,7 @@ static uint8_t ConvertX11Key(KeySym sym) {
         return (uint8_t)sym - ('a' - 'A');
     if (sym >= '0' && sym <= '9')
         return (uint8_t)sym;
-    
+
     switch (sym) {
         case XK_KP_0:
             return KEY_PAD0;
@@ -218,7 +219,7 @@ static uint8_t ConvertX11Key(KeySym sym) {
             return KEY_PAD8;
         case XK_KP_9:
             return KEY_PAD9;
-            
+
         case XK_KP_Multiply:
             return KEY_PADMUL;
         case XK_KP_Divide:
@@ -231,7 +232,7 @@ static uint8_t ConvertX11Key(KeySym sym) {
             return KEY_PADDOT;
         case XK_KP_Enter:
             return KEY_PADENTER;
-            
+
         case XK_F1:
             return KEY_F1;
         case XK_F2:
@@ -256,7 +257,7 @@ static uint8_t ConvertX11Key(KeySym sym) {
             return KEY_F11;
         case XK_F12:
             return KEY_F12;
-            
+
         case XK_BackSpace:
             return KEY_BACKSPACE;
         case XK_Tab:
@@ -271,7 +272,7 @@ static uint8_t ConvertX11Key(KeySym sym) {
             return KEY_ESCAPE;
         case XK_space:
             return KEY_SPACE;
-            
+
         case XK_Page_Up:
             return KEY_PAGEUP;
         case XK_Page_Down:
@@ -292,7 +293,7 @@ static uint8_t ConvertX11Key(KeySym sym) {
             return KEY_INSERT;
         case XK_Delete:
             return KEY_DELETE;
-            
+
         case XK_Meta_L:
             return KEY_LWIN;
         case XK_Meta_R:
@@ -313,7 +314,7 @@ static uint8_t ConvertX11Key(KeySym sym) {
             return KEY_LALT;
         case XK_Alt_R:
             return KEY_RALT;
-            
+
         case XK_semicolon:
             return KEY_SEMICOLON;
         case XK_equal:
@@ -398,7 +399,7 @@ static int ConvertX11ModEx(int key, int state, int is_pressed) {
 int glPollWindow(void) {
     if (!GLwindow.running)
         return 0;
-    
+
     XEvent e;
     while (GLwindow.running && XPending(GLnative.display)) {
         XNextEvent(GLnative.display, &e);

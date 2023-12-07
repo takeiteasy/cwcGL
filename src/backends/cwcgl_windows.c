@@ -1,5 +1,5 @@
 /* cwc_windows.c -- https://github.com/takeiteasy/cwcGL
- 
+
  The MIT License (MIT)
  Copyright (c) 2022 George Watson
  Permission is hereby granted, free of charge, to any person
@@ -18,6 +18,8 @@
  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
  TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
+
+#include "glWindow.c"
 
 #define NOMINMAX
 #define WIN32_LEAN_AND_MEAN
@@ -97,7 +99,7 @@ static struct {
 
 static int WindowsModState(void) {
     int mods = 0;
-    
+
     if (GetKeyState(VK_SHIFT) & 0x8000)
         mods |= KEY_MOD_SHIFT;
     if (GetKeyState(VK_CONTROL) & 0x8000)
@@ -110,7 +112,7 @@ static int WindowsModState(void) {
         mods |= KEY_MOD_CAPS_LOCK;
     if (GetKeyState(VK_NUMLOCK) & 1)
         mods |= KEY_MOD_NUM_LOCK;
-    
+
     return mods;
 }
 
@@ -265,7 +267,7 @@ static int ConvertWindowsKey(int key) {
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
     if (!GLwindow.running)
         goto DEFAULT_PROC;
-    
+
     switch(message) {
         case WM_PAINT:
             SwapBuffers(GLnative.hdc);
@@ -440,7 +442,7 @@ int glWindow(unsigned int w, unsigned int h, const char *title, GLflags flags) {
     GLnative.wnd.lpszClassName = title;
     if (!RegisterClass(&GLnative.wnd))
         return 0;
-    
+
     GLnative.width = rect.right;
     GLnative.height = rect.bottom;
     if (!(GLnative.hwnd = CreateWindowEx(0, title, title, GLnative.windowFlags, rect.left, rect.top, rect.right, rect.bottom, 0, 0, 0, 0)))
@@ -482,7 +484,7 @@ int glWindow(unsigned int w, unsigned int h, const char *title, GLflags flags) {
 #if !defined(GL_LEGACY) && defined(GL_VERSION_MAJOR) && defined(GL_VERSION_MINOR)
     wglChoosePixelFormat = (PFNWGLCHOOSEPIXELFORMATARBPROC)wglGetProcAddress("wglChoosePixelFormatARB");
     wglCreateContextAttribs = (PFNWGLCREATECONTEXTATTRIBSARBPROC)wglGetProcAddress("wglCreateContextAttribsARB");
-    
+
     int wglAttrib[] = {
         WGL_DRAW_TO_WINDOW_ARB, 1,
         WGL_SUPPORT_OPENGL_ARB, 1,
@@ -499,7 +501,7 @@ int glWindow(unsigned int w, unsigned int h, const char *title, GLflags flags) {
         0
     };
     UINT numFormats;
-    
+
     if (!wglChoosePixelFormat || !wglCreateContextAttribs)
         goto SKIP;
     if (!wglChoosePixelFormat(GLnative.hdc, wglAttrib, NULL, 1, &pf, &numFormats))
@@ -519,7 +521,7 @@ SKIP:
 int glPollWindow(void) {
     if (!GLwindow.running)
         return 0;
-        
+
     static MSG msg;
     if (PeekMessage(&msg, GLnative.hwnd, 0, 0, PM_REMOVE)) {
         TranslateMessage(&msg);

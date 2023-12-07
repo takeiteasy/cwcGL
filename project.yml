@@ -30,8 +30,9 @@ targets:
         - path: src/
           excludes:
             - "backends/"
-        - path: src/backends
+        - path: src/backends/
           type: folder
+        - path: src/backends/cwcgl_mac.c
     dependencies:
         - sdk: Cocoa.framework
     settings:
