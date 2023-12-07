@@ -206,9 +206,9 @@ puts "\n/* khrplatform.h -- [https://registry.khronos.org/EGL/api/KHR/khrplatfor
 defined = []
 $functions = {}
 features.each do |f|
-  puts "#if CWCGL_VERSION >= #{f.attr 'name'}"
   ver = f.attr 'number'
   $functions[ver] = []
+  output = []
 
   f.children.each do |ff|
     ff.children.each do |fff|
@@ -236,22 +236,23 @@ features.each do |f|
       next if defined.include? name
       case fff.to_s
       when /^<type/
-        puts types[name]
-      when /^<enum/
-        puts "#define #{name} #{enums[name]}"
+        output.append(types[name])
       when /^<command/
         proc = "PFN#{name.upcase}PROC"
-        puts "typedef #{commands[name][:result]} (APIENTRYP #{proc})(#{commands[name][:params].join ', '});"
-        puts "#define #{name} __#{name}"
         $functions[ver].append [proc, name]
       end
       defined << name
     end
   end
-  puts "#endif", ""
+
+  unless output.empty?
+    puts "#if CWCGL_VERSION >= #{f.attr 'name'}"
+    puts output.join("\n")
+    puts "#endif"
+  end
 end
 
-puts "typedef khronos_intptr_t GLintptr;"
+puts "", "typedef khronos_intptr_t GLintptr;"
 types.each do |k, v|
   if v.start_with?("typedef")
     puts v unless v.start_with?("typedef void (")
@@ -372,6 +373,27 @@ puts <<SOURCE
 SOURCE
 
 PrintGLVersionsMacro() if not $OutputGLBindings
+
+# Define OpenGL functions
+features.each do |f|
+  puts "#if CWCGL_VERSION >= #{f.attr 'name'}"
+  f.children.each do |ff|
+    ff.children.each do |fff|
+      name = fff.attr("name")
+      next unless defined.include? name
+      case fff.to_s
+      when /^<enum/
+        puts "#define #{name} #{enums[name]}"
+      when /^<command/
+        proc = "PFN#{name.upcase}PROC"
+        puts "typedef #{commands[name][:result]} (APIENTRYP #{proc})(#{commands[name][:params].join ', '});"
+        puts "#define #{name} __#{name}"
+      end
+      defined << name
+    end
+  end
+  puts "#endif", ""
+end
 
 # Define extern implementations
 puts "#define X(T, N) T __##N = (T)((void*)0);"
@@ -558,7 +580,7 @@ $functions.each do |k, v|
     else
       if not returnsVoid
         puts "typedef struct {"
-        puts "    #{cmd[:result]} return_value;"
+        puts "    #{cmd[:result]}* return_value;"
         puts "} cwc#{key}CommandData;", ""
       end
     end
@@ -576,9 +598,13 @@ $functions.each do |k, v|
           puts "    command_data->#{vvv} = #{vvv};"
         end
       end
-    #   unless returnsVoid
-    #     puts "    command_data->return_value = return_value;"
-    #   end
+      unless returnsVoid
+        if cmd[:result].include?("*")
+          puts "    command_data->return_value = return_value;"
+        else
+          puts "    command_data->return_value = return_value;"
+        end
+      end
     end
     puts "    command->type = cwc#{key}Command;"
     if hasParams
@@ -639,10 +665,10 @@ $functions.each do |k, v|
                  ""
                end
       unless returnsVoid
-      #   puts "            if (command_data->return_value)"
-      #   puts "                *(command_data->return_value) = #{key}(#{params});"
-      #   puts "            else"
-      #   puts "                #{key}(#{params});"
+        puts "            if (command_data->return_value)"
+        puts "                *(command_data->return_value) = #{key}(#{params});"
+        puts "            else"
+        puts "                #{key}(#{params});"
       else
         puts "            #{key}(#{params});"
       end
