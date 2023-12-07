@@ -7057,7 +7057,7 @@ void cwcglGetIntegerv(GLcontext *context, GLenum pname, GLint * data) {
 }
 typedef struct {
     GLenum name;
-    const GLubyte * return_value;
+    const GLubyte ** return_value;
 } cwcglGetStringCommandData;
 
 void cwcglGetString(GLcontext *context, GLenum name, const GLubyte ** return_value) {
@@ -7159,7 +7159,7 @@ void cwcglGetTexLevelParameteriv(GLcontext *context, GLenum target, GLint level,
 }
 typedef struct {
     GLenum cap;
-    GLboolean return_value;
+    GLboolean* return_value;
 } cwcglIsEnabledCommandData;
 
 void cwcglIsEnabled(GLcontext *context, GLenum cap, GLboolean* return_value) {
@@ -7267,7 +7267,7 @@ void cwcglDeleteLists(GLcontext *context, GLuint list, GLsizei range) {
 }
 typedef struct {
     GLsizei range;
-    GLuint return_value;
+    GLuint* return_value;
 } cwcglGenListsCommandData;
 
 void cwcglGenLists(GLcontext *context, GLsizei range, GLuint* return_value) {
@@ -9787,7 +9787,7 @@ void cwcglSelectBuffer(GLcontext *context, GLsizei size, GLuint * buffer) {
 }
 typedef struct {
     GLenum mode;
-    GLint return_value;
+    GLint* return_value;
 } cwcglRenderModeCommandData;
 
 void cwcglRenderMode(GLcontext *context, GLenum mode, GLint* return_value) {
@@ -10669,7 +10669,7 @@ void cwcglGetTexGeniv(GLcontext *context, GLenum coord, GLenum pname, GLint * pa
 }
 typedef struct {
     GLuint list;
-    GLboolean return_value;
+    GLboolean* return_value;
 } cwcglIsListCommandData;
 
 void cwcglIsList(GLcontext *context, GLuint list, GLboolean* return_value) {
@@ -11161,7 +11161,7 @@ void cwcglGenTextures(GLcontext *context, GLsizei n, GLuint * textures) {
 }
 typedef struct {
     GLuint texture;
-    GLboolean return_value;
+    GLboolean* return_value;
 } cwcglIsTextureCommandData;
 
 void cwcglIsTexture(GLcontext *context, GLuint texture, GLboolean* return_value) {
@@ -11329,7 +11329,7 @@ typedef struct {
     GLsizei n;
     const GLuint * textures;
     GLboolean * residences;
-    GLboolean return_value;
+    GLboolean* return_value;
 } cwcglAreTexturesResidentCommandData;
 
 void cwcglAreTexturesResident(GLcontext *context, GLsizei n, const GLuint * textures, GLboolean * residences, GLboolean* return_value) {
@@ -12975,7 +12975,7 @@ void cwcglDeleteQueries(GLcontext *context, GLsizei n, const GLuint * ids) {
 }
 typedef struct {
     GLuint id;
-    GLboolean return_value;
+    GLboolean* return_value;
 } cwcglIsQueryCommandData;
 
 void cwcglIsQuery(GLcontext *context, GLuint id, GLboolean* return_value) {
@@ -13105,7 +13105,7 @@ void cwcglGenBuffers(GLcontext *context, GLsizei n, GLuint * buffers) {
 }
 typedef struct {
     GLuint buffer;
-    GLboolean return_value;
+    GLboolean* return_value;
 } cwcglIsBufferCommandData;
 
 void cwcglIsBuffer(GLcontext *context, GLuint buffer, GLboolean* return_value) {
@@ -13174,7 +13174,7 @@ void cwcglGetBufferSubData(GLcontext *context, GLenum target, GLintptr offset, G
 typedef struct {
     GLenum target;
     GLenum access;
-    void * return_value;
+    void ** return_value;
 } cwcglMapBufferCommandData;
 
 void cwcglMapBuffer(GLcontext *context, GLenum target, GLenum access, void ** return_value) {
@@ -13189,7 +13189,7 @@ void cwcglMapBuffer(GLcontext *context, GLenum target, GLenum access, void ** re
 }
 typedef struct {
     GLenum target;
-    GLboolean return_value;
+    GLboolean* return_value;
 } cwcglUnmapBufferCommandData;
 
 void cwcglUnmapBuffer(GLcontext *context, GLenum target, GLboolean* return_value) {
@@ -13369,7 +13369,7 @@ void cwcglCreateProgram(GLcontext *context, GLuint* return_value) {
 }
 typedef struct {
     GLenum type;
-    GLuint return_value;
+    GLuint* return_value;
 } cwcglCreateShaderCommandData;
 
 void cwcglCreateShader(GLcontext *context, GLenum type, GLuint* return_value) {
@@ -13512,7 +13512,7 @@ void cwcglGetAttachedShaders(GLcontext *context, GLuint program, GLsizei maxCoun
 typedef struct {
     GLuint program;
     const GLchar * name;
-    GLint return_value;
+    GLint* return_value;
 } cwcglGetAttribLocationCommandData;
 
 void cwcglGetAttribLocation(GLcontext *context, GLuint program, const GLchar * name, GLint* return_value) {
@@ -13614,7 +13614,7 @@ void cwcglGetShaderSource(GLcontext *context, GLuint shader, GLsizei bufSize, GL
 typedef struct {
     GLuint program;
     const GLchar * name;
-    GLint return_value;
+    GLint* return_value;
 } cwcglGetUniformLocationCommandData;
 
 void cwcglGetUniformLocation(GLcontext *context, GLuint program, const GLchar * name, GLint* return_value) {
@@ -13725,7 +13725,7 @@ void cwcglGetVertexAttribPointerv(GLcontext *context, GLuint index, GLenum pname
 }
 typedef struct {
     GLuint program;
-    GLboolean return_value;
+    GLboolean* return_value;
 } cwcglIsProgramCommandData;
 
 void cwcglIsProgram(GLcontext *context, GLuint program, GLboolean* return_value) {
@@ -13739,7 +13739,7 @@ void cwcglIsProgram(GLcontext *context, GLuint program, GLboolean* return_value)
 }
 typedef struct {
     GLuint shader;
-    GLboolean return_value;
+    GLboolean* return_value;
 } cwcglIsShaderCommandData;
 
 void cwcglIsShader(GLcontext *context, GLuint shader, GLboolean* return_value) {
@@ -14886,7 +14886,7 @@ void cwcglDisablei(GLcontext *context, GLenum target, GLuint index) {
 typedef struct {
     GLenum target;
     GLuint index;
-    GLboolean return_value;
+    GLboolean* return_value;
 } cwcglIsEnablediCommandData;
 
 void cwcglIsEnabledi(GLcontext *context, GLenum target, GLuint index, GLboolean* return_value) {
@@ -15420,7 +15420,7 @@ void cwcglBindFragDataLocation(GLcontext *context, GLuint program, GLuint color,
 typedef struct {
     GLuint program;
     const GLchar * name;
-    GLint return_value;
+    GLint* return_value;
 } cwcglGetFragDataLocationCommandData;
 
 void cwcglGetFragDataLocation(GLcontext *context, GLuint program, const GLchar * name, GLint* return_value) {
@@ -15698,7 +15698,7 @@ void cwcglClearBufferfi(GLcontext *context, GLenum buffer, GLint drawbuffer, GLf
 typedef struct {
     GLenum name;
     GLuint index;
-    const GLubyte * return_value;
+    const GLubyte ** return_value;
 } cwcglGetStringiCommandData;
 
 void cwcglGetStringi(GLcontext *context, GLenum name, GLuint index, const GLubyte ** return_value) {
@@ -15713,7 +15713,7 @@ void cwcglGetStringi(GLcontext *context, GLenum name, GLuint index, const GLubyt
 }
 typedef struct {
     GLuint renderbuffer;
-    GLboolean return_value;
+    GLboolean* return_value;
 } cwcglIsRenderbufferCommandData;
 
 void cwcglIsRenderbuffer(GLcontext *context, GLuint renderbuffer, GLboolean* return_value) {
@@ -15803,7 +15803,7 @@ void cwcglGetRenderbufferParameteriv(GLcontext *context, GLenum target, GLenum p
 }
 typedef struct {
     GLuint framebuffer;
-    GLboolean return_value;
+    GLboolean* return_value;
 } cwcglIsFramebufferCommandData;
 
 void cwcglIsFramebuffer(GLcontext *context, GLuint framebuffer, GLboolean* return_value) {
@@ -15859,7 +15859,7 @@ void cwcglGenFramebuffers(GLcontext *context, GLsizei n, GLuint * framebuffers) 
 }
 typedef struct {
     GLenum target;
-    GLenum return_value;
+    GLenum* return_value;
 } cwcglCheckFramebufferStatusCommandData;
 
 void cwcglCheckFramebufferStatus(GLcontext *context, GLenum target, GLenum* return_value) {
@@ -16056,7 +16056,7 @@ typedef struct {
     GLintptr offset;
     GLsizeiptr length;
     GLbitfield access;
-    void * return_value;
+    void ** return_value;
 } cwcglMapBufferRangeCommandData;
 
 void cwcglMapBufferRange(GLcontext *context, GLenum target, GLintptr offset, GLsizeiptr length, GLbitfield access, void ** return_value) {
@@ -16129,7 +16129,7 @@ void cwcglGenVertexArrays(GLcontext *context, GLsizei n, GLuint * arrays) {
 }
 typedef struct {
     GLuint array;
-    GLboolean return_value;
+    GLboolean* return_value;
 } cwcglIsVertexArrayCommandData;
 
 void cwcglIsVertexArray(GLcontext *context, GLuint array, GLboolean* return_value) {
@@ -16290,7 +16290,7 @@ void cwcglGetActiveUniformName(GLcontext *context, GLuint program, GLuint unifor
 typedef struct {
     GLuint program;
     const GLchar * uniformBlockName;
-    GLuint return_value;
+    GLuint* return_value;
 } cwcglGetUniformBlockIndexCommandData;
 
 void cwcglGetUniformBlockIndex(GLcontext *context, GLuint program, const GLchar * uniformBlockName, GLuint* return_value) {
@@ -16462,7 +16462,7 @@ void cwcglProvokingVertex(GLcontext *context, GLenum mode) {
 typedef struct {
     GLenum condition;
     GLbitfield flags;
-    GLsync return_value;
+    GLsync* return_value;
 } cwcglFenceSyncCommandData;
 
 void cwcglFenceSync(GLcontext *context, GLenum condition, GLbitfield flags, GLsync* return_value) {
@@ -16477,7 +16477,7 @@ void cwcglFenceSync(GLcontext *context, GLenum condition, GLbitfield flags, GLsy
 }
 typedef struct {
     GLsync sync;
-    GLboolean return_value;
+    GLboolean* return_value;
 } cwcglIsSyncCommandData;
 
 void cwcglIsSync(GLcontext *context, GLsync sync, GLboolean* return_value) {
@@ -16505,7 +16505,7 @@ typedef struct {
     GLsync sync;
     GLbitfield flags;
     GLuint64 timeout;
-    GLenum return_value;
+    GLenum* return_value;
 } cwcglClientWaitSyncCommandData;
 
 void cwcglClientWaitSync(GLcontext *context, GLsync sync, GLbitfield flags, GLuint64 timeout, GLenum* return_value) {
@@ -16718,7 +16718,7 @@ void cwcglBindFragDataLocationIndexed(GLcontext *context, GLuint program, GLuint
 typedef struct {
     GLuint program;
     const GLchar * name;
-    GLint return_value;
+    GLint* return_value;
 } cwcglGetFragDataIndexCommandData;
 
 void cwcglGetFragDataIndex(GLcontext *context, GLuint program, const GLchar * name, GLint* return_value) {
@@ -16761,7 +16761,7 @@ void cwcglDeleteSamplers(GLcontext *context, GLsizei count, const GLuint * sampl
 }
 typedef struct {
     GLuint sampler;
-    GLboolean return_value;
+    GLboolean* return_value;
 } cwcglIsSamplerCommandData;
 
 void cwcglIsSampler(GLcontext *context, GLuint sampler, GLboolean* return_value) {
@@ -18011,7 +18011,7 @@ typedef struct {
     GLuint program;
     GLenum shadertype;
     const GLchar * name;
-    GLint return_value;
+    GLint* return_value;
 } cwcglGetSubroutineUniformLocationCommandData;
 
 void cwcglGetSubroutineUniformLocation(GLcontext *context, GLuint program, GLenum shadertype, const GLchar * name, GLint* return_value) {
@@ -18029,7 +18029,7 @@ typedef struct {
     GLuint program;
     GLenum shadertype;
     const GLchar * name;
-    GLuint return_value;
+    GLuint* return_value;
 } cwcglGetSubroutineIndexCommandData;
 
 void cwcglGetSubroutineIndex(GLcontext *context, GLuint program, GLenum shadertype, const GLchar * name, GLuint* return_value) {
@@ -18229,7 +18229,7 @@ void cwcglGenTransformFeedbacks(GLcontext *context, GLsizei n, GLuint * ids) {
 }
 typedef struct {
     GLuint id;
-    GLboolean return_value;
+    GLboolean* return_value;
 } cwcglIsTransformFeedbackCommandData;
 
 void cwcglIsTransformFeedback(GLcontext *context, GLuint id, GLboolean* return_value) {
@@ -18491,7 +18491,7 @@ typedef struct {
     GLenum type;
     GLsizei count;
     const GLchar *const* strings;
-    GLuint return_value;
+    GLuint* return_value;
 } cwcglCreateShaderProgramvCommandData;
 
 void cwcglCreateShaderProgramv(GLcontext *context, GLenum type, GLsizei count, const GLchar *const* strings, GLuint* return_value) {
@@ -18547,7 +18547,7 @@ void cwcglGenProgramPipelines(GLcontext *context, GLsizei n, GLuint * pipelines)
 }
 typedef struct {
     GLuint pipeline;
-    GLboolean return_value;
+    GLboolean* return_value;
 } cwcglIsProgramPipelineCommandData;
 
 void cwcglIsProgramPipeline(GLcontext *context, GLuint pipeline, GLboolean* return_value) {
@@ -20451,7 +20451,7 @@ typedef struct {
     GLuint program;
     GLenum programInterface;
     const GLchar * name;
-    GLuint return_value;
+    GLuint* return_value;
 } cwcglGetProgramResourceIndexCommandData;
 
 void cwcglGetProgramResourceIndex(GLcontext *context, GLuint program, GLenum programInterface, const GLchar * name, GLuint* return_value) {
@@ -20517,7 +20517,7 @@ typedef struct {
     GLuint program;
     GLenum programInterface;
     const GLchar * name;
-    GLint return_value;
+    GLint* return_value;
 } cwcglGetProgramResourceLocationCommandData;
 
 void cwcglGetProgramResourceLocation(GLcontext *context, GLuint program, GLenum programInterface, const GLchar * name, GLint* return_value) {
@@ -20535,7 +20535,7 @@ typedef struct {
     GLuint program;
     GLenum programInterface;
     const GLchar * name;
-    GLint return_value;
+    GLint* return_value;
 } cwcglGetProgramResourceLocationIndexCommandData;
 
 void cwcglGetProgramResourceLocationIndex(GLcontext *context, GLuint program, GLenum programInterface, const GLchar * name, GLint* return_value) {
@@ -20826,7 +20826,7 @@ typedef struct {
     GLenum * severities;
     GLsizei * lengths;
     GLchar * messageLog;
-    GLuint return_value;
+    GLuint* return_value;
 } cwcglGetDebugMessageLogCommandData;
 
 void cwcglGetDebugMessageLog(GLcontext *context, GLuint count, GLsizei bufSize, GLenum * sources, GLenum * types, GLuint * ids, GLenum * severities, GLsizei * lengths, GLchar * messageLog, GLuint* return_value) {
@@ -21374,7 +21374,7 @@ void cwcglClearNamedBufferSubData(GLcontext *context, GLuint buffer, GLenum inte
 typedef struct {
     GLuint buffer;
     GLenum access;
-    void * return_value;
+    void ** return_value;
 } cwcglMapNamedBufferCommandData;
 
 void cwcglMapNamedBuffer(GLcontext *context, GLuint buffer, GLenum access, void ** return_value) {
@@ -21392,7 +21392,7 @@ typedef struct {
     GLintptr offset;
     GLsizeiptr length;
     GLbitfield access;
-    void * return_value;
+    void ** return_value;
 } cwcglMapNamedBufferRangeCommandData;
 
 void cwcglMapNamedBufferRange(GLcontext *context, GLuint buffer, GLintptr offset, GLsizeiptr length, GLbitfield access, void ** return_value) {
@@ -21409,7 +21409,7 @@ void cwcglMapNamedBufferRange(GLcontext *context, GLuint buffer, GLintptr offset
 }
 typedef struct {
     GLuint buffer;
-    GLboolean return_value;
+    GLboolean* return_value;
 } cwcglUnmapNamedBufferCommandData;
 
 void cwcglUnmapNamedBuffer(GLcontext *context, GLuint buffer, GLboolean* return_value) {
@@ -21784,7 +21784,7 @@ void cwcglBlitNamedFramebuffer(GLcontext *context, GLuint readFramebuffer, GLuin
 typedef struct {
     GLuint framebuffer;
     GLenum target;
-    GLenum return_value;
+    GLenum* return_value;
 } cwcglCheckNamedFramebufferStatusCommandData;
 
 void cwcglCheckNamedFramebufferStatus(GLcontext *context, GLuint framebuffer, GLenum target, GLenum* return_value) {

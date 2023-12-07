@@ -574,7 +574,7 @@ $functions.each do |k, v|
         puts "    #{vvv};"
       end
       unless returnsVoid
-        puts "    #{cmd[:result]} return_value;"
+        puts "    #{cmd[:result]}* return_value;"
       end
       puts "} cwc#{key}CommandData;", ""
     else
@@ -599,11 +599,7 @@ $functions.each do |k, v|
         end
       end
       unless returnsVoid
-        if cmd[:result].include?("*")
-          puts "    command_data->return_value = return_value;"
-        else
-          puts "    command_data->return_value = return_value;"
-        end
+        puts "    command_data->return_value = return_value;"
       end
     end
     puts "    command->type = cwc#{key}Command;"
