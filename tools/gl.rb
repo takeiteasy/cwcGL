@@ -237,6 +237,8 @@ features.each do |f|
       case fff.to_s
       when /^<type/
         output.append(types[name])
+      when /^<enum/
+        puts "#define #{name} #{enums[name]}"
       when /^<command/
         proc = "PFN#{name.upcase}PROC"
         $functions[ver].append [proc, name]
@@ -381,10 +383,7 @@ features.each do |f|
     ff.children.each do |fff|
       name = fff.attr("name")
       next unless defined.include? name
-      case fff.to_s
-      when /^<enum/
-        puts "#define #{name} #{enums[name]}"
-      when /^<command/
+      if fff.to_s =~ /^<command/
         proc = "PFN#{name.upcase}PROC"
         puts "typedef #{commands[name][:result]} (APIENTRYP #{proc})(#{commands[name][:params].join ', '});"
         puts "#define #{name} __#{name}"
