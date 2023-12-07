@@ -2,34 +2,7 @@
 #include "cwcgl.h"
 #include <stdio.h>
 
-// Window event callbacks, I think the names are self-explanatory
-void onKeyboard(void *userdata, int key, int modifier, int isDown) {
-    printf("Keyboard Event: Key %d is now %s\n", (int)key, isDown ? "down" : "up");
-}
-
-void onMouseButton(void *userdata, int button, int modifier, int isDown) {
-    printf("Mouse Button Event: Button %d is now %s\n", button, isDown ? "down" : "up");
-}
-
-void onMouseMove(void *userdata, int x, int y, float dx, float dy) {
-    printf("Mouse Move Event: Position (%d, %d) by (%f, %f)\n", x, y, dx, dy);
-}
-
-void onMouseScroll(void *userdata, float dx, float dy, int modifier) {
-    printf("Mouse Scroll Event: Scroll delta (%f, %f)\n", dx, dy);
-}
-
-void onFocus(void *userdata, int isFocused) {
-    printf("Focus Event: Window is now %s\n", isFocused ? "focused" : "unfocused");
-}
-
-void onResized(void *userdata, int w, int h) {
-    printf("Resize Event: Window is now (%d, %d)\n", w, h);
-}
-
-void onClosed(void *userdata) {
-    printf("Close Event: Window is now closing\n");
-}
+static GLcontext test = {0};
 
 int main(int argc, const char *argv[]) {
     if (!glWindow(640, 480, "glWindow", glResizable))
@@ -37,11 +10,14 @@ int main(int argc, const char *argv[]) {
     if (InitOpenGL())
         return 1;
 
-#define X(NAME, ARGS) on##NAME,
-    glWindowCallbacks(CWCGL_CALLBACKS NULL);
-#undef X
-
     while (glPollWindow()) {
+        cwcglClear(&test, GL_COLOR_BUFFER_BIT);
+        cwcglBegin(&test, GL_TRIANGLES);
+        cwcglVertex3f(&test, -0.5f, -0.5f, 0.0f);
+        cwcglVertex3f(&test, 0.5f, -0.5f, 0.0f);
+        cwcglVertex3f(&test, 0.0f, 0.5f, 0.0f);
+        cwcglEnd(&test);
+        ProcessGLQueue(&test);
         glFlushWindow();
     }
 

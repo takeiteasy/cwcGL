@@ -325,6 +325,7 @@ if not $DisableWrapperOut
 end
 
 puts "EXPORT int InitOpenGL(void);" if not $DisableGLLoaderOut
+puts "EXPORT void ProcessGLQueue(GLcontext *context);" # Temporary, testing
 
 puts <<FOOTER
 
@@ -553,7 +554,11 @@ end
 
 puts <<CONTEXT
 static void PushCommand(GLcontext *context, GLcommand *command) {
-     // TODO
+    if (context->front)
+        context->front->prev = command;
+    context->front = command;
+    if (!context->back)
+        context->back = context->front;
 }
 CONTEXT
 
@@ -677,5 +682,27 @@ puts "        default:"
 puts "            break;"
 puts "    }"
 puts "}", ""
+
+puts <<COMMANDS
+static GLcommand* NextCommand(GLcontext *context) {
+    if (!context->back)
+        return NULL;
+    GLcommand *tmp = context->back;
+    context->back = context->back->prev;
+    if (context->back)
+        context->back->next = NULL;
+    else
+        context->front = NULL;
+    return tmp;
+}
+
+void ProcessGLQueue(GLcontext *context) {
+     GLcommand *command = NULL;
+     while ((command = NextCommand(context))) {
+           ProcessCommand(command);
+           FreeCommand(command);
+     }
+}
+COMMANDS
 
 RestoreOriginalOut() if $DisableWrapperOut

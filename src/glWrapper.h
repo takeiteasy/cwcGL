@@ -6674,6 +6674,7 @@ EXPORT void cwcglMultiDrawElementsIndirectCount(GLcontext *context, GLenum mode,
 EXPORT void cwcglPolygonOffsetClamp(GLcontext *context, GLfloat factor, GLfloat units, GLfloat clamp);
 #endif
 EXPORT int InitOpenGL(void);
+EXPORT void ProcessGLQueue(GLcontext *context);
 
 #ifdef __cplusplus
 }
