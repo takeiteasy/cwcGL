@@ -9,7 +9,7 @@ A cross-platform OpenGL window + context. **WIP**
 ```c
 // Load OpenGL version to 3.2
 #define CWCGL_VERSION 3020
-#include "glWindow.h"
+#include "cwcgl.h"
 
 // Window event callbacks
 void KeyboardCallback(void *userdata, int key, int modifier, int isDown);
@@ -22,11 +22,11 @@ void ClosedCallback(void *userdata);
 
 int main(int argc, const char *argv[]) {
     // Create a resizable 640x480 window
-    if (!glWindow(640, 480, "glWindow", glResizable))
-        return EXIT_FAILURE;
+    if (!glWindow(640, 480, "cwcgl", glResizable))
+        return 0;
     // Initialize OpenGL
     if (!InitOpenGL())
-        return EXIT_FAILURE;
+        return 0;
     // Assign window event callbacks
     glWindowCallbacks(KeyboardCallback,
                       MouseButtonCallback,
@@ -45,7 +45,7 @@ int main(int argc, const char *argv[]) {
     }
     // Clean up
     glWindowQuit();
-    return EXIT_SUCCESS;
+    return 1;
 }
 ```
 

@@ -24,9 +24,7 @@ targets:
           type: folder
         - path: Makefile
           type: folder
-        - path: src/
-          excludes:
-            - "backends/"
+        - path: src/backends/cwcgl_mac.c
         - path: src/backends
           type: folder
     dependencies:
