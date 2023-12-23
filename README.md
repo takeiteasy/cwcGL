@@ -1,53 +1,11 @@
 # cwcGL 
 
-A cross-platform OpenGL window + context. **WIP**
+> [!WARNING]
+> Work in progress
 
 <p align="center">
-  <img width="492" height="640" src="https://raw.githubusercontent.com/takeiteasy/cwcGL/master/zap.jpg">
+  <img width="492" height="640" src="https://raw.githubusercontent.com/takeiteasy/cwcGL/master/aux/zap.jpg">
 </p>
-
-```c
-// Load OpenGL version to 3.2
-#define CWCGL_VERSION 3020
-#include "cwcgl.h"
-
-// Window event callbacks
-void KeyboardCallback(void *userdata, int key, int modifier, int isDown);
-void MouseButtonCallback(void *userdata, int button, int modifier, int isDown);
-void MouseMoveCallback(void *userdata, int x, int y, float dx, float dy);
-void MouseScrollCallback(void *userdata, float dx, float dy, int modifier);
-void ResizedCallback(void *userdata, int w, int h);
-void FocusCallback(void *userdata, int isFocused);
-void ClosedCallback(void *userdata);
-
-int main(int argc, const char *argv[]) {
-    // Create a resizable 640x480 window
-    if (!glWindow(640, 480, "cwcgl", glResizable))
-        return 0;
-    // Initialize OpenGL
-    if (!InitOpenGL())
-        return 0;
-    // Assign window event callbacks
-    glWindowCallbacks(KeyboardCallback,
-                      MouseButtonCallback,
-                      MouseMoveCallback,
-                      MouseScrollCallback,
-                      ResizedCallback,
-                      FocusCallback,
-                      ClosedCallback,
-                      NULL); // Last value is userdata that will 
-                             // be passed to callbacks
-    // Poll events until window is closed
-    while (glPollWindow()) {
-        // ...
-        // Flush window
-        glFlushWindow();
-    }
-    // Clean up
-    glWindowQuit();
-    return 1;
-}
-```
 
 ## License
 ```

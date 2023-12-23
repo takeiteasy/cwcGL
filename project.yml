@@ -11,11 +11,14 @@ settings:
 
 targets:
   cwcgl:
-    type: library.dynamic
+    type: tool
     platform: macOS
     sources:
         - path: tools/
           type: folder
+          excludes:
+            - "test.c"
+        - path: tools/test.c
         - path: build/
           type: folder
         - path: project.yml
@@ -27,17 +30,9 @@ targets:
         - path: src/backends/cwcgl_mac.c
         - path: src/backends
           type: folder
+        - path: src/backends/cwcgl_mac.c
     dependencies:
         - sdk: Cocoa.framework
     settings:
         HEADER_SEARCH_PATHS: [$(PROJECT_DIR)/src]
         OTHER_CFLAGS: [-DGL_SILENCE_DEPRECATION]
-  cwcgl_test:
-    type: tool
-    platform: macOS
-    sources:
-        - path: tools/test.c
-    dependencies:
-        - target: cwcgl
-    settings:
-        HEADER_SEARCH_PATHS: [$(PROJECT_DIR)/src]
