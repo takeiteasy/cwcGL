@@ -31,7 +31,7 @@ require "net/http"
 $DisableFileOut = false
 $EnableHeaderFileOut = !$DisableFileOut
 $EnableSourceFileOut = !$DisableFileOut
-$DisableWrapperOut = false
+$DisableWrapperOut = true
 $DisableGLLoaderOut = false
 $OutputGLBindings = false
 
@@ -126,6 +126,20 @@ puts <<HEADER
 #define CWCGL_WRAPPER_HEADER
 #ifdef __cplusplus
 extern "C" {
+#endif
+
+#define CWCGL_POSIX
+#if defined(macintosh) || defined(Macintosh) || (defined(__APPLE__) && defined(__MACH__))
+#define CWCGL_MAC
+#elif defined(_WIN32) || defined(_WIN64) || defined(__WIN32__) || defined(__WINDOWS__)
+#define CWCGL_WINDOWS
+#if !defined(FS_PLATFORM_FORCE_POSIX)
+#undef CWCGL_POSIX
+#endif
+#elif defined(__gnu_linux__) || defined(__linux__) || defined(__unix__)
+#define CWCGL_LINUX
+#else
+#define CWCGL_UNKNOWN
 #endif
 
 #define __gl_glcorearb_h_ 1  /* Khronos core */
@@ -262,6 +276,24 @@ types.each do |k, v|
 end
 puts $GLhandleARB, "" if $GLhandleARB
 
+# Define OpenGL functions
+features.each do |f|
+  puts "#if CWCGL_VERSION >= #{f.attr 'name'}"
+  f.children.each do |ff|
+    ff.children.each do |fff|
+      name = fff.attr("name")
+      next unless defined.include? name
+      if fff.to_s =~ /^<command/
+        proc = "PFN#{name.upcase}PROC"
+        puts "typedef #{commands[name][:result]} (APIENTRYP #{proc})(#{commands[name][:params].join ', '});"
+        puts "#define #{name} __#{name}"
+      end
+      defined << name
+    end
+  end
+  puts "#endif", ""
+end
+
 # Store functions in macros for later
 def PrintGLVersionsMacro
   $functions.each do |k, v|
@@ -274,60 +306,18 @@ def PrintGLVersionsMacro
 end
 
 # Define extern functions
-if $OutputGLBindings
-  PrintGLVersionsMacro()
-  puts "#define X(T, N) extern T __##N;"
-  $functions.each do |k, v|
-    maj, min = k.split '.'
-    puts "#if CWCGL_VERSION >= GL_VERSION_#{maj}_#{min}"
-    puts "GL_FUNCTIONS_#{maj}_#{min}"
-    puts "#endif"
-  end
-  puts "#undef X", ""
+PrintGLVersionsMacro()
+puts "#define X(T, N) extern T __##N;"
+$functions.each do |k, v|
+  maj, min = k.split '.'
+  puts "#if CWCGL_VERSION >= GL_VERSION_#{maj}_#{min}"
+  puts "GL_FUNCTIONS_#{maj}_#{min}"
+  puts "#endif"
 end
-
-# Define command-types enum for each OpenGL function
-puts "typedef enum {"
-commands.each do |k, _|
-  puts "    cwc#{k}Command,"
-end
-puts "} GLcommandType;"
-
-puts <<STRUCTS
-
-typedef struct GLcommand {
-    GLcommandType type;
-    void *data;
-    struct GLcommand *next, *prev;
-} GLcommand;
-
-typedef struct {
-    GLcommand *front, *back;
-} GLcontext;
-
-STRUCTS
-
-# Generate header definitions
-if not $DisableWrapperOut
-  $functions.each do |k, v|
-    maj, min = k.split '.'
-    puts "#if CWCGL_VERSION >= GL_VERSION_#{maj}_#{min}"
-    v.each do |vv|
-      cmd = commands[vv[1]]
-      argsVoid = (cmd[:params].length == 1 and cmd[:params][0] == "void")
-      returnsVoid = cmd[:result] == "void"
-      params = cmd[:params].join ", "
-      returnValue = returnsVoid ? "" : ", #{cmd[:result]}* return_value"
-      puts "EXPORT void cwc#{vv[1]}(GLcontext *context#{params == "void" ? "" : ", " + params}#{returnValue});"
-    end
-    puts "#endif"
-  end
-end
-
-puts "EXPORT int InitOpenGL(void);" if not $DisableGLLoaderOut
-puts "EXPORT void ProcessGLQueue(GLcontext *context);" # Temporary, testing
+puts "#undef X", ""
 
 puts <<FOOTER
+EXPORT int InitOpenGL(void);
 
 #ifdef __cplusplus
 }
@@ -374,26 +364,6 @@ puts <<SOURCE
 #include <stdlib.h>
 
 SOURCE
-
-PrintGLVersionsMacro() if not $OutputGLBindings
-
-# Define OpenGL functions
-features.each do |f|
-  puts "#if CWCGL_VERSION >= #{f.attr 'name'}"
-  f.children.each do |ff|
-    ff.children.each do |fff|
-      name = fff.attr("name")
-      next unless defined.include? name
-      if fff.to_s =~ /^<command/
-        proc = "PFN#{name.upcase}PROC"
-        puts "typedef #{commands[name][:result]} (APIENTRYP #{proc})(#{commands[name][:params].join ', '});"
-        puts "#define #{name} __#{name}"
-      end
-      defined << name
-    end
-  end
-  puts "#endif", ""
-end
 
 # Define extern implementations
 puts "#define X(T, N) T __##N = (T)((void*)0);"
@@ -523,9 +493,9 @@ static void* LoadGLProc(const char *namez) {
 #define X(T, N) \\
     if (!(__##N = (T)LoadGLProc(#N))) \\
         failures++;
-static int failures = 0;
+
 int InitOpenGL(void) {
-    int result = 0;
+    int failures = 0;
     if (LoadGLLibrary()) {
 LOADER
 
@@ -537,172 +507,13 @@ LOADER
   end
 
   puts <<LOADER_FOOTER
-        result = failures == 0;
         CloseGLLibrary();
     }
-    return result;
+    return failures;
 }
 #undef X
 
 LOADER_FOOTER
 end
 
-if $DisableWrapperOut
-  RestoreOriginalOut()
-  exit 0
-end
-
-puts <<CONTEXT
-static void PushCommand(GLcontext *context, GLcommand *command) {
-    if (context->front)
-        context->front->prev = command;
-    context->front = command;
-    if (!context->back)
-        context->back = context->front;
-}
-CONTEXT
-
-# Generate command data structures and wrapper functions for each OpenGL function
-
-$functions.each do |k, v|
-  maj, min = k.split '.'
-  puts "#if CWCGL_VERSION >= GL_VERSION_#{maj}_#{min}"
-  v.each do |vv|
-    key = vv[1]
-    cmd = commands[key]
-    argsVoid = (cmd[:params].length == 1 and cmd[:params][0] == "void")
-    returnsVoid = cmd[:result] == "void"
-    if not argsVoid
-      puts "typedef struct {"
-      cmd[:params].each do |vvv|
-        puts "    #{vvv};"
-      end
-      unless returnsVoid
-        puts "    #{cmd[:result]}* return_value;"
-      end
-      puts "} cwc#{key}CommandData;", ""
-    else
-      if not returnsVoid
-        puts "typedef struct {"
-        puts "    #{cmd[:result]}* return_value;"
-        puts "} cwc#{key}CommandData;", ""
-      end
-    end
-    params = cmd[:params].join ", "
-    noParams = params == "void"
-    returnValue = returnsVoid ? "" : ", #{cmd[:result]}* return_value"
-    puts "void cwc#{key}(GLcontext *context#{noParams ? "" : ", " + params}#{returnValue}) {"
-    puts "    GLcommand* command = malloc(sizeof(GLcommand));"
-    hasParams = (not noParams or (not returnsVoid and argsVoid))
-    if hasParams
-      puts "    cwc#{key}CommandData* command_data = malloc(sizeof(cwc#{key}CommandData));"
-      if not argsVoid
-        cmd[:params].each do |vv|
-          vvv = vv.split(' ')[-1]
-          puts "    command_data->#{vvv} = #{vvv};"
-        end
-      end
-      unless returnsVoid
-        puts "    command_data->return_value = return_value;"
-      end
-    end
-    puts "    command->type = cwc#{key}Command;"
-    if hasParams
-      puts "    command->data = command_data;"
-    else
-      puts "    command->data = NULL;"
-    end
-    puts "    PushCommand(context, command);"
-    puts "}"
-  end
-  puts "#endif"
-end
-
-
-# Define function to free commands
-puts "static void FreeCommand(GLcommand* command) {"
-puts "    switch (command->type) {"
-commands.each do |k, v|
-  argsVoid = v[:params].length == 1 and v[:params][0] == "void"
-  returnsVoid = v[:result] == "void"
-  if not returnsVoid or not argsVoid
-    puts "        case cwc#{k}Command:"
-  end
-end
-puts "            free(command->data);"
-puts "        default:"
-puts "            free(command);"
-puts "            break;"
-puts "    }"
-puts "}", ""
-
-# Define function to process commands back to OpenGL function
-puts "static void ProcessCommand(GLcommand* command) {"
-puts "    switch (command->type) {"
-
-$functions.each do |k, v|
-  maj, min = k.split '.'
-  puts "#if CWCGL_VERSION >= GL_VERSION_#{maj}_#{min}"
-  v.each do |vv|
-    key = vv[1]
-    cmd = commands[key]
-
-    argsVoid = (cmd[:params].length == 1 and cmd[:params][0] == "void")
-    returnsVoid = cmd[:result] == "void"
-    closeBrace = true
-    if argsVoid and returnsVoid
-      puts "        case cwc#{key}Command:"
-      puts "            #{key}();"
-      closeBrace = false
-    else
-      puts "        case cwc#{key}Command: {"
-      puts "            cwc#{key}CommandData* command_data = (cwc#{key}CommandData*)command->data;"
-      params = unless argsVoid
-                 cmd[:params].map do |p|
-                   "command_data->" + p.split(" ")[-1]
-                 end.join ", "
-               else
-                 ""
-               end
-      unless returnsVoid
-        puts "            if (command_data->return_value)"
-        puts "                *(command_data->return_value) = #{key}(#{params});"
-        puts "            else"
-        puts "                #{key}(#{params});"
-      else
-        puts "            #{key}(#{params});"
-      end
-    end
-    puts "            break;"
-    puts "        }" if closeBrace
-  end
-  puts "#endif"
-end
-puts "        default:"
-puts "            break;"
-puts "    }"
-puts "}", ""
-
-puts <<COMMANDS
-static GLcommand* NextCommand(GLcontext *context) {
-    if (!context->back)
-        return NULL;
-    GLcommand *tmp = context->back;
-    context->back = context->back->prev;
-    if (context->back)
-        context->back->next = NULL;
-    else
-        context->front = NULL;
-    return tmp;
-}
-
-void ProcessGLQueue(GLcontext *context) {
-     GLcommand *command = NULL;
-     while ((command = NextCommand(context))) {
-           ProcessCommand(command);
-           FreeCommand(command);
-     }
-}
-COMMANDS
-
-RestoreOriginalOut() if $DisableWrapperOut
+RestoreOriginalOut()
