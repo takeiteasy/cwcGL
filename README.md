@@ -1,4 +1,4 @@
-# cwcGL 
+# cwcGL
 
 > [!WARNING]
 > Work in progress

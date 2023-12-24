@@ -269,4 +269,3 @@ GL_FUNCTIONS_4_6
     return failures;
 }
 #undef X
-
