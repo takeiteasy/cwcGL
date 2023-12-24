@@ -43,7 +43,7 @@ extern "C" {
 #elif defined(__gnu_linux__) || defined(__linux__) || defined(__unix__)
 #define CWCGL_LINUX
 #else
-#define CWCGL_UNKNOWN
+error "Unknown platform :("
 #endif
 
 #define __gl_glcorearb_h_ 1  /* Khronos core */

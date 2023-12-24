@@ -32,6 +32,7 @@ $EnableHeaderFileOut = true
 $EnableSourceFileOut = true
 $EnableSeperateFiles = true
 $DisableGLLoaderOut = false
+$EnableDebugWrapper = true
 
 # Download required files if needed
 xml = ["https://registry.khronos.org/EGL/api/KHR/khrplatform.h",
@@ -137,7 +138,7 @@ extern "C" {
 #elif defined(__gnu_linux__) || defined(__linux__) || defined(__unix__)
 #define CWCGL_LINUX
 #else
-#define CWCGL_UNKNOWN
+error "Unknown platform :("
 #endif
 
 #define __gl_glcorearb_h_ 1  /* Khronos core */
@@ -522,4 +523,4 @@ end
 
 puts "#endif // CWCGL_IMPLEMENTATION" if not $EnableSeperateFiles
 
-RestoreOriginalOut()
+RestoreOriginalOut() if $EnableSeperateFiles or $EnableHeaderFileOut
