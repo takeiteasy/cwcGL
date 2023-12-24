@@ -1,1 +1,2 @@
-src/cwcgl.* linguist-vendored
+src/cwcgl* linguist-vendored
+aux/* linguist-vendored
