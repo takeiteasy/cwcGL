@@ -1,11 +1,23 @@
 # cwcGL
 
+_cwcGL_ is an OpenGL loader for C/C++ generated in Ruby. The actual dynamic library loader was taken from [glad](https://github.com/Dav1dde/glad) (also MIT).
+
+This is just a fun side project.
+
 > [!WARNING]
 > Work in progress
 
 <p align="center">
   <img width="492" height="640" src="https://raw.githubusercontent.com/takeiteasy/cwcGL/master/aux/zap.jpg">
 </p>
+
+## TODO
+
+- [X] Generate OpenGL bindings
+- [ ] Generate GLES bindings
+- [ ] Generate OpenGL extensions
+- [ ] CLI Arguments
+- [ ] Debug wrapper (pre+post call)
 
 ## License
 ```
