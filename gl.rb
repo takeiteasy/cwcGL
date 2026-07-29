@@ -64,17 +64,23 @@ end.to_h.delete_if { |k, v| k.nil? }
 # Parse <enums>
 enums = doc.xpath("//enums").children.map { |e| [e.attr('name'), e.attr('value')] }.to_h
 # Parse <commands>
+# `class=` on <proto> marks the return value itself as a GL object handle
+# (glCreateProgram, glFenceSync); `class=` on a <param> marks that param as
+# one (glDeleteBuffers' `buffers` array). Both are needed to find the ~20
+# GL object lifecycle (allocator/deleter) functions later.
 commands = doc.xpath("//commands").children.map do |f|
-  parts = {:params => []}
+  parts = {:params => [], :param_classes => []}
   name = nil
   f.children.each do |ff|
     case ff.to_s
     when /^<proto/
+      parts[:class] = ff.attr('class')
       fff = ff.children.to_a
       name = fff.pop.text
       parts[:result] = fff.map { |ffff| ffff.text.strip }.join " "
     when /^<param/
       parts[:params] << ff.children.to_a.map { |ffff| ffff.text.strip }.join(" ")
+      parts[:param_classes] << ff.attr('class')
     end
   end
   parts[:params] = ["void"] if parts[:params].empty?
@@ -90,7 +96,10 @@ def RestoreOriginalOut
   $> = $OriginalOut
 end
 
-$> = File.open($EnableSeperateFiles ? "src/cwcgl.h" : "src/cwcgl_single.h", 'w') if $EnableHeaderFileOut
+require "fileutils"
+FileUtils.mkdir_p "src"
+
+$> = File.open($EnableSeperateFiles ? "src/loader.h" : "src/loader_single.h", 'w') if $EnableHeaderFileOut
 
 puts <<HEADER
 /*
@@ -198,7 +207,7 @@ error "Unknown platform :("
 #endif
 
 #if !defined(CWCGL_VERSION)
-#define CWCGL_VERSION 1000
+#define CWCGL_VERSION 3030 /* GL_VERSION_3_3 -- see gl.rb's GL_VERSION_x_y numbering below */
 #endif
 HEADER
 
@@ -216,47 +225,87 @@ khr = File.readlines("aux/khrplatform.h").map { |l| l.rstrip }[4..-2]
 puts "\n/* khrplatform.h -- [https://registry.khronos.org/EGL/api/KHR/khrplatform.h]", khr.join("\n"), "/* end of khrplatform.h */", ""
 
 # Format features for each OpenGL version
+#
+# <remove> entries reference names an *earlier* <feature> already put in
+# <require> (eg. GL_VERSION_3_2 removes commands GL_VERSION_1_0 required), and
+# a name removed at one version can be legitimately re-required by a later
+# one (eg. GL_VERSION_3_2 removes glGetPointerv, GL_VERSION_4_3 brings it
+# back) -- gl.xml's require/remove semantics are order-dependent, not a
+# single global subtraction. So walk features in document order, and on
+# <remove> immediately strip the name from whichever version's bucket
+# currently owns it, clearing `defined` so a later <require> can re-add it.
+# <require>/<remove> blocks tagged profile="compatibility" are skipped
+# outright: this generator only targets the core profile.
 defined = []
+owner_ver = {}
+entries_by_ver = {}
+features.each do |f|
+  ver = f.attr 'number'
+  entries_by_ver[ver] = []
+
+  f.children.each do |ff|
+    next if ff.attr('profile') == 'compatibility'
+    case ff.name
+    when 'require'
+      ff.children.each do |fff|
+        name = fff.attr('name')
+        next if defined.include? name
+        kind = case fff.to_s
+               when /^<type/ then :type
+               when /^<enum/ then :enum
+               when /^<command/ then :command
+               end
+        next if kind.nil?
+        defined << name
+        owner_ver[name] = ver
+        entries_by_ver[ver] << [kind, name]
+      end
+    when 'remove'
+      ff.children.each do |fff|
+        name = fff.attr('name')
+        ov = owner_ver[name]
+        next if ov.nil?
+        entries_by_ver[ov].reject! { |(_, n)| n == name }
+        defined.delete name
+        owner_ver.delete name
+      end
+    end
+  end
+end
+
 $functions = {}
 features.each do |f|
   ver = f.attr 'number'
   $functions[ver] = []
   output = []
+  entries = entries_by_ver[ver]
 
-  f.children.each do |ff|
-    ff.children.each do |fff|
-      name = fff.attr("name")
-      if fff.to_s =~ /^<command/
-        commands[name][:params].each do |p|
-          t = p.split(" ").select! { |pp| pp =~ /GL/ }
-          unless t.nil?
-            t.each do |tt|
-              unless defined.include? tt
-                puts types[tt]
-                types.delete(tt)
-                defined << tt
-              end
-            end
+  entries.each do |kind, name|
+    next unless kind == :command
+    commands[name][:params].each do |p|
+      t = p.split(" ").select! { |pp| pp =~ /GL/ }
+      unless t.nil?
+        t.each do |tt|
+          unless defined.include? tt
+            puts types[tt]
+            types.delete(tt)
+            defined << tt
           end
         end
       end
     end
   end
 
-  f.children.each do |ff|
-    ff.children.each do |fff|
-      name = fff.attr("name")
-      next if defined.include? name
-      case fff.to_s
-      when /^<type/
-        output.append(types[name])
-      when /^<enum/
-        puts "#define #{name} #{enums[name]}"
-      when /^<command/
-        proc = "PFN#{name.upcase}PROC"
-        $functions[ver].append [proc, name]
-      end
-      defined << name
+  entries.each do |kind, name|
+    case kind
+    when :type
+      next if types[name].nil?
+      output.append(types[name])
+    when :enum
+      puts "#define #{name} #{enums[name]}"
+    when :command
+      proc = "PFN#{name.upcase}PROC"
+      $functions[ver].append [proc, name]
     end
   end
 
@@ -277,18 +326,13 @@ puts $GLhandleARB, "" if $GLhandleARB
 
 # Define OpenGL functions
 features.each do |f|
+  ver = f.attr 'number'
   puts "#if CWCGL_VERSION >= #{f.attr 'name'}"
-  f.children.each do |ff|
-    ff.children.each do |fff|
-      name = fff.attr("name")
-      next unless defined.include? name
-      if fff.to_s =~ /^<command/
-        proc = "PFN#{name.upcase}PROC"
-        puts "typedef #{commands[name][:result]} (APIENTRYP #{proc})(#{commands[name][:params].join ', '});"
-        puts "#define #{name} __#{name}"
-      end
-      defined << name
-    end
+  entries_by_ver[ver].each do |kind, name|
+    next unless kind == :command
+    proc = "PFN#{name.upcase}PROC"
+    puts "typedef #{commands[name][:result]} (APIENTRYP #{proc})(#{commands[name][:params].join ', '});"
+    puts "#define #{name} __#{name}"
   end
   puts "#endif", ""
 end
@@ -315,8 +359,113 @@ $functions.each do |k, v|
 end
 puts "#undef X", ""
 
+# --- CwcGL_API: the struct the host builds from its real, resolved GL
+# pointers (the same __glFoo globals cwcgl_InitOpenGL()/LoadGLProc populate --
+# see cwcgl_client.c generation below) and hands to each scene dylib at load
+# time via cwcglLoadAPI(). Field layout is gated by CWCGL_VERSION exactly
+# like the extern declarations above (reusing the same GL_FUNCTIONS_x_y
+# buckets), so a host and a scene built with matching CWCGL_VERSION always
+# agree on its shape by construction; a mismatch is caught by struct_size in
+# cwcglLoadAPI(), not by silently misreading fields.
+puts <<CWCGL_API_HEADER
+#if !defined(CWCGL_EXPORT)
+#if defined(CWCGL_WINDOWS)
+#define CWCGL_EXPORT __declspec(dllexport)
+#else
+#define CWCGL_EXPORT __attribute__((visibility("default")))
+#endif
+#endif
+
+#ifndef CWCGL_ABI_MAGIC
+#define CWCGL_ABI_MAGIC   0x43574731u /* 'CWG1' */
+#endif
+#ifndef CWCGL_ABI_VERSION
+#define CWCGL_ABI_VERSION 1u
+#endif
+
+/* NOTE: field names below are NOT glFoo -- the bare NAME token in `T N;`
+ * gets prescan-expanded through the `#define glFoo __glFoo` redirect above,
+ * so eg. glGenBuffers's field is actually named __glGenBuffers. This is
+ * harmless (cwcgl_client.c's cwcglLoadAPI and the host's build_api both read
+ * it back the same way, via the same macro-expanded `api->N`), but code
+ * outside this header that wants to reference a field or paste a wrapper
+ * name from GL_LIFECYCLE_FUNCTIONS's NAME token must account for it: `NAME`
+ * alone expands to the field access correctly; string-pasting a new
+ * identifier from it (eg. a registry wrapper name) needs `##` to suppress
+ * expansion first (`cwcgl_##NAME` -> cwcgl_glDeleteTextures), or the
+ * already-expanded `__glDeleteTextures` leaks into the pasted name too. */
+typedef struct {
+    khronos_uint32_t magic;
+    khronos_uint32_t abi_version;
+    khronos_usize_t  struct_size;
+CWCGL_API_HEADER
+
+puts "#define X(T, N) T N;"
+$functions.each do |k, v|
+  maj, min = k.split '.'
+  puts "#if CWCGL_VERSION >= GL_VERSION_#{maj}_#{min}"
+  puts "GL_FUNCTIONS_#{maj}_#{min}"
+  puts "#endif"
+end
+puts "#undef X"
+puts "} CwcGL_API;", ""
+
+puts <<CWCGL_API_FOOTER
+/* Exported by cwcgl_client.c. The host dlsym's this (via reload_lookup) and
+ * calls it right after dlopen, before dispatching to the scene's
+ * init/reload. Returns 0 on ABI mismatch -- the host must refuse the load
+ * in that case rather than run with every pointer wrong. */
+typedef int (*cwcglLoadAPI_fn)(const CwcGL_API *api);
+CWCGL_API_FOOTER
+
+# --- GL_LIFECYCLE_FUNCTIONS: metadata (not logic) for the ~20 GL object
+# allocator/deleter functions, for the hand-written registry (cwcgl_registry.c)
+# to build wrappers against. Detection rule: name-prefix (glGen*/glCreate*)
+# INTERSECTED with a class= attribute somewhere in the command (gl.xml marks
+# GL object handles this way) -- shape alone is not enough. glPrioritizeTextures
+# is shape-identical to glDeleteTextures but doesn't match the name prefix;
+# glGetAttachedShaders has a class="shader" out-param and looks allocator-shaped
+# but doesn't match the prefix either; glGenerateMipmap matches the glGen*
+# prefix but carries no class= anywhere, so the intersection still excludes it.
+# One deliberate widening beyond the plan's literal (glGen*|glCreate*) wording:
+# glFenceSync is an allocator (returns a class="sync" GLsync handle) but its
+# name matches neither glGen* nor glCreate*. In the GL 3.3 core command set,
+# class= appears at the <proto> level (marking the return value as a handle)
+# on exactly three commands -- glCreateProgram, glCreateShader, glFenceSync --
+# so widening the prefix to include FenceSync doesn't add any false positive;
+# it's the only other proto-level-class allocator that exists in core <= 3.3.
+#
+# This list is fixed to the GL 3.3 core profile (the plan's explicit target,
+# and what src/host/main.c requests from GLFW), not gated by CWCGL_VERSION:
+# every function here was introduced at GL 1.5-3.2, so it's present in
+# CwcGL_API for any CWCGL_VERSION >= GL_VERSION_3_3 (the project default).
+lifecycle_versions = entries_by_ver.keys.select { |v| maj, mn = v.split('.').map(&:to_i); ([maj, mn] <=> [3, 3]) <= 0 }
+lifecycle_entries = []
+lifecycle_versions.each do |ver|
+  entries_by_ver[ver].each do |kind, name|
+    next unless kind == :command
+    next unless name =~ /^gl(Gen|Create|Delete|FenceSync)/
+    info = commands[name]
+    klass = info[:class] || info[:param_classes].compact.first
+    next if klass.nil?
+    lifecycle_kind = name.start_with?('glDelete') ? 'CWCGL_LIFECYCLE_DELETE' : 'CWCGL_LIFECYCLE_ALLOC'
+    arity = info[:params][0].start_with?('GLsizei') ? 'CWCGL_LIFECYCLE_ARRAY' : 'CWCGL_LIFECYCLE_SINGLE'
+    class_token = klass.upcase.gsub(' ', '_')
+    lifecycle_entries << [name, class_token, lifecycle_kind, arity]
+  end
+end
+
+puts "typedef enum { CWCGL_LIFECYCLE_ALLOC, CWCGL_LIFECYCLE_DELETE } CwcGL_LifecycleKind;"
+puts "typedef enum { CWCGL_LIFECYCLE_SINGLE, CWCGL_LIFECYCLE_ARRAY } CwcGL_LifecycleArity;", ""
+puts "#define GL_LIFECYCLE_FUNCTIONS \\"
+lifecycle_entries.each do |name, klass, kind, arity|
+  puts "\tX(#{name}, #{klass}, #{kind}, #{arity}) \\"
+end
+puts ""
+
 puts <<FOOTER
-EXPORT int InitOpenGL(void);
+EXPORT int cwcgl_InitOpenGL(void);
+EXPORT void cwcgl_CloseGLLibrary(void);
 
 #ifdef __cplusplus
 }
@@ -332,7 +481,7 @@ if not $EnableSourceFileOut
 end
 
 if $EnableSeperateFiles
-  $> = File.open("src/cwcgl.c", "w")
+  $> = File.open("src/loader.c", "w")
   puts <<SOURCE
 /*
 
@@ -362,7 +511,7 @@ if $EnableSeperateFiles
  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#include "cwcgl.h"
+#include "loader.h"
 #include <stdlib.h>
 
 SOURCE
@@ -427,7 +576,7 @@ static int LoadGLLibrary(void) {
     return 0;
 }
 
-static void CloseGLLibrary(void) {
+EXPORT void cwcgl_CloseGLLibrary(void) {
     if (libGL) {
         FreeLibrary((HMODULE)libGL);
         libGL = NULL;
@@ -468,7 +617,7 @@ static int LoadGLLibrary(void) {
     return 0;
 }
 
-static void CloseGLLibrary(void) {
+EXPORT void cwcgl_CloseGLLibrary(void) {
     if (libGL) {
         dlclose(libGL);
         libGL = NULL;
@@ -500,7 +649,7 @@ static void* LoadGLProc(const char *namez) {
     if (!(__##N = (T)LoadGLProc(#N))) \\
         failures++;
 
-int InitOpenGL(void) {
+int cwcgl_InitOpenGL(void) {
     int failures = 0;
     if (LoadGLLibrary()) {
 LOADER
@@ -513,7 +662,6 @@ LOADER
   end
 
   puts <<LOADER_FOOTER
-        CloseGLLibrary();
     }
     return failures;
 }
@@ -524,3 +672,83 @@ end
 puts "#endif // CWCGL_IMPLEMENTATION" if not $EnableSeperateFiles
 
 RestoreOriginalOut() if $EnableSeperateFiles or $EnableHeaderFileOut
+
+# INFO: cwcgl_client.c -- linked into every scene dylib (never the host).
+# Defines the same __glFoo globals loader.c does, but instead of
+# cwcgl_InitOpenGL's dlopen loader, they're filled by cwcglLoadAPI() from
+# the CwcGL_API struct the host hands over right after dlopen. Deliberately
+# does not depend on anything host-owned -- cwcgl is a standalone layer,
+# per the plan's three-layer split.
+if $EnableSeperateFiles
+  $> = File.open("src/client.c", "w")
+  puts <<CLIENT_SOURCE
+/*
+
+ This file was generated by https://github.com/takeiteasy/cwcGL/blob/master/gl.rb
+
+ The MIT License (MIT)
+
+ Copyright (c) 2022 George Watson
+
+ Permission is hereby granted, free of charge, to any person
+ obtaining a copy of this software and associated documentation
+ files (the "Software"), to deal in the Software without restriction,
+ including without limitation the rights to use, copy, modify, merge,
+ publish, distribute, sublicense, and/or sell copies of the Software,
+ and to permit persons to whom the Software is furnished to do so,
+ subject to the following conditions:
+
+ The above copyright notice and this permission notice shall be
+ included in all copies or substantial portions of the Software.
+
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+ EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+*/
+
+#include "loader.h"
+
+CLIENT_SOURCE
+
+  puts "#define X(T, N) T __##N = (T)((void*)0);"
+  $functions.each do |k, v|
+    maj, min = k.split '.'
+    puts "#if CWCGL_VERSION >= GL_VERSION_#{maj}_#{min}"
+    puts "GL_FUNCTIONS_#{maj}_#{min}"
+    puts "#endif"
+  end
+  puts "#undef X", ""
+
+  puts <<CLIENT_LOADAPI
+CWCGL_EXPORT int cwcglLoadAPI(const CwcGL_API *api) {
+    if (!api)
+        return 0;
+    if (api->magic != CWCGL_ABI_MAGIC)
+        return 0;
+    if (api->abi_version != CWCGL_ABI_VERSION)
+        return 0;
+    if (api->struct_size != sizeof(CwcGL_API))
+        return 0;
+
+CLIENT_LOADAPI
+
+  puts "#define X(T, N) __##N = api->N;"
+  $functions.each do |k, v|
+    maj, min = k.split '.'
+    puts "#if CWCGL_VERSION >= GL_VERSION_#{maj}_#{min}"
+    puts "GL_FUNCTIONS_#{maj}_#{min}"
+    puts "#endif"
+  end
+  puts "#undef X", ""
+
+  puts <<CLIENT_FOOTER
+    return 1;
+}
+CLIENT_FOOTER
+
+  RestoreOriginalOut()
+end
