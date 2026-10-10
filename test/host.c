@@ -37,7 +37,7 @@ typedef struct {
     /* False whenever `tick` may point into an already-dlclose'd image --
      * reload_poll() unloads the old dylib before loading the new one, so a
      * failed reload leaves nothing safely callable until the next good
-     * load. See the sr.ht tracker (ticket #5). */
+     * load. See https://github.com/takeiteasy/cwcGL/issues/6. */
     int valid;
 } host_state;
 

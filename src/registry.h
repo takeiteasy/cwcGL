@@ -103,12 +103,12 @@ size_t cwcgl_registry_tracked_count(CwcGL_LifecycleClass cls);
  * happens to reissue that exact numeric name to a *new* object in the new
  * epoch, this reports "valid" even though it is logically the wrong object.
  * Catching that requires tagging each id with its creation epoch, not just
- * membership in the current set -- not implemented; see the sr.ht tracker. */
+ * membership in the current set -- not implemented; see https://github.com/takeiteasy/cwcGL/issues/9. */
 int cwcgl_registry_is_tracked(CwcGL_LifecycleClass cls, GLuint id);
 
 /* Debug builds only: patches a representative set of consumer functions
  * (glBindTexture, glUseProgram, glAttachShader, and their obvious siblings
- * -- not exhaustive, see the sr.ht tracker) to reject handles not tracked in the
+ * -- not exhaustive, see https://github.com/takeiteasy/cwcGL/issues/8) to reject handles not tracked in the
  * current epoch. Call after cwcgl_registry_install(); release builds skip
  * this entirely, so they pay for none of these extra wrappers. */
 void cwcgl_registry_install_debug_validation(CwcGL_API *api);

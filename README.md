@@ -12,7 +12,7 @@ with no dangling GL objects or GL state carried over from the previous load.
 ![zap](./aux/zap.jpg)
 
 Open tickets, including known limitations and follow-up work, are tracked at
-[todo.sr.ht/~takeiteasy/cwcGL](https://todo.sr.ht/~takeiteasy/cwcGL).
+[GitHub issues](https://github.com/takeiteasy/cwcGL/issues).
 
 ## Layout
 

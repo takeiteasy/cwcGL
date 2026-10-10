@@ -324,7 +324,7 @@ int cwcgl_registry_is_tracked(CwcGL_LifecycleClass cls, GLuint id) {
  * consume a `class=` object (gl.xml's own count), and only the ones named
  * in the design plan plus their obvious siblings are covered here. Extend
  * by following the same pattern -- check cwcgl_registry_is_tracked(),
- * report, and pass through to the real call either way. See the sr.ht tracker.
+ * report, and pass through to the real call either way. See https://github.com/takeiteasy/cwcGL/issues/8.
  */
 static void validate(CwcGL_LifecycleClass cls, GLuint id, const char *fn) {
     if (!cwcgl_registry_is_tracked(cls, id))
